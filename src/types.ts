@@ -89,6 +89,14 @@ export type ApiShare = {
   };
 };
 
+export type TorqueUser = {
+  id: string;
+  pubKey: string;
+  username?: string;
+  profileImage?: string;
+  publisherPubKey?: string | null;
+};
+
 export type CreateCampaignData = {
   campaignName: string;
   campaignType: "Click" | "Onchain Event" | "CLICK" | "BOUNTY";
