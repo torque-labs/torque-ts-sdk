@@ -1,0 +1,21 @@
+{
+  "name": "torque-ts-sdk",
+  "version": "1.0.0",
+  "description": "The official Torque TypeScript SDK",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torque-labs/torque-ts-sdk.git"
+  },
+  "author": "Torque Labs",
+  "bugs": {
+    "url": "https://github.com/torque-labs/torque-ts-sdk/issues"
+  },
+  "homepage": "https://torque.so",
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@solana/spl-token": "^0.4.3",
+    "@solana/wallet-standard-features": "^1.2.0",
+    "@solana/web3.js": "^1.91.4"
+  }
+}
