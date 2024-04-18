@@ -55,6 +55,9 @@ export type ApiCampaign = {
   targetLink?: string;
   userRewardToken?: string;
   userRewardAmount?: any;
+  publisherRewardToken?: string;
+  publisherRewardAmount?: any;
+  publisherRewardType?: string;
   audiences: {
     id: string;
     title: string;
@@ -89,21 +92,12 @@ export type ApiShare = {
   };
 };
 
-export type TorqueUser = {
-  id: string;
-  pubKey: string;
-  username?: string;
-  profileImage?: string;
-  publisherPubKey?: string | null;
-};
-
-export type CreateCampaignData = {
+export type CreateCampaignInput = {
   campaignName: string;
   campaignType: "Click" | "Onchain Event" | "CLICK" | "BOUNTY";
   landingPage?: string;
   socialAccount?: string;
   socialPlatform?: "Twitter" | "Discord";
-  programID?: string;
   eventType?: {
     type: "SWAP" | "CAST_VOTE" | "MINT" | "ADD_LIQUIDITY" | "INTERACT";
     tokenAddress?: string;
@@ -115,11 +109,10 @@ export type CreateCampaignData = {
   publisherRewardType: "Points" | "Tokens";
   publisherTokenAddress?: string;
   publisherPayoutPerConversion: number;
+  userRewardType: "Points" | "Tokens";
+  userTokenAddress?: string;
+  userPayoutPerConversion?: number;
   conversionCount: number;
   startDate: Date;
-  endDate?: Date;
-  startHour: string;
-  endHour?: string;
-  audience: string;
-  fundedCampaign: boolean;
+  endDate: Date;
 };

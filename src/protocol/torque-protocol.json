@@ -188,19 +188,37 @@
           "isSigner": false
         },
         {
-          "name": "authorityRewardTa",
+          "name": "authorityPublisherRewardTa",
           "isMut": true,
           "isSigner": false,
           "isOptional": true
         },
         {
-          "name": "campaignRewardTa",
+          "name": "campaignPublisherRewardTa",
           "isMut": true,
           "isSigner": false,
           "isOptional": true
         },
         {
-          "name": "rewardMint",
+          "name": "publisherRewardMint",
+          "isMut": false,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "authorityUserRewardTa",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "campaignUserRewardTa",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "userRewardMint",
           "isMut": false,
           "isSigner": false,
           "isOptional": true
@@ -227,7 +245,7 @@
       "name": "crank",
       "accounts": [
         {
-          "name": "onnyx",
+          "name": "torque",
           "isMut": true,
           "isSigner": true
         },
@@ -252,6 +270,11 @@
           "isSigner": false
         },
         {
+          "name": "user",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "campaignPublisherRewardTa",
           "isMut": true,
           "isSigner": false,
@@ -265,6 +288,24 @@
         },
         {
           "name": "publisherRewardMint",
+          "isMut": false,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "campaignUserRewardTa",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "userTa",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "userRewardMint",
           "isMut": false,
           "isSigner": false,
           "isOptional": true
@@ -362,6 +403,24 @@
         },
         {
           "name": "publisherRewardMint",
+          "isMut": false,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "authorityUserRewardTa",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "campaignUserRewardTa",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": true
+        },
+        {
+          "name": "userRewardMint",
           "isMut": false,
           "isSigner": false,
           "isOptional": true
@@ -514,6 +573,10 @@
             "type": "u64"
           },
           {
+            "name": "funded",
+            "type": "bool"
+          },
+          {
             "name": "publisherToken",
             "type": "publicKey"
           },
@@ -522,8 +585,12 @@
             "type": "u64"
           },
           {
-            "name": "publisherFunded",
-            "type": "bool"
+            "name": "userToken",
+            "type": "publicKey"
+          },
+          {
+            "name": "userAmount",
+            "type": "u64"
           }
         ]
       }
@@ -534,7 +601,13 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "remainingSpls",
+            "name": "remainingPublisherSpls",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "remainingUserSpls",
             "type": {
               "option": "u64"
             }
@@ -549,6 +622,10 @@
         "fields": [
           {
             "name": "audiance",
+            "type": "string"
+          },
+          {
+            "name": "jsonUri",
             "type": "string"
           }
         ]
@@ -670,6 +747,6 @@
     }
   ],
   "metadata": {
-    "address": "DUUkE1kUpewmmVydySEFPMAErtQZLn561msfkYsqwDi2"
+    "address": "7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra"
   }
 }

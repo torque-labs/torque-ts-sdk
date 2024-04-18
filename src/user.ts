@@ -1,21 +1,35 @@
-import { API_ROUTES } from "./constants";
+import { TorqueClient } from "./client";
+import { TORQUE_API_ROUTES } from "./constants";
 import { ApiResponse } from "./types";
 
-export async function getCurrentUser() {
-  const user = await fetch(API_ROUTES.users, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+/**
+ * Fetches the current user's data from the Torque API.
+ *
+ * This function asynchronously retrieves the user data by making a call to the Torque API's user endpoint.
+ * It expects a `TorqueClient` instance as its parameter, which is used to perform the API fetch.
+ * The function parses the JSON response into an `ApiResponse` object, which includes the user's details
+ * such as ID, public key, Twitter handle, profile image URL, username, publisher status, and publisher public key.
+ *
+ * @param {TorqueClient} client - The TorqueClient instance used to perform the API request.
+ * @returns {Promise<ApiResponse<{id: string; pubKey: string; twitter?: string; profileImage?: string; username?: string; isPublisher: boolean; publisherPubKey?: string | null;}>>} A promise that resolves to the user data if the API call is successful.
+ * @throws {Error} Throws an error if the API response status is not "SUCCESS".
+ */
+export async function getUser(client: TorqueClient) {
+  const result = await client.apiFetch(TORQUE_API_ROUTES.users);
 
-  const result = (await user.json()) as unknown as ApiResponse<{
+  const user = (await result.json()) as unknown as ApiResponse<{
     id: string;
     pubKey: string;
     twitter?: string;
     profileImage?: string;
     username?: string;
     isPublisher: boolean;
+    publisherPubKey?: string | null;
   }>;
 
-  return result;
+  if (user.status === "SUCCESS") {
+    return user.data;
+  } else {
+    throw new Error(user.message);
+  }
 }
