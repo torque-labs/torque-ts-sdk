@@ -1,8 +1,10 @@
 {
   "name": "torque-ts-sdk",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "The official Torque TypeScript SDK",
-  "scripts": {},
+  "scripts": {
+    "docs": "npx typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/torque-labs/torque-ts-sdk.git"
@@ -15,7 +17,12 @@
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
     "@solana/spl-token": "^0.4.3",
+    "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-standard-features": "^1.2.0",
-    "@solana/web3.js": "^1.91.4"
+    "@solana/web3.js": "^1.91.6"
+  },
+  "devDependencies": {
+    "typedoc": "^0.25.13",
+    "typedoc-plugin-markdown": "^3.17.1"
   }
 }
