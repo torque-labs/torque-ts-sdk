@@ -50,8 +50,8 @@ export async function createCampaign(
       startTime: dateToUnixTimestamp(data.startDate!),
       endTime: dateToUnixTimestamp(data.endDate!),
       minAmount: formattedData.minAmount,
-      proposal: null,
-      audience: null,
+      proposal: formattedData.proposal,
+      audience: data.audiance || null,
       serializedTx: serTx,
     };
 

@@ -93,6 +93,7 @@ export type ApiShare = {
 };
 
 export type CreateCampaignInput = {
+  audiance: string;
   campaignName: string;
   campaignType: "Click" | "Onchain Event" | "CLICK" | "BOUNTY";
   landingPage?: string;
