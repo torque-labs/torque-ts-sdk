@@ -10,24 +10,24 @@ import { ApiResponse, ApiShare, ApiStatus } from "./types";
  * the response, returning the data if the request was successful, or throwing
  * an error if not.
  *
- * @param client - The TorqueClient instance used to perform the API fetch.
+ * @param this - The TorqueClient instance used to perform the API fetch.
  * @param campaignId - The unique identifier for the campaign.
  * @param handle - The specific handle associated with the shared link.
  * @returns The data associated with the shared link if the request is successful.
  * @throws Error with the message from the API response if the request fails.
  */
 export async function getSharedLinkData(
-  client: TorqueClient,
+  this: TorqueClient,
   campaignId: string,
-  handle: string,
+  handle: string
 ) {
   const params = new URLSearchParams({ campaignId, handle });
 
-  const share = await client.apiFetch(
+  const share = await this.apiFetch(
     `${TORQUE_API_ROUTES.share}?${params.toString()}`,
     {
       method: "GET",
-    },
+    }
   );
 
   const result = (await share.json()) as unknown as ApiResponse<ApiShare>;

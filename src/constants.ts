@@ -17,6 +17,7 @@ const TORQUE_API_ROUTES = {
   publishers: `${TORQUE_API_URL}/publishers`,
   share: `${TORQUE_API_URL}/share`,
   users: `${TORQUE_API_URL}/users`,
+  userCampaigns: `${TORQUE_API_URL}/users/campaigns`,
   verify: `${TORQUE_API_URL}/verify`,
 };
 

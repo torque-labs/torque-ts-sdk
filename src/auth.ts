@@ -1,4 +1,3 @@
-import { TorqueClient } from "./client";
 import { TORQUE_API_ROUTES } from "./constants";
 import { ApiResponse, ApiInputVerify } from "./types";
 
@@ -29,7 +28,7 @@ export function getVerifyBody({ payload, authType, pubKey }: ApiInputVerify) {
               account: {
                 ...payload.output.account,
                 publicKey: Array.from(
-                  new Uint8Array(payload.output.account.publicKey),
+                  new Uint8Array(payload.output.account.publicKey)
                 ),
               },
               signature: new Uint8Array(payload.output.signature),
@@ -56,12 +55,11 @@ export function getVerifyBody({ payload, authType, pubKey }: ApiInputVerify) {
  * The payload includes a statement, the time it was issued, and its expiration time. If the request is successful,
  * the function returns the payload. Otherwise, it throws an error with the message received from the API.
  *
- * @param {TorqueClient} client - An instance of `TorqueClient` used to make the API request.
  * @returns A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
  * @throws {Error} Throws an error if the API request is unsuccessful or if the API response status is not "SUCCESS".
  */
-export async function getIdentifyPayload(client: TorqueClient) {
-  const identify = await client.apiFetch(TORQUE_API_ROUTES.identify, {
+export async function getIdentifyPayload() {
+  const identify = await fetch(TORQUE_API_ROUTES.identify, {
     method: "GET",
   });
 

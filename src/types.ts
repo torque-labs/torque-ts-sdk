@@ -12,12 +12,12 @@ export enum ApiStatus {
   INTERNAL_ERROR = "INTERNAL_ERROR",
 }
 
-type ApiResponseSuccess<T> = {
+export type ApiResponseSuccess<T> = {
   status: ApiStatus.SUCCESS;
   data: T;
 };
 
-type ApiResponseError = {
+export type ApiResponseError = {
   status: Exclude<ApiStatus, ApiStatus.SUCCESS>;
   message: string;
 };
@@ -53,6 +53,7 @@ export type ApiCampaign = {
   imageUrl?: string;
   description?: string;
   targetLink?: string;
+  offerLink?: string;
   userRewardToken?: string;
   userRewardAmount?: any;
   publisherRewardToken?: string;
@@ -90,29 +91,4 @@ export type ApiShare = {
     twitter?: string | null;
     profileImage?: string | null;
   };
-};
-
-export type CreateCampaignInput = {
-  campaignName: string;
-  campaignType: "Click" | "Onchain Event" | "CLICK" | "BOUNTY";
-  landingPage?: string;
-  socialAccount?: string;
-  socialPlatform?: "Twitter" | "Discord";
-  eventType?: {
-    type: "SWAP" | "CAST_VOTE" | "MINT" | "ADD_LIQUIDITY" | "INTERACT";
-    tokenAddress?: string;
-    minAmount?: number;
-    proposal?: string;
-    poolAddress?: string;
-    programAddress?: string;
-  };
-  publisherRewardType: "Points" | "Tokens";
-  publisherTokenAddress?: string;
-  publisherPayoutPerConversion: number;
-  userRewardType: "Points" | "Tokens";
-  userTokenAddress?: string;
-  userPayoutPerConversion?: number;
-  conversionCount: number;
-  startDate: Date;
-  endDate: Date;
 };

@@ -10,12 +10,12 @@ import { ApiResponse } from "./types";
  * The function parses the JSON response into an `ApiResponse` object, which includes the user's details
  * such as ID, public key, Twitter handle, profile image URL, username, publisher status, and publisher public key.
  *
- * @param {TorqueClient} client - The TorqueClient instance used to perform the API request.
+ * @param {TorqueClient} this - The TorqueClient instance used to perform the API request.
  * @returns {Promise<ApiResponse<{id: string; pubKey: string; twitter?: string; profileImage?: string; username?: string; isPublisher: boolean; publisherPubKey?: string | null;}>>} A promise that resolves to the user data if the API call is successful.
  * @throws {Error} Throws an error if the API response status is not "SUCCESS".
  */
-export async function getUser(client: TorqueClient) {
-  const result = await client.apiFetch(TORQUE_API_ROUTES.users);
+export async function getUser(this: TorqueClient) {
+  const result = await this.apiFetch(TORQUE_API_ROUTES.users);
 
   const user = (await result.json()) as unknown as ApiResponse<{
     id: string;
