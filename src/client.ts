@@ -7,16 +7,16 @@ import { getUser } from "./user";
 import { initPublisher, payoutPublisher } from "./publisher";
 
 export class TorqueClient {
-  public publisherHandle: string | undefined = undefined;
+  public publisherHandle: string;
   private initialized: boolean = false;
   private user: ApiVerifiedUser | null = null;
 
   /**
    * Creates a new Torque client.
    *
-   * @param publisherHandle - (Optional) Publisher handle to be used for offer links: pubKey, publisherPubKey, username, twitter
+   * @param publisherHandle - Publisher handle to be used for offer links: pubKey, publisherPubKey, username, twitter
    */
-  constructor(publisherHandle?: string) {
+  constructor(publisherHandle: string) {
     this.publisherHandle = publisherHandle;
   }
 

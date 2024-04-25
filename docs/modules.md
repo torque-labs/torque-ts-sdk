@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/types.ts:68](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L68)
+[src/types.ts:68](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L68)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:42](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L42)
+[src/types.ts:42](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L42)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:110](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L110)
+[src/types.ts:110](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L110)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L27)
+[src/types.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L27)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:118](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L118)
+[src/types.ts:118](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L118)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L25)
+[src/types.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L25)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L20)
+[src/types.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L20)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L15)
+[src/types.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L15)
 
 ___
 
@@ -209,7 +209,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:75](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L75)
+[src/types.ts:75](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L75)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:96](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L96)
+[src/types.ts:96](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L96)
 
 ___
 
@@ -240,4 +240,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:105](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L105)
+[src/types.ts:105](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L105)

@@ -37,7 +37,7 @@
 
 ### constructor
 
-• **new TorqueClient**(`publisherHandle?`): [`TorqueClient`](TorqueClient.md)
+• **new TorqueClient**(`publisherHandle`): [`TorqueClient`](TorqueClient.md)
 
 Creates a new Torque client.
 
@@ -45,7 +45,7 @@ Creates a new Torque client.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `publisherHandle?` | `string` | (Optional) Publisher handle to be used for offer links: pubKey, publisherPubKey, username, twitter |
+| `publisherHandle` | `string` | Publisher handle to be used for offer links: pubKey, publisherPubKey, username, twitter |
 
 #### Returns
 
@@ -53,7 +53,7 @@ Creates a new Torque client.
 
 #### Defined in
 
-[src/client.ts:19](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L19)
+[src/client.ts:19](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L19)
 
 ## Properties
 
@@ -82,7 +82,7 @@ Otherwise, it returns an empty array.
 
 #### Defined in
 
-[src/client.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L93)
+[src/client.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L93)
 
 ___
 
@@ -117,7 +117,7 @@ An error if the fetch operation fails, or if the API returns a status other than
 
 #### Defined in
 
-[src/client.ts:106](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L106)
+[src/client.ts:106](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L106)
 
 ___
 
@@ -145,7 +145,7 @@ Throws an error if the API request is unsuccessful or if the API response status
 
 #### Defined in
 
-[src/client.ts:245](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L245)
+[src/client.ts:245](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L245)
 
 ___
 
@@ -180,7 +180,7 @@ An error if the link fetch fails or if the API returns a status other than "SUCC
 
 #### Defined in
 
-[src/client.ts:169](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L169)
+[src/client.ts:169](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L169)
 
 ___
 
@@ -215,7 +215,7 @@ Error with the message from the API response if the request fails.
 
 #### Defined in
 
-[src/client.ts:121](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L121)
+[src/client.ts:121](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L121)
 
 ___
 
@@ -249,7 +249,7 @@ Throws an error if the API response status is not "SUCCESS".
 
 #### Defined in
 
-[src/client.ts:137](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L137)
+[src/client.ts:137](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L137)
 
 ___
 
@@ -283,7 +283,7 @@ Throws an error if the user is not a publisher or does not have a handle.
 
 #### Defined in
 
-[src/client.ts:229](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L229)
+[src/client.ts:229](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L229)
 
 ___
 
@@ -315,7 +315,7 @@ as-is.
 
 #### Defined in
 
-[src/client.ts:262](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L262)
+[src/client.ts:262](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L262)
 
 ___
 
@@ -347,7 +347,7 @@ Will throw an error if the API call fails or if the response status is not `SUCC
 
 #### Defined in
 
-[src/client.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L184)
+[src/client.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L184)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:11](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L11)
+[src/client.ts:11](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L11)
 
 ___
 
@@ -389,17 +389,17 @@ Will throw an error if the transaction fails to process or if there's an issue w
 
 #### Defined in
 
-[src/client.ts:195](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L195)
+[src/client.ts:195](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L195)
 
 ___
 
 ### publisherHandle
 
-• **publisherHandle**: `undefined` \| `string` = `undefined`
+• **publisherHandle**: `string`
 
 #### Defined in
 
-[src/client.ts:10](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L10)
+[src/client.ts:10](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L10)
 
 ___
 
@@ -409,7 +409,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L12)
+[src/client.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L12)
 
 ## Methods
 
@@ -436,7 +436,7 @@ if no API token is found.
 
 #### Defined in
 
-[src/client.ts:48](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L48)
+[src/client.ts:48](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L48)
 
 ___
 
@@ -461,7 +461,7 @@ A Promise that resolves with the response from the API endpoint.
 
 #### Defined in
 
-[src/client.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L66)
+[src/client.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L66)
 
 ___
 
@@ -479,7 +479,7 @@ The user's handle or `undefined` if no handle is available.
 
 #### Defined in
 
-[src/client.ts:144](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L144)
+[src/client.ts:144](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L144)
 
 ___
 
@@ -507,7 +507,7 @@ If user was not verified.
 
 #### Defined in
 
-[src/client.ts:30](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L30)
+[src/client.ts:30](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L30)
 
 ___
 
@@ -525,7 +525,7 @@ True if the user is marked as a publisher, false otherwise.
 
 #### Defined in
 
-[src/client.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L214)
+[src/client.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L214)
 
 ___
 
@@ -547,4 +547,4 @@ Sets the publisher public key for the current user.
 
 #### Defined in
 
-[src/client.ts:202](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/client.ts#L202)
+[src/client.ts:202](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L202)
