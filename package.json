@@ -1,7 +1,7 @@
 {
   "name": "torque-ts-sdk",
   "author": "Torque Labs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The official Torque Client TypeScript SDK.",
   "license": "MIT",
   "scripts": {
