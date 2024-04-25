@@ -92,3 +92,32 @@ export type ApiShare = {
     profileImage?: string | null;
   };
 };
+
+export type ApiUser = {
+  pubKey: string;
+  username?: string;
+  twitter?: string;
+  profileImage?: string;
+  isPublisher: boolean;
+  publisherPubKey?: string | null;
+};
+
+export type ApiVerifiedUser = ApiUser & {
+  token: string;
+  verified: boolean;
+};
+
+export type ApiIdentifyPayload = {
+  payload: {
+    statement: string;
+    issuedAt: string;
+    expirationTime: string;
+  };
+};
+
+export type ApiLinks = {
+  links: {
+    campaignId: string;
+    url: string;
+  }[];
+};

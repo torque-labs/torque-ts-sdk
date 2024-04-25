@@ -16,7 +16,11 @@
   },
   "homepage": "https://torque.so",
   "dependencies": {
-    "@solana/wallet-standard-features": "^1.2.0"
+    "@coral-xyz/anchor": "^0.29.0",
+    "@solana/spl-token": "^0.4.6",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-standard-features": "^1.2.0",
+    "@solana/web3.js": "^1.91.7"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
