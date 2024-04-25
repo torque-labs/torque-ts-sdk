@@ -16,11 +16,15 @@
 
 - [ApiAudience](modules.md#apiaudience)
 - [ApiCampaign](modules.md#apicampaign)
+- [ApiIdentifyPayload](modules.md#apiidentifypayload)
 - [ApiInputVerify](modules.md#apiinputverify)
+- [ApiLinks](modules.md#apilinks)
 - [ApiResponse](modules.md#apiresponse)
 - [ApiResponseError](modules.md#apiresponseerror)
 - [ApiResponseSuccess](modules.md#apiresponsesuccess)
 - [ApiShare](modules.md#apishare)
+- [ApiUser](modules.md#apiuser)
+- [ApiVerifiedUser](modules.md#apiverifieduser)
 
 ## Type Aliases
 
@@ -39,7 +43,7 @@
 
 #### Defined in
 
-[src/types.ts:68](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L68)
+[src/types.ts:68](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L68)
 
 ___
 
@@ -74,7 +78,26 @@ ___
 
 #### Defined in
 
-[src/types.ts:42](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L42)
+[src/types.ts:42](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L42)
+
+___
+
+### ApiIdentifyPayload
+
+Ƭ **ApiIdentifyPayload**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `payload` | \{ `expirationTime`: `string` ; `issuedAt`: `string` ; `statement`: `string`  } |
+| `payload.expirationTime` | `string` |
+| `payload.issuedAt` | `string` |
+| `payload.statement` | `string` |
+
+#### Defined in
+
+[src/types.ts:110](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L110)
 
 ___
 
@@ -84,7 +107,23 @@ ___
 
 #### Defined in
 
-[src/types.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L27)
+[src/types.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L27)
+
+___
+
+### ApiLinks
+
+Ƭ **ApiLinks**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `links` | \{ `campaignId`: `string` ; `url`: `string`  }[] |
+
+#### Defined in
+
+[src/types.ts:118](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L118)
 
 ___
 
@@ -100,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L25)
+[src/types.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L25)
 
 ___
 
@@ -117,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L20)
+[src/types.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L20)
 
 ___
 
@@ -140,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L15)
+[src/types.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L15)
 
 ___
 
@@ -170,4 +209,35 @@ ___
 
 #### Defined in
 
-[src/types.ts:75](https://github.com/torque-labs/torque-ts-sdk/blob/ab64622a4de69c8aabdb5d18bf7b42d2ca787e24/src/types.ts#L75)
+[src/types.ts:75](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L75)
+
+___
+
+### ApiUser
+
+Ƭ **ApiUser**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `isPublisher` | `boolean` |
+| `profileImage?` | `string` |
+| `pubKey` | `string` |
+| `publisherPubKey?` | `string` \| ``null`` |
+| `twitter?` | `string` |
+| `username?` | `string` |
+
+#### Defined in
+
+[src/types.ts:96](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L96)
+
+___
+
+### ApiVerifiedUser
+
+Ƭ **ApiVerifiedUser**: [`ApiUser`](modules.md#apiuser) & \{ `token`: `string` ; `verified`: `boolean`  }
+
+#### Defined in
+
+[src/types.ts:105](https://github.com/torque-labs/torque-ts-sdk/blob/5499ed13de05ef81fb1b7b1bdd841cda94b72647/src/types.ts#L105)
