@@ -73,6 +73,11 @@
       "name": "createPublisher",
       "accounts": [
         {
+          "name": "torque",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
           "name": "authority",
           "isMut": true,
           "isSigner": true
@@ -149,6 +154,11 @@
     {
       "name": "createCampaign",
       "accounts": [
+        {
+          "name": "torque",
+          "isMut": true,
+          "isSigner": true
+        },
         {
           "name": "authority",
           "isMut": true,
@@ -270,7 +280,7 @@
           "isSigner": false
         },
         {
-          "name": "user",
+          "name": "torquenado",
           "isMut": true,
           "isSigner": false
         },
@@ -299,7 +309,7 @@
           "isOptional": true
         },
         {
-          "name": "userTa",
+          "name": "torquenadoTa",
           "isMut": true,
           "isSigner": false,
           "isOptional": true
@@ -309,12 +319,6 @@
           "isMut": false,
           "isSigner": false,
           "isOptional": true
-        },
-        {
-          "name": "userConversion",
-          "isMut": true,
-          "isSigner": false,
-          "docs": ["Uniqueness check"]
         },
         {
           "name": "treeConfig",
@@ -379,6 +383,11 @@
     {
       "name": "endCampaign",
       "accounts": [
+        {
+          "name": "torque",
+          "isMut": true,
+          "isSigner": true
+        },
         {
           "name": "authority",
           "isMut": true,
@@ -449,27 +458,6 @@
           }
         }
       ]
-    },
-    {
-      "name": "deleteUserConversion",
-      "accounts": [
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "userConversion",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
     }
   ],
   "accounts": [
@@ -744,6 +732,11 @@
       "code": 6011,
       "name": "InvalidFunding",
       "msg": "invalid funding"
+    },
+    {
+      "code": 6012,
+      "name": "AlreadyFunded",
+      "msg": "already funded"
     }
   ],
   "metadata": {

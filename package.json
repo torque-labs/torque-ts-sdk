@@ -1,7 +1,7 @@
 {
   "name": "torque-ts-sdk",
   "author": "Torque Labs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The official Torque Client TypeScript SDK.",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,8 @@
     "@solana/spl-token": "^0.4.6",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-standard-features": "^1.2.0",
-    "@solana/web3.js": "^1.91.7"
+    "@solana/web3.js": "^1.91.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

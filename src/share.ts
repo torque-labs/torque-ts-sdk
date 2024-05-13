@@ -5,8 +5,8 @@ import { ApiResponse, ApiShare, ApiStatus } from "./types";
 /**
  * Retrieves shared link data for a specific campaign and handle.
  *
- * @param campaignId - The unique identifier for the campaign.
- * @param handle - The specific handle associated with the shared link.
+ * @param {string} campaignId - The unique identifier for the campaign.
+ * @param {string} handle - The specific handle associated with the shared link.
  * @returns {Promise<ApiShare>} The data associated with the shared link if the request is successful.
  * @throws {Error} Error with the message from the API response if the request fails.
  */
@@ -40,7 +40,7 @@ export async function getSharedLinkData(
  * then constructs and returns a URL using the user's handle and the campaign ID.
  * If the user is not a publisher or does not have a handle, an error is thrown.
  *
- * @param campaignId - The unique identifier for the campaign.
+ * @param {string} campaignId - The unique identifier for the campaign.
  * @returns {Promise<string>} A promise that resolves to the URL string of the user's shared link for the campaign.
  * @throws {Error} Throws an error if the user is not a publisher or does not have a handle.
  */
