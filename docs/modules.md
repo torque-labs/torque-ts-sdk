@@ -6,7 +6,10 @@
 
 ### Enumerations
 
+- [ApiEventType](enums/ApiEventType.md)
+- [ApiRewardType](enums/ApiRewardType.md)
 - [ApiStatus](enums/ApiStatus.md)
+- [ApiTxnTypes](enums/ApiTxnTypes.md)
 
 ### Classes
 
@@ -25,6 +28,13 @@
 - [ApiShare](modules.md#apishare)
 - [ApiUser](modules.md#apiuser)
 - [ApiVerifiedUser](modules.md#apiverifieduser)
+- [CampaignCreateInput](modules.md#campaigncreateinput)
+- [CampaignEndInput](modules.md#campaignendinput)
+- [PublisherCreateInput](modules.md#publishercreateinput)
+- [PublisherPayoutInput](modules.md#publisherpayoutinput)
+- [TxnExecute](modules.md#txnexecute)
+- [TxnExecuteResponse](modules.md#txnexecuteresponse)
+- [TxnInput](modules.md#txninput)
 
 ## Type Aliases
 
@@ -43,7 +53,7 @@
 
 #### Defined in
 
-[src/types.ts:68](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L68)
+[src/types/api.ts:83](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L83)
 
 ___
 
@@ -78,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:42](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L42)
+[src/types/api.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L57)
 
 ___
 
@@ -97,7 +107,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:110](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L110)
+[src/types/api.ts:125](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L125)
 
 ___
 
@@ -107,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L27)
+[src/types/api.ts:42](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L42)
 
 ___
 
@@ -123,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:118](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L118)
+[src/types/api.ts:133](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L133)
 
 ___
 
@@ -139,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L25)
+[src/types/api.ts:40](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L40)
 
 ___
 
@@ -156,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L20)
+[src/types/api.ts:35](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L35)
 
 ___
 
@@ -179,7 +189,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L15)
+[src/types/api.ts:30](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L30)
 
 ___
 
@@ -209,7 +219,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:75](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L75)
+[src/types/api.ts:90](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L90)
 
 ___
 
@@ -230,7 +240,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:96](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L96)
+[src/types/api.ts:111](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L111)
 
 ___
 
@@ -240,4 +250,80 @@ ___
 
 #### Defined in
 
-[src/types.ts:105](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/types.ts#L105)
+[src/types/api.ts:120](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/api.ts#L120)
+
+___
+
+### CampaignCreateInput
+
+Ƭ **CampaignCreateInput**: `z.infer`\<typeof `CampaignCreateInputSchema`\>
+
+#### Defined in
+
+[src/types/transactions.ts:13](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L13)
+
+___
+
+### CampaignEndInput
+
+Ƭ **CampaignEndInput**: `z.infer`\<typeof `CampaignEndInputSchema`\>
+
+#### Defined in
+
+[src/types/transactions.ts:14](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L14)
+
+___
+
+### PublisherCreateInput
+
+Ƭ **PublisherCreateInput**: `z.infer`\<typeof `PublisherCreateInputSchema`\>
+
+#### Defined in
+
+[src/types/transactions.ts:16](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L16)
+
+___
+
+### PublisherPayoutInput
+
+Ƭ **PublisherPayoutInput**: `z.infer`\<typeof `PublisherPayoutInputSchema`\>
+
+#### Defined in
+
+[src/types/transactions.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L15)
+
+___
+
+### TxnExecute
+
+Ƭ **TxnExecute**: `z.infer`\<typeof `TxnExecuteSchema`\>
+
+#### Defined in
+
+[src/types/transactions.ts:18](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L18)
+
+___
+
+### TxnExecuteResponse
+
+Ƭ **TxnExecuteResponse**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `signature` | `string` |
+
+#### Defined in
+
+[src/types/transactions.ts:19](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L19)
+
+___
+
+### TxnInput
+
+Ƭ **TxnInput**: `z.infer`\<typeof `TxnInputSchema`\>
+
+#### Defined in
+
+[src/types/transactions.ts:17](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/types/transactions.ts#L17)

@@ -10,6 +10,10 @@
 
 ### Properties
 
+- [adminInitalized](TorqueClient.md#admininitalized)
+- [apiKey](TorqueClient.md#apikey)
+- [createCampaign](TorqueClient.md#createcampaign)
+- [endCampaign](TorqueClient.md#endcampaign)
 - [getAudiences](TorqueClient.md#getaudiences)
 - [getCampaigns](TorqueClient.md#getcampaigns)
 - [getIdentifyPayload](TorqueClient.md#getidentifypayload)
@@ -19,17 +23,19 @@
 - [getUserShareLink](TorqueClient.md#getusersharelink)
 - [getVerifyBody](TorqueClient.md#getverifybody)
 - [initPublisher](TorqueClient.md#initpublisher)
-- [initialized](TorqueClient.md#initialized)
 - [payoutPublisher](TorqueClient.md#payoutpublisher)
 - [publisherHandle](TorqueClient.md#publisherhandle)
 - [user](TorqueClient.md#user)
+- [userInitialized](TorqueClient.md#userinitialized)
 
 ### Methods
 
+- [\_getAdminHeaders](TorqueClient.md#_getadminheaders)
 - [\_getApiHeaders](TorqueClient.md#_getapiheaders)
+- [adminApiFetch](TorqueClient.md#adminapifetch)
 - [apiFetch](TorqueClient.md#apifetch)
 - [getUserHandle](TorqueClient.md#getuserhandle)
-- [initialize](TorqueClient.md#initialize)
+- [initializeUser](TorqueClient.md#initializeuser)
 - [isUserPublisher](TorqueClient.md#isuserpublisher)
 - [setUserPublisher](TorqueClient.md#setuserpublisher)
 
@@ -37,7 +43,7 @@
 
 ### constructor
 
-• **new TorqueClient**(`publisherHandle`): [`TorqueClient`](TorqueClient.md)
+• **new TorqueClient**(`publisherHandle`, `apiKey?`): [`TorqueClient`](TorqueClient.md)
 
 Creates a new Torque client.
 
@@ -46,6 +52,7 @@ Creates a new Torque client.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `publisherHandle` | `string` | Publisher handle to be used for offer links: pubKey, publisherPubKey, username, twitter |
+| `apiKey?` | `string` | Optional API key that enables direct API access |
 
 #### Returns
 
@@ -53,9 +60,97 @@ Creates a new Torque client.
 
 #### Defined in
 
-[src/client.ts:19](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L19)
+[src/client.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L27)
 
 ## Properties
+
+### adminInitalized
+
+• **adminInitalized**: `boolean` = `false`
+
+#### Defined in
+
+[src/client.ts:17](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L17)
+
+___
+
+### apiKey
+
+• `Private` **apiKey**: `undefined` \| ``null`` \| `string` = `undefined`
+
+#### Defined in
+
+[src/client.ts:19](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L19)
+
+___
+
+### createCampaign
+
+• **createCampaign**: (...`args`: [wallet: SignerWalletAdapter, data: Object]) => `Promise`\<`string`\>
+
+Create a campaign using the passed wallet and campaign creation data.
+
+This function creates a new campaign using the provided wallet and campaign data.
+It constructs an input object with the transaction type and campaign data, and then
+calls a function to prepare and execute the transaction.
+
+**`Throws`**
+
+If there is an error creating the campaign.
+
+#### Type declaration
+
+▸ (`...args`): `Promise`\<`string`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...args` | [wallet: SignerWalletAdapter, data: Object] |
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### Defined in
+
+[src/client.ts:203](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L203)
+
+___
+
+### endCampaign
+
+• **endCampaign**: (...`args`: [wallet: SignerWalletAdapter, campaignId: string]) => `Promise`\<`string`\>
+
+Ends a campaign using the provided wallet and campaign campaignId.
+
+This function will prepare and execute the end campaign function. If the transaction
+is successful, the function returns the signature of the transaction. If an error occurs
+during the process, it is logged and a new error with a user-friendly message is thrown.
+
+**`Throws`**
+
+If there is an error ending the campaign.
+
+#### Type declaration
+
+▸ (`...args`): `Promise`\<`string`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...args` | [wallet: SignerWalletAdapter, campaignId: string] |
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### Defined in
+
+[src/client.ts:218](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L218)
+
+___
 
 ### getAudiences
 
@@ -82,7 +177,7 @@ Otherwise, it returns an empty array.
 
 #### Defined in
 
-[src/client.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L93)
+[src/client.ts:156](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L156)
 
 ___
 
@@ -117,7 +212,7 @@ An error if the fetch operation fails, or if the API returns a status other than
 
 #### Defined in
 
-[src/client.ts:106](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L106)
+[src/client.ts:170](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L170)
 
 ___
 
@@ -145,7 +240,7 @@ Throws an error if the API request is unsuccessful or if the API response status
 
 #### Defined in
 
-[src/client.ts:245](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L245)
+[src/client.ts:342](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L342)
 
 ___
 
@@ -180,7 +275,7 @@ An error if the link fetch fails or if the API returns a status other than "SUCC
 
 #### Defined in
 
-[src/client.ts:169](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L169)
+[src/client.ts:266](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L266)
 
 ___
 
@@ -215,7 +310,7 @@ Error with the message from the API response if the request fails.
 
 #### Defined in
 
-[src/client.ts:121](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L121)
+[src/client.ts:187](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L187)
 
 ___
 
@@ -249,7 +344,7 @@ Throws an error if the API response status is not "SUCCESS".
 
 #### Defined in
 
-[src/client.ts:137](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L137)
+[src/client.ts:234](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L234)
 
 ___
 
@@ -283,7 +378,7 @@ Throws an error if the user is not a publisher or does not have a handle.
 
 #### Defined in
 
-[src/client.ts:229](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L229)
+[src/client.ts:326](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L326)
 
 ___
 
@@ -315,13 +410,13 @@ as-is.
 
 #### Defined in
 
-[src/client.ts:262](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L262)
+[src/client.ts:359](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L359)
 
 ___
 
 ### initPublisher
 
-• **initPublisher**: (...`args`: [wallet: SignerWalletAdapter]) => `Promise`\<\{ `publisherPubKey`: `string`  }\>
+• **initPublisher**: (...`args`: [wallet: SignerWalletAdapter]) => `Promise`\<`string`\>
 
 Initializes a publisher by sending a serialized transaction to the Torque API.
 This function attempts to create a new publisher using the provided serialized transaction.
@@ -330,48 +425,6 @@ If successful, it returns the data containing the publisher's public key.
 **`Throws`**
 
 Will throw an error if the API call fails or if the response status is not `SUCCESS`.
-
-#### Type declaration
-
-▸ (`...args`): `Promise`\<\{ `publisherPubKey`: `string`  }\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `...args` | [wallet: SignerWalletAdapter] |
-
-##### Returns
-
-`Promise`\<\{ `publisherPubKey`: `string`  }\>
-
-#### Defined in
-
-[src/client.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L184)
-
-___
-
-### initialized
-
-• `Private` **initialized**: `boolean` = `false`
-
-#### Defined in
-
-[src/client.ts:11](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L11)
-
-___
-
-### payoutPublisher
-
-• **payoutPublisher**: (...`args`: [wallet: SignerWalletAdapter]) => `Promise`\<`string`\>
-
-Processes a payout to a publisher by sending a serialized transaction.
-This function attempts to execute a payout transaction for the publisher using the provided wallet.
-It leverages the `payoutPublisherTxn` function to create and send the transaction.
-
-**`Throws`**
-
-Will throw an error if the transaction fails to process or if there's an issue with the transaction creation.
 
 #### Type declaration
 
@@ -389,7 +442,39 @@ Will throw an error if the transaction fails to process or if there's an issue w
 
 #### Defined in
 
-[src/client.ts:195](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L195)
+[src/client.ts:281](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L281)
+
+___
+
+### payoutPublisher
+
+• **payoutPublisher**: (...`args`: [wallet: SignerWalletAdapter, data: Object]) => `Promise`\<`string`\>
+
+Processes a payout to a publisher by sending a serialized transaction.
+This function attempts to execute a payout transaction for the publisher using the provided wallet.
+It leverages the `payoutPublisherTxn` function to create and send the transaction.
+
+**`Throws`**
+
+Will throw an error if the transaction fails to process or if there's an issue with the transaction creation.
+
+#### Type declaration
+
+▸ (`...args`): `Promise`\<`string`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...args` | [wallet: SignerWalletAdapter, data: Object] |
+
+##### Returns
+
+`Promise`\<`string`\>
+
+#### Defined in
+
+[src/client.ts:292](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L292)
 
 ___
 
@@ -399,7 +484,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:10](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L10)
+[src/client.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L15)
 
 ___
 
@@ -409,42 +494,61 @@ ___
 
 #### Defined in
 
-[src/client.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L12)
-
-## Methods
-
-### \_getApiHeaders
-
-▸ **_getApiHeaders**(): `Object`
-
-Retrieves the API headers required for making requests.
-
-#### Returns
-
-`Object`
-
-The API headers as an object.
-
-| Name | Type |
-| :------ | :------ |
-| `Authorization` | `string` |
-| `Content-Type` | `string` |
-
-**`Throws`**
-
-if no API token is found.
-
-#### Defined in
-
-[src/client.ts:48](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L48)
+[src/client.ts:18](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L18)
 
 ___
 
-### apiFetch
+### userInitialized
 
-▸ **apiFetch**(`url`, `options?`): `Promise`\<`Response`\>
+• **userInitialized**: `boolean` = `false`
 
-Makes a fetch request with the required API headers.
+#### Defined in
+
+[src/client.ts:16](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L16)
+
+## Methods
+
+### \_getAdminHeaders
+
+▸ **_getAdminHeaders**(): `undefined` \| \{ `x-torque-api-key`: `string`  }
+
+Retrieves the API headers for making requests.
+
+#### Returns
+
+`undefined` \| \{ `x-torque-api-key`: `string`  }
+
+The API headers as an object.
+
+#### Defined in
+
+[src/client.ts:74](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L74)
+
+___
+
+### \_getApiHeaders
+
+▸ **_getApiHeaders**(): `undefined` \| \{ `Authorization`: `string`  }
+
+Retrieves the user's authorization header.
+
+#### Returns
+
+`undefined` \| \{ `Authorization`: `string`  }
+
+The API headers as an object.
+
+#### Defined in
+
+[src/client.ts:62](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L62)
+
+___
+
+### adminApiFetch
+
+▸ **adminApiFetch**(`url`, `options?`): `Promise`\<`Response`\>
+
+Fetch request on using admin API key.
 
 #### Parameters
 
@@ -461,7 +565,32 @@ A Promise that resolves with the response from the API endpoint.
 
 #### Defined in
 
-[src/client.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L66)
+[src/client.ts:121](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L121)
+
+___
+
+### apiFetch
+
+▸ **apiFetch**(`url`, `options?`): `Promise`\<`Response`\>
+
+Fetch request on using the user's API token.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `url` | `string` | The URL of the API endpoint. |
+| `options?` | `RequestInit` | Optional parameters for the fetch request. |
+
+#### Returns
+
+`Promise`\<`Response`\>
+
+A Promise that resolves with the response from the API endpoint.
+
+#### Defined in
+
+[src/client.ts:90](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L90)
 
 ___
 
@@ -479,13 +608,13 @@ The user's handle or `undefined` if no handle is available.
 
 #### Defined in
 
-[src/client.ts:144](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L144)
+[src/client.ts:241](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L241)
 
 ___
 
-### initialize
+### initializeUser
 
-▸ **initialize**(`options`): `Promise`\<`string`\>
+▸ **initializeUser**(`userAuth`): `Promise`\<`string`\>
 
 Initializes the TorqueClient with the provided options.
 
@@ -493,7 +622,7 @@ Initializes the TorqueClient with the provided options.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`ApiInputVerify`](../modules.md#apiinputverify) | The options required for API verification. |
+| `userAuth` | [`ApiInputVerify`](../modules.md#apiinputverify) | User signature object that is required to authenticate a user with Torque. |
 
 #### Returns
 
@@ -507,7 +636,7 @@ If user was not verified.
 
 #### Defined in
 
-[src/client.ts:30](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L30)
+[src/client.ts:45](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L45)
 
 ___
 
@@ -525,7 +654,7 @@ True if the user is marked as a publisher, false otherwise.
 
 #### Defined in
 
-[src/client.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L214)
+[src/client.ts:311](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L311)
 
 ___
 
@@ -547,4 +676,4 @@ Sets the publisher public key for the current user.
 
 #### Defined in
 
-[src/client.ts:202](https://github.com/torque-labs/torque-ts-sdk/blob/82c0f0054819300c00990cc3d24f1f60da91a74b/src/client.ts#L202)
+[src/client.ts:299](https://github.com/torque-labs/torque-ts-sdk/blob/1602bd47e891aa1e511323dd58a1c41afe6a5380/src/client.ts#L299)
