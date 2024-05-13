@@ -1,5 +1,10 @@
 import { TORQUE_API_ROUTES } from "./constants";
-import { ApiResponse, ApiInputVerify } from "./types";
+import {
+  ApiResponse,
+  ApiInputVerify,
+  ApiVerifiedUser,
+  ApiIdentifyPayload,
+} from "./types";
 
 /**
  * Constructs the body for the verify API request based on the authentication type.
@@ -55,7 +60,7 @@ export function getVerifyBody({ payload, authType, pubKey }: ApiInputVerify) {
  * The payload includes a statement, the time it was issued, and its expiration time. If the request is successful,
  * the function returns the payload. Otherwise, it throws an error with the message received from the API.
  *
- * @returns A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
+ * @returns {Promise<ApiIdentifyPayload>} A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
  * @throws {Error} Throws an error if the API request is unsuccessful or if the API response status is not "SUCCESS".
  */
 export async function getIdentifyPayload() {
@@ -63,13 +68,8 @@ export async function getIdentifyPayload() {
     method: "GET",
   });
 
-  const result = (await identify.json()) as unknown as ApiResponse<{
-    payload: {
-      statement: string;
-      issuedAt: string;
-      expirationTime: string;
-    };
-  }>;
+  const result =
+    (await identify.json()) as unknown as ApiResponse<ApiIdentifyPayload>;
 
   if (result.status === "SUCCESS") {
     return result.data.payload;
@@ -81,16 +81,22 @@ export async function getIdentifyPayload() {
 /**
  * Verifies the provided information by making a POST request to the Torque API's verify endpoint.
  *
- * This function sends a verification request to the server with the provided body, which includes
- * the necessary information for verification such as authentication type, public key, and payload.
- * Upon successful verification, it returns the verification result including the API token, public key,
- * verification status, and optional user information such as username, Twitter handle, profile image,
- * and publisher status. If the verification fails, it throws an error with the failure message.
+ * This function is designed to send a verification request to the Torque API. It includes all necessary
+ * information for the verification process, such as the authentication type, public key, and payload
+ * within the request body. Upon a successful verification, the function returns the verification result,
+ * which includes details like the API token, public key, verification status, and optionally, user information
+ * such as username, Twitter handle, profile image, and publisher status. If the verification process fails,
+ * the function throws an error with a message detailing the reason for failure.
  *
- * @param {ApiInputVerify} body - The verification request body containing the necessary information for verification.
- * @returns A Promise that resolves to an object containing the verification result, including the token,
- *          public key, verification status, and optional user information.
+ * @param {ApiInputVerify} body - The verification request body. This object contains all the necessary
+ *                                information required for the verification process, structured according
+ *                                to the `ApiInputVerify` type.
+ * @returns {Promise<ApiVerifiedUser>} A promise that resolves to an object containing the verification result.
+ *                                     This result includes the API token, public key, verification status,
+ *                                     and optionally, additional user information. The structure of this
+ *                                     result is defined by the `ApiVerifiedUser` type.
  * @throws {Error} Throws an error if the API request is unsuccessful or if the API response status is not "SUCCESS".
+ *                 The error message provides details about the reason for the request's failure.
  */
 export async function verify(body: ApiInputVerify) {
   const verify = await fetch(TORQUE_API_ROUTES.verify, {
@@ -101,16 +107,8 @@ export async function verify(body: ApiInputVerify) {
     body: JSON.stringify(body),
   });
 
-  const result = (await verify.json()) as unknown as ApiResponse<{
-    token: string;
-    pubKey: string;
-    verified: boolean;
-    username?: string;
-    twitter?: string;
-    profileImage?: string;
-    isPublisher: boolean;
-    publisherPubKey?: string | null;
-  }>;
+  const result =
+    (await verify.json()) as unknown as ApiResponse<ApiVerifiedUser>;
 
   if (result.status === "SUCCESS") {
     return result.data;

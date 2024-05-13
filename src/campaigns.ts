@@ -10,8 +10,8 @@ import { ApiCampaign, ApiResponse } from "./types";
  * it parses the JSON and checks the status of the response. If the status is "SUCCESS", it returns the list of active
  * campaigns. Otherwise, it throws an error with the message received from the API.
  *
- * @returns A Promise resolving to an array of `ApiCampaign` objects representing the active campaigns.
- * @throws An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
+ * @returns {Promise<ApiCampaign[]>} A Promise resolving to an array of `ApiCampaign` objects representing the active campaigns.
+ * @throws {Error} An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
  */
 export async function getCampaigns(this: TorqueClient) {
   if (!this.publisherHandle) {
@@ -49,9 +49,8 @@ export async function getCampaigns(this: TorqueClient) {
  * If the operation fails or the API returns a status other than "SUCCESS", it throws an error with a
  * descriptive message.
  *
- * @param this - The TorqueClient instance used to perform the API request.
- * @returns A Promise resolving to the URLs of the user's share links.
- * @throws An error if the link fetch fails or if the API returns a status other than "SUCCESS".
+ * @returns {Promise<ApiLinks>} A Promise resolving to the URLs of the user's share links.
+ * @throws {Error} An error if the link fetch fails or if the API returns a status other than "SUCCESS".
  */
 export async function getLinks(this: TorqueClient) {
   const links = await this.apiFetch(TORQUE_API_ROUTES.links, {
