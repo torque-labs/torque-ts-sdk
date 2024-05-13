@@ -1,6 +1,0 @@
-{
-  "CodeGPT.apiKey": "Anthropic",
-  "CodeGPT.Autocomplete.enabled": true,
-  "CodeGPT.Autocomplete.maxTokens": 500,
-  "CodeGPT.Autocomplete.suggestionDelay": 1360
-}
