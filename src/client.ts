@@ -49,7 +49,7 @@ export class TorqueClient {
       this.user = verifiedUser;
       this.userInitialized = true;
 
-      return "SUCCESS";
+      return { status: "SUCCESS", data: verifiedUser };
     } else {
       throw new Error("User was not authenticated.");
     }
