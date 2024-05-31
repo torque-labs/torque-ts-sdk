@@ -1,8 +1,5 @@
-const TORQUE_API_URL =
-  process.env.NEXT_PUBLIC_TORQUE_API_URL ?? "https://api.torque.so";
-
-const TORQUE_APP_URL =
-  process.env.NEXT_PUBLIC_TORQUE_APP_URL ?? "https://app.torque.so";
+const TORQUE_API_URL = process.env.TORQUE_API_URL ?? "https://api.torque.so";
+const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? "https://app.torque.so";
 
 const TORQUE_PROGRAM_PUBKEY = "7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra";
 
@@ -19,6 +16,10 @@ const TORQUE_API_ROUTES = {
   users: `${TORQUE_API_URL}/users`,
   userCampaigns: `${TORQUE_API_URL}/users/campaigns`,
   verify: `${TORQUE_API_URL}/verify`,
+  transactions: {
+    build: `${TORQUE_API_URL}/tx/build`,
+    execute: `${TORQUE_API_URL}/tx/execute`,
+  },
 };
 
 const PUBLISHER_ACCOUNT_SIZE = 41;

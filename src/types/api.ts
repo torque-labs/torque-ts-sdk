@@ -12,6 +12,21 @@ export enum ApiStatus {
   INTERNAL_ERROR = "INTERNAL_ERROR",
 }
 
+export enum ApiEventType {
+  CLICK = "CLICK",
+  SWAP = "SWAP",
+  CAST_VOTE = "CAST_VOTE",
+  COMPRESSED_NFT_MINT = "COMPRESSED_NFT_MINT",
+  ADD_LIQUIDITY = "ADD_LIQUIDITY",
+  INTERACT = "INTERACT",
+  SIGN_UP = "SIGN_UP",
+}
+
+export enum ApiRewardType {
+  POINTS = "POINTS",
+  TOKENS = "TOKENS",
+}
+
 export type ApiResponseSuccess<T> = {
   status: ApiStatus.SUCCESS;
   data: T;
@@ -121,3 +136,10 @@ export type ApiLinks = {
     url: string;
   }[];
 };
+
+export enum ApiTxnTypes {
+  CampaignCreate = "CampaignCreate",
+  CampaignEnd = "CampaignEnd",
+  PublisherPayout = "PublisherPayout",
+  PublisherCreate = "PublisherCreate",
+}

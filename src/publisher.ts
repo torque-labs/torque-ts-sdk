@@ -1,44 +1,34 @@
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
+
 import { TorqueClient } from "./client";
-import { TORQUE_API_ROUTES } from "./constants";
-import {
-  becomeAPublisherTxn,
-  payoutPublisherTxn,
-} from "./protocol/transactions";
-import { ApiResponse, ApiStatus } from "./types";
+import { ApiTxnTypes } from "./types";
+import { transaction } from "./transactions";
 
 /**
- * Initializes a publisher by sending a serialized transaction to the Torque API.
- * This function attempts to create a new publisher using the provided serialized transaction.
- * If successful, it returns the data containing the publisher's public key.
+ * Initialize a publisher account for the wallet passed.
+ * If successful, it returns the signature of the transaction.
  *
  * @param {SignerWalletAdapter} wallet - A `SignerWalletAdapter` instance representing the user's wallet.
- * @returns {ApiResponse<{ publisherPubKey: string; }} A promise that resolves to an object containing the publisher's public key if the API call is successful.
- * @throws {Error} Will throw an error if the API call fails or if the response status is not `SUCCESS`.
+ * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+ * @throws {Error} Will throw an error if the API call fails.
  */
 export async function initPublisher(
-  this: TorqueClient,
+  client: TorqueClient,
   wallet: SignerWalletAdapter
 ) {
   try {
-    const serializedTx = await becomeAPublisherTxn(wallet);
-
-    const publisher = await this.apiFetch(TORQUE_API_ROUTES.publishers, {
-      method: "POST",
-      body: JSON.stringify({ serializedTx }),
+    const signature = await transaction(client, wallet, {
+      txnType: ApiTxnTypes.PublisherCreate,
+      data: true,
     });
 
-    const result = (await publisher.json()) as unknown as ApiResponse<{
-      publisherPubKey: string;
-    }>;
+    const user = await client.getUser();
 
-    if (result.status === ApiStatus.SUCCESS) {
-      this.setUserPublisher(result.data.publisherPubKey);
-
-      return result.data;
-    } else {
-      throw new Error(result.message);
+    if (user.isPublisher && user.publisherPubKey) {
+      client.setUserPublisher(user.publisherPubKey);
     }
+
+    return signature;
   } catch (error) {
     console.error(error);
     throw new Error("There was an error creating the publisher.");
@@ -46,20 +36,25 @@ export async function initPublisher(
 }
 
 /**
- * Processes a payout to a publisher by sending a serialized transaction.
- * This function attempts to execute a payout transaction for the publisher using the provided wallet.
- * It leverages the `payoutPublisherTxn` function to create and send the transaction.
+ * Processes a payout to a publisher.
+ * If successful, it returns the signature of the transaction.
  *
  * @param {SignerWalletAdapter} wallet - A `SignerWalletAdapter` instance representing the user's wallet.
  * @returns {Promise<string>} A promise that resolves to a signature when the payout transaction has been successfully processed.
- * @throws {Error} Will throw an error if the transaction fails to process or if there's an issue with the transaction creation.
+ * @throws {Error} Will throw an error if the transaction fails.
  */
 export async function payoutPublisher(
   this: TorqueClient,
-  wallet: SignerWalletAdapter
+  wallet: SignerWalletAdapter,
+  data: { token: string; amount: number }
 ) {
   try {
-    return await payoutPublisherTxn(wallet);
+    const signature = await transaction(this, wallet, {
+      txnType: ApiTxnTypes.PublisherPayout,
+      data,
+    });
+
+    return signature;
   } catch (error) {
     console.error(error);
     throw new Error("There was an error paying out the publisher.");

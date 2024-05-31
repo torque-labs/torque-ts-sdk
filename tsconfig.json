@@ -15,8 +15,14 @@
     "plugins": [],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typedocOptions": {
+    "expandObjects": true,
+    "expandParameters": true,
+    "propertiesFormat": "list",
+    "parametersFormat": "list"
+  }
 }
