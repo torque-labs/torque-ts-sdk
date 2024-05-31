@@ -1,3 +1,4 @@
+import { SolanaSignInOutput } from "@solana/wallet-standard-features";
 import { TORQUE_API_ROUTES } from "./constants";
 import {
   ApiResponse,
@@ -38,7 +39,7 @@ export function getVerifyBody({ payload, authType, pubKey }: ApiInputVerify) {
               },
               signature: new Uint8Array(payload.output.signature),
               signedMessage: new Uint8Array(payload.output.signedMessage),
-            },
+            } as unknown as SolanaSignInOutput,
           },
         }
       : {

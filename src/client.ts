@@ -4,13 +4,17 @@ import {
   createCampaign,
   endCampaign,
   getCampaigns,
-  getLinks,
+  getLinks as apiGetLinks,
 } from "./campaigns";
 import { getSharedLinkData, getUserShareLink } from "./share";
 import { ApiInputVerify, ApiVerifiedUser } from "./types";
 import { getUser } from "./user";
 import { initPublisher, payoutPublisher } from "./publisher";
+import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
 
+/**
+ * The official Torque Typescript SDK
+ */
 export class TorqueClient {
   public publisherHandle: string;
   public userInitialized: boolean = false;
@@ -38,7 +42,7 @@ export class TorqueClient {
    *
    * @param {ApiInputVerify} userAuth - User signature object that is required to authenticate a user with Torque.
    *
-   * @returns {Promise<"SUCCESS">} A Promise that resolves when the initialization is complete.
+   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves when the initialization is complete.
    *
    * @throws {Error} If user was not verified.
    */
@@ -49,7 +53,7 @@ export class TorqueClient {
       this.user = verifiedUser;
       this.userInitialized = true;
 
-      return { status: "SUCCESS", data: verifiedUser };
+      return verifiedUser;
     } else {
       throw new Error("User was not authenticated.");
     }
@@ -252,18 +256,8 @@ export class TorqueClient {
     return undefined;
   }
 
-  /**
-   * Fetches all of the user's share links using the Torque API.
-   *
-   * This function sends a GET request to the Torque API to fetch all share links for a for the
-   * current user. Upon success, it returns an array of URLs and campaign IDs of the user's share links.
-   * If the operation fails or the API returns a status other than "SUCCESS", it throws an error with a
-   * descriptive message.
-   *
-   * @returns {Promise<ApiLinks>} A Promise resolving to the URLs of the user's share links.
-   * @throws {Error} An error if the link fetch fails or if the API returns a status other than "SUCCESS".
-   */
-  public getLinks = getLinks.bind(this);
+  /** {@inheritDoc campaigns.endCampaign} */
+  public getLinks = apiGetLinks.bind(this);
 
   /**
    * PUBLISHER
@@ -278,7 +272,10 @@ export class TorqueClient {
    * @returns {ApiResponse<{ publisherPubKey: string; }} A promise that resolves to an object containing the publisher's public key if the API call is successful.
    * @throws {Error} Will throw an error if the API call fails or if the response status is not `SUCCESS`.
    */
-  public initPublisher = initPublisher.bind(this);
+  // public initPublisher = initPublisher.bind(this);
+  public initPublisher(wallet: SignerWalletAdapter) {
+    return initPublisher(this, wallet);
+  }
 
   /**
    * Processes a payout to a publisher by sending a serialized transaction.

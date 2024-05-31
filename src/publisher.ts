@@ -13,19 +13,19 @@ import { transaction } from "./transactions";
  * @throws {Error} Will throw an error if the API call fails.
  */
 export async function initPublisher(
-  this: TorqueClient,
+  client: TorqueClient,
   wallet: SignerWalletAdapter
 ) {
   try {
-    const signature = await transaction(this, wallet, {
+    const signature = await transaction(client, wallet, {
       txnType: ApiTxnTypes.PublisherCreate,
       data: true,
     });
 
-    const user = await this.getUser();
+    const user = await client.getUser();
 
     if (user.isPublisher && user.publisherPubKey) {
-      this.setUserPublisher(user.publisherPubKey);
+      client.setUserPublisher(user.publisherPubKey);
     }
 
     return signature;

@@ -119,7 +119,7 @@ export async function createCampaign(
  * during the process, it is logged and a new error with a user-friendly message is thrown.
  *
  * @param {SignerWalletAdapter} wallet - The wallet used to sign the transaction.
- * @param {CampaignEndInput} data - The data required to end the campaign.
+ * @param {string} campaignId - The data required to end the campaign.
  * @returns {Promise<string>} The signature of the transaction.
  * @throws {Error} If there is an error ending the campaign.
  */
