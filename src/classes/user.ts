@@ -1,5 +1,11 @@
 import { TORQUE_API_ROUTES, TORQUE_SHARE_URL } from "@/constants";
-import { ApiInputLogin, ApiShare, ApiTxnTypes, ApiVerifiedUser } from "@/types";
+import {
+  ApiCampaign,
+  ApiInputLogin,
+  ApiShare,
+  ApiTxnTypes,
+  ApiVerifiedUser,
+} from "@/types";
 import { TorqueRequestClient } from "@/classes/request";
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
 import { Keypair } from "@solana/web3.js";
@@ -166,6 +172,46 @@ export class TorqueUserClient {
     }
 
     return undefined;
+  }
+
+  /**
+   * ========================================================================
+   * CAMPAIGNS
+   * ========================================================================
+   */
+
+  /**
+   * Retrieves a list of active campaigns from the Torque API that the user is eligible to participate in.
+   *
+   * @returns {Promise<ApiCampaign[]>} A Promise resolving to an array of `ApiCampaign` objects representing the active campaigns.
+   *
+   * @throws {Error} An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
+   */
+  public async getCampaigns() {
+    if (!this.client) {
+      throw new Error("The client is not initialized.");
+    }
+
+    try {
+      const params = this.publisherHandle
+        ? new URLSearchParams({ publisher: this.publisherHandle })
+        : {};
+
+      const result = await this.client.apiFetch<{
+        campaigns: ApiCampaign[];
+      }>(`${TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error("There was an error getting user's eligible campaigns.");
+    }
   }
 
   /**
