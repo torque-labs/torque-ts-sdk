@@ -16,6 +16,7 @@ const TORQUE_API_ROUTES = {
   users: `${TORQUE_API_URL}/users`,
   userCampaigns: `${TORQUE_API_URL}/users/campaigns`,
   verify: `${TORQUE_API_URL}/verify`,
+  login: `${TORQUE_API_URL}/login`,
   transactions: {
     build: `${TORQUE_API_URL}/tx/build`,
     execute: `${TORQUE_API_URL}/tx/execute`,

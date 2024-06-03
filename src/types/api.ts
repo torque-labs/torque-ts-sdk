@@ -118,7 +118,6 @@ export type ApiUser = {
 };
 
 export type ApiVerifiedUser = ApiUser & {
-  token: string;
   verified: boolean;
 };
 
@@ -143,3 +142,18 @@ export enum ApiTxnTypes {
   PublisherPayout = "PublisherPayout",
   PublisherCreate = "PublisherCreate",
 }
+
+export const UserTransactionTypes = [
+  ApiTxnTypes.PublisherCreate,
+  ApiTxnTypes.PublisherPayout,
+];
+
+export const AdminTransactionTypes = [
+  ApiTxnTypes.CampaignCreate,
+  ApiTxnTypes.CampaignEnd,
+];
+
+export const TransactionType = [
+  ...UserTransactionTypes,
+  ...AdminTransactionTypes,
+];

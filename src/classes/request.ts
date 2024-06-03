@@ -1,0 +1,221 @@
+import { TORQUE_API_ROUTES } from "@/constants";
+import {
+  TxnInput,
+  ApiTxnTypes,
+  ApiResponse,
+  TxnExecute,
+  TxnExecuteResponse,
+} from "@/types";
+import { VersionedTransaction } from "@solana/web3.js";
+import { base64ToUint8Array, uint8ArrayToBase64 } from "@/utils";
+import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
+
+type TorqueRequestClientOptions =
+  | { clientType: "admin"; apiKey: string }
+  | { clientType: "user" };
+
+/**
+ * The TorqueRequestClient class is used to make requests to the Torque API.
+ * It provides methods for performing API requests and handling responses.
+ *
+ * @example
+ * const client = new TorqueRequestClient({ clientType: "admin", apiKey: "your-api-key" });
+ * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
+ * console.log(response);
+ */
+export class TorqueRequestClient {
+  private clientType: "admin" | "user" | undefined;
+  private apiKey: string | undefined;
+  private apiAuthHeader: Record<string, string> = {};
+
+  /**
+   * Create a new instance of the TorqueRequestClient class.
+   *
+   * @param {TorqueRequestClientOptions} options - The options for the client.
+   */
+  constructor(options: TorqueRequestClientOptions) {
+    this.clientType = options.clientType;
+
+    if (options.clientType === "admin" && !options.apiKey) {
+      throw new Error("An API key is required for admin requests.");
+    }
+
+    if (options.clientType === "admin" && options.apiKey) {
+      this.apiKey = options.apiKey;
+      this.apiAuthHeader = {
+        "x-torque-api-key": `${this.apiKey}`,
+      };
+    }
+  }
+
+  /**
+   * Perform a request to the Torque API.
+   *
+   * @template {object} T - The type of the response data.
+   *
+   * @param {string} url - The URL of the API endpoint.
+   * @param {RequestInit} options - The options for the request.
+   *
+   * @returns {Promise<T>} The response from the API.
+   *
+   * @throws {Error} If there is an error performing the request.
+   */
+  public async apiFetch<T>(url: string, options?: RequestInit) {
+    const reqOptions: RequestInit = {
+      credentials: this.clientType === "admin" ? "omit" : "include",
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...this.apiAuthHeader,
+        ...options?.headers,
+      },
+    };
+
+    try {
+      const response = await fetch(url, reqOptions);
+      const result = (await response.json()) as unknown as ApiResponse<T>;
+
+      if (result.status === "SUCCESS") {
+        return result.data;
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+
+      throw new Error("There was an error performing the request.");
+    }
+  }
+
+  /**
+   * Builds and returns a serialized transaction from the API based on the provided transaction input.
+   *
+   * @template {object} T - The type of the response data.
+   *
+   * @param {TxnInput} txnInput - The input object of the transaction to build.
+   *
+   * @returns {Promise<T>} A promise that resolves with the serialized transaction.
+   *
+   * @throws {Error} Throws an error if the API is not able to build the transaction.
+   */
+  private async buildTransaction<T>(txnInput: TxnInput) {
+    const data = {
+      ...(txnInput.txnType === ApiTxnTypes.CampaignCreate
+        ? { createCampaign: txnInput.data }
+        : {}),
+
+      ...(txnInput.txnType === ApiTxnTypes.CampaignEnd
+        ? { endCampaign: txnInput.data }
+        : {}),
+
+      ...(txnInput.txnType === ApiTxnTypes.PublisherCreate
+        ? { createPublisher: txnInput.data }
+        : {}),
+
+      ...(txnInput.txnType === ApiTxnTypes.PublisherPayout
+        ? { payoutPublisher: txnInput.data }
+        : {}),
+    };
+
+    try {
+      const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
+        method: "POST",
+        body: JSON.stringify({ ...data }),
+      });
+
+      return txn as T & { serializedTx: string };
+    } catch (error) {
+      console.error(error);
+
+      throw new Error("Unable to prepare the transaction.");
+    }
+  }
+
+  /**
+   * Executes the serialized transaction using the API.
+   *
+   * @param {TxnExecute} txnExecuteInput - The input object of the transaction to execute.
+   *
+   * @returns {Promise<TxnExecuteResponse>} A promise that resolves with the signature of the transaction.
+   *
+   * @throws {Error} Throws an error if the API request is unsuccessful or if the transaction fails.
+   */
+  private async executeTransaction(txnExecuteInput: TxnExecute) {
+    const data = {
+      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
+        ? { createCampaign: txnExecuteInput.data }
+        : {}),
+
+      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd
+        ? { endCampaign: txnExecuteInput.data }
+        : {}),
+
+      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate
+        ? { createPublisher: txnExecuteInput.data }
+        : {}),
+
+      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout
+        ? { payoutPublisher: txnExecuteInput.data }
+        : {}),
+    };
+
+    try {
+      const txn = await this.apiFetch<TxnExecuteResponse>(
+        TORQUE_API_ROUTES.transactions.execute,
+        {
+          method: "POST",
+          body: JSON.stringify({ ...data }),
+        }
+      );
+
+      return txn;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error("Unable to execute the transaction.");
+    }
+  }
+
+  /**
+   * Builds and executes the transaction using the Torque API.
+   *
+   * @template {object} T - The type of the response data.
+   *
+   * @param {SignerWalletAdapter} wallet - A `SignerWalletAdapter` instance representing the wallet that will be used to sign the transaction.
+   * @param {TxnInput} txnInput - The input object of the transaction to process.
+   *
+   * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
+   */
+  public async transaction<T>(wallet: SignerWalletAdapter, txnInput: TxnInput) {
+    try {
+      const { serializedTx, ...rest } = await this.buildTransaction<T>(
+        txnInput
+      );
+
+      const tx = VersionedTransaction.deserialize(
+        base64ToUint8Array(serializedTx)
+      );
+
+      const signedTx = await wallet.signTransaction(tx);
+
+      const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
+
+      const executeInput = {
+        txnType: txnInput.txnType,
+        data: {
+          userSignature,
+          blockhash: tx.message.recentBlockhash,
+          ...rest,
+        },
+      };
+
+      const { signature } = await this.executeTransaction(executeInput);
+
+      return { signature, ...rest };
+    } catch (error) {
+      console.error(error);
+
+      throw new Error("The transaction was unable to be processed.");
+    }
+  }
+}

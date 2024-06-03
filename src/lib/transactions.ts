@@ -1,27 +1,28 @@
 import { TORQUE_API_ROUTES } from "@/constants";
-import { TorqueClient } from "./client";
+import { TorqueClient } from "@/client";
 import {
   TxnInput,
   ApiTxnTypes,
   ApiResponse,
   TxnExecute,
   TxnExecuteResponse,
-} from "./types";
+} from "@/types";
 import { VersionedTransaction } from "@solana/web3.js";
-import { base64ToUint8Array, uint8ArrayToBase64 } from "./utils";
+import { base64ToUint8Array, uint8ArrayToBase64 } from "@/utils";
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
+import { TorqueRequestClient } from "@/classes/request";
 
 /**
  * Builds and returns a serialized transaction from the API based on the provided transaction input.
  *
- * @param {TorqueClient} client - Instance of the Torque client.
+ * @param {TorqueRequestClient} client - Instance of the Torque client.
  * @param {TxnInput} txnInput - The input object of the transaction to build.
  * @returns {Promise<T>} A promise that resolves with the serialized transaction and optinal extra data
  * @throws {Error} Throws an error if the API request is unsuccessful or if the API response status is not "SUCCESS".
  *                 The error message provides details about the reason for the request's failure.
  */
-async function buildTransaction<T extends { serializedTx: string }>(
-  client: TorqueClient,
+async function buildTransaction<T>(
+  client: TorqueRequestClient,
   txnInput: TxnInput
 ) {
   const data = {
@@ -42,31 +43,31 @@ async function buildTransaction<T extends { serializedTx: string }>(
       : {}),
   };
 
-  const txn = await client.apiFetch(TORQUE_API_ROUTES.transactions.build, {
-    method: "POST",
-    body: JSON.stringify({ ...data }),
-  });
+  try {
+    const txn = await client.apiFetch(TORQUE_API_ROUTES.transactions.build, {
+      method: "POST",
+      body: JSON.stringify({ ...data }),
+    });
 
-  const result = (await txn.json()) as unknown as ApiResponse<T>;
+    return txn as T & { serializedTx: string };
+  } catch (error) {
+    console.error(error);
 
-  if (result.status === "SUCCESS") {
-    return result.data;
-  } else {
-    throw new Error(result.message);
+    throw new Error("Unable to prepare the transaction.");
   }
 }
 
 /**
  * Executes the serialized transaction using the API.
  *
- * @param {TorqueClient} client - Instance of the Torque client.
+ * @param {TorqueRequestClient} client - Instance of the Torque client.
  * @param {TxnExecute} txnExecuteInput - The input object of the transaction to execute.
  * @returns {Promise<TxnExecuteResponse>} A promise that resolves with the signature of the transaction.
  * @throws {Error} Throws an error if the API request is unsuccessful or if the API response status is not "SUCCESS".
  *                 The error message provides details about the reason for the request's failure.
  */
 async function executeTransaction(
-  client: TorqueClient,
+  client: TorqueRequestClient,
   txnExecuteInput: TxnExecute
 ) {
   const data = {
@@ -87,52 +88,49 @@ async function executeTransaction(
       : {}),
   };
 
-  const adminTransactions: string[] = [
-    ApiTxnTypes.CampaignCreate,
-    ApiTxnTypes.CampaignEnd,
-  ];
-
-  const txn = adminTransactions.includes(txnExecuteInput.txnType)
-    ? await client.adminApiFetch(TORQUE_API_ROUTES.transactions.execute, {
+  try {
+    const txn = await client.apiFetch<TxnExecuteResponse>(
+      TORQUE_API_ROUTES.transactions.execute,
+      {
         method: "POST",
         body: JSON.stringify({ ...data }),
-      })
-    : await client.apiFetch(TORQUE_API_ROUTES.transactions.execute, {
-        method: "POST",
-        body: JSON.stringify({ ...data }),
-      });
+      }
+    );
 
-  const result =
-    (await txn.json()) as unknown as ApiResponse<TxnExecuteResponse>;
+    return txn;
+  } catch (error) {
+    console.error(error);
 
-  if (result.status === "SUCCESS") {
-    return result.data;
-  } else {
-    throw new Error(result.message);
+    throw new Error("Unable to execute the transaction.");
   }
 }
 
 /**
  * Builds and executes the transaction using the Torque API.
  *
- * @param {TorqueClient} client - Instance of the Torque client.
+ * @param {TorqueRequestClient} client - Instance of the Torque client.
  * @param {SignerWalletAdapter} wallet - A `SignerWalletAdapter` instance representing the wallet that will be used to sign the transaction.
  * @param {TxnInput} txnInput - The input object of the transaction to process.
+ *
  * @returns {Promise<string>} A promise that resolves with the signature of the transaction.
  */
-export async function transaction(
-  client: TorqueClient,
+export async function transaction<T>(
+  client: TorqueRequestClient,
   wallet: SignerWalletAdapter,
   txnInput: TxnInput
 ) {
   try {
-    const { serializedTx, ...rest } = await buildTransaction(client, txnInput);
+    const { serializedTx, ...rest } = await buildTransaction<T>(
+      client,
+      txnInput
+    );
 
     const tx = VersionedTransaction.deserialize(
       base64ToUint8Array(serializedTx)
     );
 
     const signedTx = await wallet.signTransaction(tx);
+
     const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
 
     const executeInput = {
@@ -146,9 +144,10 @@ export async function transaction(
 
     const { signature } = await executeTransaction(client, executeInput);
 
-    return signature;
+    return { signature, ...rest };
   } catch (error) {
     console.error(error);
-    throw new Error("The transaction was unable to be prepared and executed.");
+
+    throw new Error("The transaction was unable to be processed.");
   }
 }
