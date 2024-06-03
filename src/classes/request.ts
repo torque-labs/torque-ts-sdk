@@ -6,13 +6,18 @@ import {
   TxnExecute,
   TxnExecuteResponse,
 } from "@/types";
-import { VersionedTransaction } from "@solana/web3.js";
+import {
+  Connection,
+  Keypair,
+  Transaction,
+  VersionedTransaction,
+  clusterApiUrl,
+} from "@solana/web3.js";
 import { base64ToUint8Array, uint8ArrayToBase64 } from "@/utils";
-import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
-
-type TorqueRequestClientOptions =
-  | { clientType: "admin"; apiKey: string }
-  | { clientType: "user" };
+import {
+  BaseWalletAdapter,
+  SignerWalletAdapter,
+} from "@solana/wallet-adapter-base";
 
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
@@ -24,28 +29,31 @@ type TorqueRequestClientOptions =
  * console.log(response);
  */
 export class TorqueRequestClient {
-  private clientType: "admin" | "user" | undefined;
   private apiKey: string | undefined;
   private apiAuthHeader: Record<string, string> = {};
+  private signer: SignerWalletAdapter | Keypair | undefined;
 
   /**
    * Create a new instance of the TorqueRequestClient class.
    *
    * @param {TorqueRequestClientOptions} options - The options for the client.
+   *
+   * @throws {Error} If the clientType is admin and the API key is not provided, or if the signer is not provided.
    */
-  constructor(options: TorqueRequestClientOptions) {
-    this.clientType = options.clientType;
-
-    if (options.clientType === "admin" && !options.apiKey) {
-      throw new Error("An API key is required for admin requests.");
+  constructor(signer: SignerWalletAdapter | Keypair, apiKey?: string) {
+    if (!signer) {
+      throw new Error(
+        "You need to provide a SignerWalletAdapter or Keypair in the signer parameter."
+      );
     }
 
-    if (options.clientType === "admin" && options.apiKey) {
-      this.apiKey = options.apiKey;
-      this.apiAuthHeader = {
-        "x-torque-api-key": `${this.apiKey}`,
-      };
-    }
+    this.signer = signer;
+    this.apiKey = apiKey;
+    this.apiAuthHeader = apiKey
+      ? {
+          "x-torque-api-key": `${this.apiKey}`,
+        }
+      : {};
   }
 
   /**
@@ -62,7 +70,7 @@ export class TorqueRequestClient {
    */
   public async apiFetch<T>(url: string, options?: RequestInit) {
     const reqOptions: RequestInit = {
-      credentials: this.clientType === "admin" ? "omit" : "include",
+      credentials: "include",
       ...options,
       headers: {
         "Content-Type": "application/json",
@@ -186,17 +194,26 @@ export class TorqueRequestClient {
    *
    * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
    */
-  public async transaction<T>(wallet: SignerWalletAdapter, txnInput: TxnInput) {
+  public async transaction<T>(txnInput: TxnInput) {
+    if (!this.signer) {
+      throw new Error(
+        "The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair."
+      );
+    }
+
     try {
       const { serializedTx, ...rest } = await this.buildTransaction<T>(
         txnInput
       );
 
-      const tx = VersionedTransaction.deserialize(
+      const txn = VersionedTransaction.deserialize(
         base64ToUint8Array(serializedTx)
       );
 
-      const signedTx = await wallet.signTransaction(tx);
+      const signedTx =
+        "signTransaction" in this.signer
+          ? await (this.signer as SignerWalletAdapter).signTransaction(txn)
+          : this.signWithKeypair(txn);
 
       const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
 
@@ -204,7 +221,7 @@ export class TorqueRequestClient {
         txnType: txnInput.txnType,
         data: {
           userSignature,
-          blockhash: tx.message.recentBlockhash,
+          blockhash: txn.message.recentBlockhash,
           ...rest,
         },
       };
@@ -217,5 +234,32 @@ export class TorqueRequestClient {
 
       throw new Error("The transaction was unable to be processed.");
     }
+  }
+
+  /**
+   * Signs a transaction with a Keypair.
+   *
+   * @param {VersionedTransaction} txn - The transaction to sign.
+   *
+   * @returns {VersionedTransaction} The signed transaction.
+   *
+   * @throws {Error} If the signer is not initialized or if the signer is not a Keypair.
+   */
+  private signWithKeypair(txn: VersionedTransaction) {
+    if (!this.signer) {
+      throw new Error(
+        "The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair."
+      );
+    }
+
+    if ("signTransaction" in this.signer) {
+      throw new Error("This method is only for signing with a Keypair.");
+    }
+
+    const keypair = this.signer as Keypair;
+
+    txn.sign([keypair]);
+
+    return txn;
   }
 }

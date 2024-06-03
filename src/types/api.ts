@@ -39,7 +39,7 @@ export type ApiResponseError = {
 
 export type ApiResponse<T> = ApiResponseSuccess<T> | ApiResponseError;
 
-export type ApiInputVerify =
+export type ApiInputLogin =
   | {
       authType: "siws";
       pubKey: string;

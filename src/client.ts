@@ -7,7 +7,7 @@ import {
   getLinks as apiGetLinks,
 } from "./campaigns";
 import { getSharedLinkData, getUserShareLink } from "./share";
-import { ApiInputVerify, ApiVerifiedUser } from "./types";
+import { ApiInputLogin, ApiVerifiedUser } from "./types";
 import { getUser } from "./user";
 import { initPublisher, payoutPublisher } from "./publisher";
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
@@ -40,13 +40,13 @@ export class TorqueClient {
   /**
    * Initializes the TorqueClient with the provided options.
    *
-   * @param {ApiInputVerify} userAuth - User signature object that is required to authenticate a user with Torque.
+   * @param {ApiInputLogin} userAuth - User signature object that is required to authenticate a user with Torque.
    *
    * @returns {Promise<ApiVerifiedUser>} A Promise that resolves when the initialization is complete.
    *
    * @throws {Error} If user was not verified.
    */
-  public async initializeUser(userAuth: ApiInputVerify) {
+  public async initializeUser(userAuth: ApiInputLogin) {
     const verifiedUser = await verify(userAuth);
 
     if (verifiedUser.token) {
@@ -347,7 +347,7 @@ export class TorqueClient {
    * format (Uint8Array) for transmission. For other authentication types, it passes the payload
    * as-is.
    *
-   * @param {ApiInputVerify} params - The parameters for constructing the verify body.
+   * @param {ApiInputLogin} params - The parameters for constructing the verify body.
    * @param {string} params.authType - The type of authentication being used (e.g., "siws").
    * @param {string} params.pubKey - The public key associated with the authentication request.
    * @param {object} params.payload - The payload containing the input and output data for verification.

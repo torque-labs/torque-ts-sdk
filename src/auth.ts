@@ -2,7 +2,7 @@ import { SolanaSignInOutput } from "@solana/wallet-standard-features";
 import { TORQUE_API_ROUTES } from "./constants";
 import {
   ApiResponse,
-  ApiInputVerify,
+  ApiInputLogin,
   ApiVerifiedUser,
   ApiIdentifyPayload,
 } from "./types";
@@ -16,13 +16,13 @@ import {
  * format (Uint8Array) for transmission. For other authentication types, it passes the payload
  * as-is.
  *
- * @param {ApiInputVerify} params - The parameters for constructing the verify body.
+ * @param {ApiInputLogin} params - The parameters for constructing the verify body.
  * @param {string} params.authType - The type of authentication being used (e.g., "siws").
  * @param {string} params.pubKey - The public key associated with the authentication request.
  * @param {object} params.payload - The payload containing the input and output data for verification.
  * @returns The constructed body object for the verify API request, formatted based on the authentication type.
  */
-export function getVerifyBody({ payload, authType, pubKey }: ApiInputVerify) {
+export function getVerifyBody({ payload, authType, pubKey }: ApiInputLogin) {
   const body =
     authType === "siws"
       ? {
@@ -89,9 +89,9 @@ export async function getIdentifyPayload() {
  * such as username, Twitter handle, profile image, and publisher status. If the verification process fails,
  * the function throws an error with a message detailing the reason for failure.
  *
- * @param {ApiInputVerify} body - The verification request body. This object contains all the necessary
+ * @param {ApiInputLogin} body - The verification request body. This object contains all the necessary
  *                                information required for the verification process, structured according
- *                                to the `ApiInputVerify` type.
+ *                                to the `ApiInputLogin` type.
  * @returns {Promise<ApiVerifiedUser>} A promise that resolves to an object containing the verification result.
  *                                     This result includes the API token, public key, verification status,
  *                                     and optionally, additional user information. The structure of this
@@ -99,7 +99,7 @@ export async function getIdentifyPayload() {
  * @throws {Error} Throws an error if the API request is unsuccessful or if the API response status is not "SUCCESS".
  *                 The error message provides details about the reason for the request's failure.
  */
-export async function verify(body: ApiInputVerify) {
+export async function verify(body: ApiInputLogin) {
   const verify = await fetch(TORQUE_API_ROUTES.verify, {
     method: "POST",
     headers: {
