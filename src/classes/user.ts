@@ -253,7 +253,7 @@ export class TorqueUserClient {
    *
    * @returns {Promise<ApiShare>} The data associated with the shared link if the request is successful.
    *
-   * @throws {Error} Error with the message from the API response if the request fails.
+   * @throws {Error} Throws an error there was an error getting the shared link data.
    */
   public async getSharedLinkData(campaignId: string, handle: string) {
     if (!this.client) {
@@ -263,14 +263,14 @@ export class TorqueUserClient {
     try {
       const params = new URLSearchParams({ campaignId, handle });
 
-      const share = await this.client.apiFetch<ApiShare>(
+      const result = await this.client.apiFetch<ApiShare>(
         `${TORQUE_API_ROUTES.share}?${params.toString()}`,
         {
           method: "GET",
         }
       );
 
-      return share;
+      return result;
     } catch (error) {
       console.error(error);
 
