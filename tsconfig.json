@@ -18,11 +18,5 @@
     },
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules"],
-  "typedocOptions": {
-    "expandObjects": true,
-    "expandParameters": true,
-    "propertiesFormat": "list",
-    "parametersFormat": "list"
-  }
+  "exclude": ["node_modules", "src/client.ts", "src/auth.ts", "src/audiences.ts"],
 }

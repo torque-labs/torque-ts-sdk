@@ -3,7 +3,7 @@ import { TorqueAdminClient } from "./admin";
 import { TorqueUserClient } from "./user";
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
 
-type TorqueSDKOptions = {
+export type TorqueSDKOptions = {
   signer: SignerWalletAdapter | Keypair;
   apiKey?: string;
   publisherHandle?: string;

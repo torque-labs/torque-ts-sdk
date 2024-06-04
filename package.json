@@ -1,10 +1,12 @@
 {
+  "displayName": "Torque TypeScript SDK",
   "name": "torque-ts-sdk",
   "author": "Torque Labs",
-  "version": "0.0.3",
-  "description": "The official Torque Client TypeScript SDK.",
+  "version": "0.0.4",
+  "description": "The official Torque TypeScript SDK.",
   "license": "MIT",
   "scripts": {
+    "docs": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts",
     "docs:json": "npx typedoc './src/**/*.ts' --json docs/documentation-full.json src/index.ts",
     "docs:md": "typedoc --options typedoc.json"
   },
