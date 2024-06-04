@@ -1,6 +1,5 @@
 import { TorqueRequestClient } from "@/classes/request";
 import { ApiTxnTypes, CampaignCreateInput, CampaignEndInput } from "../types";
-import { TORQUE_API_ROUTES } from "@/constants";
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
 import { Keypair } from "@solana/web3.js";
 
@@ -19,6 +18,7 @@ export class TorqueAdminClient {
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
    *
+   * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
    * @param {string} apiKey - The API key for the admin client.
    */
   constructor(signer: SignerWalletAdapter | Keypair, apiKey: string) {

@@ -1,11 +1,5 @@
 import { TORQUE_API_ROUTES, TORQUE_SHARE_URL } from "@/constants";
-import {
-  ApiCampaign,
-  ApiInputLogin,
-  ApiShare,
-  ApiTxnTypes,
-  ApiVerifiedUser,
-} from "@/types";
+import { ApiCampaign, ApiInputLogin, ApiShare, ApiVerifiedUser } from "@/types";
 import { TorqueRequestClient } from "@/classes/request";
 import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
 import { Keypair } from "@solana/web3.js";
@@ -18,7 +12,7 @@ import { Keypair } from "@solana/web3.js";
  * const client = new TorqueUserClient();
  *
  * // Check if the user is already logged in with API
- * const currentUser = await client.currentUser();
+ * const currentUser = await client.getCurrentUser();
  *
  * const user = currentUser
  *   ? currentUser
@@ -29,23 +23,18 @@ export class TorqueUserClient {
   public initialized: boolean = false;
   private client: TorqueRequestClient | undefined;
   private user: ApiVerifiedUser | undefined;
-  private signer: SignerWalletAdapter | Keypair | undefined;
 
   /**
    * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
    *
+   * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
    * @param {string} publisherHandle - The publisher handle as registered with Torque (twitter, publisher pubKey or wallet address used when signing up).
    *
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
   constructor(signer: SignerWalletAdapter | Keypair, publisherHandle?: string) {
-    if (signer) {
-      throw new Error("The user's wallet or keypair was not provided.");
-    }
-
     this.client = new TorqueRequestClient(signer);
     this.publisherHandle = publisherHandle;
-    this.signer = signer;
   }
 
   /**
@@ -123,7 +112,7 @@ export class TorqueUserClient {
    *
    * @throws {Error} Throws an error if checking the user's login status fails.
    */
-  public async currentUser() {
+  public async getCurrentUser() {
     if (!this.client) {
       throw new Error("The client is not initialized.");
     }
@@ -133,6 +122,7 @@ export class TorqueUserClient {
         return this.user;
       }
 
+      // TODO: Update server with login and verify endpoints
       const result = await this.client.apiFetch<ApiVerifiedUser | false>(
         TORQUE_API_ROUTES.verify,
         {

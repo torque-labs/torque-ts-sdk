@@ -6,18 +6,9 @@ import {
   TxnExecute,
   TxnExecuteResponse,
 } from "@/types";
-import {
-  Connection,
-  Keypair,
-  Transaction,
-  VersionedTransaction,
-  clusterApiUrl,
-} from "@solana/web3.js";
+import { Keypair, VersionedTransaction } from "@solana/web3.js";
 import { base64ToUint8Array, uint8ArrayToBase64 } from "@/utils";
-import {
-  BaseWalletAdapter,
-  SignerWalletAdapter,
-} from "@solana/wallet-adapter-base";
+import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
 
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
@@ -36,9 +27,10 @@ export class TorqueRequestClient {
   /**
    * Create a new instance of the TorqueRequestClient class.
    *
-   * @param {TorqueRequestClientOptions} options - The options for the client.
+   * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
+   * @param {string} apiKey - The API key for the client.
    *
-   * @throws {Error} If the clientType is admin and the API key is not provided, or if the signer is not provided.
+   * @throws {Error} Throws an error if a signer is not provided.
    */
   constructor(signer: SignerWalletAdapter | Keypair, apiKey?: string) {
     if (!signer) {
