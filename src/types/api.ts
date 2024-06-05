@@ -1,30 +1,27 @@
-import {
-  SolanaSignInInput,
-  SolanaSignInOutput,
-} from "@solana/wallet-standard-features";
+import { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features';
 
 export enum ApiStatus {
-  SUCCESS = "SUCCESS",
-  BAD_REQUEST = "BAD_REQUEST",
-  NOT_AUTHORIZED = "NOT_AUTHORIZED",
-  FORBIDDEN = "FORBIDDEN",
-  NOT_FOUND = "NOT_FOUND",
-  INTERNAL_ERROR = "INTERNAL_ERROR",
+  SUCCESS = 'SUCCESS',
+  BAD_REQUEST = 'BAD_REQUEST',
+  NOT_AUTHORIZED = 'NOT_AUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
+  NOT_FOUND = 'NOT_FOUND',
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
 }
 
 export enum ApiEventType {
-  CLICK = "CLICK",
-  SWAP = "SWAP",
-  CAST_VOTE = "CAST_VOTE",
-  COMPRESSED_NFT_MINT = "COMPRESSED_NFT_MINT",
-  ADD_LIQUIDITY = "ADD_LIQUIDITY",
-  INTERACT = "INTERACT",
-  SIGN_UP = "SIGN_UP",
+  CLICK = 'CLICK',
+  SWAP = 'SWAP',
+  CAST_VOTE = 'CAST_VOTE',
+  COMPRESSED_NFT_MINT = 'COMPRESSED_NFT_MINT',
+  ADD_LIQUIDITY = 'ADD_LIQUIDITY',
+  INTERACT = 'INTERACT',
+  SIGN_UP = 'SIGN_UP',
 }
 
 export enum ApiRewardType {
-  POINTS = "POINTS",
-  TOKENS = "TOKENS",
+  POINTS = 'POINTS',
+  TOKENS = 'TOKENS',
 }
 
 export type ApiResponseSuccess<T> = {
@@ -41,7 +38,7 @@ export type ApiResponse<T> = ApiResponseSuccess<T> | ApiResponseError;
 
 export type ApiInputLogin =
   | {
-      authType: "siws";
+      authType: 'siws';
       pubKey: string;
       payload: {
         input: SolanaSignInInput;
@@ -49,7 +46,7 @@ export type ApiInputLogin =
       };
     }
   | {
-      authType: "basic";
+      authType: 'basic';
       pubKey: string;
       payload: { input: string; output: string };
     };
@@ -70,9 +67,9 @@ export type ApiCampaign = {
   targetLink?: string;
   offerLink?: string;
   userRewardToken?: string;
-  userRewardAmount?: any;
+  userRewardAmount?: number;
   publisherRewardToken?: string;
-  publisherRewardAmount?: any;
+  publisherRewardAmount?: number;
   publisherRewardType?: string;
   audiences: {
     id: string;
@@ -137,23 +134,14 @@ export type ApiLinks = {
 };
 
 export enum ApiTxnTypes {
-  CampaignCreate = "CampaignCreate",
-  CampaignEnd = "CampaignEnd",
-  PublisherPayout = "PublisherPayout",
-  PublisherCreate = "PublisherCreate",
+  CampaignCreate = 'CampaignCreate',
+  CampaignEnd = 'CampaignEnd',
+  PublisherPayout = 'PublisherPayout',
+  PublisherCreate = 'PublisherCreate',
 }
 
-export const UserTransactionTypes = [
-  ApiTxnTypes.PublisherCreate,
-  ApiTxnTypes.PublisherPayout,
-];
+export const UserTransactionTypes = [ApiTxnTypes.PublisherCreate, ApiTxnTypes.PublisherPayout];
 
-export const AdminTransactionTypes = [
-  ApiTxnTypes.CampaignCreate,
-  ApiTxnTypes.CampaignEnd,
-];
+export const AdminTransactionTypes = [ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd];
 
-export const TransactionType = [
-  ...UserTransactionTypes,
-  ...AdminTransactionTypes,
-];
+export const TransactionType = [...UserTransactionTypes, ...AdminTransactionTypes];

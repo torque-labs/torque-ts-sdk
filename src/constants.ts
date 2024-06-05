@@ -1,7 +1,7 @@
-const TORQUE_API_URL = process.env.TORQUE_API_URL ?? "https://api.torque.so";
-const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? "https://app.torque.so";
+const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
+const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
 
-const TORQUE_PROGRAM_PUBKEY = "7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra";
+const TORQUE_PROGRAM_PUBKEY = '7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra';
 
 const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 
@@ -25,7 +25,7 @@ const TORQUE_API_ROUTES = {
 
 const PUBLISHER_ACCOUNT_SIZE = 41;
 
-const SOLANA_NETWORK = "devnet";
+const SOLANA_NETWORK = 'devnet';
 
 export {
   TORQUE_API_URL,

@@ -1,12 +1,14 @@
-import { TORQUE_API_ROUTES, TORQUE_SHARE_URL } from "@/constants";
-import { ApiCampaign, ApiInputLogin, ApiShare, ApiVerifiedUser } from "@/types";
-import { TorqueRequestClient } from "@/classes/request";
-import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
-import { Keypair } from "@solana/web3.js";
+import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { SolanaSignInOutput } from '@solana/wallet-standard-features';
+import { Keypair } from '@solana/web3.js';
+
+import { TorqueRequestClient } from './request.js';
+import { TORQUE_API_ROUTES, TORQUE_SHARE_URL } from '../constants.js';
+import { ApiCampaign, ApiIdentifyPayload, ApiInputLogin, ApiShare, ApiVerifiedUser } from '../types/index.js';
 
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
- * The user client allows publishers to fetch campaigns and offers that are available for the current user.
+ * The user client allows publishers to fetch campaigns and offers that are savailable for the current user.
  *
  * @example
  * const client = new TorqueUserClient();
@@ -63,7 +65,7 @@ export class TorqueUserClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error initializing the user.");
+      throw new Error('There was an error initializing the user.');
     }
   }
 
@@ -78,24 +80,21 @@ export class TorqueUserClient {
    */
   private async login(loginOptions: ApiInputLogin) {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
       // TODO: Update server with login and verify endpoints
-      const result = await this.client.apiFetch<ApiVerifiedUser>(
-        TORQUE_API_ROUTES.login,
-        {
-          method: "POST",
-          body: JSON.stringify(loginOptions),
-        }
-      );
+      const result = await this.client.apiFetch<ApiVerifiedUser>(TORQUE_API_ROUTES.login, {
+        method: 'POST',
+        body: JSON.stringify(loginOptions),
+      });
 
       return result;
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error logging in.");
+      throw new Error('There was an error logging in.');
     }
   }
 
@@ -114,7 +113,7 @@ export class TorqueUserClient {
    */
   public async getCurrentUser() {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
@@ -123,12 +122,9 @@ export class TorqueUserClient {
       }
 
       // TODO: Update server with login and verify endpoints
-      const result = await this.client.apiFetch<ApiVerifiedUser | false>(
-        TORQUE_API_ROUTES.verify,
-        {
-          method: "GET",
-        }
-      );
+      const result = await this.client.apiFetch<ApiVerifiedUser | false>(TORQUE_API_ROUTES.verify, {
+        method: 'GET',
+      });
 
       if (result) {
         this.user = result;
@@ -141,7 +137,7 @@ export class TorqueUserClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error checking if the user is logged in.");
+      throw new Error('There was an error checking if the user is logged in.');
     }
   }
 
@@ -152,16 +148,74 @@ export class TorqueUserClient {
    */
   public getUserHandle() {
     if (this.user) {
-      const handle =
-        this.user.username ||
-        this.user.twitter ||
-        this.user.pubKey ||
-        this.user.publisherPubKey;
+      const handle = this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
 
       return handle;
     }
 
     return undefined;
+  }
+
+  /**
+   * Retrieves a sample SIWS payload for l ogging into the Torque API.
+   *
+   * @returns {Promise<ApiIdentifyPayload>} A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
+   *
+   * @throws {Error} Throws an error if the API request is unsuccessful.
+   */
+  public async getLoginPayload() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+    try {
+      const result = await this.client.apiFetch<ApiIdentifyPayload>(TORQUE_API_ROUTES.identify, {
+        method: 'GET',
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the login payload.');
+    }
+  }
+
+  /**
+   * Constructs the body for the login API request based on the authentication type.
+   *
+   * @param {ApiInputLogin} params - The parameters for constructing the login body.
+   *
+   * @returns The constructed body for the verify API request, formatted based on the authentication type.
+   */
+  public constructLoginBody(params: ApiInputLogin) {
+    const { payload, authType, pubKey } = params;
+    const body =
+      authType === 'siws'
+        ? {
+            authType,
+            pubKey,
+            payload: {
+              input: payload.input,
+              output: {
+                account: {
+                  ...payload.output.account,
+                  publicKey: Array.from(new Uint8Array(payload.output.account.publicKey)),
+                },
+                signature: new Uint8Array(payload.output.signature),
+                signedMessage: new Uint8Array(payload.output.signedMessage),
+              } as unknown as SolanaSignInOutput,
+            },
+          }
+        : {
+            authType,
+            pubKey,
+            payload: {
+              input: payload.input,
+              output: payload.output,
+            },
+          };
+
+    return body;
   }
 
   /**
@@ -179,20 +233,18 @@ export class TorqueUserClient {
    */
   public async getCampaigns() {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
-      const params = this.publisherHandle
-        ? new URLSearchParams({ publisher: this.publisherHandle })
-        : {};
+      const params = this.publisherHandle ? new URLSearchParams({ publisher: this.publisherHandle }) : {};
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
       }>(`${TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -219,7 +271,7 @@ export class TorqueUserClient {
    */
   public isPublisher() {
     if (!this.user) {
-      throw new Error("The user is not signed in.");
+      throw new Error('The user is not signed in.');
     }
 
     return this.user && this.user.isPublisher ? true : false;
@@ -241,7 +293,7 @@ export class TorqueUserClient {
     if (handle && isPublisher) {
       return `${TORQUE_SHARE_URL}/${handle}/${campaignId}`;
     } else {
-      throw new Error("The user is not a publisher.");
+      throw new Error('The user is not a publisher.');
     }
   }
 
@@ -254,7 +306,7 @@ export class TorqueUserClient {
    */
   public async getAllUserShareLinks() {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
@@ -264,16 +316,19 @@ export class TorqueUserClient {
           url: string;
         }[];
       }>(TORQUE_API_ROUTES.links, {
-        method: "GET",
+        method: 'GET',
       });
 
       return result;
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error getting the shared link data.");
+      throw new Error('There was an error getting the shared link data.');
     }
   }
+
+  // TODO: set user publisher when txn is executed
+  public setUserPublisher() {}
 
   /**
    * ========================================================================
@@ -293,24 +348,21 @@ export class TorqueUserClient {
    */
   public async getSharedLinkData(campaignId: string, handle: string) {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
       const params = new URLSearchParams({ campaignId, handle });
 
-      const result = await this.client.apiFetch<ApiShare>(
-        `${TORQUE_API_ROUTES.share}?${params.toString()}`,
-        {
-          method: "GET",
-        }
-      );
+      const result = await this.client.apiFetch<ApiShare>(`${TORQUE_API_ROUTES.share}?${params.toString()}`, {
+        method: 'GET',
+      });
 
       return result;
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error getting the shared link data.");
+      throw new Error('There was an error getting the shared link data.');
     }
   }
 }

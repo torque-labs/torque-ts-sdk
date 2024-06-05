@@ -1,7 +1,8 @@
-import { TorqueRequestClient } from "@/classes/request";
-import { ApiTxnTypes, CampaignCreateInput, CampaignEndInput } from "../types";
-import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
-import { Keypair } from "@solana/web3.js";
+import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { Keypair } from '@solana/web3.js';
+
+import { TorqueRequestClient } from './request.js';
+import { ApiTxnTypes, CampaignCreateInput, CampaignEndInput } from '../types/index.js';
 
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
@@ -38,7 +39,7 @@ export class TorqueAdminClient {
    */
   public async createCampaign(data: CampaignCreateInput) {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
@@ -52,7 +53,7 @@ export class TorqueAdminClient {
       return signature;
     } catch (error) {
       console.error(error);
-      throw new Error("There was an error creating the campaign.");
+      throw new Error('There was an error creating the campaign.');
     }
   }
 
@@ -65,7 +66,7 @@ export class TorqueAdminClient {
    */
   public async endCampaign(data: CampaignEndInput) {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
@@ -79,7 +80,7 @@ export class TorqueAdminClient {
       return signature;
     } catch (error) {
       console.error(error);
-      throw new Error("There was an error ending the campaign.");
+      throw new Error('There was an error ending the campaign.');
     }
   }
 
@@ -98,7 +99,7 @@ export class TorqueAdminClient {
    */
   public async initPublisher() {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
@@ -111,7 +112,7 @@ export class TorqueAdminClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error creating the publisher.");
+      throw new Error('There was an error creating the publisher.');
     }
   }
 
@@ -124,7 +125,7 @@ export class TorqueAdminClient {
    */
   public async payoutPublisher(data: { token: string; amount: number }) {
     if (!this.client) {
-      throw new Error("The client is not initialized.");
+      throw new Error('The client is not initialized.');
     }
 
     try {
@@ -137,7 +138,7 @@ export class TorqueAdminClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error paying out the publisher.");
+      throw new Error('There was an error paying out the publisher.');
     }
   }
 }

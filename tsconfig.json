@@ -1,22 +1,24 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "dom", "dom.iterable"],
+    "lib": ["es2022", "dom", "dom.iterable"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
     "plugins": [],
-    "paths": {
-      "@/*": ["./src/*"]
-    },
+    "paths": {},
+    "declaration": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "moduleDetection": "force",
+    "noImplicitOverride": true
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "src/client.ts", "src/auth.ts", "src/audiences.ts"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

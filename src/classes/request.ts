@@ -1,14 +1,9 @@
-import { TORQUE_API_ROUTES } from "@/constants";
-import {
-  TxnInput,
-  ApiTxnTypes,
-  ApiResponse,
-  TxnExecute,
-  TxnExecuteResponse,
-} from "@/types";
-import { Keypair, VersionedTransaction } from "@solana/web3.js";
-import { base64ToUint8Array, uint8ArrayToBase64 } from "@/utils";
-import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
+import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { Keypair, VersionedTransaction } from '@solana/web3.js';
+
+import { TORQUE_API_ROUTES } from '../constants.js';
+import { TxnInput, ApiTxnTypes, ApiResponse, TxnExecute, TxnExecuteResponse } from '../types/index.js';
+import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
@@ -34,16 +29,14 @@ export class TorqueRequestClient {
    */
   constructor(signer: SignerWalletAdapter | Keypair, apiKey?: string) {
     if (!signer) {
-      throw new Error(
-        "You need to provide a SignerWalletAdapter or Keypair in the signer parameter."
-      );
+      throw new Error('You need to provide a SignerWalletAdapter or Keypair in the signer parameter.');
     }
 
     this.signer = signer;
     this.apiKey = apiKey;
     this.apiAuthHeader = apiKey
       ? {
-          "x-torque-api-key": `${this.apiKey}`,
+          'x-torque-api-key': `${this.apiKey}`,
         }
       : {};
   }
@@ -62,10 +55,10 @@ export class TorqueRequestClient {
    */
   public async apiFetch<T>(url: string, options?: RequestInit) {
     const reqOptions: RequestInit = {
-      credentials: "include",
+      credentials: 'include',
       ...options,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         ...this.apiAuthHeader,
         ...options?.headers,
       },
@@ -75,7 +68,7 @@ export class TorqueRequestClient {
       const response = await fetch(url, reqOptions);
       const result = (await response.json()) as unknown as ApiResponse<T>;
 
-      if (result.status === "SUCCESS") {
+      if (result.status === 'SUCCESS') {
         return result.data;
       } else {
         throw new Error(result.message);
@@ -83,7 +76,7 @@ export class TorqueRequestClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("There was an error performing the request.");
+      throw new Error('There was an error performing the request.');
     }
   }
 
@@ -100,26 +93,18 @@ export class TorqueRequestClient {
    */
   private async buildTransaction<T>(txnInput: TxnInput) {
     const data = {
-      ...(txnInput.txnType === ApiTxnTypes.CampaignCreate
-        ? { createCampaign: txnInput.data }
-        : {}),
+      ...(txnInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnInput.data } : {}),
 
-      ...(txnInput.txnType === ApiTxnTypes.CampaignEnd
-        ? { endCampaign: txnInput.data }
-        : {}),
+      ...(txnInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnInput.data } : {}),
 
-      ...(txnInput.txnType === ApiTxnTypes.PublisherCreate
-        ? { createPublisher: txnInput.data }
-        : {}),
+      ...(txnInput.txnType === ApiTxnTypes.PublisherCreate ? { createPublisher: txnInput.data } : {}),
 
-      ...(txnInput.txnType === ApiTxnTypes.PublisherPayout
-        ? { payoutPublisher: txnInput.data }
-        : {}),
+      ...(txnInput.txnType === ApiTxnTypes.PublisherPayout ? { payoutPublisher: txnInput.data } : {}),
     };
 
     try {
       const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({ ...data }),
       });
 
@@ -127,7 +112,7 @@ export class TorqueRequestClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("Unable to prepare the transaction.");
+      throw new Error('Unable to prepare the transaction.');
     }
   }
 
@@ -142,37 +127,26 @@ export class TorqueRequestClient {
    */
   private async executeTransaction(txnExecuteInput: TxnExecute) {
     const data = {
-      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
-        ? { createCampaign: txnExecuteInput.data }
-        : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnExecuteInput.data } : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd
-        ? { endCampaign: txnExecuteInput.data }
-        : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnExecuteInput.data } : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate
-        ? { createPublisher: txnExecuteInput.data }
-        : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate ? { createPublisher: txnExecuteInput.data } : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout
-        ? { payoutPublisher: txnExecuteInput.data }
-        : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout ? { payoutPublisher: txnExecuteInput.data } : {}),
     };
 
     try {
-      const txn = await this.apiFetch<TxnExecuteResponse>(
-        TORQUE_API_ROUTES.transactions.execute,
-        {
-          method: "POST",
-          body: JSON.stringify({ ...data }),
-        }
-      );
+      const txn = await this.apiFetch<TxnExecuteResponse>(TORQUE_API_ROUTES.transactions.execute, {
+        method: 'POST',
+        body: JSON.stringify({ ...data }),
+      });
 
       return txn;
     } catch (error) {
       console.error(error);
 
-      throw new Error("Unable to execute the transaction.");
+      throw new Error('Unable to execute the transaction.');
     }
   }
 
@@ -188,22 +162,16 @@ export class TorqueRequestClient {
    */
   public async transaction<T>(txnInput: TxnInput) {
     if (!this.signer) {
-      throw new Error(
-        "The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair."
-      );
+      throw new Error('The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.');
     }
 
     try {
-      const { serializedTx, ...rest } = await this.buildTransaction<T>(
-        txnInput
-      );
+      const { serializedTx, ...rest } = await this.buildTransaction<T>(txnInput);
 
-      const txn = VersionedTransaction.deserialize(
-        base64ToUint8Array(serializedTx)
-      );
+      const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
 
       const signedTx =
-        "signTransaction" in this.signer
+        'signTransaction' in this.signer
           ? await (this.signer as SignerWalletAdapter).signTransaction(txn)
           : this.signWithKeypair(txn);
 
@@ -224,7 +192,7 @@ export class TorqueRequestClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error("The transaction was unable to be processed.");
+      throw new Error('The transaction was unable to be processed.');
     }
   }
 
@@ -239,13 +207,11 @@ export class TorqueRequestClient {
    */
   private signWithKeypair(txn: VersionedTransaction) {
     if (!this.signer) {
-      throw new Error(
-        "The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair."
-      );
+      throw new Error('The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.');
     }
 
-    if ("signTransaction" in this.signer) {
-      throw new Error("This method is only for signing with a Keypair.");
+    if ('signTransaction' in this.signer) {
+      throw new Error('This method is only for signing with a Keypair.');
     }
 
     const keypair = this.signer as Keypair;

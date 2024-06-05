@@ -1,7 +1,8 @@
-import { Keypair } from "@solana/web3.js";
-import { TorqueAdminClient } from "./admin";
-import { TorqueUserClient } from "./user";
-import { SignerWalletAdapter } from "@solana/wallet-adapter-base";
+import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { Keypair } from '@solana/web3.js';
+
+import { TorqueAdminClient } from './admin.js';
+import { TorqueUserClient } from './user.js';
 
 export type TorqueSDKOptions = {
   signer: SignerWalletAdapter | Keypair;
@@ -40,7 +41,7 @@ export class TorqueSDK {
    */
   constructor(options: TorqueSDKOptions) {
     if (!options.apiKey && !options.publisherHandle) {
-      throw new Error("You must provide an API key or a publisher handle.");
+      throw new Error('You must provide an API key or a publisher handle.');
     }
 
     if (options.apiKey) {

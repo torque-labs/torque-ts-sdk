@@ -1,4 +1,4 @@
-import z from "zod";
+import z from 'zod';
 
 import {
   CampaignCreateInputSchema,
@@ -7,8 +7,7 @@ import {
   PublisherCreateInputSchema,
   TxnInputSchema,
   TxnExecuteSchema,
-  TxnBuildResponseSchemas,
-} from "../schemas";
+} from '../schemas/index.js';
 
 export type CampaignCreateInput = z.infer<typeof CampaignCreateInputSchema>;
 export type CampaignEndInput = z.infer<typeof CampaignEndInputSchema>;
