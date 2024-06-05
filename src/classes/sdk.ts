@@ -31,7 +31,7 @@ export type TorqueSDKOptions = {
  *   : await sdk.user.initializeUser(ApiInputLogin);
  */
 export class TorqueSDK {
-  public user: TorqueUserClient | undefined;
+  public user: TorqueUserClient;
   public api: TorqueAdminClient | undefined;
 
   /**

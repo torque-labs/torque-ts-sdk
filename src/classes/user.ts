@@ -23,7 +23,7 @@ import { ApiCampaign, ApiIdentifyPayload, ApiInputLogin, ApiShare, ApiVerifiedUs
 export class TorqueUserClient {
   public publisherHandle: string | undefined;
   public initialized: boolean = false;
-  private client: TorqueRequestClient | undefined;
+  private client: TorqueRequestClient;
   private user: ApiVerifiedUser | undefined;
 
   /**

@@ -16,8 +16,8 @@ import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
  */
 export class TorqueRequestClient {
   private apiKey: string | undefined;
-  private apiAuthHeader: Record<string, string> = {};
-  private signer: SignerWalletAdapter | Keypair | undefined;
+  private apiAuthHeader: Record<string, string>;
+  private signer: SignerWalletAdapter | Keypair;
 
   /**
    * Create a new instance of the TorqueRequestClient class.

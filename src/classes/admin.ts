@@ -14,7 +14,7 @@ import { ApiTxnTypes, CampaignCreateInput, CampaignEndInput } from '../types/ind
  * const result = await client.endCampaign(<campaignData>);
  */
 export class TorqueAdminClient {
-  private client: TorqueRequestClient | undefined;
+  private client: TorqueRequestClient;
 
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
