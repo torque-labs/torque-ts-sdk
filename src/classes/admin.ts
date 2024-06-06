@@ -2,7 +2,14 @@ import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
-import { ApiTxnTypes, CampaignCreateInput, CampaignEndInput } from '../types/index.js';
+import { TORQUE_API_ROUTES } from '../constants.js';
+import {
+  ApiCampaign,
+  ApiCampaignLeaderboard,
+  ApiTxnTypes,
+  CampaignCreateInput,
+  CampaignEndInput,
+} from '../types/index.js';
 
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
@@ -33,9 +40,41 @@ export class TorqueAdminClient {
    */
 
   /**
+   * Get a list of all currently active campaigns.
+   *
+   * @returns i
+   */
+  public async getCampaigns() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const params = new URLSearchParams({ status: 'ACTIVE' });
+
+      const result = await this.client.apiFetch<{
+        campaigns: ApiCampaign[];
+      }>(`${TORQUE_API_ROUTES.campaigns}?${params.toString()}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error("There was an error getting user's eligible campaigns.");
+    }
+  }
+
+  /**
    * Create a new campaign with the provided data.
    *
    * @param {CampaignCreateInput} campaignData - The data for the campaign to create.
+   *
+   * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
    */
   public async createCampaign(data: CampaignCreateInput) {
     if (!this.client) {
@@ -62,6 +101,8 @@ export class TorqueAdminClient {
    *
    * @param {CampaignEndInput} campaignData - The ID of the campaign to end.
    *
+   * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+   *
    * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
    */
   public async endCampaign(data: CampaignEndInput) {
@@ -81,6 +122,38 @@ export class TorqueAdminClient {
     } catch (error) {
       console.error(error);
       throw new Error('There was an error ending the campaign.');
+    }
+  }
+
+  /**
+   * Get the leaderboard for a specific campaign.
+   *
+   * @param {string} campaignId - The ID of the campaign to get the leaderboard for.
+   *
+   * @returns {Promise<ApiCampaignLeaderboard>} A Promise that resolves to the leaderboard data for the campaign.
+   *
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error getting the leaderboard.
+   */
+  public async getLeaderboard(campaignId: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const params = new URLSearchParams({ campaignId });
+
+      const result = await this.client.apiFetch<ApiCampaignLeaderboard>(
+        `${TORQUE_API_ROUTES.leaderboards}?${params.toString()}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the leaderboard.');
     }
   }
 
@@ -117,7 +190,7 @@ export class TorqueAdminClient {
   }
 
   /**
-   * Process a publisher payout fpr the current user, if eligible.
+   * Process a publisher payout for the current user, if eligible.
    *
    * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
    *

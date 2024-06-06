@@ -133,6 +133,20 @@ export type ApiLinks = {
   }[];
 };
 
+export type ApiCampaignLeaderboard = {
+  campaignName: string;
+  leaderboard: {
+    user: string;
+    profileImage?: string | null;
+    conversions: number;
+  }[];
+};
+
+export type ApiUserJourney = {
+  campaignId: string;
+  status: string;
+};
+
 export enum ApiTxnTypes {
   CampaignCreate = 'CampaignCreate',
   CampaignEnd = 'CampaignEnd',

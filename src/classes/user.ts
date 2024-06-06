@@ -4,7 +4,14 @@ import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TORQUE_API_ROUTES, TORQUE_SHARE_URL } from '../constants.js';
-import { ApiCampaign, ApiIdentifyPayload, ApiInputLogin, ApiShare, ApiVerifiedUser } from '../types/index.js';
+import {
+  ApiCampaign,
+  ApiIdentifyPayload,
+  ApiInputLogin,
+  ApiShare,
+  ApiUserJourney,
+  ApiVerifiedUser,
+} from '../types/index.js';
 
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
@@ -56,6 +63,7 @@ export class TorqueUserClient {
    */
   public async initializeUser(userAuth: ApiInputLogin) {
     try {
+      // TODO: See if user is already logged in with API
       const verifiedUser = await this.login(userAuth);
 
       this.user = verifiedUser;
@@ -63,6 +71,7 @@ export class TorqueUserClient {
 
       return this.user;
     } catch (error) {
+      // TODO: Unset user if not verified
       console.error(error);
 
       throw new Error('There was an error initializing the user.');
@@ -99,15 +108,74 @@ export class TorqueUserClient {
   }
 
   /**
+   * Authenticate the user with the torque API with the provided user signature object.
+   *
+   * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
+   *
+   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
+   *
+   * @throws {Error} Throws an error if there is an error authenticating the user.
+   */
+  private async logout() {
+    if (!this.client) {
+      throw new Error('The client was not initialized.');
+    }
+
+    if (!this.user) {
+      throw new Error('There is no user signed in.');
+    }
+
+    // TODO: unset client
+    // TODO: add logout endpoint to API?
+    this.publisherHandle = undefined;
+    this.initialized = false;
+    this.user = undefined;
+  }
+
+  /**
    * ========================================================================
    * USER
    * ========================================================================
    */
 
   /**
+   * Rereshes the user's information from the Torque API.
+   *
+   * @returns {Promise<ApiVerifiedUser | undefined>} A promise that resolves to the user if they are signed in, otherwise undefined.
+   */
+  public async refreshUser() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    if (this.user && this.initialized) {
+      try {
+        const result = await this.client.apiFetch<ApiVerifiedUser | false>(TORQUE_API_ROUTES.verify, {
+          method: 'GET',
+        });
+
+        if (result) {
+          this.user = result;
+          this.initialized = true;
+
+          return result;
+        }
+
+        return undefined;
+      } catch (error) {
+        console.error(error);
+
+        throw new Error('There was an error checking refreshing the user.');
+      }
+    } else {
+      throw new Error('The user is not signed in.');
+    }
+  }
+
+  /**
    * Checks to see if the user is already logged into the Torque API.
    *
-   * @returns {Promise<ApiVerifiedUser | false>} A promise that resolves to the user if they are signed in, otherwise false.
+   * @returns {Promise<ApiVerifiedUser | undefined>} A promise that resolves to the user if they are signed in, otherwise undefined.
    *
    * @throws {Error} Throws an error if checking the user's login status fails.
    */
@@ -133,7 +201,7 @@ export class TorqueUserClient {
         return result;
       }
 
-      return false;
+      return undefined;
     } catch (error) {
       console.error(error);
 
@@ -167,6 +235,7 @@ export class TorqueUserClient {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
+
     try {
       const result = await this.client.apiFetch<ApiIdentifyPayload>(TORQUE_API_ROUTES.identify, {
         method: 'GET',
@@ -237,6 +306,7 @@ export class TorqueUserClient {
     }
 
     try {
+      // TODO: Verify what publisher handle does for this endpoint
       const params = this.publisherHandle ? new URLSearchParams({ publisher: this.publisherHandle }) : {};
 
       const result = await this.client.apiFetch<{
@@ -253,6 +323,38 @@ export class TorqueUserClient {
       console.error(error);
 
       throw new Error("There was an error getting user's eligible campaigns.");
+    }
+  }
+
+  /**
+   * Accepts a campaign for the current user.
+   *
+   * @param {string} campaignId - The ID of the campaign to accept.
+   * @param {string} publisherHandle - The handle of the publisher to accept the campaign for.
+   *
+   * @returns {Promise<ApiUserJourney>} A Promise that resolves to the journey data for the campaign.
+   *
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error accepting the campaign.
+   */
+  public async acceptCampaign(campaignId: string, publisherHandle?: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<ApiUserJourney>(TORQUE_API_ROUTES.journey, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ campaignId, publisherHandle }),
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error accepting the campaign.');
     }
   }
 

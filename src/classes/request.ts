@@ -65,6 +65,7 @@ export class TorqueRequestClient {
     };
 
     try {
+      // TODO: Setup request caching
       const response = await fetch(url, reqOptions);
       const result = (await response.json()) as unknown as ApiResponse<T>;
 
