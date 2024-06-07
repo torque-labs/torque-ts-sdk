@@ -4,6 +4,8 @@ import { Keypair } from '@solana/web3.js';
 import { TorqueAdminClient } from './admin.js';
 import { TorqueAudienceClient } from './audience.js';
 import { TorqueUserClient } from './user.js';
+import { TORQUE_API_ROUTES } from '../constants.js';
+import { ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index.js';
 
 export type TorqueSDKOptions = {
   signer: SignerWalletAdapter | Keypair;
@@ -67,6 +69,40 @@ export class TorqueSDK {
         apiKey: options.apiKey,
         userClient: userClient,
       });
+    }
+  }
+
+  /**
+   * Static method to verify the login options with the Torque API.
+   *
+   * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
+   *
+   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
+   *
+   * @throws {Error} Throws an error if there is an error authenticating the user.
+   */
+  static async verifyLogin(loginOptions: ApiInputLogin) {
+    try {
+      // TODO: Setup request caching
+      const response = await fetch(TORQUE_API_ROUTES.login, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginOptions),
+      });
+
+      const result = (await response.json()) as unknown as ApiResponse<ApiVerifiedUser>;
+
+      if (result.status === 'SUCCESS') {
+        return result.data;
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error verifying the login options.');
     }
   }
 }

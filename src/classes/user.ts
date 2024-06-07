@@ -129,15 +129,11 @@ export class TorqueUserClient {
   }
 
   /**
-   * Authenticate the user with the torque API with the provided user signature object.
+   * Logout the user from the Torque API.
    *
-   * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
-   *
-   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
-   *
-   * @throws {Error} Throws an error if there is an error authenticating the user.
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
    */
-  private async logout() {
+  private logout() {
     if (!this.client) {
       throw new Error('The client was not initialized.');
     }
@@ -148,6 +144,7 @@ export class TorqueUserClient {
 
     // TODO: unset client
     // TODO: add logout endpoint to API?
+    // TOOD: clear coookies?
     this.publisherHandle = undefined;
     this.initialized = false;
     this.user = undefined;
