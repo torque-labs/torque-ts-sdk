@@ -1,9 +1,15 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { SolanaSignInOutput } from '@solana/wallet-standard-features';
-import { Keypair, PublicKey } from '@solana/web3.js';
+import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
-import { TORQUE_API_ROUTES, torquePubkey, TORQUE_SHARE_URL } from '../constants.js';
+import {
+  TORQUE_API_ROUTES,
+  torquePubkey,
+  TORQUE_SHARE_URL,
+  SOLANA_NETWORK,
+  PUBLISHER_ACCOUNT_SIZE,
+} from '../constants.js';
 import {
   ApiCampaign,
   ApiIdentifyPayload,
@@ -13,12 +19,18 @@ import {
   ApiVerifiedUser,
 } from '../types/index.js';
 
+type TorqueUserClientOptions = {
+  signer: SignerWalletAdapter | Keypair;
+  publisherHandle?: string;
+  rpc?: string;
+};
+
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
  * The user client allows publishers to fetch campaigns and offers that are savailable for the current user.
  *
  * @example
- * const client = new TorqueUserClient();
+ * const client = new TorqueUserClient(TorqueUserClientOptions);
  *
  * // Check if the user is already logged in with API
  * const currentUser = await client.getCurrentUser();
@@ -33,19 +45,20 @@ export class TorqueUserClient {
   private client: TorqueRequestClient;
   private user: ApiVerifiedUser | undefined;
   private signer: SignerWalletAdapter | Keypair;
+  private connection: Connection;
 
   /**
    * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
    *
-   * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
-   * @param {string} publisherHandle - The publisher handle as registered with Torque (twitter, publisher pubKey or wallet address used when signing up).
+   * @param {TorqueUserClientOptions} options - The options for the TorqueUserClient.
    *
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
-  constructor(signer: SignerWalletAdapter | Keypair, publisherHandle?: string) {
+  constructor({ signer, publisherHandle, rpc }: TorqueUserClientOptions) {
     this.client = new TorqueRequestClient(signer);
     this.publisherHandle = publisherHandle;
     this.signer = signer;
+    this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');
   }
 
   /**
@@ -153,7 +166,7 @@ export class TorqueUserClient {
     if (this.user && this.initialized) {
       try {
         const result = await this.client.apiFetch<ApiVerifiedUser | false>(
-          TORQUE_API_ROUTES.verify,
+          TORQUE_API_ROUTES.currentUser,
           {
             method: 'GET',
           },
@@ -161,11 +174,11 @@ export class TorqueUserClient {
 
         if (result) {
           this.user = result;
-          this.initialized = true;
 
           return result;
         }
 
+        // TODO: Unset user if not verified or no result
         return undefined;
       } catch (error) {
         console.error(error);
@@ -195,9 +208,12 @@ export class TorqueUserClient {
       }
 
       // TODO: Update server with login and verify endpoints
-      const result = await this.client.apiFetch<ApiVerifiedUser | false>(TORQUE_API_ROUTES.verify, {
-        method: 'GET',
-      });
+      const result = await this.client.apiFetch<ApiVerifiedUser | false>(
+        TORQUE_API_ROUTES.currentUser,
+        {
+          method: 'GET',
+        },
+      );
 
       if (result) {
         this.user = result;
@@ -413,14 +429,31 @@ export class TorqueUserClient {
    * @returns {PublicKey} The publisher PDA for the current user.
    */
   public getPublisherPda() {
-    if (this.signer.publicKey) {
-      const seeds = [Buffer.from('publisher'), this.signer.publicKey.toBuffer()];
+    if (this.user?.publisherPubKey) {
+      const seeds = [Buffer.from('publisher'), Buffer.from(this.user.publisherPubKey)];
       const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
 
       return publisherPda;
     } else {
       throw new Error('No public key found in the Adapter or Keypair.');
     }
+  }
+
+  /**
+   * Get the balance of the publisher PDA for the current user.
+   *
+   * @returns {Promise<number>} The balance of the publisher PDA for the current user in lamports.
+   */
+  public async getPublisherBalance() {
+    const pda = this.getPublisherPda();
+
+    const balance = await this.connection.getBalance(pda);
+    const rentExemptBalance =
+      await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
+
+    const maxTransferable = balance - rentExemptBalance;
+
+    return maxTransferable;
   }
 
   /**

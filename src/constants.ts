@@ -15,7 +15,7 @@ const TORQUE_API_ROUTES = {
   share: `${TORQUE_API_URL}/share`,
   users: `${TORQUE_API_URL}/users`,
   userCampaigns: `${TORQUE_API_URL}/users/campaigns`,
-  verify: `${TORQUE_API_URL}/verify`,
+  currentUser: `${TORQUE_API_URL}/users/me`,
   login: `${TORQUE_API_URL}/login`,
   leaderboards: `${TORQUE_API_URL}/leaderboards`,
   raffle: `${TORQUE_API_URL}/asymmetricReward`,
@@ -29,6 +29,7 @@ const TORQUE_API_ROUTES = {
  * Chain constants
  */
 const PUBLISHER_ACCOUNT_SIZE = 41;
+// const SOLANA_NETWORK = 'mainnet-beta';
 const SOLANA_NETWORK = 'devnet';
 const TORQUE_PROGRAM_ID = '7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra';
 const torquePubkey = new PublicKey(TORQUE_PROGRAM_ID);

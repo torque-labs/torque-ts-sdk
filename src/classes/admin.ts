@@ -2,6 +2,7 @@ import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
+import { TorqueUserClient } from './user.js';
 import { TORQUE_API_ROUTES } from '../constants.js';
 import {
   ApiCampaign,
@@ -11,6 +12,12 @@ import {
   CampaignCreateInput,
   CampaignEndInput,
 } from '../types/index.js';
+
+type TorqueAdminClientOptions = {
+  signer: SignerWalletAdapter | Keypair;
+  apiKey: string;
+  userClient: TorqueUserClient;
+};
 
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
@@ -23,6 +30,7 @@ import {
  */
 export class TorqueAdminClient {
   private client: TorqueRequestClient;
+  private userClient: TorqueUserClient;
 
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
@@ -30,8 +38,9 @@ export class TorqueAdminClient {
    * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
    * @param {string} apiKey - The API key for the admin client.
    */
-  constructor(signer: SignerWalletAdapter | Keypair, apiKey: string) {
+  constructor({ signer, apiKey, userClient }: TorqueAdminClientOptions) {
     this.client = new TorqueRequestClient(signer, apiKey);
+    this.userClient = userClient;
   }
 
   /**
@@ -211,6 +220,8 @@ export class TorqueAdminClient {
         txnType: ApiTxnTypes.PublisherCreate,
         data: true,
       });
+
+      await this.userClient.refreshUser();
 
       return signature;
     } catch (error) {

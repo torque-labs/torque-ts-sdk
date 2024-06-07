@@ -8,6 +8,7 @@ export type TorqueSDKOptions = {
   signer: SignerWalletAdapter | Keypair;
   apiKey?: string;
   publisherHandle?: string;
+  rpc?: string;
 };
 
 /**
@@ -44,10 +45,20 @@ export class TorqueSDK {
       throw new Error('You must provide an API key or a publisher handle.');
     }
 
-    if (options.apiKey) {
-      this.api = new TorqueAdminClient(options.signer, options.apiKey);
-    }
+    const userClient = new TorqueUserClient({
+      signer: options.signer,
+      publisherHandle: options.publisherHandle,
+      rpc: options.rpc,
+    });
 
-    this.user = new TorqueUserClient(options.signer, options.publisherHandle);
+    this.user = userClient;
+
+    if (options.apiKey) {
+      this.api = new TorqueAdminClient({
+        signer: options.signer,
+        apiKey: options.apiKey,
+        userClient: userClient,
+      });
+    }
   }
 }
