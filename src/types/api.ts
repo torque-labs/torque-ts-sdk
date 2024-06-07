@@ -71,6 +71,7 @@ export type ApiCampaign = {
   publisherRewardToken?: string;
   publisherRewardAmount?: number;
   publisherRewardType?: string;
+  asymmetricRewards: { tokenAddress: string; amount: number }[];
   audiences: {
     id: string;
     title: string;
