@@ -2,6 +2,7 @@ import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
 import { TorqueAdminClient } from './admin.js';
+import { TorqueAudienceClient } from './audience.js';
 import { TorqueUserClient } from './user.js';
 
 export type TorqueSDKOptions = {
@@ -34,6 +35,7 @@ export type TorqueSDKOptions = {
 export class TorqueSDK {
   public user: TorqueUserClient;
   public api: TorqueAdminClient | undefined;
+  public audience: TorqueAudienceClient | undefined;
 
   /**
    * Initializes the TorqueSDK with the provided options.
@@ -55,6 +57,12 @@ export class TorqueSDK {
 
     if (options.apiKey) {
       this.api = new TorqueAdminClient({
+        signer: options.signer,
+        apiKey: options.apiKey,
+        userClient: userClient,
+      });
+
+      this.audience = new TorqueAudienceClient({
         signer: options.signer,
         apiKey: options.apiKey,
         userClient: userClient,

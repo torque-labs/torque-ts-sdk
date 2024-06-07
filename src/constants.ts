@@ -2,6 +2,7 @@ import { PublicKey } from '@solana/web3.js';
 
 const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
 const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
+const TORQUE_FUNCTIONS_URL = process.env.TORQUE_FUNCTIONS_URL ?? 'https://functions.torque.so';
 
 const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 
@@ -25,6 +26,13 @@ const TORQUE_API_ROUTES = {
   },
 };
 
+const TORQUE_FUNCTIONS_ROUTES = {
+  audience: {
+    build: `${TORQUE_FUNCTIONS_URL}/build`,
+    verify: `${TORQUE_FUNCTIONS_URL}/verify`,
+  },
+};
+
 /**
  * Chain constants
  */
@@ -41,5 +49,6 @@ export {
   PUBLISHER_ACCOUNT_SIZE,
   TORQUE_PROGRAM_ID,
   SOLANA_NETWORK,
+  TORQUE_FUNCTIONS_ROUTES,
   torquePubkey,
 };

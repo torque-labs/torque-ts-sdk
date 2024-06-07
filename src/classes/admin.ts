@@ -35,7 +35,7 @@ export class TorqueAdminClient {
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
    *
-   * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
+   * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
    * @param {string} apiKey - The API key for the admin client.
    */
   constructor({ signer, apiKey, userClient }: TorqueAdminClientOptions) {

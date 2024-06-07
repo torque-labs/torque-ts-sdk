@@ -42,6 +42,7 @@ type TorqueUserClientOptions = {
 export class TorqueUserClient {
   public publisherHandle: string | undefined;
   public initialized: boolean = false;
+  public publicKey: string;
   private client: TorqueRequestClient;
   private user: ApiVerifiedUser | undefined;
   private signer: SignerWalletAdapter | Keypair;
@@ -55,7 +56,12 @@ export class TorqueUserClient {
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
   constructor({ signer, publisherHandle, rpc }: TorqueUserClientOptions) {
+    if (!signer.publicKey) {
+      throw new Error('The wallet/signer provided does not have a public key.');
+    }
+
     this.client = new TorqueRequestClient(signer);
+    this.publicKey = signer.publicKey.toString();
     this.publisherHandle = publisherHandle;
     this.signer = signer;
     this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');

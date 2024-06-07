@@ -8,6 +8,7 @@ import {
   ApiResponse,
   TxnExecute,
   TxnExecuteResponse,
+  AudienceFunctionResponse,
 } from '../types/index.js';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
@@ -82,6 +83,42 @@ export class TorqueRequestClient {
       } else {
         throw new Error(result.message);
       }
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error performing the request.');
+    }
+  }
+
+  /**
+   * Perform a request to a Torque Function endpoint.
+   *
+   * @template {object} T - The type of the response data.
+   *
+   * @param {string} url - The URL of the API endpoint.
+   * @param {RequestInit} options - The options for the request.
+   *
+   * @returns {Promise<AudienceFunctionResponse<T>>} The response from the API.
+   *
+   * @throws {Error} If there is an error performing the request.
+   */
+  public async functionsFetch<T>(url: string, options?: RequestInit) {
+    const reqOptions: RequestInit = {
+      credentials: 'include',
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...this.apiAuthHeader,
+        ...options?.headers,
+      },
+    };
+
+    try {
+      // TODO: Setup request caching
+      const response = await fetch(url, reqOptions);
+      const result = (await response.json()) as unknown as AudienceFunctionResponse<T>;
+
+      return result;
     } catch (error) {
       console.error(error);
 
