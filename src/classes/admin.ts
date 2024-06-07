@@ -6,6 +6,7 @@ import { TORQUE_API_ROUTES } from '../constants.js';
 import {
   ApiCampaign,
   ApiCampaignLeaderboard,
+  ApiRaffleRewards,
   ApiTxnTypes,
   CampaignCreateInput,
   CampaignEndInput,
@@ -154,6 +155,36 @@ export class TorqueAdminClient {
       console.error(error);
 
       throw new Error('There was an error getting the leaderboard.');
+    }
+  }
+
+  /**
+   * Get the raffle rewards for a specific campaign.
+   *
+   * @param {string} campaignId - The ID of the campaign to get the raffle rewards for.
+   *
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error getting the raffle rewards.
+   */
+  public async raffleRewards(campaignId: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const params = new URLSearchParams({ campaignId });
+
+      const result = await this.client.apiFetch<ApiRaffleRewards>(
+        `${TORQUE_API_ROUTES.raffle}?${params.toString()}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the raffle rewards.');
     }
   }
 

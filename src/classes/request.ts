@@ -2,7 +2,13 @@ import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair, VersionedTransaction } from '@solana/web3.js';
 
 import { TORQUE_API_ROUTES } from '../constants.js';
-import { TxnInput, ApiTxnTypes, ApiResponse, TxnExecute, TxnExecuteResponse } from '../types/index.js';
+import {
+  TxnInput,
+  ApiTxnTypes,
+  ApiResponse,
+  TxnExecute,
+  TxnExecuteResponse,
+} from '../types/index.js';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
 /**
@@ -29,7 +35,9 @@ export class TorqueRequestClient {
    */
   constructor(signer: SignerWalletAdapter | Keypair, apiKey?: string) {
     if (!signer) {
-      throw new Error('You need to provide a SignerWalletAdapter or Keypair in the signer parameter.');
+      throw new Error(
+        'You need to provide a SignerWalletAdapter or Keypair in the signer parameter.',
+      );
     }
 
     this.signer = signer;
@@ -98,9 +106,13 @@ export class TorqueRequestClient {
 
       ...(txnInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnInput.data } : {}),
 
-      ...(txnInput.txnType === ApiTxnTypes.PublisherCreate ? { createPublisher: txnInput.data } : {}),
+      ...(txnInput.txnType === ApiTxnTypes.PublisherCreate
+        ? { createPublisher: txnInput.data }
+        : {}),
 
-      ...(txnInput.txnType === ApiTxnTypes.PublisherPayout ? { payoutPublisher: txnInput.data } : {}),
+      ...(txnInput.txnType === ApiTxnTypes.PublisherPayout
+        ? { payoutPublisher: txnInput.data }
+        : {}),
     };
 
     try {
@@ -128,13 +140,21 @@ export class TorqueRequestClient {
    */
   private async executeTransaction(txnExecuteInput: TxnExecute) {
     const data = {
-      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnExecuteInput.data } : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
+        ? { createCampaign: txnExecuteInput.data }
+        : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnExecuteInput.data } : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd
+        ? { endCampaign: txnExecuteInput.data }
+        : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate ? { createPublisher: txnExecuteInput.data } : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate
+        ? { createPublisher: txnExecuteInput.data }
+        : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout ? { payoutPublisher: txnExecuteInput.data } : {}),
+      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout
+        ? { payoutPublisher: txnExecuteInput.data }
+        : {}),
     };
 
     try {
@@ -163,7 +183,9 @@ export class TorqueRequestClient {
    */
   public async transaction<T>(txnInput: TxnInput) {
     if (!this.signer) {
-      throw new Error('The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.');
+      throw new Error(
+        'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
+      );
     }
 
     try {
@@ -208,7 +230,9 @@ export class TorqueRequestClient {
    */
   private signWithKeypair(txn: VersionedTransaction) {
     if (!this.signer) {
-      throw new Error('The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.');
+      throw new Error(
+        'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
+      );
     }
 
     if ('signTransaction' in this.signer) {

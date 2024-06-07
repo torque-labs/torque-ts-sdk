@@ -147,6 +147,14 @@ export type ApiUserJourney = {
   status: string;
 };
 
+export type ApiRaffleRewards = {
+  winners: {
+    userPubKey: string;
+    amount: number;
+    tokenAddress: string;
+  }[];
+};
+
 export enum ApiTxnTypes {
   CampaignCreate = 'CampaignCreate',
   CampaignEnd = 'CampaignEnd',

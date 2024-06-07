@@ -1,7 +1,7 @@
+import { PublicKey } from '@solana/web3.js';
+
 const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
 const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
-
-const TORQUE_PROGRAM_PUBKEY = '7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra';
 
 const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 
@@ -18,21 +18,27 @@ const TORQUE_API_ROUTES = {
   verify: `${TORQUE_API_URL}/verify`,
   login: `${TORQUE_API_URL}/login`,
   leaderboards: `${TORQUE_API_URL}/leaderboards`,
+  raffle: `${TORQUE_API_URL}/asymmetricReward`,
   transactions: {
     build: `${TORQUE_API_URL}/tx/build`,
     execute: `${TORQUE_API_URL}/tx/execute`,
   },
 };
 
+/**
+ * Chain constants
+ */
 const PUBLISHER_ACCOUNT_SIZE = 41;
-
 const SOLANA_NETWORK = 'devnet';
+const TORQUE_PROGRAM_ID = '7n4ZKkte28wrWxWWAUJJPzY3PWAbCeUFKJWXE1sZhXra';
+const torquePubkey = new PublicKey(TORQUE_PROGRAM_ID);
 
 export {
   TORQUE_API_URL,
   TORQUE_SHARE_URL,
   TORQUE_API_ROUTES,
   PUBLISHER_ACCOUNT_SIZE,
-  TORQUE_PROGRAM_PUBKEY,
+  TORQUE_PROGRAM_ID,
   SOLANA_NETWORK,
+  torquePubkey,
 };

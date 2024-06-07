@@ -1,9 +1,9 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { SolanaSignInOutput } from '@solana/wallet-standard-features';
-import { Keypair } from '@solana/web3.js';
+import { Keypair, PublicKey } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
-import { TORQUE_API_ROUTES, TORQUE_SHARE_URL } from '../constants.js';
+import { TORQUE_API_ROUTES, torquePubkey, TORQUE_SHARE_URL } from '../constants.js';
 import {
   ApiCampaign,
   ApiIdentifyPayload,
@@ -32,6 +32,7 @@ export class TorqueUserClient {
   public initialized: boolean = false;
   private client: TorqueRequestClient;
   private user: ApiVerifiedUser | undefined;
+  private signer: SignerWalletAdapter | Keypair;
 
   /**
    * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
@@ -44,6 +45,7 @@ export class TorqueUserClient {
   constructor(signer: SignerWalletAdapter | Keypair, publisherHandle?: string) {
     this.client = new TorqueRequestClient(signer);
     this.publisherHandle = publisherHandle;
+    this.signer = signer;
   }
 
   /**
@@ -150,9 +152,12 @@ export class TorqueUserClient {
 
     if (this.user && this.initialized) {
       try {
-        const result = await this.client.apiFetch<ApiVerifiedUser | false>(TORQUE_API_ROUTES.verify, {
-          method: 'GET',
-        });
+        const result = await this.client.apiFetch<ApiVerifiedUser | false>(
+          TORQUE_API_ROUTES.verify,
+          {
+            method: 'GET',
+          },
+        );
 
         if (result) {
           this.user = result;
@@ -216,7 +221,8 @@ export class TorqueUserClient {
    */
   public getUserHandle() {
     if (this.user) {
-      const handle = this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
+      const handle =
+        this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
 
       return handle;
     }
@@ -307,7 +313,9 @@ export class TorqueUserClient {
 
     try {
       // TODO: Verify what publisher handle does for this endpoint
-      const params = this.publisherHandle ? new URLSearchParams({ publisher: this.publisherHandle }) : {};
+      const params = this.publisherHandle
+        ? new URLSearchParams({ publisher: this.publisherHandle })
+        : {};
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
@@ -400,6 +408,22 @@ export class TorqueUserClient {
   }
 
   /**
+   * Get the publisher PDA for the current user.
+   *
+   * @returns {PublicKey} The publisher PDA for the current user.
+   */
+  public getPublisherPda() {
+    if (this.signer.publicKey) {
+      const seeds = [Buffer.from('publisher'), this.signer.publicKey.toBuffer()];
+      const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
+
+      return publisherPda;
+    } else {
+      throw new Error('No public key found in the Adapter or Keypair.');
+    }
+  }
+
+  /**
    * Fetches all of the user's share links that they have previously created.
    *
    * @returns {Promise<ApiLinks>} A Promise resolving to the URLs of the user's share links.
@@ -456,9 +480,12 @@ export class TorqueUserClient {
     try {
       const params = new URLSearchParams({ campaignId, handle });
 
-      const result = await this.client.apiFetch<ApiShare>(`${TORQUE_API_ROUTES.share}?${params.toString()}`, {
-        method: 'GET',
-      });
+      const result = await this.client.apiFetch<ApiShare>(
+        `${TORQUE_API_ROUTES.share}?${params.toString()}`,
+        {
+          method: 'GET',
+        },
+      );
 
       return result;
     } catch (error) {
