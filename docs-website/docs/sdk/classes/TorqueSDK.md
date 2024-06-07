@@ -48,7 +48,7 @@ Throws an error if the there is no api key or publisher handle provided.
 
 #### Source
 
-[src/classes/sdk.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/sdk.ts#L52)
+[src/classes/sdk.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/e7e20c5519300f3127faf1f4bde402ef91d14a40/src/classes/sdk.ts#L52)
 
 ## Properties
 
@@ -86,4 +86,4 @@ Throws an error if there is an error authenticating the user.
 
 #### Source
 
-[src/classes/sdk.ts:89](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/sdk.ts#L89)
+[src/classes/sdk.ts:89](https://github.com/torque-labs/torque-ts-sdk/blob/e7e20c5519300f3127faf1f4bde402ef91d14a40/src/classes/sdk.ts#L89)
