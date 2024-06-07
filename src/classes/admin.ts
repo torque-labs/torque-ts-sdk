@@ -3,7 +3,7 @@ import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
-import { TORQUE_API_ROUTES } from '../constants.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   ApiCampaign,
   ApiCampaignLeaderboard,
@@ -13,7 +13,10 @@ import {
   CampaignEndInput,
 } from '../types/index.js';
 
-type TorqueAdminClientOptions = {
+/**
+ * Options for the TorqueAdminClient.
+ */
+export type TorqueAdminClientOptions = {
   signer: SignerWalletAdapter | Keypair;
   apiKey: string;
   userClient: TorqueUserClient;
@@ -23,7 +26,7 @@ type TorqueAdminClientOptions = {
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
  *
  * @example
- * const client = new TorqueAdminClient(<apiKey>);
+ * const client = new TorqueAdminClient(TorqueAdminClientOptions);
  *
  * const result = await client.createCampaign(<campaignData>);
  * const result = await client.endCampaign(<campaignData>);
@@ -36,9 +39,10 @@ export class TorqueAdminClient {
    * Create a new instance of the TorqueAdminClient class with the provided API key.
    *
    * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
-   * @param {string} apiKey - The API key for the admin client.
    */
-  constructor({ signer, apiKey, userClient }: TorqueAdminClientOptions) {
+  constructor(options: TorqueAdminClientOptions) {
+    const { signer, apiKey, userClient } = options;
+
     this.client = new TorqueRequestClient(signer, apiKey);
     this.userClient = userClient;
   }
@@ -82,7 +86,7 @@ export class TorqueAdminClient {
   /**
    * Create a new campaign with the provided data.
    *
-   * @param {CampaignCreateInput} campaignData - The data for the campaign to create.
+   * @param {CampaignCreateInput} data - The data for the campaign to create.
    *
    * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
    */
@@ -109,7 +113,7 @@ export class TorqueAdminClient {
   /**
    * End a campaign using the provided campaign ID.
    *
-   * @param {CampaignEndInput} campaignData - The ID of the campaign to end.
+   * @param {CampaignEndInput} data - The ID of the campaign to end.
    *
    * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
    *

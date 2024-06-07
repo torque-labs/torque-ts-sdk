@@ -3,15 +3,27 @@ import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
-import { TORQUE_FUNCTIONS_ROUTES } from '../constants.js';
+import { TORQUE_FUNCTIONS_ROUTES } from '../constants/index.js';
 import { Audience, AudienceBuild, AudienceBuildResponse } from '../types/index.js';
 
-type TorqueAudienceClientOptions = {
+/**
+ * Options for the TorqueAudienceClient.
+ */
+export type TorqueAudienceClientOptions = {
   signer: SignerWalletAdapter | Keypair;
   apiKey: string;
   userClient: TorqueUserClient;
 };
 
+/**
+ * The TorqueAudienceClient class is used to manage and verify audiencess for the Torque API.
+ *
+ * @example
+ * const client = new TorqueAudienceClient(TorqueAudienceClientOptions);
+ *
+ * const audience = await client.buildAudience(<audienceData>);
+ * const verified = await client.verifyAudience(audience);
+ */
 export class TorqueAudienceClient {
   private client: TorqueRequestClient;
   private userClient: TorqueUserClient;
@@ -20,9 +32,9 @@ export class TorqueAudienceClient {
    * Create a new instance of the TorqueAdminClient class with the provided API key.
    *
    * @param {TorqueAudienceClientOptions} options - The options for the TorqueAudienceClient.
-   * @param {string} apiKey - The API key for the admin client.
    */
-  constructor({ signer, apiKey, userClient }: TorqueAudienceClientOptions) {
+  constructor(options: TorqueAudienceClientOptions) {
+    const { signer, apiKey, userClient } = options;
     this.client = new TorqueRequestClient(signer, apiKey);
     this.userClient = userClient;
   }
@@ -61,7 +73,7 @@ export class TorqueAudienceClient {
   /**
    * Verifies the current user with the provided audience.
    *
-   * @param {AudienceVerify} options - The options for the audience verification.
+   * @param {Audience} audience - The options for the audience verification.
    *
    * @returns {Promise<boolean>} True if the user is verified with the audience, false otherwise.
    *

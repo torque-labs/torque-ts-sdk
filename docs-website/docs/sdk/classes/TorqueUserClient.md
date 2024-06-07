@@ -1,14 +1,12 @@
-[torque-ts-sdk](../README.md) / [Exports](../modules.md) / TorqueUserClient
-
 # Class: TorqueUserClient
 
 The TorqueUserClient class is used to authenticate a user with the Torque API.
-The user client allows publishers to fetch campaigns and offers that are available for the current user.
+The user client allows publishers to fetch campaigns and offers that are savailable for the current user.
 
-**`Example`**
+## Example
 
 ```ts
-const client = new TorqueUserClient();
+const client = new TorqueUserClient(TorqueUserClientOptions);
 
 // Check if the user is already logged in with API
 const currentUser = await client.getCurrentUser();
@@ -18,222 +16,360 @@ const user = currentUser
   : await this.initializeUser(ApiInputLogin);
 ```
 
-## Table of contents
-
-### Constructors
-
-- [constructor](TorqueUserClient.md#constructor)
-
-### Properties
-
-- [client](TorqueUserClient.md#client)
-- [initialized](TorqueUserClient.md#initialized)
-- [publisherHandle](TorqueUserClient.md#publisherhandle)
-- [user](TorqueUserClient.md#user)
-
-### Methods
-
-- [getAllUserShareLinks](TorqueUserClient.md#getallusersharelinks)
-- [getCampaigns](TorqueUserClient.md#getcampaigns)
-- [getCurrentUser](TorqueUserClient.md#getcurrentuser)
-- [getSharedLinkData](TorqueUserClient.md#getsharedlinkdata)
-- [getUserHandle](TorqueUserClient.md#getuserhandle)
-- [getUserShareLink](TorqueUserClient.md#getusersharelink)
-- [initializeUser](TorqueUserClient.md#initializeuser)
-- [isPublisher](TorqueUserClient.md#ispublisher)
-- [login](TorqueUserClient.md#login)
-
 ## Constructors
 
-### constructor
+### new TorqueUserClient()
 
-• **new TorqueUserClient**(`signer`, `publisherHandle?`): [`TorqueUserClient`](TorqueUserClient.md)
+```ts
+new TorqueUserClient(options): TorqueUserClient
+```
 
 Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `signer` | `SignerWalletAdapter` \| `Keypair` | The signer used to sign transactions. |
-| `publisherHandle?` | `string` | The publisher handle as registered with Torque (twitter, publisher pubKey or wallet address used when signing up). |
+| `options` | [`TorqueUserClientOptions`](../type-aliases/TorqueUserClientOptions.md) | The options for the TorqueUserClient. |
 
 #### Returns
 
 [`TorqueUserClient`](TorqueUserClient.md)
 
-**`Throws`**
+#### Throws
 
 Throws an error if the user's wallet is not provided.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:35](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L35)
+[src/classes/user.ts:61](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L61)
 
 ## Properties
 
-### client
-
-• `Private` **client**: `undefined` \| [`TorqueRequestClient`](TorqueRequestClient.md)
-
-#### Defined in
-
-[src/classes/user.ts:24](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L24)
-
-___
-
-### initialized
-
-• **initialized**: `boolean` = `false`
-
-#### Defined in
-
-[src/classes/user.ts:23](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L23)
-
-___
-
-### publisherHandle
-
-• **publisherHandle**: `undefined` \| `string`
-
-#### Defined in
-
-[src/classes/user.ts:22](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L22)
-
-___
-
-### user
-
-• `Private` **user**: `undefined` \| [`ApiVerifiedUser`](../modules.md#apiverifieduser)
-
-#### Defined in
-
-[src/classes/user.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L25)
+| Property | Modifier | Type | Default value |
+| :------ | :------ | :------ | :------ |
+| `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) | `undefined` |
+| `connection` | `private` | `Connection` | `undefined` |
+| `initialized` | `public` | `boolean` | `false` |
+| `publicKey` | `public` | `string` | `undefined` |
+| `publisherHandle` | `public` | `undefined` \| `string` | `undefined` |
+| `signer` | `private` | `SignerWalletAdapter` \| `Keypair` | `undefined` |
+| `user` | `private` | `undefined` \| [`ApiVerifiedUser`](../type-aliases/ApiVerifiedUser.md) | `undefined` |
 
 ## Methods
 
-### getAllUserShareLinks
+### acceptCampaign()
 
-▸ **getAllUserShareLinks**(): `Promise`\<\{ `links`: \{ `campaignId`: `string` ; `url`: `string`  }[]  }\>
+```ts
+acceptCampaign(campaignId, publisherHandle?): Promise<ApiUserJourney>
+```
+
+Accepts a campaign for the current user.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `campaignId` | `string` | The ID of the campaign to accept. |
+| `publisherHandle`? | `string` | The handle of the publisher to accept the campaign for. |
+
+#### Returns
+
+`Promise` \<[`ApiUserJourney`](../type-aliases/ApiUserJourney.md)\>
+
+A Promise that resolves to the journey data for the campaign.
+
+#### Throws
+
+Throws an error if the client is not initialized or if there is an error accepting the campaign.
+
+#### Source
+
+[src/classes/user.ts:371](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L371)
+
+***
+
+### constructLoginBody()
+
+```ts
+constructLoginBody(params): {
+  authType: "siws";
+  payload: {
+     input: payload.input;
+     output: SolanaSignInOutput;
+    };
+  pubKey: string;
+ } | {
+  authType: "basic";
+  payload: {
+     input: payload.input;
+     output: payload.output;
+    };
+  pubKey: string;
+}
+```
+
+Constructs the body for the login API request based on the authentication type.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `params` | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | The parameters for constructing the login body. |
+
+#### Returns
+
+\{
+  `authType`: `"siws"`;
+  `payload`: \{
+     `input`: `payload.input`;
+     `output`: `SolanaSignInOutput`;
+    \};
+  `pubKey`: `string`;
+ \} \| \{
+  `authType`: `"basic"`;
+  `payload`: \{
+     `input`: `payload.input`;
+     `output`: `payload.output`;
+    \};
+  `pubKey`: `string`;
+ \}
+
+The constructed body for the verify API request, formatted based on the authentication type.
+
+#### Source
+
+[src/classes/user.ts:289](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L289)
+
+***
+
+### getAllUserShareLinks()
+
+```ts
+getAllUserShareLinks(): Promise<{
+  links: {
+     campaignId: string;
+     url: string;
+    }[];
+}>
+```
 
 Fetches all of the user's share links that they have previously created.
 
 #### Returns
 
-`Promise`\<\{ `links`: \{ `campaignId`: `string` ; `url`: `string`  }[]  }\>
+`Promise`\<\{
+  `links`: \{
+     `campaignId`: `string`;
+     `url`: `string`;
+    \}[];
+ \}\>
 
 A Promise resolving to the URLs of the user's share links.
 
-**`Throws`**
+##### links
+
+```ts
+links: {
+  campaignId: string;
+  url: string;
+ }[];
+```
+
+#### Throws
 
 An error if the link fetch fails.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:255](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L255)
+[src/classes/user.ts:474](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L474)
 
-___
+***
 
-### getCampaigns
+### getCampaigns()
 
-▸ **getCampaigns**(): `Promise`\<\{ `campaigns`: [`ApiCampaign`](../modules.md#apicampaign)[]  }\>
+```ts
+getCampaigns(): Promise<{
+  campaigns: ApiCampaign[];
+}>
+```
 
 Retrieves a list of active campaigns from the Torque API that the user is eligible to participate in.
 
 #### Returns
 
-`Promise`\<\{ `campaigns`: [`ApiCampaign`](../modules.md#apicampaign)[]  }\>
+`Promise`\<\{
+  `campaigns`: [`ApiCampaign`](../type-aliases/ApiCampaign.md)[];
+ \}\>
 
 A Promise resolving to an array of `ApiCampaign` objects representing the active campaigns.
 
-**`Throws`**
+##### campaigns
+
+```ts
+campaigns: ApiCampaign[];
+```
+
+#### Throws
 
 An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:180](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L180)
+[src/classes/user.ts:333](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L333)
 
-___
+***
 
-### getCurrentUser
+### getCurrentUser()
 
-▸ **getCurrentUser**(): `Promise`\<``false`` \| [`ApiVerifiedUser`](../modules.md#apiverifieduser)\>
+```ts
+getCurrentUser(): Promise<undefined | ApiVerifiedUser>
+```
 
 Checks to see if the user is already logged into the Torque API.
 
 #### Returns
 
-`Promise`\<``false`` \| [`ApiVerifiedUser`](../modules.md#apiverifieduser)\>
+`Promise`\<`undefined` \| [`ApiVerifiedUser`](../type-aliases/ApiVerifiedUser.md)\>
 
-A promise that resolves to the user if they are signed in, otherwise false.
+A promise that resolves to the user if they are signed in, otherwise undefined.
 
-**`Throws`**
+#### Throws
 
 Throws an error if checking the user's login status fails.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L115)
+[src/classes/user.ts:208](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L208)
 
-___
+***
 
-### getSharedLinkData
+### getLoginPayload()
 
-▸ **getSharedLinkData**(`campaignId`, `handle`): `Promise`\<[`ApiShare`](../modules.md#apishare)\>
+```ts
+getLoginPayload(): Promise<ApiIdentifyPayload>
+```
+
+Retrieves a sample SIWS payload for l ogging into the Torque API.
+
+#### Returns
+
+`Promise` \<[`ApiIdentifyPayload`](../type-aliases/ApiIdentifyPayload.md)\>
+
+A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
+
+#### Throws
+
+Throws an error if the API request is unsuccessful.
+
+#### Source
+
+[src/classes/user.ts:264](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L264)
+
+***
+
+### getPublisherBalance()
+
+```ts
+getPublisherBalance(): Promise<number>
+```
+
+Get the balance of the publisher PDA for the current user.
+
+#### Returns
+
+`Promise`\<`number`\>
+
+The balance of the publisher PDA for the current user in lamports.
+
+#### Source
+
+[src/classes/user.ts:455](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L455)
+
+***
+
+### getPublisherPda()
+
+```ts
+getPublisherPda(): PublicKey
+```
+
+Get the publisher PDA for the current user.
+
+#### Returns
+
+`PublicKey`
+
+The publisher PDA for the current user.
+
+#### Source
+
+[src/classes/user.ts:439](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L439)
+
+***
+
+### getSharedLinkData()
+
+```ts
+getSharedLinkData(campaignId, handle): Promise<ApiShare>
+```
 
 Retrieves the data for an offer link for a specific campaign and handle.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `campaignId` | `string` | The unique identifier for the campaign. |
 | `handle` | `string` | The specific handle associated with the shared link. |
 
 #### Returns
 
-`Promise`\<[`ApiShare`](../modules.md#apishare)\>
+`Promise` \<[`ApiShare`](../type-aliases/ApiShare.md)\>
 
 The data associated with the shared link if the request is successful.
 
-**`Throws`**
+#### Throws
 
 Throws an error there was an error getting the shared link data.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:294](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L294)
+[src/classes/user.ts:516](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L516)
 
-___
+***
 
-### getUserHandle
+### getUserHandle()
 
-▸ **getUserHandle**(): `undefined` \| ``null`` \| `string`
+```ts
+getUserHandle(): undefined | null | string
+```
 
 Retrieves the user's handle.
 
 #### Returns
 
-`undefined` \| ``null`` \| `string`
+`undefined` \| `null` \| `string`
 
 The user's handle or `undefined` if no handle is available.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:153](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L153)
+[src/classes/user.ts:246](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L246)
 
-___
+***
 
-### getUserShareLink
+### getUserShareLink()
 
-▸ **getUserShareLink**(`campaignId`): `string`
+```ts
+getUserShareLink(campaignId): string
+```
 
 Generates a URL for a user's shared link for a specific campaign.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `campaignId` | `string` | The unique identifier for the campaign. |
 
@@ -243,47 +379,51 @@ Generates a URL for a user's shared link for a specific campaign.
 
 A promise that resolves to the URL string of the user's shared link for the campaign.
 
-**`Throws`**
+#### Throws
 
 Throws an error if the user is not a publisher or does not have a handle.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:237](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L237)
+[src/classes/user.ts:423](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L423)
 
-___
+***
 
-### initializeUser
+### initializeUser()
 
-▸ **initializeUser**(`userAuth`): `Promise`\<[`ApiVerifiedUser`](../modules.md#apiverifieduser)\>
+```ts
+initializeUser(userAuth): Promise<ApiVerifiedUser>
+```
 
 Initializes the TorqueUserClient with the provided options.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `userAuth` | [`ApiInputLogin`](../modules.md#apiinputlogin) | User signature object that is required to authenticate a user with Torque. |
+| `userAuth` | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | User signature object that is required to authenticate a user with Torque. |
 
 #### Returns
 
-`Promise`\<[`ApiVerifiedUser`](../modules.md#apiverifieduser)\>
+`Promise` \<[`ApiVerifiedUser`](../type-aliases/ApiVerifiedUser.md)\>
 
 A Promise that resolves when the initialization is complete.
 
-**`Throws`**
+#### Throws
 
 If user was not verified.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:55](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L55)
+[src/classes/user.ts:90](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L90)
 
-___
+***
 
-### isPublisher
+### isPublisher()
 
-▸ **isPublisher**(): `boolean`
+```ts
+isPublisher(): boolean
+```
 
 Checks to see if the user is a publisher.
 
@@ -293,38 +433,98 @@ Checks to see if the user is a publisher.
 
 True if the user is a publisher, false otherwise.
 
-**`Throws`**
+#### Throws
 
 Throws an error if the user is not signed in.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:220](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L220)
+[src/classes/user.ts:406](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L406)
 
-___
+***
 
-### login
+### login()
 
-▸ **login**(`loginOptions`): `Promise`\<[`ApiVerifiedUser`](../modules.md#apiverifieduser)\>
+```ts
+private login(loginOptions): Promise<ApiVerifiedUser>
+```
 
 Authenticate the user with the torque API with the provided user signature object.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `loginOptions` | [`ApiInputLogin`](../modules.md#apiinputlogin) | The verification object that is required to authenticate a user with Torque. |
+| `loginOptions` | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | The verification object that is required to authenticate a user with Torque. |
 
 #### Returns
 
-`Promise`\<[`ApiVerifiedUser`](../modules.md#apiverifieduser)\>
+`Promise` \<[`ApiVerifiedUser`](../type-aliases/ApiVerifiedUser.md)\>
 
 A Promise that resolves to an object containing the user information.
 
-**`Throws`**
+#### Throws
 
 Throws an error if there is an error authenticating the user.
 
-#### Defined in
+#### Source
 
-[src/classes/user.ts:79](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/user.ts#L79)
+[src/classes/user.ts:116](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L116)
+
+***
+
+### logout()
+
+```ts
+private logout(): void
+```
+
+Logout the user from the Torque API.
+
+#### Returns
+
+`void`
+
+#### Throws
+
+Throws an error if the client is not initialized or if there is an error logging out the user.
+
+#### Source
+
+[src/classes/user.ts:141](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L141)
+
+***
+
+### refreshUser()
+
+```ts
+refreshUser(): Promise<undefined | ApiVerifiedUser>
+```
+
+Rereshes the user's information from the Torque API.
+
+#### Returns
+
+`Promise`\<`undefined` \| [`ApiVerifiedUser`](../type-aliases/ApiVerifiedUser.md)\>
+
+A promise that resolves to the user if they are signed in, otherwise undefined.
+
+#### Source
+
+[src/classes/user.ts:169](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L169)
+
+***
+
+### setUserPublisher()
+
+```ts
+setUserPublisher(): void
+```
+
+#### Returns
+
+`void`
+
+#### Source
+
+[src/classes/user.ts:498](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/user.ts#L498)

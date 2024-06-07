@@ -4,9 +4,12 @@ import { Keypair } from '@solana/web3.js';
 import { TorqueAdminClient } from './admin.js';
 import { TorqueAudienceClient } from './audience.js';
 import { TorqueUserClient } from './user.js';
-import { TORQUE_API_ROUTES } from '../constants.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
 import { ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index.js';
 
+/**
+ * Options for the TorqueSDK.
+ */
 export type TorqueSDKOptions = {
   signer: SignerWalletAdapter | Keypair;
   apiKey?: string;
@@ -43,6 +46,8 @@ export class TorqueSDK {
    * Initializes the TorqueSDK with the provided options.
    *
    * @param {TorqueSDKOptions} options - The options for the TorqueSDK.
+   *
+   * @throws {Error} Throws an error if the there is no api key or publisher handle provided.
    */
   constructor(options: TorqueSDKOptions) {
     if (!options.apiKey && !options.publisherHandle) {

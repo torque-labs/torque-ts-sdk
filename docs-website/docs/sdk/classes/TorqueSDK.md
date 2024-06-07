@@ -1,12 +1,10 @@
-[torque-ts-sdk](../README.md) / [Exports](../modules.md) / TorqueSDK
-
 # Class: TorqueSDK
 
 The official Torque Typescript SDK.
 
 The TorqueSDK class is used to manage the user and api clients for the Torque API.
 
-**`Example`**
+## Example
 
 ```ts
 const sdk = new TorqueSDK({
@@ -24,55 +22,68 @@ const user = currentUser
   : await sdk.user.initializeUser(ApiInputLogin);
 ```
 
-## Table of contents
-
-### Constructors
-
-- [constructor](TorqueSDK.md#constructor)
-
-### Properties
-
-- [api](TorqueSDK.md#api)
-- [user](TorqueSDK.md#user)
-
 ## Constructors
 
-### constructor
+### new TorqueSDK()
 
-• **new TorqueSDK**(`options`): [`TorqueSDK`](TorqueSDK.md)
+```ts
+new TorqueSDK(options): TorqueSDK
+```
 
 Initializes the TorqueSDK with the provided options.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`TorqueSDKOptions`](../modules.md#torquesdkoptions) | The options for the TorqueSDK. |
+| `options` | [`TorqueSDKOptions`](../type-aliases/TorqueSDKOptions.md) | The options for the TorqueSDK. |
 
 #### Returns
 
 [`TorqueSDK`](TorqueSDK.md)
 
-#### Defined in
+#### Throws
 
-[src/classes/sdk.ts:41](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/sdk.ts#L41)
+Throws an error if the there is no api key or publisher handle provided.
+
+#### Source
+
+[src/classes/sdk.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/sdk.ts#L52)
 
 ## Properties
 
-### api
+| Property | Modifier | Type |
+| :------ | :------ | :------ |
+| `api` | `public` | `undefined` \| [`TorqueAdminClient`](TorqueAdminClient.md) |
+| `audience` | `public` | `undefined` \| [`TorqueAudienceClient`](TorqueAudienceClient.md) |
+| `user` | `public` | [`TorqueUserClient`](TorqueUserClient.md) |
 
-• **api**: `undefined` \| [`TorqueAdminClient`](TorqueAdminClient.md)
+## Methods
 
-#### Defined in
+### verifyLogin()
 
-[src/classes/sdk.ts:34](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/sdk.ts#L34)
+```ts
+static verifyLogin(loginOptions): Promise<ApiVerifiedUser>
+```
 
-___
+Static method to verify the login options with the Torque API.
 
-### user
+#### Parameters
 
-• **user**: `undefined` \| [`TorqueUserClient`](TorqueUserClient.md)
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `loginOptions` | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | The verification object that is required to authenticate a user with Torque. |
 
-#### Defined in
+#### Returns
 
-[src/classes/sdk.ts:33](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/sdk.ts#L33)
+`Promise` \<[`ApiVerifiedUser`](../type-aliases/ApiVerifiedUser.md)\>
+
+A Promise that resolves to an object containing the user information.
+
+#### Throws
+
+Throws an error if there is an error authenticating the user.
+
+#### Source
+
+[src/classes/sdk.ts:89](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/sdk.ts#L89)

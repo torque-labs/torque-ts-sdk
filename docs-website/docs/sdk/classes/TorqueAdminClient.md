@@ -1,140 +1,205 @@
-[torque-ts-sdk](../README.md) / [Exports](../modules.md) / TorqueAdminClient
-
 # Class: TorqueAdminClient
 
 The TorqueAdminClient class is used to manage admin actions in the Torque API.
 
-**`Example`**
+## Example
 
 ```ts
-const client = new TorqueAdminClient(<apiKey>);
+const client = new TorqueAdminClient(TorqueAdminClientOptions);
 
 const result = await client.createCampaign(<campaignData>);
 const result = await client.endCampaign(<campaignData>);
 ```
 
-## Table of contents
-
-### Constructors
-
-- [constructor](TorqueAdminClient.md#constructor)
-
-### Properties
-
-- [client](TorqueAdminClient.md#client)
-
-### Methods
-
-- [createCampaign](TorqueAdminClient.md#createcampaign)
-- [endCampaign](TorqueAdminClient.md#endcampaign)
-- [initPublisher](TorqueAdminClient.md#initpublisher)
-- [payoutPublisher](TorqueAdminClient.md#payoutpublisher)
-
 ## Constructors
 
-### constructor
+### new TorqueAdminClient()
 
-• **new TorqueAdminClient**(`signer`, `apiKey`): [`TorqueAdminClient`](TorqueAdminClient.md)
+```ts
+new TorqueAdminClient(options): TorqueAdminClient
+```
 
 Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Parameters
 
-| Name | Type | Description |
+| Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `signer` | `SignerWalletAdapter` \| `Keypair` | The signer used to sign transactions. |
-| `apiKey` | `string` | The API key for the admin client. |
+| `options` | [`TorqueAdminClientOptions`](../type-aliases/TorqueAdminClientOptions.md) | The options for the TorqueAdminClient. |
 
 #### Returns
 
 [`TorqueAdminClient`](TorqueAdminClient.md)
 
-#### Defined in
+#### Source
 
-[src/classes/admin.ts:24](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/admin.ts#L24)
+[src/classes/admin.ts:43](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L43)
 
 ## Properties
 
-### client
-
-• `Private` **client**: `undefined` \| [`TorqueRequestClient`](TorqueRequestClient.md)
-
-#### Defined in
-
-[src/classes/admin.ts:16](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/admin.ts#L16)
+| Property | Modifier | Type |
+| :------ | :------ | :------ |
+| `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) |
+| `userClient` | `private` | [`TorqueUserClient`](TorqueUserClient.md) |
 
 ## Methods
 
-### createCampaign
+### createCampaign()
 
-▸ **createCampaign**(`data`): `Promise`\<\{ `signature`: `string`  } & `Omit`\<\{ `serializedTx`: `string`  }, ``"serializedTx"``\>\>
+```ts
+createCampaign(data): Promise<{
+  signature: string;
+ } & Omit<{
+  serializedTx: string;
+}, "serializedTx">>
+```
 
 Create a new campaign with the provided data.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `Object` |
-| `data.audience?` | ``null`` \| `string` |
-| `data.campaignName` | `string` |
-| `data.campaignType` | `string` |
-| `data.conversionCount?` | ``null`` \| `number` |
-| `data.endTime` | `number` |
-| `data.eventProgramAddress?` | `string` |
-| `data.eventTokenAddress?` | `string` |
-| `data.eventType` | [`ApiEventType`](../enums/ApiEventType.md) |
-| `data.landingPage` | `string` |
-| `data.minAmount?` | ``null`` \| `number` |
-| `data.proposal?` | ``null`` \| `string` |
-| `data.publisherPayoutPerConversion` | `number` |
-| `data.publisherRewardType` | [`ApiRewardType`](../enums/ApiRewardType.md) |
-| `data.publisherTokenAddress?` | `string` |
-| `data.startTime` | `number` |
-| `data.userPayoutPerConversion?` | `number` |
-| `data.userRewardType?` | [`POINTS`](../enums/ApiRewardType.md#points) \| [`TOKENS`](../enums/ApiRewardType.md#tokens) |
-| `data.userTokenAddress?` | `string` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `object` | The data for the campaign to create. |
+| `data.audience`? | `null` \| `string` | - |
+| `data.campaignName` | `string` | - |
+| `data.campaignType` | `string` | - |
+| `data.conversionCount`? | `null` \| `number` | - |
+| `data.endTime` | `number` | - |
+| `data.eventProgramAddress`? | `string` | - |
+| `data.eventTokenAddress`? | `string` | - |
+| `data.eventType` | [`ApiEventType`](../enumerations/ApiEventType.md) | - |
+| `data.landingPage` | `string` | - |
+| `data.minAmount`? | `null` \| `number` | - |
+| `data.proposal`? | `null` \| `string` | - |
+| `data.publisherPayoutPerConversion` | `number` | - |
+| `data.publisherRewardType` | [`ApiRewardType`](../enumerations/ApiRewardType.md) | - |
+| `data.publisherTokenAddress`? | `string` | - |
+| `data.startTime` | `number` | - |
+| `data.userPayoutPerConversion`? | `number` | - |
+| `data.userRewardType`? | `POINTS` \| `TOKENS` | - |
+| `data.userTokenAddress`? | `string` | - |
 
 #### Returns
 
-`Promise`\<\{ `signature`: `string`  } & `Omit`\<\{ `serializedTx`: `string`  }, ``"serializedTx"``\>\>
+`Promise`\<\{
+  `signature`: `string`;
+ \} & `Omit`\<\{
+  `serializedTx`: `string`;
+ \}, `"serializedTx"`\>\>
 
-#### Defined in
+A promise that resolves to the signature of the transaction.
 
-[src/classes/admin.ts:39](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/admin.ts#L39)
+#### Source
 
-___
+[src/classes/admin.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L93)
 
-### endCampaign
+***
 
-▸ **endCampaign**(`data`): `Promise`\<\{ `signature`: `string`  } & `Omit`\<\{ `serializedTx`: `string`  }, ``"serializedTx"``\>\>
+### endCampaign()
+
+```ts
+endCampaign(data): Promise<{
+  signature: string;
+ } & Omit<{
+  serializedTx: string;
+}, "serializedTx">>
+```
 
 End a campaign using the provided campaign ID.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `Object` |
-| `data.campaignId` | `string` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `data` | `object` | The ID of the campaign to end. |
+| `data.campaignId` | `string` | - |
 
 #### Returns
 
-`Promise`\<\{ `signature`: `string`  } & `Omit`\<\{ `serializedTx`: `string`  }, ``"serializedTx"``\>\>
+`Promise`\<\{
+  `signature`: `string`;
+ \} & `Omit`\<\{
+  `serializedTx`: `string`;
+ \}, `"serializedTx"`\>\>
 
-**`Throws`**
+A promise that resolves to the signature of the transaction.
+
+#### Throws
 
 Throws an error if the client is not initialized or if there is an error ending the campaign.
 
-#### Defined in
+#### Source
 
-[src/classes/admin.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/admin.ts#L66)
+[src/classes/admin.ts:122](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L122)
 
-___
+***
 
-### initPublisher
+### getCampaigns()
 
-▸ **initPublisher**(): `Promise`\<`string`\>
+```ts
+getCampaigns(): Promise<{
+  campaigns: ApiCampaign[];
+}>
+```
+
+Get a list of all currently active campaigns.
+
+#### Returns
+
+`Promise`\<\{
+  `campaigns`: [`ApiCampaign`](../type-aliases/ApiCampaign.md)[];
+ \}\>
+
+i
+
+##### campaigns
+
+```ts
+campaigns: ApiCampaign[];
+```
+
+#### Source
+
+[src/classes/admin.ts:61](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L61)
+
+***
+
+### getLeaderboard()
+
+```ts
+getLeaderboard(campaignId): Promise<ApiCampaignLeaderboard>
+```
+
+Get the leaderboard for a specific campaign.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `campaignId` | `string` | The ID of the campaign to get the leaderboard for. |
+
+#### Returns
+
+`Promise` \<[`ApiCampaignLeaderboard`](../type-aliases/ApiCampaignLeaderboard.md)\>
+
+A Promise that resolves to the leaderboard data for the campaign.
+
+#### Throws
+
+Throws an error if the client is not initialized or if there is an error getting the leaderboard.
+
+#### Source
+
+[src/classes/admin.ts:151](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L151)
+
+***
+
+### initPublisher()
+
+```ts
+initPublisher(): Promise<string>
+```
 
 Initialize a publisher account for the current user.
 
@@ -144,27 +209,29 @@ Initialize a publisher account for the current user.
 
 A promise that resolves to the signature of the transaction.
 
-**`Throws`**
+#### Throws
 
 Throws an error if there was an error creating the publisher.
 
-#### Defined in
+#### Source
 
-[src/classes/admin.ts:99](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/admin.ts#L99)
+[src/classes/admin.ts:217](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L217)
 
-___
+***
 
-### payoutPublisher
+### payoutPublisher()
 
-▸ **payoutPublisher**(`data`): `Promise`\<`string`\>
+```ts
+payoutPublisher(data): Promise<string>
+```
 
-Process a publisher payout fpr the current user, if eligible.
+Process a publisher payout for the current user, if eligible.
 
 #### Parameters
 
-| Name | Type |
+| Parameter | Type |
 | :------ | :------ |
-| `data` | `Object` |
+| `data` | `object` |
 | `data.amount` | `number` |
 | `data.token` | `string` |
 
@@ -174,10 +241,38 @@ Process a publisher payout fpr the current user, if eligible.
 
 A promise that resolves to the signature of the transaction.
 
-**`Throws`**
+#### Throws
 
 Throws an error if there was an error paying out the publisher.
 
-#### Defined in
+#### Source
 
-[src/classes/admin.ts:125](https://github.com/torque-labs/torque-ts-sdk/blob/f017e3d354c17063da4ba8e079313e0799f76ecf/src/classes/admin.ts#L125)
+[src/classes/admin.ts:245](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L245)
+
+***
+
+### raffleRewards()
+
+```ts
+raffleRewards(campaignId): Promise<ApiRaffleRewards>
+```
+
+Get the raffle rewards for a specific campaign.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `campaignId` | `string` | The ID of the campaign to get the raffle rewards for. |
+
+#### Returns
+
+`Promise` \<[`ApiRaffleRewards`](../type-aliases/ApiRaffleRewards.md)\>
+
+#### Throws
+
+Throws an error if the client is not initialized or if there is an error getting the raffle rewards.
+
+#### Source
+
+[src/classes/admin.ts:181](https://github.com/torque-labs/torque-ts-sdk/blob/3bb7686d9ca1711cb29a16a45efd25d459673e82/src/classes/admin.ts#L181)

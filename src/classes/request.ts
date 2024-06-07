@@ -1,7 +1,7 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair, VersionedTransaction } from '@solana/web3.js';
 
-import { TORQUE_API_ROUTES } from '../constants.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   TxnInput,
   ApiTxnTypes,
@@ -17,9 +17,9 @@ import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
  * It provides methods for performing API requests and handling responses.
  *
  * @example
- * const client = new TorqueRequestClient({ clientType: "admin", apiKey: "your-api-key" });
+ * const client = new TorqueRequestClient(signer, apiKey);
+ *
  * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
- * console.log(response);
  */
 export class TorqueRequestClient {
   private apiKey: string | undefined;
@@ -213,7 +213,6 @@ export class TorqueRequestClient {
    *
    * @template {object} T - The type of the response data.
    *
-   * @param {SignerWalletAdapter} wallet - A `SignerWalletAdapter` instance representing the wallet that will be used to sign the transaction.
    * @param {TxnInput} txnInput - The input object of the transaction to process.
    *
    * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.

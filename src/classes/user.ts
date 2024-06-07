@@ -9,7 +9,7 @@ import {
   TORQUE_SHARE_URL,
   SOLANA_NETWORK,
   PUBLISHER_ACCOUNT_SIZE,
-} from '../constants.js';
+} from '../constants/index.js';
 import {
   ApiCampaign,
   ApiIdentifyPayload,
@@ -19,7 +19,10 @@ import {
   ApiVerifiedUser,
 } from '../types/index.js';
 
-type TorqueUserClientOptions = {
+/**
+ * Options for the TorqueUserClient.
+ */
+export type TorqueUserClientOptions = {
   signer: SignerWalletAdapter | Keypair;
   publisherHandle?: string;
   rpc?: string;
@@ -55,7 +58,9 @@ export class TorqueUserClient {
    *
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
-  constructor({ signer, publisherHandle, rpc }: TorqueUserClientOptions) {
+  constructor(options: TorqueUserClientOptions) {
+    const { signer, publisherHandle, rpc } = options;
+
     if (!signer.publicKey) {
       throw new Error('The wallet/signer provided does not have a public key.');
     }

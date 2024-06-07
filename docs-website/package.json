@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
+    "start": "TYPEDOC_WATCH=true docusaurus start",
+    "build": "TYPEDOC_WATCH=false docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -21,8 +21,7 @@
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "typedoc-plugin-zod": "^1.1.2"
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.3.2",
@@ -30,7 +29,8 @@
     "@docusaurus/types": "3.3.2",
     "docusaurus-plugin-typedoc": "^1.0.1",
     "typedoc": "^0.25.13",
-    "typedoc-plugin-markdown": "^4.0.1",
+    "typedoc-plugin-markdown": "^4.0.3",
+    "typedoc-plugin-zod": "^1.1.2",
     "typescript": "~5.2.2"
   },
   "browserslist": {
