@@ -67,9 +67,6 @@ const config: Config = {
   themeConfig: {
     // TOOD: Add social metatags
     image: 'img/torque-logo.jpg',
-    colorMode: {
-      defaultMode: 'dark',
-    },
     navbar: {
       title: 'Torque Labs',
       logo: {
