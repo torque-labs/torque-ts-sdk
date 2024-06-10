@@ -1,6 +1,6 @@
-export * from "./client";
-// export * from "./audiences";
-// export * from "./auth";
-// export * from "./campaigns";
-// export * from "./publisher";
-export * from "./types";
+export * from './classes/admin';
+export * from './classes/audience';
+export * from './classes/request';
+export * from './classes/sdk';
+export * from './classes/user';
+export * from './types/index';

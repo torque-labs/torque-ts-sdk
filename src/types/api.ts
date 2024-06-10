@@ -1,47 +1,65 @@
-import {
-  SolanaSignInInput,
-  SolanaSignInOutput,
-} from "@solana/wallet-standard-features";
+import { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features';
 
+/**
+ * The API response success type.
+ */
 export enum ApiStatus {
-  SUCCESS = "SUCCESS",
-  BAD_REQUEST = "BAD_REQUEST",
-  NOT_AUTHORIZED = "NOT_AUTHORIZED",
-  FORBIDDEN = "FORBIDDEN",
-  NOT_FOUND = "NOT_FOUND",
-  INTERNAL_ERROR = "INTERNAL_ERROR",
+  SUCCESS = 'SUCCESS',
+  BAD_REQUEST = 'BAD_REQUEST',
+  NOT_AUTHORIZED = 'NOT_AUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
+  NOT_FOUND = 'NOT_FOUND',
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
 }
 
+/**
+ * On-chain event types for the API.
+ */
 export enum ApiEventType {
-  CLICK = "CLICK",
-  SWAP = "SWAP",
-  CAST_VOTE = "CAST_VOTE",
-  COMPRESSED_NFT_MINT = "COMPRESSED_NFT_MINT",
-  ADD_LIQUIDITY = "ADD_LIQUIDITY",
-  INTERACT = "INTERACT",
-  SIGN_UP = "SIGN_UP",
+  CLICK = 'CLICK',
+  SWAP = 'SWAP',
+  CAST_VOTE = 'CAST_VOTE',
+  COMPRESSED_NFT_MINT = 'COMPRESSED_NFT_MINT',
+  ADD_LIQUIDITY = 'ADD_LIQUIDITY',
+  INTERACT = 'INTERACT',
+  SIGN_UP = 'SIGN_UP',
 }
 
+/**
+ * The rewards type of a campaign.
+ */
 export enum ApiRewardType {
-  POINTS = "POINTS",
-  TOKENS = "TOKENS",
+  POINTS = 'POINTS',
+  TOKENS = 'TOKENS',
 }
 
+/**
+ * Generic success response for the API.
+ */
 export type ApiResponseSuccess<T> = {
   status: ApiStatus.SUCCESS;
   data: T;
 };
 
+/**
+ * Generic error response for the API.
+ */
 export type ApiResponseError = {
   status: Exclude<ApiStatus, ApiStatus.SUCCESS>;
   message: string;
 };
 
+/**
+ * Generic response for an API request.
+ */
 export type ApiResponse<T> = ApiResponseSuccess<T> | ApiResponseError;
 
-export type ApiInputVerify =
+/**
+ * Input login options for the API.
+ */
+export type ApiInputLogin =
   | {
-      authType: "siws";
+      authType: 'siws';
       pubKey: string;
       payload: {
         input: SolanaSignInInput;
@@ -49,11 +67,14 @@ export type ApiInputVerify =
       };
     }
   | {
-      authType: "basic";
+      authType: 'basic';
       pubKey: string;
       payload: { input: string; output: string };
     };
 
+/**
+ * Campaign data.
+ */
 export type ApiCampaign = {
   type: string;
   status: string;
@@ -70,16 +91,20 @@ export type ApiCampaign = {
   targetLink?: string;
   offerLink?: string;
   userRewardToken?: string;
-  userRewardAmount?: any;
+  userRewardAmount?: number;
   publisherRewardToken?: string;
-  publisherRewardAmount?: any;
+  publisherRewardAmount?: number;
   publisherRewardType?: string;
+  asymmetricRewards: { tokenAddress: string; amount: number }[];
   audiences: {
     id: string;
     title: string;
   }[];
 };
 
+/**
+ * Audience data.
+ */
 export type ApiAudience = {
   id: string;
   title: string;
@@ -87,6 +112,9 @@ export type ApiAudience = {
   description?: string;
 };
 
+/**
+ * Share link data.
+ */
 export type ApiShare = {
   campaign: {
     id: string;
@@ -108,6 +136,9 @@ export type ApiShare = {
   };
 };
 
+/**
+ * A Torque user.
+ */
 export type ApiUser = {
   pubKey: string;
   username?: string;
@@ -117,11 +148,16 @@ export type ApiUser = {
   publisherPubKey?: string | null;
 };
 
+/**
+ * A verified Torque user.
+ */
 export type ApiVerifiedUser = ApiUser & {
-  token: string;
   verified: boolean;
 };
 
+/**
+ * Payload returned from the API as a sample payload for sign in.
+ */
 export type ApiIdentifyPayload = {
   payload: {
     statement: string;
@@ -130,6 +166,9 @@ export type ApiIdentifyPayload = {
   };
 };
 
+/**
+ * An array of the user's share links.
+ */
 export type ApiLinks = {
   links: {
     campaignId: string;
@@ -137,9 +176,43 @@ export type ApiLinks = {
   }[];
 };
 
+/**
+ * Campaign leaderboard data.
+ */
+export type ApiCampaignLeaderboard = {
+  campaignName: string;
+  leaderboard: {
+    user: string;
+    profileImage?: string | null;
+    conversions: number;
+  }[];
+};
+
+/**
+ * A user's journey data.
+ */
+export type ApiUserJourney = {
+  campaignId: string;
+  status: string;
+};
+
+/**
+ * Raffle rewards data.
+ */
+export type ApiRaffleRewards = {
+  winners: {
+    userPubKey: string;
+    amount: number;
+    tokenAddress: string;
+  }[];
+};
+
+/**
+ * Torque functions that require a wallet signature.
+ */
 export enum ApiTxnTypes {
-  CampaignCreate = "CampaignCreate",
-  CampaignEnd = "CampaignEnd",
-  PublisherPayout = "PublisherPayout",
-  PublisherCreate = "PublisherCreate",
+  CampaignCreate = 'CampaignCreate',
+  CampaignEnd = 'CampaignEnd',
+  PublisherPayout = 'PublisherPayout',
+  PublisherCreate = 'PublisherCreate',
 }
