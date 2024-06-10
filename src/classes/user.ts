@@ -1,15 +1,14 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
-import { SolanaSignInOutput } from '@solana/wallet-standard-features';
 import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 
-import { TorqueRequestClient } from './request.ts';
+import { TorqueRequestClient } from './request';
 import {
   TORQUE_API_ROUTES,
   torquePubkey,
   TORQUE_SHARE_URL,
   SOLANA_NETWORK,
   PUBLISHER_ACCOUNT_SIZE,
-} from '../constants/index.ts';
+} from '../constants';
 import {
   ApiCampaign,
   ApiIdentifyPayload,
@@ -17,7 +16,7 @@ import {
   ApiShare,
   ApiUserJourney,
   ApiVerifiedUser,
-} from '../types/index.ts';
+} from '../types';
 
 /**
  * Options for the TorqueUserClient.
@@ -277,44 +276,6 @@ export class TorqueUserClient {
 
       throw new Error('There was an error getting the login payload.');
     }
-  }
-
-  /**
-   * Constructs the body for the login API request based on the authentication type.
-   *
-   * @param {ApiInputLogin} params - The parameters for constructing the login body.
-   *
-   * @returns The constructed body for the verify API request, formatted based on the authentication type.
-   */
-  public static constructLoginBody(params: ApiInputLogin) {
-    const { payload, authType, pubKey } = params;
-    const body =
-      authType === 'siws'
-        ? {
-            authType,
-            pubKey,
-            payload: {
-              input: payload.input,
-              output: {
-                account: {
-                  ...payload.output.account,
-                  publicKey: Array.from(new Uint8Array(payload.output.account.publicKey)),
-                },
-                signature: new Uint8Array(payload.output.signature),
-                signedMessage: new Uint8Array(payload.output.signedMessage),
-              } as unknown as SolanaSignInOutput,
-            },
-          }
-        : {
-            authType,
-            pubKey,
-            payload: {
-              input: payload.input,
-              output: payload.output,
-            },
-          };
-
-    return body;
   }
 
   /**

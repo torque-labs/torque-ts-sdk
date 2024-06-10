@@ -1,3 +1,3 @@
-export * from './audience.ts';
-export * from './chain.ts';
-export * from './torque.ts';
+export * from './audience';
+export * from './chain';
+export * from './torque';

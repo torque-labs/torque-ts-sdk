@@ -5,8 +5,7 @@
     "skipLibCheck": true,
     "strict": true,
     "esModuleInterop": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
     "target": "ES2022",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -16,9 +15,7 @@
     "declaration": true,
     "rootDir": "./src",
     "outDir": "./dist",
-    "moduleDetection": "force",
     "noImplicitOverride": true,
-    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

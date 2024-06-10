@@ -1,10 +1,10 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
-import { TorqueRequestClient } from './request.ts';
-import { TorqueUserClient } from './user.ts';
-import { TORQUE_FUNCTIONS_ROUTES } from '../constants/index.ts';
-import { Audience, AudienceBuild, AudienceBuildResponse } from '../types/index.ts';
+import { TorqueRequestClient } from './request';
+import { TorqueUserClient } from './user';
+import { TORQUE_FUNCTIONS_ROUTES } from '../constants/index';
+import { Audience, AudienceBuild, AudienceBuildResponse } from '../types/';
 
 /**
  * Options for the TorqueAudienceClient.

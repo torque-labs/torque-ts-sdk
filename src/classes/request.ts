@@ -1,7 +1,7 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair, VersionedTransaction } from '@solana/web3.js';
 
-import { TORQUE_API_ROUTES } from '../constants/index.ts';
+import { TORQUE_API_ROUTES } from '../constants/index';
 import {
   TxnInput,
   ApiTxnTypes,
@@ -9,8 +9,8 @@ import {
   TxnExecute,
   TxnExecuteResponse,
   AudienceFunctionResponse,
-} from '../types/index.ts';
-import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.ts';
+} from '../types/index';
+import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils';
 
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.

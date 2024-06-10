@@ -1,11 +1,12 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { SolanaSignInOutput } from '@solana/wallet-standard-features';
 import { Keypair } from '@solana/web3.js';
 
-import { TorqueAdminClient } from './admin.ts';
-import { TorqueAudienceClient } from './audience.ts';
-import { TorqueUserClient } from './user.ts';
-import { TORQUE_API_ROUTES } from '../constants/index.ts';
-import { ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index.ts';
+import { TorqueAdminClient } from './admin';
+import { TorqueAudienceClient } from './audience';
+import { TorqueUserClient } from './user';
+import { TORQUE_API_ROUTES } from '../constants/index';
+import { ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index';
 
 /**
  * Options for the TorqueSDK.
@@ -95,7 +96,7 @@ export class TorqueSDK {
    *
    * @throws {Error} Throws an error if there is an error authenticating the user.
    */
-  static async verifyLogin(loginOptions: ApiInputLogin) {
+  public static async verifyLogin(loginOptions: ApiInputLogin) {
     try {
       // TODO: Setup request caching
       const response = await fetch(TORQUE_API_ROUTES.login, {
@@ -118,5 +119,43 @@ export class TorqueSDK {
 
       throw new Error('There was an error verifying the login options.');
     }
+  }
+
+  /**
+   * Constructs the body for the login API request based on the authentication type.
+   *
+   * @param {ApiInputLogin} params - The parameters for constructing the login body.
+   *
+   * @returns The constructed body for the verify API request, formatted based on the authentication type.
+   */
+  public static constructLoginBody(params: ApiInputLogin) {
+    const { payload, authType, pubKey } = params;
+    const body =
+      authType === 'siws'
+        ? {
+            authType,
+            pubKey,
+            payload: {
+              input: payload.input,
+              output: {
+                account: {
+                  ...payload.output.account,
+                  publicKey: Array.from(new Uint8Array(payload.output.account.publicKey)),
+                },
+                signature: new Uint8Array(payload.output.signature),
+                signedMessage: new Uint8Array(payload.output.signedMessage),
+              } as unknown as SolanaSignInOutput,
+            },
+          }
+        : {
+            authType,
+            pubKey,
+            payload: {
+              input: payload.input,
+              output: payload.output,
+            },
+          };
+
+    return body;
   }
 }
