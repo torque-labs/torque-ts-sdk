@@ -1,3 +1,4 @@
-export * from './api.js';
-export * from './audience.js';
-export * from './transactions.js';
+export * from './api.ts';
+export * from './audience.ts';
+export * from './chain.ts';
+export * from './transactions.ts';

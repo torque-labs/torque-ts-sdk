@@ -1,4 +1,4 @@
-import { ApiTxnTypes } from '../types/api.js';
+import { ApiTxnTypes } from '../types/api.ts';
 
 const UserTransactionTypes = [ApiTxnTypes.PublisherCreate, ApiTxnTypes.PublisherPayout];
 const AdminTransactionTypes = [ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd];

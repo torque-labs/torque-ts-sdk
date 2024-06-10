@@ -1,7 +1,7 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair, VersionedTransaction } from '@solana/web3.js';
 
-import { TORQUE_API_ROUTES } from '../constants/index.js';
+import { TORQUE_API_ROUTES } from '../constants/index.ts';
 import {
   TxnInput,
   ApiTxnTypes,
@@ -9,8 +9,8 @@ import {
   TxnExecute,
   TxnExecuteResponse,
   AudienceFunctionResponse,
-} from '../types/index.js';
-import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
+} from '../types/index.ts';
+import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.ts';
 
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
@@ -48,6 +48,40 @@ export class TorqueRequestClient {
           'x-torque-api-key': `${this.apiKey}`,
         }
       : {};
+  }
+
+  /**
+   * Perform a regular request to any endpoint.
+   *
+   * @template {object} T - The type of the response data.
+   *
+   * @param {string} url - The URL of the API endpoint.
+   * @param {RequestInit} options - The options for the request.
+   *
+   * @returns {Promise<T>} The response from the API.
+   *
+   * @throws {Error} If there is an error performing the request.
+   */
+  public async anyFetch<T>(url: string, options?: RequestInit) {
+    const reqOptions: RequestInit = {
+      ...options,
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    };
+
+    try {
+      const response = await fetch(url, reqOptions);
+      const result = (await response.json()) as unknown as T;
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error performing the request.');
+    }
   }
 
   /**

@@ -1,17 +1,17 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
-import { TorqueAdminClient } from './admin.js';
-import { TorqueAudienceClient } from './audience.js';
-import { TorqueUserClient } from './user.js';
-import { TORQUE_API_ROUTES } from '../constants/index.js';
-import { ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index.js';
+import { TorqueAdminClient } from './admin.ts';
+import { TorqueAudienceClient } from './audience.ts';
+import { TorqueUserClient } from './user.ts';
+import { TORQUE_API_ROUTES } from '../constants/index.ts';
+import { ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index.ts';
 
 /**
  * Options for the TorqueSDK.
  */
 export type TorqueSDKOptions = {
-  signer: SignerWalletAdapter | Keypair;
+  signer?: SignerWalletAdapter | Keypair;
   apiKey?: string;
   publisherHandle?: string;
   rpc?: string;
@@ -38,9 +38,12 @@ export type TorqueSDKOptions = {
  *   : await sdk.user.initializeUser(ApiInputLogin);
  */
 export class TorqueSDK {
-  public user: TorqueUserClient;
+  public user: TorqueUserClient | undefined;
   public api: TorqueAdminClient | undefined;
   public audience: TorqueAudienceClient | undefined;
+  private apiKey: string | undefined;
+  private publisherHandle: string | undefined;
+  private rpc: string | undefined;
 
   /**
    * Initializes the TorqueSDK with the provided options.
@@ -54,24 +57,30 @@ export class TorqueSDK {
       throw new Error('You must provide an API key or a publisher handle.');
     }
 
+    this.apiKey = options.apiKey;
+    this.publisherHandle = options.publisherHandle;
+    this.rpc = options.rpc;
+  }
+
+  public async initialize(signer: SignerWalletAdapter | Keypair) {
     const userClient = new TorqueUserClient({
-      signer: options.signer,
-      publisherHandle: options.publisherHandle,
-      rpc: options.rpc,
+      signer: signer,
+      publisherHandle: this.publisherHandle,
+      rpc: this.rpc,
     });
 
     this.user = userClient;
 
-    if (options.apiKey) {
+    if (this.apiKey) {
       this.api = new TorqueAdminClient({
-        signer: options.signer,
-        apiKey: options.apiKey,
+        signer: signer,
+        apiKey: this.apiKey,
         userClient: userClient,
       });
 
       this.audience = new TorqueAudienceClient({
-        signer: options.signer,
-        apiKey: options.apiKey,
+        signer: signer,
+        apiKey: this.apiKey,
         userClient: userClient,
       });
     }

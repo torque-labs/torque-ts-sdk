@@ -2,14 +2,14 @@ import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { SolanaSignInOutput } from '@solana/wallet-standard-features';
 import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 
-import { TorqueRequestClient } from './request.js';
+import { TorqueRequestClient } from './request.ts';
 import {
   TORQUE_API_ROUTES,
   torquePubkey,
   TORQUE_SHARE_URL,
   SOLANA_NETWORK,
   PUBLISHER_ACCOUNT_SIZE,
-} from '../constants/index.js';
+} from '../constants/index.ts';
 import {
   ApiCampaign,
   ApiIdentifyPayload,
@@ -17,7 +17,7 @@ import {
   ApiShare,
   ApiUserJourney,
   ApiVerifiedUser,
-} from '../types/index.js';
+} from '../types/index.ts';
 
 /**
  * Options for the TorqueUserClient.
@@ -286,7 +286,7 @@ export class TorqueUserClient {
    *
    * @returns The constructed body for the verify API request, formatted based on the authentication type.
    */
-  public constructLoginBody(params: ApiInputLogin) {
+  public static constructLoginBody(params: ApiInputLogin) {
     const { payload, authType, pubKey } = params;
     const body =
       authType === 'siws'
@@ -442,8 +442,6 @@ export class TorqueUserClient {
       const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
 
       return publisherPda;
-    } else {
-      throw new Error('No public key found in the Adapter or Keypair.');
     }
   }
 
@@ -455,13 +453,17 @@ export class TorqueUserClient {
   public async getPublisherBalance() {
     const pda = this.getPublisherPda();
 
-    const balance = await this.connection.getBalance(pda);
-    const rentExemptBalance =
-      await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
+    if (pda) {
+      const balance = await this.connection.getBalance(pda);
+      const rentExemptBalance =
+        await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
 
-    const maxTransferable = balance - rentExemptBalance;
+      const maxTransferable = balance - rentExemptBalance;
 
-    return maxTransferable;
+      return maxTransferable;
+    } else {
+      return 0;
+    }
   }
 
   /**

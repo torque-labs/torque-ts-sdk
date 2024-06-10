@@ -1,9 +1,9 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
-import { TorqueRequestClient } from './request.js';
-import { TorqueUserClient } from './user.js';
-import { TORQUE_API_ROUTES } from '../constants/index.js';
+import { TorqueRequestClient } from './request.ts';
+import { TorqueUserClient } from './user.ts';
+import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.ts';
 import {
   ApiCampaign,
   ApiCampaignLeaderboard,
@@ -11,7 +11,8 @@ import {
   ApiTxnTypes,
   CampaignCreateInput,
   CampaignEndInput,
-} from '../types/index.js';
+  SafeToken,
+} from '../types/index.ts';
 
 /**
  * Options for the TorqueAdminClient.
@@ -34,6 +35,7 @@ export type TorqueAdminClientOptions = {
 export class TorqueAdminClient {
   private client: TorqueRequestClient;
   private userClient: TorqueUserClient;
+  public tokenList: SafeToken[] | undefined;
 
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
@@ -56,7 +58,9 @@ export class TorqueAdminClient {
   /**
    * Get a list of all currently active campaigns.
    *
-   * @returns i
+   * @returns {Promise<ApiCampaign[]>} A promise that resolves to an array of ApiCampaign objects.
+   *
+   * @throws {Error} If the client is not initialized or there was an error getting the list of campaigns.
    */
   public async getCampaigns() {
     if (!this.client) {
@@ -258,6 +262,45 @@ export class TorqueAdminClient {
       console.error(error);
 
       throw new Error('There was an error paying out the publisher.');
+    }
+  }
+
+  /**
+   * DATA
+   */
+
+  /**
+   * Retrieves the list of safe tokens from the Jupiter ag.
+   *
+   * @param {string} filter - An optional filter to filter the tokens by text.
+   *
+   * @return {Promise<SafeToken[]>} A promise that resolves to an array of SafeToken objects.
+   *
+   * @throws {Error} If the client is not initialized or there was an error fetching the safe token list.
+   */
+  public async getSafeTokenList(filter?: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    if (this.tokenList) {
+      return !filter
+        ? this.tokenList
+        : this.tokenList.filter((token) => token.name.toLowerCase().includes(filter));
+    }
+
+    try {
+      const response = await this.client.anyFetch<SafeToken[]>(JUP_TOKEN_LIST);
+
+      this.tokenList = response;
+
+      return !filter
+        ? this.tokenList
+        : this.tokenList.filter((token) => token.name.toLowerCase().includes(filter));
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error fetching the safe token list.');
     }
   }
 }

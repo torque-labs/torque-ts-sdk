@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
+import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.ts';
 
 // TODO: Centralize schema definitions
 export const CampaignCreateInputSchema = z.object({
