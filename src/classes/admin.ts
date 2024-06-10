@@ -110,6 +110,7 @@ export class TorqueAdminClient {
       return signature;
     } catch (error) {
       console.error(error);
+
       throw new Error('There was an error creating the campaign.');
     }
   }
