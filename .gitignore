@@ -18,4 +18,4 @@ yarn-error.log*
 .env
 .env.local
 
-/test/keys
+/test/utils/keys

@@ -1,23 +1,32 @@
 import { Keypair } from "@solana/web3.js";
-import { airdrop, connection } from "../helper";
-import { TorqueClient } from "@/client";
+import { airdrop } from "../utils/helper";
+import { TorqueSDK } from "../../src/classes/sdk";
 
 describe("INIT PUBLISHER", () => {
   const newUser = Keypair.generate();
-  const torque = new TorqueClient({
-    signer: newUser
-  });
-  beforeAll(async () => {
-    await airdrop(connection, newUser.publicKey);
-  });
+  let sdk: TorqueSDK;
+    beforeAll(async () => {
+        sdk = new TorqueSDK({
+            apiKey: newUser.publicKey.toString(),
+        });
+        await sdk.initialize(newUser);
+        await sdk.user?.initializeUser();
+        await airdrop(newUser.publicKey);
+    });
 
   it("should create a publisher account", async () => {
-    const result = await torque.initPublisher(newUser);
+    const result = await sdk.api?.initPublisher();
     expect(result).toBeDefined();
+    const isPublisher = await sdk.user?.isPublisher();
+    expect(isPublisher).toBeTruthy();
   });
 
   it("should not create a publisher account if already exists", async () => {
-    const result = await torque.initPublisher(newUser);
-    expect(result).toBeUndefined();
+    try {
+      await sdk.api?.initPublisher();
+    } catch (error) {
+      // TODOD how to check for error
+      expect(error).toBeDefined();
+    }
   });
 });

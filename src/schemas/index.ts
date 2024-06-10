@@ -22,6 +22,7 @@ export const CampaignCreateInputSchema = z.object({
   startTime: z.number(),
   endTime: z.number(),
   audience: z.string().optional().nullable(),
+  asymmetricRewards: z.array(z.object({ token: z.string(), amount: z.number() })).optional().nullable(),
 });
 
 export const CampaignEndInputSchema = z.object({

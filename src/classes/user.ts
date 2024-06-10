@@ -1,6 +1,6 @@
 import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
-
+import nacl from 'tweetnacl';
 import { TorqueRequestClient } from './request';
 import {
   TORQUE_API_ROUTES,
@@ -17,6 +17,7 @@ import {
   ApiUserJourney,
   ApiVerifiedUser,
 } from '../types';
+import { TorqueSDK } from './sdk';
 
 /**
  * Options for the TorqueUserClient.
@@ -86,10 +87,24 @@ export class TorqueUserClient {
    *
    * @throws {Error} If user was not verified.
    */
-  public async initializeUser(userAuth: ApiInputLogin) {
+  public async initializeUser(userAuth?: ApiInputLogin) {
+    let something: any;
+    if (!userAuth) {
+      const signInPayload = await this.getLoginPayload();
+      const signature = nacl.sign.detached(Buffer.from(signInPayload.payload.statement), (this.signer as Keypair).secretKey);
+      something = TorqueSDK.constructLoginBody({
+        authType: 'basic',
+        pubKey: this.signer.publicKey!.toString(), 
+        payload: {
+          input: signInPayload.payload.statement,
+          output: Buffer.from(signature).toString("base64"),
+        },
+      })
+    }
+
     try {
       // TODO: See if user is already logged in with API
-      const verifiedUser = await this.login(userAuth);
+      const verifiedUser = await this.login(something);
 
       this.user = verifiedUser;
       this.initialized = true;
@@ -176,6 +191,9 @@ export class TorqueUserClient {
           TORQUE_API_ROUTES.currentUser,
           {
             method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${this.user.token}`,
+            }
           },
         );
 

@@ -79,19 +79,20 @@ export class TorqueAudienceClient {
    *
    * @throws {Error} If there is an error verifying the user with the audience.
    */
-  public async verifyAudience(audience: Audience) {
+  public async verifyAudience(audience: Audience, publicKey?: string) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
-      const options = { audience, publicKey: this.userClient.publicKey };
-
       const result = await this.client.functionsFetch<boolean>(
         TORQUE_FUNCTIONS_ROUTES.audience.verify,
         {
           method: 'POST',
-          body: JSON.stringify(options),
+          body: JSON.stringify({
+            audience,
+            publicKey,
+          }),
         },
       );
 
