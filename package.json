@@ -12,6 +12,7 @@
     "docs:md": "typedoc --options typedoc.json",
     "lint": "eslint './src/**/*.ts' --quiet --fix",
     "prettier": "npx prettier './src/**/*.{js,ts,mjs,cjs,json}' --write",
+    "typecheck": "tsc --noEmit --pretty",
     "prepare": "husky"
   },
   "repository": {
