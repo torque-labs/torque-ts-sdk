@@ -1,6 +1,6 @@
-import z from "zod";
+import z from 'zod';
 
-import { ApiEventType, ApiRewardType, ApiTxnTypes } from "../types/api";
+import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index';
 
 // TODO: Centralize schema definitions
 export const CampaignCreateInputSchema = z.object({
@@ -35,7 +35,7 @@ export const PublisherPayoutInputSchema = z.object({
 
 export const PublisherCreateInputSchema = z.boolean();
 
-export const TxnInputSchema = z.discriminatedUnion("txnType", [
+export const TxnInputSchema = z.discriminatedUnion('txnType', [
   z.object({
     txnType: z.literal(ApiTxnTypes.CampaignCreate),
     data: CampaignCreateInputSchema,
@@ -59,7 +59,7 @@ const TxnExecuteDefaults = z.object({
   blockhash: z.string(),
 });
 
-export const TxnExecuteSchema = z.discriminatedUnion("txnType", [
+export const TxnExecuteSchema = z.discriminatedUnion('txnType', [
   z.object({
     txnType: z.enum([ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd]),
     data: TxnExecuteDefaults.extend({ campaignId: z.string() }),
