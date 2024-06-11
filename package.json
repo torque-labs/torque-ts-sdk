@@ -6,6 +6,11 @@
   "description": "The official Torque TypeScript SDK.",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "docs": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts",
     "docs:json": "npx typedoc './src/**/*.ts' --json docs/documentation-full.json src/index.ts",
@@ -13,7 +18,8 @@
     "lint": "eslint './src/**/*.ts' --quiet --fix",
     "prettier": "npx prettier './src/**/*.{js,ts,mjs,cjs,json}' --write",
     "typecheck": "tsc --noEmit --pretty",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

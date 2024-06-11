@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TransactionType = exports.AdminTransactionTypes = exports.UserTransactionTypes = void 0;
+const api_1 = require("../types/api");
+const UserTransactionTypes = [api_1.ApiTxnTypes.PublisherCreate, api_1.ApiTxnTypes.PublisherPayout];
+exports.UserTransactionTypes = UserTransactionTypes;
+const AdminTransactionTypes = [api_1.ApiTxnTypes.CampaignCreate, api_1.ApiTxnTypes.CampaignEnd];
+exports.AdminTransactionTypes = AdminTransactionTypes;
+const TransactionType = [...UserTransactionTypes, ...AdminTransactionTypes];
+exports.TransactionType = TransactionType;
