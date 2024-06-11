@@ -1,6 +1,6 @@
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import {ApiEventType, ApiRewardType, CampaignCreateInput} from "../../src/types/index";
-import { TEST_USER_PATHS, loadCliWallet } from "./helper";
+import { TEST_SPL, TEST_USER_PATHS, loadCliWallet } from "./helper";
 
 export const pointsCampaign: CampaignCreateInput = {
     campaignName: "pointsCampaign",
@@ -11,8 +11,30 @@ export const pointsCampaign: CampaignCreateInput = {
     eventTokenAddress: "",
     publisherRewardType: ApiRewardType.POINTS,
     publisherTokenAddress: PublicKey.default.toString(),
-    publisherPayoutPerConversion: 10,
+    publisherPayoutPerConversion: 100,
     userRewardType: ApiRewardType.POINTS,
+    userTokenAddress: PublicKey.default.toString(),
+    userPayoutPerConversion: 100,
+    conversionCount: 10,
+    minAmount: 10,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 1000,
+    audience: '',
+    asymmetricRewards: [],
+}
+
+export const publisherUserSOL: CampaignCreateInput = {
+    campaignName: `pubUserSOL_${new Date().getTime()}`,
+    campaignType: "CLICK",
+    landingPage: 'https://www.example.com',
+    eventType: ApiEventType.CLICK,
+    eventProgramAddress: "",
+    eventTokenAddress: "",
+    publisherRewardType: ApiRewardType.TOKENS,
+    publisherTokenAddress: PublicKey.default.toString(),
+    publisherPayoutPerConversion: 10,
+    userRewardType: ApiRewardType.TOKENS,
     userTokenAddress: PublicKey.default.toString(),
     userPayoutPerConversion: 10,
     conversionCount: 10,
@@ -24,8 +46,79 @@ export const pointsCampaign: CampaignCreateInput = {
     asymmetricRewards: [],
 }
 
+export const publisherUserSPL: CampaignCreateInput = {
+    campaignName: `pubUserSPL_${new Date().getTime()}`,
+    campaignType: "CLICK",
+    landingPage: 'https://www.example.com',
+    eventType: ApiEventType.CLICK,
+    eventProgramAddress: "",
+    eventTokenAddress: "",
+    publisherRewardType: ApiRewardType.TOKENS,
+    publisherTokenAddress: TEST_SPL.toString(),
+    publisherPayoutPerConversion: 10,
+    userRewardType: ApiRewardType.TOKENS,
+    userTokenAddress: TEST_SPL.toString(),
+    userPayoutPerConversion: 10,
+    conversionCount: 10,
+    minAmount: 10,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 1000,
+    audience: '',
+    asymmetricRewards: [],
+}
 
-export const clickRaffleCampaign: CampaignCreateInput = {
+export const raffleSOL: CampaignCreateInput = {
+    campaignName: `raffleSOL_${new Date().getTime()}`,
+    campaignType: "CLICK",
+    landingPage: 'https://www.example.com',
+    eventType: ApiEventType.CLICK,
+    eventProgramAddress: "",
+    eventTokenAddress: "",
+    publisherRewardType: ApiRewardType.TOKENS,
+    publisherTokenAddress: PublicKey.default.toString(),
+    publisherPayoutPerConversion: 0,
+    userRewardType: ApiRewardType.TOKENS,
+    userTokenAddress: PublicKey.default.toString(),
+    userPayoutPerConversion: 0,
+    conversionCount: 10,
+    minAmount: 10,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 1000,
+    audience: '',
+    asymmetricRewards: [{
+        tokenAddress: PublicKey.default.toString(),
+        amount: 5000,
+    }],
+}
+
+export const raffleSPL: CampaignCreateInput = {
+    campaignName: `raffleSPL_${new Date().getTime()}`,
+    campaignType: "CLICK",
+    landingPage: 'https://www.example.com',
+    eventType: ApiEventType.CLICK,
+    eventProgramAddress: "",
+    eventTokenAddress: "",
+    publisherRewardType: ApiRewardType.TOKENS,
+    publisherTokenAddress: PublicKey.default.toString(),
+    publisherPayoutPerConversion: 0,
+    userRewardType: ApiRewardType.TOKENS,
+    userTokenAddress: PublicKey.default.toString(),
+    userPayoutPerConversion: 0,
+    conversionCount: 10,
+    minAmount: 10,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 1000,
+    audience: '',
+    asymmetricRewards: [{
+        tokenAddress: TEST_SPL.toString(),
+        amount: 50,
+    }],
+}
+
+export const clickRaffleCampaignSol: CampaignCreateInput = {
     campaignName: "click_raffle_sol",
     campaignType: "CLICK",
     landingPage: 'app.torque.so',
@@ -33,9 +126,9 @@ export const clickRaffleCampaign: CampaignCreateInput = {
     eventProgramAddress: "",
     eventTokenAddress: "",
     publisherRewardType: ApiRewardType.TOKENS,
-    publisherTokenAddress: loadCliWallet(TEST_USER_PATHS.publisher1).publicKey.toString(),
+    publisherTokenAddress: PublicKey.default.toString(),
     publisherPayoutPerConversion: 8,
-    userRewardType: ApiRewardType.POINTS,
+    userRewardType: ApiRewardType.TOKENS,
     userTokenAddress: PublicKey.default.toString(),
     userPayoutPerConversion: 13,
     conversionCount: 10000,
@@ -46,7 +139,33 @@ export const clickRaffleCampaign: CampaignCreateInput = {
     // TODO FIX, should be null
     audience: '',
     asymmetricRewards: [{
-        token: PublicKey.default.toString(),
+        tokenAddress: PublicKey.default.toString(),
         amount: LAMPORTS_PER_SOL / 2,
+    }],
+}
+
+export const clickRaffleCampaignSpl: CampaignCreateInput = {
+    campaignName: "click_raffle_spl",
+    campaignType: "CLICK",
+    landingPage: 'app.torque.so',
+    eventType: ApiEventType.CLICK,
+    eventProgramAddress: "",
+    eventTokenAddress: "",
+    publisherRewardType: ApiRewardType.TOKENS,
+    publisherTokenAddress: TEST_SPL.toString(),
+    publisherPayoutPerConversion: 8,
+    userRewardType: ApiRewardType.TOKENS,
+    userTokenAddress: TEST_SPL.toString(),
+    userPayoutPerConversion: 13,
+    conversionCount: 100,
+    minAmount: 10,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 30 * 1000,
+    // TODO FIX, should be null
+    audience: '',
+    asymmetricRewards: [{
+        tokenAddress: TEST_SPL.toString(),
+        amount: 250,
     }],
 }

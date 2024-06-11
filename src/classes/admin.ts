@@ -13,6 +13,7 @@ import {
   CampaignCreateInput,
   CampaignEndInput,
   SafeToken,
+  WithSignature,
 } from '../types';
 
 /**
@@ -93,15 +94,14 @@ export class TorqueAdminClient {
    *
    * @param {CampaignCreateInput} data - The data for the campaign to create.
    *
-   * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+   * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
    */
-  public async createCampaign(data: CampaignCreateInput) {
+  public async createCampaign(data: CampaignCreateInput): Promise<WithSignature<any>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
-      console.log('-- createCampaign: ', data);
       const user = await this.userClient.getCurrentUser();
       const input = {
         txnType: ApiTxnTypes.CampaignCreate,
@@ -123,11 +123,11 @@ export class TorqueAdminClient {
    *
    * @param {CampaignEndInput} data - The ID of the campaign to end.
    *
-   * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+   * @returns {Promise<WithSignature<any>>} A promise that resolves to the signature of the transaction.
    *
    * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
    */
-  public async endCampaign(data: CampaignEndInput) {
+  public async endCampaign(data: CampaignEndInput): Promise<WithSignature<any>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -258,10 +258,11 @@ export class TorqueAdminClient {
     }
 
     try {
+      const user = await this.userClient.getCurrentUser();
       const { signature } = await this.client.transaction({
         txnType: ApiTxnTypes.PublisherPayout,
         data,
-      });
+      }, user?.token);
 
       return signature;
     } catch (error) {

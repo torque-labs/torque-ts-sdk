@@ -9,6 +9,7 @@ import {
   TxnExecute,
   TxnExecuteResponse,
   AudienceFunctionResponse,
+  WithSignature,
 } from '../types/index';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils';
 
@@ -96,7 +97,7 @@ export class TorqueRequestClient {
    *
    * @throws {Error} If there is an error performing the request.
    */
-  public async apiFetch<T>(url: string, options?: RequestInit) {
+  public async apiFetch<T>(url: string, options?: RequestInit, supressError = false) {
     const reqOptions: RequestInit = {
       credentials: 'include',
       ...options,
@@ -114,11 +115,12 @@ export class TorqueRequestClient {
       if (result.status === 'SUCCESS') {
         return result.data;
       } else {
-        console.log("***** FAILING RESULT", result);
         throw new Error(result.message);
       }
     } catch (error) {
-      console.error(error);
+      if (!supressError) {
+        console.error(error);
+      }
 
       throw new Error('There was an error performing the request.');
     }
@@ -255,7 +257,7 @@ export class TorqueRequestClient {
    *
    * @param {TxnInput} txnInput - The input object of the transaction to process.
    *
-   * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
+   * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
    */
   public async transaction<T>(txnInput: TxnInput, token?: string) {
     if (!this.signer) {
@@ -265,7 +267,6 @@ export class TorqueRequestClient {
     }
 
     try {
-      console.log('*** txnInput', txnInput);
       const { serializedTx, ...rest } = await this.buildTransaction<T>(txnInput, token);
 
       const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
@@ -286,11 +287,9 @@ export class TorqueRequestClient {
         },
       };
 
-      console.log('*** executeInput', executeInput);
-
       const { signature } = await this.executeTransaction(executeInput, token);
 
-      return { signature, ...rest };
+      return { signature, ...rest } as WithSignature<T>;
     } catch (error) {
       console.error(error);
 

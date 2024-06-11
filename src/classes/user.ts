@@ -11,6 +11,7 @@ import {
   PUBLISHER_ACCOUNT_SIZE,
 } from '../constants';
 import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types';
+import { getAssociatedTokenAddress } from '@solana/spl-token';
 
 /**
  * Options for the TorqueUserClient.
@@ -89,7 +90,8 @@ export class TorqueUserClient {
         return currentUser;
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      console.log("-- User is not logged in, attempting to login");
     }
 
     try {
@@ -279,6 +281,7 @@ export class TorqueUserClient {
         {
           method: 'GET',
         },
+        true
       );
 
       if (result) {
@@ -290,7 +293,7 @@ export class TorqueUserClient {
 
       return undefined;
     } catch (error) {
-      console.error(error);
+      console.log("-- User is not logged in, will attempt to login");
     }
 
     return undefined;
@@ -304,7 +307,7 @@ export class TorqueUserClient {
   public getUserHandle() {
     if (this.user) {
       const handle =
-        this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
+        this.user.username || this.user.twitter || this.user.publisherPubKey || this.user.pubKey;
 
       return handle;
     }
@@ -373,6 +376,7 @@ export class TorqueUserClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.user?.token}`,
         },
         body: JSON.stringify({ campaignId, publisherHandle }),
       });
@@ -441,6 +445,31 @@ export class TorqueUserClient {
       return publisherPda;
     }
   }
+
+  static PUBLISHER_ACCOUNT_SIZE = 41;
+  public async getMaxTransferableSol() {
+    const balance = await this.connection.getBalance(this.getPublisherPda()!, 'processed');
+    const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(
+      PUBLISHER_ACCOUNT_SIZE,
+    );
+    const maxTransferable = balance - rentExemptBalance;
+    return maxTransferable;
+  };
+
+  public async getMaxTransferableSpl(token: PublicKey) {
+    try {
+      const associatedTokenAddress = await getAssociatedTokenAddress(
+          token,
+          new PublicKey(this.getPublisherPda()!),
+          true
+      );
+      const tokenAccountInfo = await this.connection.getTokenAccountBalance(associatedTokenAddress, "processed");
+      return tokenAccountInfo.value.uiAmount ?? 0;
+    } catch (e) {
+      console.log("-!!! max spl failed to fetch", e);
+      return 0;
+    }
+  };
 
   /**
    * Get the balance of the publisher PDA for the current user.
@@ -535,3 +564,5 @@ export class TorqueUserClient {
     }
   }
 }
+
+

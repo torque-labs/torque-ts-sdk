@@ -3,7 +3,7 @@ import z from 'zod';
 import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index';
 
 export const AssymetricRewardSchema = z.object({ 
-  token: z.string(), 
+  tokenAddress: z.string(), 
   amount: z.number() 
 })
 

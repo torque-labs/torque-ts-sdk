@@ -10,6 +10,7 @@ import {
 } from "@solana/web3.js";
 import { TorqueSDK } from "../../src/classes/sdk";
 import exp from 'constants';
+import { TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from '@solana/spl-token';
 
 export const connection = new Connection("https://api.devnet.solana.com");
 
@@ -20,8 +21,13 @@ export const TEST_USER_PATHS = {
     publisher2: "./test/utils/keys/publisher2.json",
     user1: "./test/utils/keys/user1.json",
     user2: "./test/utils/keys/user2.json",
+    user3: "./test/utils/keys/user3.json",
     airdropper: "./test/utils/keys/airdropper.json",
 }
+export const CAMPAIGN_RENT_COST = LAMPORTS_PER_SOL * 0.00405072;
+export const GAS_COST = LAMPORTS_PER_SOL * 0.0000101; 
+export const TOKEN_ACCOUNT_RENT_COST = LAMPORTS_PER_SOL * 0.00203928;
+export const TEST_SPL = new PublicKey('6xhS7X4J3AyRz14Rkj2nRYoCBGirhr3CHwLQRE79fmzQ'); // airdropper is auth
 
 export const airdrop = async (walletAddress: PublicKey, amount = (LAMPORTS_PER_SOL / 100)) => {
     const airdropper = loadCliWallet(TEST_USER_PATHS.airdropper);
@@ -47,44 +53,38 @@ export const loadCliWallet = (filepath: string) => {
     return Keypair.fromSecretKey(new Uint8Array(JSON.parse(data.toString())));
 }
 
-export const loadBalances = async (walletAddress: PublicKey | string) => {
-    const response = await fetch(process.env.HELIUS_RPC_URL as string, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            "jsonrpc": "2.0",
-            "id": "helius-test",
-            "method": "searchAssets",
-            "params": {
-                "ownerAddress": walletAddress.toString(),
-                "tokenType": "all",
-            }
-        }),
-    });
-    const data = await response.json();
-    
-    if (!data.result) {
-        throw new Error("No data returned from Helius RPC");
+export type Balances = {
+    sol: number,
+    spl: number
+}
+export const loadBalances = async (walletAddress: PublicKey) => {
+    let spl:number;
+    try {
+        const associatedTokenAddress = await getAssociatedTokenAddress(
+            TEST_SPL,
+            walletAddress
+        );
+        const tokenAccountInfo = await connection.getTokenAccountBalance(associatedTokenAddress, "processed");
+        spl = tokenAccountInfo.value.uiAmount ?? 0;
+    } catch (e) {
+        spl = 0;
     }
-    console.log(data.result);
-
-    return data.result;
+    const sol = await connection.getBalance(walletAddress, "processed");
+    return {
+        sol,
+        spl
+    } as Balances;
 };
 
-export const initSdk = async (
-    path: string,
-    apiKey?: string,
-    publisherHandle?: string,
-) => {
-    const wallet = loadCliWallet(path);
-    const sdk = new TorqueSDK({
-        signer: wallet,
-        apiKey,
-        publisherHandle,
-    });
-    return sdk;
+export const triggerUserPayouts = async () => {
+    const singatures = await fetch("http://localhost:3001/users/payout", {
+        method: "GET",
+        headers: {
+            "x-torque-api-key": process.env.TORQUE_API_KEY as string
+        },
+        redirect: "follow"
+    }).then((response) => response.json())
+    return singatures;
 }
 
 
