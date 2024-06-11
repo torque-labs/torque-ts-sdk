@@ -3,7 +3,7 @@
 ```ts
 type TorqueAdminClientOptions: {
   apiKey: string;
-  signer: SignerWalletAdapter | Keypair;
+  signer: Adapter | Keypair;
   userClient: TorqueUserClient;
 };
 ```
@@ -21,7 +21,7 @@ apiKey: string;
 ### signer
 
 ```ts
-signer: SignerWalletAdapter | Keypair;
+signer: Adapter | Keypair;
 ```
 
 ### userClient

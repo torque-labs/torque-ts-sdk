@@ -5,7 +5,7 @@ type TorqueSDKOptions: {
   apiKey: string;
   publisherHandle: string;
   rpc: string;
-  signer: SignerWalletAdapter | Keypair;
+  signer: Adapter | Keypair;
 };
 ```
 
@@ -34,7 +34,7 @@ optional rpc: string;
 ### signer
 
 ```ts
-signer: SignerWalletAdapter | Keypair;
+signer: Adapter | Keypair;
 ```
 
 ## Source
