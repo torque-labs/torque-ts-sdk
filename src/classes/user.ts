@@ -1,7 +1,8 @@
-import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { Adapter } from '@solana/wallet-adapter-base';
 import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 import { TorqueRequestClient } from './request';
+import { TorqueSDK } from './sdk';
 import {
   TORQUE_API_ROUTES,
   torquePubkey,
@@ -9,21 +10,13 @@ import {
   SOLANA_NETWORK,
   PUBLISHER_ACCOUNT_SIZE,
 } from '../constants';
-import {
-  ApiCampaign,
-  ApiIdentifyPayload,
-  ApiInputLogin,
-  ApiShare,
-  ApiUserJourney,
-  ApiVerifiedUser,
-} from '../types';
-import { TorqueSDK } from './sdk';
+import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types';
 
 /**
  * Options for the TorqueUserClient.
  */
 export type TorqueUserClientOptions = {
-  signer: SignerWalletAdapter | Keypair;
+  signer: Adapter | Keypair;
   publisherHandle?: string;
   rpc?: string;
 };
@@ -48,7 +41,7 @@ export class TorqueUserClient {
   public publicKey: string;
   private client: TorqueRequestClient;
   private user: ApiVerifiedUser | undefined;
-  private signer: SignerWalletAdapter | Keypair;
+  private signer: Adapter | Keypair;
   private connection: Connection;
 
   /**
@@ -88,28 +81,76 @@ export class TorqueUserClient {
    * @throws {Error} If user was not verified.
    */
   public async initializeUser(userAuth?: ApiInputLogin) {
-    let something: any;
-    if (!userAuth) {
-      const signInPayload = await this.getLoginPayload();
-      const signature = nacl.sign.detached(Buffer.from(signInPayload.payload.statement), (this.signer as Keypair).secretKey);
-      something = TorqueSDK.constructLoginBody({
-        authType: 'basic',
-        pubKey: this.signer.publicKey!.toString(), 
-        payload: {
-          input: signInPayload.payload.statement,
-          output: Buffer.from(signature).toString("base64"),
-        },
-      })
+    // Check if user is already logged in with API
+    try {
+      const currentUser = await this.getCurrentUser();
+
+      if (currentUser) {
+        return currentUser;
+      }
+    } catch (error) {
+      console.error(error);
     }
 
     try {
-      // TODO: See if user is already logged in with API
-      const verifiedUser = await this.login(something);
+      let loginBody: ApiInputLogin | undefined;
 
-      this.user = verifiedUser;
-      this.initialized = true;
+      if (!userAuth && this.signer.publicKey) {
+        const signPayloadInput = await TorqueSDK.getLoginPayload();
 
-      return this.user;
+        if ('signIn' in this.signer) {
+          // Login with SIWS
+          const signOutPayload = await this.signer.signIn(signPayloadInput.payload);
+
+          loginBody = TorqueSDK.constructLoginBody({
+            authType: 'siws',
+            pubKey: this.signer.publicKey.toString(),
+            payload: { input: signPayloadInput.payload, output: signOutPayload },
+          });
+        } else if ('signMessage' in this.signer) {
+          // Login with basic signed message
+          const signOutPayload = await this.signer.signMessage(
+            Buffer.from(signPayloadInput.payload.statement, 'utf8'),
+          );
+
+          loginBody = TorqueSDK.constructLoginBody({
+            authType: 'basic',
+            pubKey: this.signer.publicKey.toString(),
+            payload: {
+              input: signPayloadInput.payload.statement,
+              output: Buffer.from(signOutPayload).toString('base64'),
+            },
+          });
+        } else {
+          // Login with back-end wallet signature
+          const signature = nacl.sign.detached(
+            Buffer.from(signPayloadInput.payload.statement, 'utf8'),
+            (this.signer as Keypair).secretKey,
+          );
+
+          loginBody = TorqueSDK.constructLoginBody({
+            authType: 'basic',
+            pubKey: this.signer.publicKey.toString(),
+            payload: {
+              input: signPayloadInput.payload.statement,
+              output: Buffer.from(signature).toString('base64'),
+            },
+          });
+        }
+      } else if (userAuth) {
+        loginBody = userAuth;
+      }
+
+      if (loginBody) {
+        const verifiedUser = await this.login(loginBody);
+
+        this.user = verifiedUser;
+        this.initialized = true;
+
+        return this.user;
+      } else {
+        throw new Error('There was an error logging in.');
+      }
     } catch (error) {
       // TODO: Unset user if not verified
       console.error(error);
@@ -250,9 +291,9 @@ export class TorqueUserClient {
       return undefined;
     } catch (error) {
       console.error(error);
-
-      throw new Error('There was an error checking if the user is logged in.');
     }
+
+    return undefined;
   }
 
   /**
@@ -269,31 +310,6 @@ export class TorqueUserClient {
     }
 
     return undefined;
-  }
-
-  /**
-   * Retrieves a sample SIWS payload for l ogging into the Torque API.
-   *
-   * @returns {Promise<ApiIdentifyPayload>} A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
-   *
-   * @throws {Error} Throws an error if the API request is unsuccessful.
-   */
-  public async getLoginPayload() {
-    if (!this.client) {
-      throw new Error('The client is not initialized.');
-    }
-
-    try {
-      const result = await this.client.apiFetch<ApiIdentifyPayload>(TORQUE_API_ROUTES.identify, {
-        method: 'GET',
-      });
-
-      return result;
-    } catch (error) {
-      console.error(error);
-
-      throw new Error('There was an error getting the login payload.');
-    }
   }
 
   /**
@@ -317,8 +333,8 @@ export class TorqueUserClient {
     try {
       // TODO: Verify what publisher handle does for this endpoint
       const params = this.publisherHandle
-        ? new URLSearchParams({ publisher: this.publisherHandle })
-        : {};
+        ? new URLSearchParams({ publisher: this.publisherHandle, status: 'ACTIVE' })
+        : new URLSearchParams({ status: 'ACTIVE' });
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
@@ -417,7 +433,9 @@ export class TorqueUserClient {
    */
   public getPublisherPda() {
     if (this.user?.publisherPubKey) {
-      const seeds = [Buffer.from('publisher'), Buffer.from(this.user.publisherPubKey)];
+      return new PublicKey(this.user.publisherPubKey);
+    } else if (this.user && this.isPublisher()) {
+      const seeds = [Buffer.from('publisher'), Buffer.from(this.user?.pubKey)];
       const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
 
       return publisherPda;

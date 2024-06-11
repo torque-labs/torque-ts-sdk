@@ -1,4 +1,4 @@
-import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair, VersionedTransaction } from '@solana/web3.js';
 
 import { TORQUE_API_ROUTES } from '../constants/index';
@@ -24,17 +24,17 @@ import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils';
 export class TorqueRequestClient {
   private apiKey: string | undefined;
   private apiAuthHeader: Record<string, string>;
-  private signer: SignerWalletAdapter | Keypair;
+  private signer: Adapter | Keypair;
 
   /**
    * Create a new instance of the TorqueRequestClient class.
    *
-   * @param {SignerWalletAdapter | Keypair} signer - The signer used to sign transactions.
+   * @param {Adapter | Keypair} signer - The signer used to sign transactions.
    * @param {string} apiKey - The API key for the client.
    *
    * @throws {Error} Throws an error if a signer is not provided.
    */
-  constructor(signer: SignerWalletAdapter | Keypair, apiKey?: string) {
+  constructor(signer: Adapter | Keypair, apiKey?: string) {
     if (!signer) {
       throw new Error(
         'You need to provide a SignerWalletAdapter or Keypair in the signer parameter.',
@@ -272,7 +272,7 @@ export class TorqueRequestClient {
 
       const signedTx =
         'signTransaction' in this.signer
-          ? await (this.signer as SignerWalletAdapter).signTransaction(txn)
+          ? await this.signer.signTransaction(txn)
           : this.signWithKeypair(txn);
 
       const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);

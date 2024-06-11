@@ -1,4 +1,4 @@
-import { SignerWalletAdapter } from '@solana/wallet-adapter-base';
+import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request';
@@ -19,7 +19,7 @@ import {
  * Options for the TorqueAdminClient.
  */
 export type TorqueAdminClientOptions = {
-  signer: SignerWalletAdapter | Keypair;
+  signer: Adapter | Keypair;
   apiKey: string;
   userClient: TorqueUserClient;
 };
