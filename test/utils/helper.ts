@@ -11,6 +11,7 @@ import {
 import { TorqueSDK } from "../../src/classes/sdk";
 import exp from 'constants';
 import { TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from '@solana/spl-token';
+import { TORQUE_FUNCTIONS_ROUTES, TORQUE_FUNCTIONS_URL } from '../../src/constants';
 
 export const connection = new Connection("https://api.devnet.solana.com");
 
@@ -87,6 +88,21 @@ export const triggerUserPayouts = async () => {
     return singatures;
 }
 
+export const sendShyftEvent = async (event: any, walletAddress: string) => {
+    console.log("--- walletAddress", walletAddress);
+    event.fee_payer = walletAddress;
+    event.signers[0] = walletAddress;
+    const result = await fetch(`${TORQUE_FUNCTIONS_URL}/shyft`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': process.env.SHYFT_API_KEY as string,
+        },
+        body: JSON.stringify(event)
+    }).then(res => res.json());
+    console.log('-- send event: ', result);
+    return result;
+}
 
 
 /** CAMPAIGNS

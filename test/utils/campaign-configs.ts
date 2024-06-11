@@ -169,3 +169,29 @@ export const clickRaffleCampaignSpl: CampaignCreateInput = {
         amount: 250,
     }],
 }
+
+export const swapBonkCampaignSpl: CampaignCreateInput = {
+    campaignName: `swap_bonk_${new Date().getTime()}`,
+    campaignType: "BOUNTY",
+    landingPage: 'app.torque.so',
+    eventType: ApiEventType.SWAP,
+    eventProgramAddress: "",
+    eventTokenAddress: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    minAmount: 10,
+    publisherRewardType: ApiRewardType.TOKENS,
+    publisherTokenAddress: TEST_SPL.toString(),
+    publisherPayoutPerConversion: 1,
+    userRewardType: ApiRewardType.TOKENS,
+    userTokenAddress: TEST_SPL.toString(),
+    userPayoutPerConversion: 1,
+    conversionCount: 3,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 30 * 1000,
+    // TODO FIX, should be null
+    audience: '',
+    asymmetricRewards: [{
+        tokenAddress: TEST_SPL.toString(),
+        amount: 13,
+    }],
+}

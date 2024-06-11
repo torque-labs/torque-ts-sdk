@@ -1,5 +1,5 @@
-// const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
-const TORQUE_API_URL = 'http://localhost:3001';
+const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
+// const TORQUE_API_URL = 'http://localhost:3001';
 // const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
 const TORQUE_APP_URL = 'http://localhost:3000';
 const TORQUE_FUNCTIONS_URL = process.env.TORQUE_FUNCTIONS_URL ?? "https://0tvum434ha.execute-api.us-east-1.amazonaws.com/Prod";
@@ -34,4 +34,4 @@ const TORQUE_FUNCTIONS_ROUTES = {
   },
 };
 
-export { TORQUE_API_URL, TORQUE_SHARE_URL, TORQUE_API_ROUTES, TORQUE_FUNCTIONS_ROUTES };
+export { TORQUE_API_URL, TORQUE_SHARE_URL, TORQUE_API_ROUTES, TORQUE_FUNCTIONS_ROUTES, TORQUE_FUNCTIONS_URL };
