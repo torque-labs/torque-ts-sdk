@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TxnBuildResponseSchemas = exports.TxnExecuteSchema = exports.TxnInputSchema = exports.PublisherCreateInputSchema = exports.PublisherPayoutInputSchema = exports.CampaignEndInputSchema = exports.CampaignCreateInputSchema = void 0;
-var zod_1 = __importDefault(require("zod"));
-var index_1 = require("../types/index");
+const zod_1 = __importDefault(require("zod"));
+const index_1 = require("../types/index");
 // TODO: Centralize schema definitions
 exports.CampaignCreateInputSchema = zod_1.default.object({
     campaignName: zod_1.default.string(),
@@ -53,7 +53,7 @@ exports.TxnInputSchema = zod_1.default.discriminatedUnion('txnType', [
         data: exports.PublisherPayoutInputSchema,
     }),
 ]);
-var TxnExecuteDefaults = zod_1.default.object({
+const TxnExecuteDefaults = zod_1.default.object({
     userSignature: zod_1.default.string(),
     blockhash: zod_1.default.string(),
 });
@@ -67,7 +67,7 @@ exports.TxnExecuteSchema = zod_1.default.discriminatedUnion('txnType', [
         data: TxnExecuteDefaults,
     }),
 ]);
-var TxnBuildResponseDefaults = zod_1.default.object({
+const TxnBuildResponseDefaults = zod_1.default.object({
     serializedTx: zod_1.default.string(),
 });
 exports.TxnBuildResponseSchemas = {

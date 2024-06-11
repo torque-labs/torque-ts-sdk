@@ -9,10 +9,10 @@ exports.uint8ArrayToBase64 = exports.base64ToUint8Array = void 0;
  * @returns {Uint8Array} The Uint8Array representation of the input Base64 string.
  */
 function base64ToUint8Array(base64) {
-    var binaryString = Buffer.from(base64, 'base64').toString('binary');
-    var len = binaryString.length;
-    var bytes = new Uint8Array(len);
-    for (var i = 0; i < len; i++) {
+    const binaryString = Buffer.from(base64, 'base64').toString('binary');
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
         bytes[i] = binaryString.charCodeAt(i);
     }
     return bytes;
@@ -26,7 +26,7 @@ exports.base64ToUint8Array = base64ToUint8Array;
  * @returns {string} The Base64-encoded string representation of the input Uint8Array.
  */
 function uint8ArrayToBase64(bytes) {
-    var binary = bytes.reduce(function (acc, byte) { return acc + String.fromCharCode(byte); }, '');
+    const binary = bytes.reduce((acc, byte) => acc + String.fromCharCode(byte), '');
     return btoa(binary);
 }
 exports.uint8ArrayToBase64 = uint8ArrayToBase64;

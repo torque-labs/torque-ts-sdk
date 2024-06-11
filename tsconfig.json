@@ -6,7 +6,7 @@
     "strict": true,
     "esModuleInterop": true,
     "module": "CommonJS",
-    "target": "ES5",
+    "target": "ES2022",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
@@ -15,7 +15,7 @@
     "declaration": true,
     "rootDir": "./src",
     "outDir": "./dist",
-    "noImplicitOverride": true,
+    "noImplicitOverride": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "docs-website", "dist"]
