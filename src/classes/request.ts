@@ -265,6 +265,7 @@ export class TorqueRequestClient {
     }
 
     try {
+      console.log('*** txnInput', txnInput);
       const { serializedTx, ...rest } = await this.buildTransaction<T>(txnInput, token);
 
       const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
@@ -284,6 +285,8 @@ export class TorqueRequestClient {
           ...rest,
         },
       };
+
+      console.log('*** executeInput', executeInput);
 
       const { signature } = await this.executeTransaction(executeInput, token);
 

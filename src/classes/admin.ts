@@ -101,6 +101,7 @@ export class TorqueAdminClient {
     }
 
     try {
+      console.log('-- createCampaign: ', data);
       const user = await this.userClient.getCurrentUser();
       const input = {
         txnType: ApiTxnTypes.CampaignCreate,

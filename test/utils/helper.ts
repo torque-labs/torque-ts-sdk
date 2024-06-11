@@ -9,6 +9,7 @@ import {
     sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import { TorqueSDK } from "../../src/classes/sdk";
+import exp from 'constants';
 
 export const connection = new Connection("https://api.devnet.solana.com");
 
@@ -45,6 +46,32 @@ export const loadCliWallet = (filepath: string) => {
     const data = fs.readFileSync(filepath);
     return Keypair.fromSecretKey(new Uint8Array(JSON.parse(data.toString())));
 }
+
+export const loadBalances = async (walletAddress: PublicKey | string) => {
+    const response = await fetch(process.env.HELIUS_RPC_URL as string, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "jsonrpc": "2.0",
+            "id": "helius-test",
+            "method": "searchAssets",
+            "params": {
+                "ownerAddress": walletAddress.toString(),
+                "tokenType": "all",
+            }
+        }),
+    });
+    const data = await response.json();
+    
+    if (!data.result) {
+        throw new Error("No data returned from Helius RPC");
+    }
+    console.log(data.result);
+
+    return data.result;
+};
 
 export const initSdk = async (
     path: string,

@@ -1,7 +1,7 @@
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { TorqueSDK } from "../../src/classes/sdk";
-import { pointsCampaign } from "../utils/campaign-configs";
-import { TEST_USER_PATHS, airdrop, loadCliWallet } from "../utils/helper";
+import { clickRaffleCampaign, pointsCampaign } from "../utils/campaign-configs";
+import { TEST_USER_PATHS, airdrop, loadBalances, loadCliWallet } from "../utils/helper";
 
 describe("AUDIENCE BUILDER API", () => {
     let sdk: TorqueSDK;
@@ -17,11 +17,12 @@ describe("AUDIENCE BUILDER API", () => {
     describe.only("POINTS", () => {
         let campaignId: string;
         it.only("should create campaign", async () => {
-            const result = await sdk.api?.createCampaign(pointsCampaign);
+            const result = await sdk.api?.createCampaign(clickRaffleCampaign);
             console.log('-- create singature: ', result);
             expect(result).toBeDefined();
 
             const campaigns = await sdk.api?.getCampaigns();
+            console.log('-- campaigns: ', campaigns);
             expect(campaigns?.campaigns.length).toBeGreaterThan(0);
             campaignId = campaigns!.campaigns[0].id;
         });
