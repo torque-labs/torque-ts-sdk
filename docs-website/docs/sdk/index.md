@@ -32,7 +32,11 @@ The official Torque Client TypeScript SDK.
 | :------ | :------ |
 | [ActionRequirementsInput](type-aliases/ActionRequirementsInput.md) | Action requirements input. |
 | [ActionTarget](type-aliases/ActionTarget.md) | An action target for an audience. |
+| [AggreggationCreateInput](type-aliases/AggreggationCreateInput.md) | Aggregation create input. |
+| [AndOperator](type-aliases/AndOperator.md) | Aggregation and operator. |
 | [ApiAudience](type-aliases/ApiAudience.md) | Audience data. |
+| [ApiAudienceCreateInput](type-aliases/ApiAudienceCreateInput.md) | Audience creation input. |
+| [ApiAudienceResponse](type-aliases/ApiAudienceResponse.md) | Audience creation response. |
 | [ApiCampaign](type-aliases/ApiCampaign.md) | Campaign data. |
 | [ApiCampaignLeaderboard](type-aliases/ApiCampaignLeaderboard.md) | Campaign leaderboard data. |
 | [ApiIdentifyPayload](type-aliases/ApiIdentifyPayload.md) | Payload returned from the API as a sample payload for sign in. |
@@ -54,14 +58,18 @@ The official Torque Client TypeScript SDK.
 | [BridgeActionRequirements](type-aliases/BridgeActionRequirements.md) | Bridge action requirements. |
 | [CampaignCreateInput](type-aliases/CampaignCreateInput.md) | Campaign create input. |
 | [CampaignEndInput](type-aliases/CampaignEndInput.md) | Campaign end input. |
+| [Condition](type-aliases/Condition.md) | Aggregation query condition. |
 | [NftMintAction](type-aliases/NftMintAction.md) | Parameters for a NFT mint action. |
 | [NftMintActionRequirements](type-aliases/NftMintActionRequirements.md) | Nft mint action requirements. |
 | [OpenPositionRequirementsInput](type-aliases/OpenPositionRequirementsInput.md) | Open position requirements input. |
 | [OpenPositionTarget](type-aliases/OpenPositionTarget.md) | An open position target for an audience. |
+| [Operator](type-aliases/Operator.md) | Aggregation query operator. |
+| [OrOperator](type-aliases/OrOperator.md) | Aggregation or operator. |
 | [ProgramInteractionAction](type-aliases/ProgramInteractionAction.md) | Parameters for a program interaction action. |
 | [ProgramInteractionActionRequirements](type-aliases/ProgramInteractionActionRequirements.md) | Program interaction action requirements. |
 | [PublisherCreateInput](type-aliases/PublisherCreateInput.md) | Publisher create input. |
 | [PublisherPayoutInput](type-aliases/PublisherPayoutInput.md) | Publisher payout input. |
+| [SafeToken](type-aliases/SafeToken.md) | - |
 | [StakedSolRequirementsInput](type-aliases/StakedSolRequirementsInput.md) | Staked sol requirements input. |
 | [StakedSolTarget](type-aliases/StakedSolTarget.md) | A staked sol target for an audience. |
 | [SwapAction](type-aliases/SwapAction.md) | Parameters for a swap action. |
