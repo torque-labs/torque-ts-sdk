@@ -1,8 +1,9 @@
-// const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
-const TORQUE_API_URL = 'http://localhost:3001';
-// const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
-const TORQUE_APP_URL = 'http://localhost:3000';
+const TORQUE_API_URL = process.env.TORQUE_API_URL ?? 'https://api.torque.so';
+const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
 const TORQUE_FUNCTIONS_URL = process.env.TORQUE_FUNCTIONS_URL ?? 'https://functions.torque.so';
+
+// const TORQUE_API_URL = 'http://localhost:3001';
+// const TORQUE_APP_URL = 'http://localhost:3000';
 
 const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 

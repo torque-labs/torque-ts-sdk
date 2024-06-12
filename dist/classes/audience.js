@@ -109,13 +109,13 @@ export class TorqueAudienceClient {
      */
     static buildAggregation(data) {
         // Create a string of the logical operations
-        const logicalOperationsString = data.reduce((acc, condition, idx) => {
-            const targetMd5 = getObjectIdHash(condition.target);
+        const logicalOperationsString = data.targets.reduce((acc, target, idx) => {
+            const targetMd5 = getObjectIdHash(target);
             if (idx === 0) {
                 return targetMd5;
             }
             else {
-                return `${acc} ${condition.operation} ${targetMd5}`;
+                return `${acc} ${data.operation} ${targetMd5}`;
             }
         }, '');
         // Setup the stack and operators

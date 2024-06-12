@@ -207,9 +207,9 @@ export type ApiAudienceResponse = {
  * Aggregation create input.
  */
 export type AggreggationCreateInput = {
-    operation?: Operation;
-    target: Target;
-}[];
+    operation: Operation;
+    targets: Target[];
+};
 /**
  * Aggregation query condition.
  */

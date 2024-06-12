@@ -1,5 +1,5 @@
-declare const TORQUE_API_URL = "http://localhost:3001";
-declare const TORQUE_SHARE_URL = "http://localhost:3000/share";
+declare const TORQUE_API_URL: string;
+declare const TORQUE_SHARE_URL: string;
 declare const TORQUE_API_ROUTES: {
     audiences: string;
     audiencesCustom: string;
