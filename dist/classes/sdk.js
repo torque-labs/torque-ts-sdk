@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TorqueSDK = void 0;
-const admin_1 = require("./admin");
-const audience_1 = require("./audience");
-const user_1 = require("./user");
-const constants_1 = require("../constants");
+import { TorqueAdminClient } from './admin.js';
+import { TorqueAudienceClient } from './audience.js';
+import { TorqueUserClient } from './user.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
 /**
  * The official Torque Typescript SDK.
  *
@@ -25,7 +22,7 @@ const constants_1 = require("../constants");
  *   ? currentUser
  *   : await sdk.user.initializeUser(ApiInputLogin);
  */
-class TorqueSDK {
+export class TorqueSDK {
     user;
     api;
     audience;
@@ -48,7 +45,7 @@ class TorqueSDK {
         this.rpc = options.rpc;
     }
     async initialize(signer, ApiInputLogin) {
-        const userClient = new user_1.TorqueUserClient({
+        const userClient = new TorqueUserClient({
             signer: signer,
             publisherHandle: this.publisherHandle,
             rpc: this.rpc,
@@ -62,12 +59,12 @@ class TorqueSDK {
             throw new Error('There was an error initializing the Torque SDK.');
         }
         if (this.apiKey) {
-            this.api = new admin_1.TorqueAdminClient({
+            this.api = new TorqueAdminClient({
                 signer: signer,
                 apiKey: this.apiKey,
                 userClient: userClient,
             });
-            this.audience = new audience_1.TorqueAudienceClient({
+            this.audience = new TorqueAudienceClient({
                 signer: signer,
                 apiKey: this.apiKey,
                 userClient: userClient,
@@ -86,7 +83,7 @@ class TorqueSDK {
     static async verifyLogin(loginOptions) {
         try {
             // TODO: Setup request caching
-            const response = await fetch(constants_1.TORQUE_API_ROUTES.login, {
+            const response = await fetch(TORQUE_API_ROUTES.login, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,7 +115,7 @@ class TorqueSDK {
      */
     static async getLoginPayload() {
         try {
-            const response = await fetch(constants_1.TORQUE_API_ROUTES.identify, {
+            const response = await fetch(TORQUE_API_ROUTES.identify, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -173,4 +170,4 @@ class TorqueSDK {
         return body;
     }
 }
-exports.TorqueSDK = TorqueSDK;
+//# sourceMappingURL=sdk.js.map

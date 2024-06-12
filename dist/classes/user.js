@@ -1,14 +1,8 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TorqueUserClient = void 0;
-const web3_js_1 = require("@solana/web3.js");
-const tweetnacl_1 = __importDefault(require("tweetnacl"));
-const request_1 = require("./request");
-const sdk_1 = require("./sdk");
-const constants_1 = require("../constants");
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import nacl from 'tweetnacl';
+import { TorqueRequestClient } from './request.js';
+import { TorqueSDK } from './sdk.js';
+import { TORQUE_API_ROUTES, torquePubkey, TORQUE_SHARE_URL, SOLANA_NETWORK, PUBLISHER_ACCOUNT_SIZE, } from '../constants/index.js';
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
  * The user client allows publishers to fetch campaigns and offers that are savailable for the current user.
@@ -23,7 +17,7 @@ const constants_1 = require("../constants");
  *   ? currentUser
  *   : await this.initializeUser(ApiInputLogin);
  */
-class TorqueUserClient {
+export class TorqueUserClient {
     publisherHandle;
     initialized = false;
     publicKey;
@@ -43,11 +37,11 @@ class TorqueUserClient {
         if (!signer.publicKey) {
             throw new Error('The wallet/signer provided does not have a public key.');
         }
-        this.client = new request_1.TorqueRequestClient(signer);
+        this.client = new TorqueRequestClient(signer);
         this.publicKey = signer.publicKey.toString();
         this.publisherHandle = publisherHandle;
         this.signer = signer;
-        this.connection = new web3_js_1.Connection(rpc ?? (0, web3_js_1.clusterApiUrl)(constants_1.SOLANA_NETWORK), 'confirmed');
+        this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');
     }
     /**
      * ========================================================================
@@ -77,11 +71,11 @@ class TorqueUserClient {
         try {
             let loginBody;
             if (!userAuth && this.signer.publicKey) {
-                const signPayloadInput = await sdk_1.TorqueSDK.getLoginPayload();
+                const signPayloadInput = await TorqueSDK.getLoginPayload();
                 if ('signIn' in this.signer) {
                     // Login with SIWS
                     const signOutPayload = await this.signer.signIn(signPayloadInput.payload);
-                    loginBody = sdk_1.TorqueSDK.constructLoginBody({
+                    loginBody = TorqueSDK.constructLoginBody({
                         authType: 'siws',
                         pubKey: this.signer.publicKey.toString(),
                         payload: { input: signPayloadInput.payload, output: signOutPayload },
@@ -90,7 +84,7 @@ class TorqueUserClient {
                 else if ('signMessage' in this.signer) {
                     // Login with basic signed message
                     const signOutPayload = await this.signer.signMessage(Buffer.from(signPayloadInput.payload.statement, 'utf8'));
-                    loginBody = sdk_1.TorqueSDK.constructLoginBody({
+                    loginBody = TorqueSDK.constructLoginBody({
                         authType: 'basic',
                         pubKey: this.signer.publicKey.toString(),
                         payload: {
@@ -101,8 +95,8 @@ class TorqueUserClient {
                 }
                 else {
                     // Login with back-end wallet signature
-                    const signature = tweetnacl_1.default.sign.detached(Buffer.from(signPayloadInput.payload.statement, 'utf8'), this.signer.secretKey);
-                    loginBody = sdk_1.TorqueSDK.constructLoginBody({
+                    const signature = nacl.sign.detached(Buffer.from(signPayloadInput.payload.statement, 'utf8'), this.signer.secretKey);
+                    loginBody = TorqueSDK.constructLoginBody({
                         authType: 'basic',
                         pubKey: this.signer.publicKey.toString(),
                         payload: {
@@ -146,7 +140,7 @@ class TorqueUserClient {
         }
         try {
             // TODO: Update server with login and verify endpoints
-            const result = await this.client.apiFetch(constants_1.TORQUE_API_ROUTES.login, {
+            const result = await this.client.apiFetch(TORQUE_API_ROUTES.login, {
                 method: 'POST',
                 body: JSON.stringify(loginOptions),
             });
@@ -192,7 +186,7 @@ class TorqueUserClient {
         }
         if (this.user && this.initialized) {
             try {
-                const result = await this.client.apiFetch(constants_1.TORQUE_API_ROUTES.currentUser, {
+                const result = await this.client.apiFetch(TORQUE_API_ROUTES.currentUser, {
                     method: 'GET',
                 });
                 if (result) {
@@ -227,7 +221,7 @@ class TorqueUserClient {
                 return this.user;
             }
             // TODO: Update server with login and verify endpoints
-            const result = await this.client.apiFetch(constants_1.TORQUE_API_ROUTES.currentUser, {
+            const result = await this.client.apiFetch(TORQUE_API_ROUTES.currentUser, {
                 method: 'GET',
             });
             if (result) {
@@ -275,7 +269,7 @@ class TorqueUserClient {
             const params = this.publisherHandle
                 ? new URLSearchParams({ publisher: this.publisherHandle, status: 'ACTIVE' })
                 : new URLSearchParams({ status: 'ACTIVE' });
-            const result = await this.client.apiFetch(`${constants_1.TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -303,7 +297,7 @@ class TorqueUserClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            const result = await this.client.apiFetch(constants_1.TORQUE_API_ROUTES.journey, {
+            const result = await this.client.apiFetch(TORQUE_API_ROUTES.journey, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -348,7 +342,7 @@ class TorqueUserClient {
         const handle = this.getUserHandle();
         const isPublisher = this.isPublisher();
         if (handle && isPublisher) {
-            return `${constants_1.TORQUE_SHARE_URL}/${handle}/${campaignId}`;
+            return `${TORQUE_SHARE_URL}/${handle}/${campaignId}`;
         }
         else {
             throw new Error('The user is not a publisher.');
@@ -361,11 +355,11 @@ class TorqueUserClient {
      */
     getPublisherPda() {
         if (this.user?.publisherPubKey) {
-            return new web3_js_1.PublicKey(this.user.publisherPubKey);
+            return new PublicKey(this.user.publisherPubKey);
         }
         else if (this.user && this.isPublisher()) {
             const seeds = [Buffer.from('publisher'), Buffer.from(this.user?.pubKey)];
-            const [publisherPda] = web3_js_1.PublicKey.findProgramAddressSync(seeds, constants_1.torquePubkey);
+            const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
             return publisherPda;
         }
     }
@@ -378,7 +372,7 @@ class TorqueUserClient {
         const pda = this.getPublisherPda();
         if (pda) {
             const balance = await this.connection.getBalance(pda);
-            const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(constants_1.PUBLISHER_ACCOUNT_SIZE);
+            const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
             const maxTransferable = balance - rentExemptBalance;
             return maxTransferable;
         }
@@ -398,7 +392,7 @@ class TorqueUserClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            const result = await this.client.apiFetch(constants_1.TORQUE_API_ROUTES.links, {
+            const result = await this.client.apiFetch(TORQUE_API_ROUTES.links, {
                 method: 'GET',
             });
             return result;
@@ -431,7 +425,7 @@ class TorqueUserClient {
         }
         try {
             const params = new URLSearchParams({ campaignId, handle });
-            const result = await this.client.apiFetch(`${constants_1.TORQUE_API_ROUTES.share}?${params.toString()}`, {
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.share}?${params.toString()}`, {
                 method: 'GET',
             });
             return result;
@@ -442,4 +436,4 @@ class TorqueUserClient {
         }
     }
 }
-exports.TorqueUserClient = TorqueUserClient;
+//# sourceMappingURL=user.js.map

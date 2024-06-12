@@ -1,10 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionType = exports.AdminTransactionTypes = exports.UserTransactionTypes = void 0;
-const api_1 = require("../types/api");
-const UserTransactionTypes = [api_1.ApiTxnTypes.PublisherCreate, api_1.ApiTxnTypes.PublisherPayout];
-exports.UserTransactionTypes = UserTransactionTypes;
-const AdminTransactionTypes = [api_1.ApiTxnTypes.CampaignCreate, api_1.ApiTxnTypes.CampaignEnd];
-exports.AdminTransactionTypes = AdminTransactionTypes;
+import { ApiTxnTypes } from '../types/api.js';
+const UserTransactionTypes = [ApiTxnTypes.PublisherCreate, ApiTxnTypes.PublisherPayout];
+const AdminTransactionTypes = [ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd];
 const TransactionType = [...UserTransactionTypes, ...AdminTransactionTypes];
-exports.TransactionType = TransactionType;
+export { UserTransactionTypes, AdminTransactionTypes, TransactionType };
+//# sourceMappingURL=audience.js.map

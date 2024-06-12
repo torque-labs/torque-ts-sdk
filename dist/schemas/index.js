@@ -1,78 +1,82 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TxnBuildResponseSchemas = exports.TxnExecuteSchema = exports.TxnInputSchema = exports.PublisherCreateInputSchema = exports.PublisherPayoutInputSchema = exports.CampaignEndInputSchema = exports.CampaignCreateInputSchema = void 0;
-const zod_1 = __importDefault(require("zod"));
-const index_1 = require("../types/index");
+import z from 'zod';
+import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
 // TODO: Centralize schema definitions
-exports.CampaignCreateInputSchema = zod_1.default.object({
-    campaignName: zod_1.default.string(),
-    campaignType: zod_1.default.string(),
-    landingPage: zod_1.default.string(),
-    eventType: zod_1.default.nativeEnum(index_1.ApiEventType),
-    eventProgramAddress: zod_1.default.string().optional(),
-    eventTokenAddress: zod_1.default.string().optional(),
-    publisherRewardType: zod_1.default.nativeEnum(index_1.ApiRewardType),
-    publisherTokenAddress: zod_1.default.string().optional(),
-    publisherPayoutPerConversion: zod_1.default.number(),
-    userRewardType: zod_1.default.nativeEnum(index_1.ApiRewardType).optional(),
-    userTokenAddress: zod_1.default.string().optional(),
-    userPayoutPerConversion: zod_1.default.number().optional(),
-    conversionCount: zod_1.default.number().optional().nullable(),
-    minAmount: zod_1.default.number().optional().nullable(),
-    proposal: zod_1.default.string().optional().nullable(),
-    startTime: zod_1.default.number(),
-    endTime: zod_1.default.number(),
-    audience: zod_1.default.string().optional().nullable(),
+export const CampaignCreateInputSchema = z.object({
+    campaignName: z.string(),
+    campaignType: z.string(),
+    landingPage: z.string(),
+    eventType: z.nativeEnum(ApiEventType),
+    eventProgramAddress: z.string().optional(),
+    eventTokenAddress: z.string().optional(),
+    publisherRewardType: z.nativeEnum(ApiRewardType),
+    publisherTokenAddress: z.string().optional(),
+    publisherPayoutPerConversion: z.number(),
+    userRewardType: z.nativeEnum(ApiRewardType).optional(),
+    userTokenAddress: z.string().optional(),
+    userPayoutPerConversion: z.number().optional(),
+    conversionCount: z.number().optional().nullable(),
+    minAmount: z.number().optional().nullable(),
+    proposal: z.string().optional().nullable(),
+    startTime: z.number(),
+    endTime: z.number(),
+    audience: z.string().optional().nullable(),
 });
-exports.CampaignEndInputSchema = zod_1.default.object({
-    campaignId: zod_1.default.string(),
+export const CampaignEndInputSchema = z.object({
+    campaignId: z.string(),
 });
-exports.PublisherPayoutInputSchema = zod_1.default.object({
-    token: zod_1.default.string(),
-    amount: zod_1.default.number(),
+export const PublisherPayoutInputSchema = z.object({
+    token: z.string(),
+    amount: z.number(),
 });
-exports.PublisherCreateInputSchema = zod_1.default.boolean();
-exports.TxnInputSchema = zod_1.default.discriminatedUnion('txnType', [
-    zod_1.default.object({
-        txnType: zod_1.default.literal(index_1.ApiTxnTypes.CampaignCreate),
-        data: exports.CampaignCreateInputSchema,
+export const PublisherCreateInputSchema = z.boolean();
+export const TxnInputSchema = z.discriminatedUnion('txnType', [
+    z.object({
+        txnType: z.literal(ApiTxnTypes.CampaignCreate),
+        data: CampaignCreateInputSchema,
     }),
-    zod_1.default.object({
-        txnType: zod_1.default.literal(index_1.ApiTxnTypes.CampaignEnd),
-        data: exports.CampaignEndInputSchema,
+    z.object({
+        txnType: z.literal(ApiTxnTypes.CampaignEnd),
+        data: CampaignEndInputSchema,
     }),
-    zod_1.default.object({
-        txnType: zod_1.default.literal(index_1.ApiTxnTypes.PublisherCreate),
-        data: exports.PublisherCreateInputSchema,
+    z.object({
+        txnType: z.literal(ApiTxnTypes.PublisherCreate),
+        data: PublisherCreateInputSchema,
     }),
-    zod_1.default.object({
-        txnType: zod_1.default.literal(index_1.ApiTxnTypes.PublisherPayout),
-        data: exports.PublisherPayoutInputSchema,
+    z.object({
+        txnType: z.literal(ApiTxnTypes.PublisherPayout),
+        data: PublisherPayoutInputSchema,
     }),
 ]);
-const TxnExecuteDefaults = zod_1.default.object({
-    userSignature: zod_1.default.string(),
-    blockhash: zod_1.default.string(),
+const TxnExecuteDefaults = z.object({
+    userSignature: z.string(),
+    blockhash: z.string(),
 });
-exports.TxnExecuteSchema = zod_1.default.discriminatedUnion('txnType', [
-    zod_1.default.object({
-        txnType: zod_1.default.enum([index_1.ApiTxnTypes.CampaignCreate, index_1.ApiTxnTypes.CampaignEnd]),
-        data: TxnExecuteDefaults.extend({ campaignId: zod_1.default.string() }),
+export const TxnExecuteSchema = z.discriminatedUnion('txnType', [
+    z.object({
+        txnType: z.enum([ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd]),
+        data: TxnExecuteDefaults.extend({ campaignId: z.string() }),
     }),
-    zod_1.default.object({
-        txnType: zod_1.default.string(),
+    z.object({
+        txnType: z.string(),
         data: TxnExecuteDefaults,
     }),
 ]);
-const TxnBuildResponseDefaults = zod_1.default.object({
-    serializedTx: zod_1.default.string(),
+const TxnBuildResponseDefaults = z.object({
+    serializedTx: z.string(),
 });
-exports.TxnBuildResponseSchemas = {
+export const TxnBuildResponseSchemas = {
     campaign: TxnBuildResponseDefaults.extend({
-        campaignId: zod_1.default.string(),
+        campaignId: z.string(),
     }),
     default: TxnBuildResponseDefaults,
 };
+/**
+ * Audience schemas
+ */
+export const audienceCreateInputSchema = z.object({
+    config: z.any(),
+    title: z.string().max(25),
+    description: z.string().optional().nullable(),
+    global: z.boolean(),
+});
+//# sourceMappingURL=index.js.map

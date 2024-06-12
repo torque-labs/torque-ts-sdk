@@ -14,3 +14,12 @@ export declare function base64ToUint8Array(base64: string): Uint8Array;
  * @returns {string} The Base64-encoded string representation of the input Uint8Array.
  */
 export declare function uint8ArrayToBase64(bytes: Uint8Array): string;
+/**
+ * Generates a unique ID for an object in MongoDB
+ *
+ * @param {unknown} object The object to hash
+ *
+ * @returns {ObjectId} The MD5 hash of the object in the form of the MongoDB ObjectId
+ */
+export declare function getObjectIdHash(object: unknown): string;
+//# sourceMappingURL=utils.d.ts.map

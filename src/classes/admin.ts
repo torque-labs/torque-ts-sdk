@@ -1,9 +1,9 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
-import { TorqueRequestClient } from './request';
-import { TorqueUserClient } from './user';
-import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants';
+import { TorqueRequestClient } from './request.js';
+import { TorqueUserClient } from './user.js';
+import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   ApiCampaign,
   ApiCampaignLeaderboard,
@@ -12,7 +12,7 @@ import {
   CampaignCreateInput,
   CampaignEndInput,
   SafeToken,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Options for the TorqueAdminClient.

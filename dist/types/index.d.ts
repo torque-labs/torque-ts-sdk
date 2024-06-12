@@ -1,4 +1,5 @@
-export * from './api';
-export * from './audience';
-export * from './chain';
-export * from './transactions';
+export * from './api.js';
+export * from './audience.js';
+export * from './chain.js';
+export * from './transactions.js';
+//# sourceMappingURL=index.d.ts.map

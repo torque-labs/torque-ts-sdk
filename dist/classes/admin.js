@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TorqueAdminClient = void 0;
-const request_1 = require("./request");
-const constants_1 = require("../constants");
-const types_1 = require("../types");
+import { TorqueRequestClient } from './request.js';
+import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.js';
+import { ApiTxnTypes, } from '../types/index.js';
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
  *
@@ -13,7 +10,7 @@ const types_1 = require("../types");
  * const result = await client.createCampaign(<campaignData>);
  * const result = await client.endCampaign(<campaignData>);
  */
-class TorqueAdminClient {
+export class TorqueAdminClient {
     client;
     userClient;
     tokenList;
@@ -24,7 +21,7 @@ class TorqueAdminClient {
      */
     constructor(options) {
         const { signer, apiKey, userClient } = options;
-        this.client = new request_1.TorqueRequestClient(signer, apiKey);
+        this.client = new TorqueRequestClient(signer, apiKey);
         this.userClient = userClient;
     }
     /**
@@ -45,7 +42,7 @@ class TorqueAdminClient {
         }
         try {
             const params = new URLSearchParams({ status: 'ACTIVE' });
-            const result = await this.client.apiFetch(`${constants_1.TORQUE_API_ROUTES.campaigns}?${params.toString()}`, {
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.campaigns}?${params.toString()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +68,7 @@ class TorqueAdminClient {
         }
         try {
             const input = {
-                txnType: types_1.ApiTxnTypes.CampaignCreate,
+                txnType: ApiTxnTypes.CampaignCreate,
                 data,
             };
             const signature = await this.client.transaction(input);
@@ -97,7 +94,7 @@ class TorqueAdminClient {
         }
         try {
             const input = {
-                txnType: types_1.ApiTxnTypes.CampaignEnd,
+                txnType: ApiTxnTypes.CampaignEnd,
                 data,
             };
             const signature = await this.client.transaction(input);
@@ -123,7 +120,7 @@ class TorqueAdminClient {
         }
         try {
             const params = new URLSearchParams({ campaignId });
-            const result = await this.client.apiFetch(`${constants_1.TORQUE_API_ROUTES.leaderboards}?${params.toString()}`, {
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.leaderboards}?${params.toString()}`, {
                 method: 'GET',
             });
             return result;
@@ -146,7 +143,7 @@ class TorqueAdminClient {
         }
         try {
             const params = new URLSearchParams({ campaignId });
-            const result = await this.client.apiFetch(`${constants_1.TORQUE_API_ROUTES.raffle}?${params.toString()}`, {
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.raffle}?${params.toString()}`, {
                 method: 'GET',
             });
             return result;
@@ -174,7 +171,7 @@ class TorqueAdminClient {
         }
         try {
             const { signature } = await this.client.transaction({
-                txnType: types_1.ApiTxnTypes.PublisherCreate,
+                txnType: ApiTxnTypes.PublisherCreate,
                 data: true,
             });
             await this.userClient.refreshUser();
@@ -198,7 +195,7 @@ class TorqueAdminClient {
         }
         try {
             const { signature } = await this.client.transaction({
-                txnType: types_1.ApiTxnTypes.PublisherPayout,
+                txnType: ApiTxnTypes.PublisherPayout,
                 data,
             });
             return signature;
@@ -230,7 +227,7 @@ class TorqueAdminClient {
                 : this.tokenList.filter((token) => token.name.toLowerCase().includes(filter));
         }
         try {
-            const response = await this.client.anyFetch(constants_1.JUP_TOKEN_LIST);
+            const response = await this.client.anyFetch(JUP_TOKEN_LIST);
             this.tokenList = response;
             return !filter
                 ? this.tokenList
@@ -242,4 +239,4 @@ class TorqueAdminClient {
         }
     }
 }
-exports.TorqueAdminClient = TorqueAdminClient;
+//# sourceMappingURL=admin.js.map

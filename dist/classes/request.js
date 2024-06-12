@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TorqueRequestClient = void 0;
-const web3_js_1 = require("@solana/web3.js");
-const index_1 = require("../constants/index");
-const index_2 = require("../types/index");
-const utils_1 = require("../utils");
+import { VersionedTransaction } from '@solana/web3.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
+import { ApiTxnTypes, } from '../types/index.js';
+import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
  * It provides methods for performing API requests and handling responses.
@@ -14,7 +11,7 @@ const utils_1 = require("../utils");
  *
  * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
  */
-class TorqueRequestClient {
+export class TorqueRequestClient {
     apiKey;
     apiAuthHeader;
     signer;
@@ -153,17 +150,17 @@ class TorqueRequestClient {
      */
     async buildTransaction(txnInput) {
         const data = {
-            ...(txnInput.txnType === index_2.ApiTxnTypes.CampaignCreate ? { createCampaign: txnInput.data } : {}),
-            ...(txnInput.txnType === index_2.ApiTxnTypes.CampaignEnd ? { endCampaign: txnInput.data } : {}),
-            ...(txnInput.txnType === index_2.ApiTxnTypes.PublisherCreate
+            ...(txnInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnInput.data } : {}),
+            ...(txnInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnInput.data } : {}),
+            ...(txnInput.txnType === ApiTxnTypes.PublisherCreate
                 ? { createPublisher: txnInput.data }
                 : {}),
-            ...(txnInput.txnType === index_2.ApiTxnTypes.PublisherPayout
+            ...(txnInput.txnType === ApiTxnTypes.PublisherPayout
                 ? { payoutPublisher: txnInput.data }
                 : {}),
         };
         try {
-            const txn = await this.apiFetch(index_1.TORQUE_API_ROUTES.transactions.build, {
+            const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
                 method: 'POST',
                 body: JSON.stringify({ ...data }),
             });
@@ -185,21 +182,21 @@ class TorqueRequestClient {
      */
     async executeTransaction(txnExecuteInput) {
         const data = {
-            ...(txnExecuteInput.txnType === index_2.ApiTxnTypes.CampaignCreate
+            ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
                 ? { createCampaign: txnExecuteInput.data }
                 : {}),
-            ...(txnExecuteInput.txnType === index_2.ApiTxnTypes.CampaignEnd
+            ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd
                 ? { endCampaign: txnExecuteInput.data }
                 : {}),
-            ...(txnExecuteInput.txnType === index_2.ApiTxnTypes.PublisherCreate
+            ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate
                 ? { createPublisher: txnExecuteInput.data }
                 : {}),
-            ...(txnExecuteInput.txnType === index_2.ApiTxnTypes.PublisherPayout
+            ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout
                 ? { payoutPublisher: txnExecuteInput.data }
                 : {}),
         };
         try {
-            const txn = await this.apiFetch(index_1.TORQUE_API_ROUTES.transactions.execute, {
+            const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.execute, {
                 method: 'POST',
                 body: JSON.stringify({ ...data }),
             });
@@ -225,11 +222,11 @@ class TorqueRequestClient {
         }
         try {
             const { serializedTx, ...rest } = await this.buildTransaction(txnInput);
-            const txn = web3_js_1.VersionedTransaction.deserialize((0, utils_1.base64ToUint8Array)(serializedTx));
+            const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
             const signedTx = 'signTransaction' in this.signer
                 ? await this.signer.signTransaction(txn)
                 : this.signWithKeypair(txn);
-            const userSignature = (0, utils_1.uint8ArrayToBase64)(signedTx.signatures[0]);
+            const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
             const executeInput = {
                 txnType: txnInput.txnType,
                 data: {
@@ -267,4 +264,4 @@ class TorqueRequestClient {
         return txn;
     }
 }
-exports.TorqueRequestClient = TorqueRequestClient;
+//# sourceMappingURL=request.js.map

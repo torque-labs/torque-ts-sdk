@@ -2,16 +2,22 @@ import { Adapter } from '@solana/wallet-adapter-base';
 import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 
-import { TorqueRequestClient } from './request';
-import { TorqueSDK } from './sdk';
+import { TorqueRequestClient } from './request.js';
+import { TorqueSDK } from './sdk.js';
 import {
   TORQUE_API_ROUTES,
   torquePubkey,
   TORQUE_SHARE_URL,
   SOLANA_NETWORK,
   PUBLISHER_ACCOUNT_SIZE,
-} from '../constants';
-import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types';
+} from '../constants/index.js';
+import {
+  ApiCampaign,
+  ApiInputLogin,
+  ApiShare,
+  ApiUserJourney,
+  ApiVerifiedUser,
+} from '../types/index.js';
 
 /**
  * Options for the TorqueUserClient.

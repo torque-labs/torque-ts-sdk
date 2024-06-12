@@ -1,10 +1,10 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { SolanaSignInOutput } from '@solana/wallet-standard-features';
 import { Keypair } from '@solana/web3.js';
-import { TorqueAdminClient } from './admin';
-import { TorqueAudienceClient } from './audience';
-import { TorqueUserClient } from './user';
-import { ApiIdentifyPayload, ApiInputLogin, ApiVerifiedUser } from '../types';
+import { TorqueAdminClient } from './admin.js';
+import { TorqueAudienceClient } from './audience.js';
+import { TorqueUserClient } from './user.js';
+import { ApiIdentifyPayload, ApiInputLogin, ApiVerifiedUser } from '../types/index.js';
 /**
  * Options for the TorqueSDK.
  */
@@ -94,3 +94,4 @@ export declare class TorqueSDK {
         };
     };
 }
+//# sourceMappingURL=sdk.d.ts.map

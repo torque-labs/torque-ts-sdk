@@ -1,7 +1,7 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
-import { TorqueUserClient } from './user';
-import { ApiCampaign, ApiCampaignLeaderboard, ApiRaffleRewards, CampaignCreateInput, CampaignEndInput, SafeToken } from '../types';
+import { TorqueUserClient } from './user.js';
+import { ApiCampaign, ApiCampaignLeaderboard, ApiRaffleRewards, CampaignCreateInput, CampaignEndInput, SafeToken } from '../types/index.js';
 /**
  * Options for the TorqueAdminClient.
  */
@@ -126,3 +126,4 @@ export declare class TorqueAdminClient {
      */
     getSafeTokenList(filter?: string): Promise<SafeToken[]>;
 }
+//# sourceMappingURL=admin.d.ts.map

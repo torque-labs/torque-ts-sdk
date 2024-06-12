@@ -1,7 +1,7 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
-import { TorqueUserClient } from './user';
-import { Audience, AudienceBuild, AudienceBuildResponse } from '../types/';
+import { TorqueUserClient } from './user.js';
+import { AggreggationCreateInput, ApiAudienceCreateInput, ApiAudienceResponse, Audience, AudienceBuild, AudienceBuildResponse } from '../types/index.js';
 /**
  * Options for the TorqueAudienceClient.
  */
@@ -29,6 +29,16 @@ export declare class TorqueAudienceClient {
      */
     constructor(options: TorqueAudienceClientOptions);
     /**
+     * Save an audience to the Torque API.
+     *
+     * @param {ApiAudienceCreateInput} options - The options for the audience creation.
+     *
+     * @returns {Promise<ApiAudienceResponse>} Returns the ID of the saved audience.
+     *
+     * @throws {Error} If there is an error saving the audience to the API.
+     */
+    saveAudience(options: ApiAudienceCreateInput): Promise<ApiAudienceResponse>;
+    /**
      * Builds an audience with the provided options.
      *
      * @param {BuildWorkerRequest} options - The options for the audience build.
@@ -48,4 +58,13 @@ export declare class TorqueAudienceClient {
      * @throws {Error} If there is an error verifying the user with the audience.
      */
     verifyAudience(audience: Audience): Promise<boolean>;
+    /**
+     * Build aggregation query for MongoDB to filter users by target conditions.
+     *
+     * @param {AggreggationCreateInput} data - The list of target conditions to filter by
+     *
+     * @returns {object[]} The MongoDB aggregation query
+     */
+    static buildAggregation(data: AggreggationCreateInput): object[];
 }
+//# sourceMappingURL=audience.d.ts.map

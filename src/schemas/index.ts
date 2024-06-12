@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index';
+import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
 
 // TODO: Centralize schema definitions
 export const CampaignCreateInputSchema = z.object({
@@ -80,3 +80,13 @@ export const TxnBuildResponseSchemas = {
   }),
   default: TxnBuildResponseDefaults,
 };
+
+/**
+ * Audience schemas
+ */
+export const audienceCreateInputSchema = z.object({
+  config: z.any(),
+  title: z.string().max(25),
+  description: z.string().optional().nullable(),
+  global: z.boolean(),
+});
