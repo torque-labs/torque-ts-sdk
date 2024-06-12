@@ -1,6 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair, PublicKey } from '@solana/web3.js';
-import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types';
+import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types/index.js';
 /**
  * Options for the TorqueUserClient.
  */
@@ -187,3 +187,4 @@ export declare class TorqueUserClient {
      */
     getSharedLinkData(campaignId: string, handle: string): Promise<ApiShare>;
 }
+//# sourceMappingURL=user.d.ts.map

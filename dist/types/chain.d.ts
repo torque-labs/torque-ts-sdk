@@ -10,3 +10,4 @@ export type SafeToken = {
         coingeckoId: string;
     };
 };
+//# sourceMappingURL=chain.d.ts.map

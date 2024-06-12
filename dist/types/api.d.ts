@@ -202,3 +202,4 @@ export declare enum ApiTxnTypes {
     PublisherPayout = "PublisherPayout",
     PublisherCreate = "PublisherCreate"
 }
+//# sourceMappingURL=api.d.ts.map

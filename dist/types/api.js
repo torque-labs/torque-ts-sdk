@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApiTxnTypes = exports.ApiRewardType = exports.ApiEventType = exports.ApiStatus = void 0;
 /**
  * The API response success type.
  */
-var ApiStatus;
+export var ApiStatus;
 (function (ApiStatus) {
     ApiStatus["SUCCESS"] = "SUCCESS";
     ApiStatus["BAD_REQUEST"] = "BAD_REQUEST";
@@ -12,11 +9,11 @@ var ApiStatus;
     ApiStatus["FORBIDDEN"] = "FORBIDDEN";
     ApiStatus["NOT_FOUND"] = "NOT_FOUND";
     ApiStatus["INTERNAL_ERROR"] = "INTERNAL_ERROR";
-})(ApiStatus || (exports.ApiStatus = ApiStatus = {}));
+})(ApiStatus || (ApiStatus = {}));
 /**
  * On-chain event types for the API.
  */
-var ApiEventType;
+export var ApiEventType;
 (function (ApiEventType) {
     ApiEventType["CLICK"] = "CLICK";
     ApiEventType["SWAP"] = "SWAP";
@@ -25,22 +22,23 @@ var ApiEventType;
     ApiEventType["ADD_LIQUIDITY"] = "ADD_LIQUIDITY";
     ApiEventType["INTERACT"] = "INTERACT";
     ApiEventType["SIGN_UP"] = "SIGN_UP";
-})(ApiEventType || (exports.ApiEventType = ApiEventType = {}));
+})(ApiEventType || (ApiEventType = {}));
 /**
  * The rewards type of a campaign.
  */
-var ApiRewardType;
+export var ApiRewardType;
 (function (ApiRewardType) {
     ApiRewardType["POINTS"] = "POINTS";
     ApiRewardType["TOKENS"] = "TOKENS";
-})(ApiRewardType || (exports.ApiRewardType = ApiRewardType = {}));
+})(ApiRewardType || (ApiRewardType = {}));
 /**
  * Torque functions that require a wallet signature.
  */
-var ApiTxnTypes;
+export var ApiTxnTypes;
 (function (ApiTxnTypes) {
     ApiTxnTypes["CampaignCreate"] = "CampaignCreate";
     ApiTxnTypes["CampaignEnd"] = "CampaignEnd";
     ApiTxnTypes["PublisherPayout"] = "PublisherPayout";
     ApiTxnTypes["PublisherCreate"] = "PublisherCreate";
-})(ApiTxnTypes || (exports.ApiTxnTypes = ApiTxnTypes = {}));
+})(ApiTxnTypes || (ApiTxnTypes = {}));
+//# sourceMappingURL=api.js.map

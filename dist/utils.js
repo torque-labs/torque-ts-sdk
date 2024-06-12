@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.uint8ArrayToBase64 = exports.base64ToUint8Array = void 0;
+import { Md5 } from 'ts-md5';
 /**
  * Converts a Base64-encoded string to a Uint8Array.
  *
@@ -8,7 +6,7 @@ exports.uint8ArrayToBase64 = exports.base64ToUint8Array = void 0;
  *
  * @returns {Uint8Array} The Uint8Array representation of the input Base64 string.
  */
-function base64ToUint8Array(base64) {
+export function base64ToUint8Array(base64) {
     const binaryString = Buffer.from(base64, 'base64').toString('binary');
     const len = binaryString.length;
     const bytes = new Uint8Array(len);
@@ -17,7 +15,6 @@ function base64ToUint8Array(base64) {
     }
     return bytes;
 }
-exports.base64ToUint8Array = base64ToUint8Array;
 /**
  * Converts a Uint8Array to a Base64-encoded string.
  *
@@ -25,8 +22,24 @@ exports.base64ToUint8Array = base64ToUint8Array;
  *
  * @returns {string} The Base64-encoded string representation of the input Uint8Array.
  */
-function uint8ArrayToBase64(bytes) {
+export function uint8ArrayToBase64(bytes) {
     const binary = bytes.reduce((acc, byte) => acc + String.fromCharCode(byte), '');
     return btoa(binary);
 }
-exports.uint8ArrayToBase64 = uint8ArrayToBase64;
+/**
+ * Generates a unique ID for an object in MongoDB
+ *
+ * @param {unknown} object The object to hash
+ *
+ * @returns {ObjectId} The MD5 hash of the object in the form of the MongoDB ObjectId
+ */
+export function getObjectIdHash(object) {
+    // Generate MD5 hash of the object
+    const hash = Md5.hashStr(JSON.stringify(object)).toString();
+    // Ensure the hash is at least 24 characters long
+    // If the hash is shorter, pad it with zeros
+    const objectIdStr = hash.padEnd(24, '0').substring(0, 24);
+    // Convert the 24-character string to an ObjectId
+    return objectIdStr;
+}
+//# sourceMappingURL=utils.js.map

@@ -1,6 +1,7 @@
+/// <reference types="node" resolution-mode="require"/>
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
-import { TxnInput } from '../types/index';
+import { TxnInput } from '../types/index.js';
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
  * It provides methods for performing API requests and handling responses.
@@ -109,3 +110,4 @@ export declare class TorqueRequestClient {
      */
     private signWithKeypair;
 }
+//# sourceMappingURL=request.d.ts.map

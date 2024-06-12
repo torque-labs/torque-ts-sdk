@@ -1,5 +1,5 @@
 import z from 'zod';
-import { CampaignCreateInputSchema, CampaignEndInputSchema, PublisherPayoutInputSchema, PublisherCreateInputSchema, TxnInputSchema, TxnExecuteSchema } from '../schemas/index';
+import { CampaignCreateInputSchema, CampaignEndInputSchema, PublisherPayoutInputSchema, PublisherCreateInputSchema, TxnInputSchema, TxnExecuteSchema } from '../schemas/index.js';
 /**
  * Campaign create input.
  */
@@ -30,3 +30,4 @@ export type TxnExecute = z.infer<typeof TxnExecuteSchema>;
 export type TxnExecuteResponse = {
     signature: string;
 };
+//# sourceMappingURL=transactions.d.ts.map

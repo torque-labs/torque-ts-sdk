@@ -1,5 +1,5 @@
 import z from 'zod';
-import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index';
+import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
 export declare const CampaignCreateInputSchema: z.ZodObject<{
     campaignName: z.ZodString;
     campaignType: z.ZodString;
@@ -308,3 +308,23 @@ export declare const TxnBuildResponseSchemas: {
         serializedTx: string;
     }>;
 };
+/**
+ * Audience schemas
+ */
+export declare const audienceCreateInputSchema: z.ZodObject<{
+    config: z.ZodAny;
+    title: z.ZodString;
+    description: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    global: z.ZodBoolean;
+}, "strip", z.ZodTypeAny, {
+    title: string;
+    global: boolean;
+    config?: any;
+    description?: string | null | undefined;
+}, {
+    title: string;
+    global: boolean;
+    config?: any;
+    description?: string | null | undefined;
+}>;
+//# sourceMappingURL=index.d.ts.map

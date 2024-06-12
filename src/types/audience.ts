@@ -1,3 +1,7 @@
+import { z } from 'zod';
+
+import { audienceCreateInputSchema } from '../schemas/index.js';
+
 /**
  * Audiences are used to define the conditions under which a user can participate in a campaign.
  */
@@ -223,3 +227,49 @@ export type AudienceBuild = {
 export type AudienceBuildResponse = {
   message: string;
 };
+
+/**
+ * Audience creation input.
+ */
+export type ApiAudienceCreateInput = z.infer<typeof audienceCreateInputSchema>;
+
+/**
+ * Audience creation response.
+ */
+export type ApiAudienceResponse = {
+  id: string;
+};
+
+/**
+ * Aggregation create input.
+ */
+export type AggreggationCreateInput = {
+  operation?: Operation;
+  target: Target;
+}[];
+
+/**
+ * Aggregation query condition.
+ */
+export type Condition = {
+  targetId: string;
+};
+
+/**
+ * Aggregation and operator.
+ */
+export type AndOperator = {
+  $and: (Condition | AndOperator | OrOperator)[];
+};
+
+/**
+ * Aggregation or operator.
+ */
+export type OrOperator = {
+  $or: (Condition | AndOperator | OrOperator)[];
+};
+
+/**
+ * Aggregation query operator.
+ */
+export type Operator = AndOperator | OrOperator;
