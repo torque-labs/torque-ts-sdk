@@ -40,15 +40,18 @@ type SWAP = {
     };
 }
 
+const shuffleString = (str: string) => {
+    return str.split('').sort(function(){return 0.5-Math.random()}).join(''); 
+}
 export const BONK_SWAP_EVENT = {
         "timestamp": "2024-05-10T19:08:30.000Z",
         "fee": 0.000006169,
-        "fee_payer": "EYcJb2fGccgG8ChVrdUzC9Q6RfFEgbVfixCpQ4tctrzT",
+        "fee_payer": "replace_me",
         "signers": [
-            "EYcJb2fGccgG8ChVrdUzC9Q6RfFEgbVfixCpQ4tctrzT"
+            "replace_me"
         ],
         "signatures": [
-            "CG4smuuui2f7tYKem1kzDbqFyqEL9Vc4FN1quWMdGzMRiWerJL6Eb2BZjdMRFgordbx7owA4TGXg2bn7zUAvtJ8"
+            shuffleString("CG4smuuui2f7tYKem1kzDbqFyqEL9Vc4FN1quWMdGzMRiWerJL6Eb2BZjdMRFgordbx7owA4TGXg2bn7zUAvtJ8")
         ],
         "protocol": {
             "address": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
@@ -59,7 +62,7 @@ export const BONK_SWAP_EVENT = {
         "actions": [
             {
                 "info": {
-                    "swapper": "EYcJb2fGccgG8ChVrdUzC9Q6RfFEgbVfixCpQ4tctrzT",
+                    "swapper": "replace_me",
                     "tokens_swapped": {
                         "in": {
                             "token_address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
@@ -158,7 +161,7 @@ export const BONK_SWAP_EVENT = {
                     "amount": 0.022607,
                     "amount_raw": 22607,
                     "receiver": "DSN3j1ykL3obAVNv7ZX49VsFCPe4LqzxHnmtLiPwY6xg",
-                    "sender": "EYcJb2fGccgG8ChVrdUzC9Q6RfFEgbVfixCpQ4tctrzT",
+                    "sender": "replace_me",
                     "receiver_associated_account": "FbruxBVHi463Agw2B3Vy27cBkGnEN5g1f4NcHe3REXfe",
                     "token_address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
                 },
@@ -269,7 +272,7 @@ export const BONK_SWAP_EVENT = {
                 "info": {
                     "amount": 1000,
                     "amount_raw": 100000000,
-                    "receiver": "EYcJb2fGccgG8ChVrdUzC9Q6RfFEgbVfixCpQ4tctrzT",
+                    "receiver": "replace_me",
                     "sender": "DSN3j1ykL3obAVNv7ZX49VsFCPe4LqzxHnmtLiPwY6xg",
                     "receiver_associated_account": "8wUdxTQpeTKv3h8ArNFt5C3Vcgf2XCiSdgJ1FR3brm7h",
                     "token_address": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"

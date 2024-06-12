@@ -8,10 +8,8 @@ import {
     SystemProgram,
     sendAndConfirmTransaction,
 } from "@solana/web3.js";
-import { TorqueSDK } from "../../src/classes/sdk";
-import exp from 'constants';
-import { TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from '@solana/spl-token';
-import { TORQUE_FUNCTIONS_ROUTES, TORQUE_FUNCTIONS_URL } from '../../src/constants';
+import {  getAssociatedTokenAddress } from '@solana/spl-token';
+import { TORQUE_API_URL, TORQUE_FUNCTIONS_URL } from '../../src/constants';
 
 export const connection = new Connection("https://api.devnet.solana.com");
 
@@ -78,14 +76,18 @@ export const loadBalances = async (walletAddress: PublicKey) => {
 };
 
 export const triggerUserPayouts = async () => {
-    const singatures = await fetch("http://localhost:3001/users/payout", {
+    const result = await fetch(`${TORQUE_API_URL}/users/payout`, {
         method: "GET",
         headers: {
             "x-torque-api-key": process.env.TORQUE_API_KEY as string
         },
         redirect: "follow"
-    }).then((response) => response.json())
-    return singatures;
+    }).then((response) => response.json());
+    if (result.status !== "SUCCESS") {
+        throw new Error("Payouts failed");
+    }
+    console.log('-- Payouts txs: ', result.data.signatures);
+    return result.data.signatures;
 }
 
 export const sendShyftEvent = async (event: any, walletAddress: string) => {

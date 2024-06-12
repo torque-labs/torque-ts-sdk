@@ -92,8 +92,6 @@ describe("AUDIENCE BUILDER API", () => {
         });
     });
 
-
-    PublicKey.isOnCurve
     describe("SPL", () => {
         const totalReward = publisherUserSPL.conversionCount! * 
             (publisherUserSPL.publisherPayoutPerConversion + publisherUserSPL.userPayoutPerConversion!);
@@ -122,7 +120,7 @@ describe("AUDIENCE BUILDER API", () => {
             expect(endSpl).toBe(startSpl + totalReward);
         });
 
-        describe.only("ASYMMETRIC REWARD", () => {
+        describe("ASYMMETRIC REWARD", () => {
             const totalReward = raffleSPL.asymmetricRewards![0].amount;
             it("should create campaign", async () => {
                 ({sol: startSol, spl: startSpl} = await loadBalances(new PublicKey(sdk!.user!.publicKey)));

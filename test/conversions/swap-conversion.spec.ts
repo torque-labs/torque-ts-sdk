@@ -1,46 +1,47 @@
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { TorqueSDK } from "../../src/classes/sdk";
 import { swapBonkCampaignSpl } from "../utils/campaign-configs";
-import { Balances, GAS_COST, TEST_SPL, TEST_USER_PATHS, airdrop, loadBalances, loadCliWallet, sendShyftEvent, triggerUserPayouts } from "../utils/helper";
-import { TORQUE_API_ROUTES, TORQUE_FUNCTIONS_URL } from "../../src/constants";
+import {  TEST_USER_PATHS, loadBalances, loadCliWallet, sendShyftEvent, triggerUserPayouts } from "../utils/helper";
 import { BONK_SWAP_EVENT } from "../utils/event-configs";
 
 
 describe("SWAP CONVERSION", () => {
-    let advertiserSdk: TorqueSDK, pub1SDK: TorqueSDK;
-    let user1SDK: TorqueSDK, user2SDK: TorqueSDK, user3SDK: TorqueSDK;
+    let advSdk: TorqueSDK, pubSdk: TorqueSDK;
+    let use1Sdk: TorqueSDK, use2Sdk: TorqueSDK, use3Sdk: TorqueSDK;
     beforeAll(async () => {
-        advertiserSdk = new TorqueSDK({apiKey: "advertiser1"});
-        pub1SDK = new TorqueSDK({apiKey: "publisher1"});
+        advSdk = new TorqueSDK({apiKey: "advertiser1"});
+        await advSdk.initialize(loadCliWallet(TEST_USER_PATHS.advertiser1));
+
+        pubSdk = new TorqueSDK({apiKey: "publisher1"});
+        await pubSdk.initialize(loadCliWallet(TEST_USER_PATHS.publisher1));
+        
         const user1 = Keypair.generate();
         const user2 = Keypair.generate();
         const user3 = Keypair.generate();
-        user1SDK = new TorqueSDK({apiKey: "user1"});
-        user2SDK = new TorqueSDK({apiKey: "user2"});
-        user3SDK = new TorqueSDK({apiKey: "user3"});
-
-        await advertiserSdk.initialize(loadCliWallet(TEST_USER_PATHS.advertiser1));
-        await pub1SDK.initialize(loadCliWallet(TEST_USER_PATHS.publisher1));
-        await user1SDK.initialize(user1);
-        await user2SDK.initialize(user2);
-        await user3SDK.initialize(user3);
+        use1Sdk = new TorqueSDK({apiKey: "user1"});
+        use2Sdk = new TorqueSDK({apiKey: "user2"});
+        use3Sdk = new TorqueSDK({apiKey: "user3"});
+        await use1Sdk.initialize(user1);
+        await use2Sdk.initialize(user2);
+        await use3Sdk.initialize(user3);
     });
     let campaignId: string;
     it("create swap campaign", async () => {
-        const result = await advertiserSdk.api?.createCampaign(swapBonkCampaignSpl);
+        const result = await advSdk.api?.createCampaign(swapBonkCampaignSpl);
         expect(result).toBeDefined();
         campaignId = result!.campaignId;
         console.log('-- create singature: ', result.signature);
+        console.log('-- campaign ID: ', result.campaignId); 
     });
 
-    it('should convert all 3 users', async () => {
-        const pub1Handle = pub1SDK.user?.getUserHandle();
-        await pub1SDK.user?.getSharedLinkData(campaignId, pub1Handle!);
+    it('should accept offer as all 3 users', async () => {
+        const pub1Handle = pubSdk.user?.getUserHandle();
+        await pubSdk.user?.getSharedLinkData(campaignId, pub1Handle!);
 
         const results = await Promise.all([
-            user1SDK.user?.acceptCampaign(campaignId, pub1Handle!),
-            user2SDK.user?.acceptCampaign(campaignId, pub1Handle!),
-            user3SDK.user?.acceptCampaign(campaignId, pub1Handle!)
+            use1Sdk.user?.acceptCampaign(campaignId, pub1Handle!),
+            use2Sdk.user?.acceptCampaign(campaignId, pub1Handle!),
+            use3Sdk.user?.acceptCampaign(campaignId, pub1Handle!)
         ]);
         results.forEach(result => {
             expect(result).toBeDefined();
@@ -48,17 +49,17 @@ describe("SWAP CONVERSION", () => {
         });
     });
 
-    it("should send event to SHYFT handler", async () => {
+    it("should send event to SHYFT handler converting all 3 users", async () => {
         const preBalances = await Promise.all([
-            loadBalances(new PublicKey(user1SDK.user?.publicKey!)), 
-            loadBalances(new PublicKey(user2SDK.user?.publicKey!)),
-            loadBalances(new PublicKey(user3SDK.user?.publicKey!)),
+            loadBalances(new PublicKey(use1Sdk.user?.publicKey!)), 
+            loadBalances(new PublicKey(use2Sdk.user?.publicKey!)),
+            loadBalances(new PublicKey(use3Sdk.user?.publicKey!)),
         ]);
 
         const results = await Promise.all([
-            sendShyftEvent(BONK_SWAP_EVENT, user1SDK.user?.publicKey!),
-            sendShyftEvent(BONK_SWAP_EVENT, user2SDK.user?.publicKey!),
-            sendShyftEvent(BONK_SWAP_EVENT, user3SDK.user?.publicKey!)
+            sendShyftEvent(BONK_SWAP_EVENT, use1Sdk.user?.publicKey!),
+            sendShyftEvent(BONK_SWAP_EVENT, use2Sdk.user?.publicKey!),
+            sendShyftEvent(BONK_SWAP_EVENT, use3Sdk.user?.publicKey!)
         ]);
         results.forEach(result => {
             expect(result).toBeDefined();
@@ -70,17 +71,17 @@ describe("SWAP CONVERSION", () => {
         await triggerUserPayouts(); 
 
         const postBalances = await Promise.all([
-            loadBalances(new PublicKey(user1SDK.user?.publicKey!)), 
-            loadBalances(new PublicKey(user2SDK.user?.publicKey!)),
-            loadBalances(new PublicKey(user3SDK.user?.publicKey!)),
+            loadBalances(new PublicKey(use1Sdk.user?.publicKey!)), 
+            loadBalances(new PublicKey(use2Sdk.user?.publicKey!)),
+            loadBalances(new PublicKey(use3Sdk.user?.publicKey!)),
         ]);
         for (let i = 0; i < 3; i++) {
             expect(preBalances[i].spl).toEqual(postBalances[i].spl - swapBonkCampaignSpl.userPayoutPerConversion!);
         }
     });
 
-    it.only("should end campaign", async () => {
-        const result = await advertiserSdk.api?.endCampaign({campaignId});
+    it("should end campaign", async () => {
+        const result = await advSdk.api?.endCampaign({campaignId});
         expect(result).toBeDefined();
         console.log('-- end singature: ', result.signature);
     });

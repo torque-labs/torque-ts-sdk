@@ -171,7 +171,7 @@ export const clickRaffleCampaignSpl: CampaignCreateInput = {
 }
 
 export const swapBonkCampaignSpl: CampaignCreateInput = {
-    campaignName: `swap_bonk_${new Date().getTime()}`,
+    campaignName: `swap_bonk_${new Date().getTime()}.t`,
     campaignType: "BOUNTY",
     landingPage: 'app.torque.so',
     eventType: ApiEventType.SWAP,
@@ -184,6 +184,29 @@ export const swapBonkCampaignSpl: CampaignCreateInput = {
     userRewardType: ApiRewardType.TOKENS,
     userTokenAddress: TEST_SPL.toString(),
     userPayoutPerConversion: 1,
+    conversionCount: 3,
+    proposal: "",
+    startTime: new Date().getTime(),
+    endTime: new Date().getTime() + 60*60*24 * 30 * 1000,
+    // TODO FIX, should be null
+    audience: '',
+    asymmetricRewards: [],
+}
+
+export const raffle1Winner: CampaignCreateInput = {
+    campaignName: `1_winner${new Date().getTime()}.t`,
+    campaignType: "CLICK",
+    landingPage: 'app.torque.so',
+    eventType: ApiEventType.CLICK,
+    eventProgramAddress: "",
+    eventTokenAddress: "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    minAmount: null,
+    publisherRewardType: ApiRewardType.POINTS,
+    publisherTokenAddress: PublicKey.default.toString(),
+    publisherPayoutPerConversion: 1,
+    userRewardType: ApiRewardType.POINTS,
+    userTokenAddress: PublicKey.default.toString(),
+    userPayoutPerConversion: 0,
     conversionCount: 3,
     proposal: "",
     startTime: new Date().getTime(),

@@ -1,9 +1,7 @@
 
 describe("WITHDRAQ PUBLISHER REWARDS", () => {
     beforeAll(async () => {
-        // create publisher account
-        // user accepts offer and converts for SOL
-        // user accepts offer and converts for SPL
+        // TODO move tests from click to here
     });
   
     it("should withdraw SOL rewards", async () => {

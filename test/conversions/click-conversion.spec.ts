@@ -17,9 +17,9 @@ describe("CLICK CONVERSION", () => {
         await airdrop(user1.publicKey, 1250000);
         user1SDK = new TorqueSDK({apiKey: user1.publicKey.toString()});
 
-        await advertiserSdk.initialize(loadCliWallet(TEST_USER_PATHS.advertiser1)),
-        await pub1SDK.initialize(loadCliWallet(TEST_USER_PATHS.publisher1)),
-        await user1SDK.initialize(user1),
+        await advertiserSdk.initialize(loadCliWallet(TEST_USER_PATHS.advertiser1));
+        await pub1SDK.initialize(loadCliWallet(TEST_USER_PATHS.publisher1));
+        await user1SDK.initialize(user1);
 
         pub1Handle = pub1SDK.user?.getUserHandle();
         await pub1SDK.user?.getSharedLinkData(CLICK_RAFFLE_CAMPAIGN_SOL_ID, pub1Handle!);
