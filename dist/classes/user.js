@@ -2,7 +2,7 @@ import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 import { TorqueRequestClient } from './request.js';
 import { TorqueSDK } from './sdk.js';
-import { TORQUE_API_ROUTES, torquePubkey, TORQUE_SHARE_URL, SOLANA_NETWORK, PUBLISHER_ACCOUNT_SIZE, } from '../constants/index.js';
+import { TORQUE_API_ROUTES, torquePubkey, PUBLISHER_ACCOUNT_SIZE } from '../constants/index.js';
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
  * The user client allows publishers to fetch campaigns and offers that are savailable for the current user.
@@ -25,6 +25,7 @@ export class TorqueUserClient {
     user;
     signer;
     connection;
+    appUrl;
     /**
      * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
      *
@@ -33,15 +34,17 @@ export class TorqueUserClient {
      * @throws {Error} Throws an error if the user's wallet is not provided.
      */
     constructor(options) {
-        const { signer, publisherHandle, rpc } = options;
+        const { signer, publisherHandle, rpc, apiUrl, appUrl, functionsUrl, network } = options;
         if (!signer.publicKey) {
             throw new Error('The wallet/signer provided does not have a public key.');
         }
-        this.client = new TorqueRequestClient(signer);
+        const solanaNetwork = network ?? 'devnet';
+        this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
         this.publicKey = signer.publicKey.toString();
         this.publisherHandle = publisherHandle;
         this.signer = signer;
-        this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');
+        this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+        this.appUrl = appUrl ?? 'https://app.torque.so';
     }
     /**
      * ========================================================================
@@ -341,8 +344,9 @@ export class TorqueUserClient {
     getUserShareLink(campaignId) {
         const handle = this.getUserHandle();
         const isPublisher = this.isPublisher();
+        const shareUrl = `${this.appUrl}/share`;
         if (handle && isPublisher) {
-            return `${TORQUE_SHARE_URL}/${handle}/${campaignId}`;
+            return `${shareUrl}/${handle}/${campaignId}`;
         }
         else {
             throw new Error('The user is not a publisher.');

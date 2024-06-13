@@ -13,6 +13,9 @@ export type TorqueSDKOptions = {
     apiKey?: string;
     publisherHandle?: string;
     rpc?: string;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
 };
 /**
  * The official Torque Typescript SDK.
@@ -41,6 +44,9 @@ export declare class TorqueSDK {
     private apiKey;
     private publisherHandle;
     private rpc;
+    private apiUrl;
+    private appUrl;
+    private functionsUrl;
     /**
      * Initializes the TorqueSDK with the provided options.
      *

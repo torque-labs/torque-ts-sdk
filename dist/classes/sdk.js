@@ -29,6 +29,9 @@ export class TorqueSDK {
     apiKey;
     publisherHandle;
     rpc;
+    apiUrl;
+    appUrl;
+    functionsUrl;
     /**
      * Initializes the TorqueSDK with the provided options.
      *
@@ -43,12 +46,18 @@ export class TorqueSDK {
         this.apiKey = options.apiKey;
         this.publisherHandle = options.publisherHandle;
         this.rpc = options.rpc;
+        this.apiUrl = options.apiUrl;
+        this.appUrl = options.appUrl;
+        this.functionsUrl = options.functionsUrl;
     }
     async initialize(signer, ApiInputLogin) {
         const userClient = new TorqueUserClient({
             signer: signer,
             publisherHandle: this.publisherHandle,
             rpc: this.rpc,
+            apiUrl: this.apiUrl,
+            appUrl: this.appUrl,
+            functionsUrl: this.functionsUrl,
         });
         this.user = userClient;
         try {
@@ -63,11 +72,17 @@ export class TorqueSDK {
                 signer: signer,
                 apiKey: this.apiKey,
                 userClient: userClient,
+                apiUrl: this.apiUrl,
+                appUrl: this.appUrl,
+                functionsUrl: this.functionsUrl,
             });
             this.audience = new TorqueAudienceClient({
                 signer: signer,
                 apiKey: this.apiKey,
                 userClient: userClient,
+                apiUrl: this.apiUrl,
+                appUrl: this.appUrl,
+                functionsUrl: this.functionsUrl,
             });
         }
     }

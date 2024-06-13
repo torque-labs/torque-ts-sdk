@@ -3,11 +3,21 @@ import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 import { TxnInput } from '../types/index.js';
 /**
+ * Options for the TorqueRequestClient.
+ */
+export type TorqueRequestOptions = {
+    signer: Adapter | Keypair;
+    apiKey?: string;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
+};
+/**
  * The TorqueRequestClient class is used to make requests to the Torque API.
  * It provides methods for performing API requests and handling responses.
  *
  * @example
- * const client = new TorqueRequestClient(signer, apiKey);
+ * const client = new TorqueRequestClient(<options>);
  *
  * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
  */
@@ -15,6 +25,9 @@ export declare class TorqueRequestClient {
     private apiKey;
     private apiAuthHeader;
     private signer;
+    private apiUrl;
+    private appUrl;
+    private functionsUrl;
     /**
      * Create a new instance of the TorqueRequestClient class.
      *
@@ -23,7 +36,7 @@ export declare class TorqueRequestClient {
      *
      * @throws {Error} Throws an error if a signer is not provided.
      */
-    constructor(signer: Adapter | Keypair, apiKey?: string);
+    constructor(options: TorqueRequestOptions);
     /**
      * Perform a regular request to any endpoint.
      *

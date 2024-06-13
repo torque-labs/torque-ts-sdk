@@ -9,6 +9,9 @@ export type TorqueAdminClientOptions = {
     signer: Adapter | Keypair;
     apiKey: string;
     userClient: TorqueUserClient;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
 };
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.

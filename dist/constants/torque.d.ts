@@ -1,5 +1,3 @@
-declare const TORQUE_API_URL: string;
-declare const TORQUE_SHARE_URL: string;
 declare const TORQUE_API_ROUTES: {
     audiences: string;
     audiencesCustom: string;
@@ -26,5 +24,5 @@ declare const TORQUE_FUNCTIONS_ROUTES: {
         verify: string;
     };
 };
-export { TORQUE_API_URL, TORQUE_SHARE_URL, TORQUE_API_ROUTES, TORQUE_FUNCTIONS_ROUTES };
+export { TORQUE_API_ROUTES, TORQUE_FUNCTIONS_ROUTES };
 //# sourceMappingURL=torque.d.ts.map
