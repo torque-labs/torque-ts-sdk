@@ -36,6 +36,7 @@ export declare class TorqueUserClient {
     private signer;
     private connection;
     private appUrl;
+    private apiUrl;
     /**
      * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
      *

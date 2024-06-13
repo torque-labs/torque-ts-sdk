@@ -49,6 +49,7 @@ export class TorqueUserClient {
   private signer: Adapter | Keypair;
   private connection: Connection;
   private appUrl: string;
+  private apiUrl: string;
 
   /**
    * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
@@ -72,6 +73,7 @@ export class TorqueUserClient {
     this.signer = signer;
     this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
     this.appUrl = appUrl ?? 'https://app.torque.so';
+    this.apiUrl = apiUrl ?? 'https://api.torque.so';
   }
 
   /**
@@ -105,7 +107,7 @@ export class TorqueUserClient {
       let loginBody: ApiInputLogin | undefined;
 
       if (!userAuth && this.signer.publicKey) {
-        const signPayloadInput = await TorqueSDK.getLoginPayload();
+        const signPayloadInput = await TorqueSDK.getLoginPayload(this.apiUrl);
 
         if ('signIn' in this.signer) {
           // Login with SIWS

@@ -117,15 +117,21 @@ export class TorqueSDK {
    * Static method to verify the login options with the Torque API.
    *
    * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
+   * @param {string} apiUrl - The API URL to use for the verification. Defaults to the Torque API URL.
    *
    * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
    *
    * @throws {Error} Throws an error if there is an error authenticating the user.
    */
-  public static async verifyLogin(loginOptions: ApiInputLogin) {
+  public static async verifyLogin(
+    loginOptions: ApiInputLogin,
+    apiUrl: string = 'https://api.torque.so',
+  ) {
     try {
+      const url = `${apiUrl}${TORQUE_API_ROUTES.login}`;
+
       // TODO: Setup request caching
-      const response = await fetch(TORQUE_API_ROUTES.login, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -154,13 +160,17 @@ export class TorqueSDK {
   /**
    * Retrieves a sample SIWS payload for l ogging into the Torque API.
    *
+   * @param {string} apiUrl - The API URL to use for the payload. Defaults to the Torque API URL.
+   *
    * @returns {Promise<ApiIdentifyPayload>} A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
    *
    * @throws {Error} Throws an error if the API request is unsuccessful.
    */
-  public static async getLoginPayload() {
+  public static async getLoginPayload(apiUrl: string = 'https://api.torque.so') {
     try {
-      const response = await fetch(TORQUE_API_ROUTES.identify, {
+      const url = `${apiUrl}${TORQUE_API_ROUTES.identify}`;
+
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
