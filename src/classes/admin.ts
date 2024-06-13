@@ -1,6 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
-import { ApiRaffleRewards } from 'torque-ts-sdk';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -15,6 +14,7 @@ import {
   CampaignEndInput,
   SafeToken,
   WithSignature,
+  ApiRaffleRewards,
 } from '../types/index.js';
 
 /**

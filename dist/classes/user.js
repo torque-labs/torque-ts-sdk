@@ -380,12 +380,6 @@ export class TorqueUserClient {
         }
     }
     static PUBLISHER_ACCOUNT_SIZE = 41;
-    async getMaxTransferableSol() {
-        const balance = await this.connection.getBalance(this.getPublisherPda(), 'processed');
-        const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
-        const maxTransferable = balance - rentExemptBalance;
-        return maxTransferable;
-    }
     async getMaxTransferableSpl(token) {
         try {
             const associatedTokenAddress = await getAssociatedTokenAddress(token, new PublicKey(this.getPublisherPda()), true);
@@ -405,7 +399,7 @@ export class TorqueUserClient {
     async getPublisherBalance() {
         const pda = this.getPublisherPda();
         if (pda) {
-            const balance = await this.connection.getBalance(pda);
+            const balance = await this.connection.getBalance(pda, 'processed');
             const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
             const maxTransferable = balance - rentExemptBalance;
             return maxTransferable;

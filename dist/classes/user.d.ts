@@ -157,7 +157,6 @@ export declare class TorqueUserClient {
      */
     getPublisherPda(): PublicKey | undefined;
     static PUBLISHER_ACCOUNT_SIZE: number;
-    getMaxTransferableSol(): Promise<number>;
     getMaxTransferableSpl(token: PublicKey): Promise<number>;
     /**
      * Get the balance of the publisher PDA for the current user.

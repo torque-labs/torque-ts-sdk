@@ -1,8 +1,7 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 import { TorqueUserClient } from './user.js';
-import { ApiAudience, ApiCampaign, ApiCampaignLeaderboard, Audience, CampaignCreateInput, CampaignEndInput, SafeToken, WithSignature } from '../types/index.js';
-import { ApiRaffleRewards } from 'torque-ts-sdk';
+import { ApiAudience, ApiCampaign, ApiCampaignLeaderboard, Audience, CampaignCreateInput, CampaignEndInput, SafeToken, WithSignature, ApiRaffleRewards } from '../types/index.js';
 /**
  * Options for the TorqueAdminClient.
  */

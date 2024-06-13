@@ -214,6 +214,7 @@ export class TorqueRequestClient {
                 method: 'POST',
                 body: JSON.stringify({ ...data }),
                 headers: {
+                    // todo: remove if token is undefined
                     Authorization: `Bearer ${token}`,
                 },
             });
