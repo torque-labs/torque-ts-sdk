@@ -28,7 +28,7 @@ export type TorqueUserClientOptions = {
  *   : await this.initializeUser(ApiInputLogin);
  */
 export declare class TorqueUserClient {
-    publisherHandle: string | undefined;
+    publisherHandle: string;
     initialized: boolean;
     publicKey: string;
     private client;
