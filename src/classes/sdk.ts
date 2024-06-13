@@ -16,6 +16,9 @@ export type TorqueSDKOptions = {
   apiKey?: string;
   publisherHandle?: string;
   rpc?: string;
+  apiUrl?: string;
+  appUrl?: string;
+  functionsUrl?: string;
 };
 
 /**
@@ -45,6 +48,9 @@ export class TorqueSDK {
   private apiKey: string | undefined;
   private publisherHandle: string | undefined;
   private rpc: string | undefined;
+  private apiUrl: string | undefined;
+  private appUrl: string | undefined;
+  private functionsUrl: string | undefined;
 
   /**
    * Initializes the TorqueSDK with the provided options.
@@ -61,6 +67,9 @@ export class TorqueSDK {
     this.apiKey = options.apiKey;
     this.publisherHandle = options.publisherHandle;
     this.rpc = options.rpc;
+    this.apiUrl = options.apiUrl;
+    this.appUrl = options.appUrl;
+    this.functionsUrl = options.functionsUrl;
   }
 
   public async initialize(signer: Adapter | Keypair, ApiInputLogin?: ApiInputLogin) {
@@ -68,6 +77,9 @@ export class TorqueSDK {
       signer: signer,
       publisherHandle: this.publisherHandle,
       rpc: this.rpc,
+      apiUrl: this.apiUrl,
+      appUrl: this.appUrl,
+      functionsUrl: this.functionsUrl,
     });
 
     this.user = userClient;
@@ -85,12 +97,18 @@ export class TorqueSDK {
         signer: signer,
         apiKey: this.apiKey,
         userClient: userClient,
+        apiUrl: this.apiUrl,
+        appUrl: this.appUrl,
+        functionsUrl: this.functionsUrl,
       });
 
       this.audience = new TorqueAudienceClient({
         signer: signer,
         apiKey: this.apiKey,
         userClient: userClient,
+        apiUrl: this.apiUrl,
+        appUrl: this.appUrl,
+        functionsUrl: this.functionsUrl,
       });
     }
   }

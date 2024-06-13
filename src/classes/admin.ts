@@ -21,6 +21,9 @@ export type TorqueAdminClientOptions = {
   signer: Adapter | Keypair;
   apiKey: string;
   userClient: TorqueUserClient;
+  apiUrl?: string;
+  appUrl?: string;
+  functionsUrl?: string;
 };
 
 /**
@@ -43,9 +46,9 @@ export class TorqueAdminClient {
    * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
    */
   constructor(options: TorqueAdminClientOptions) {
-    const { signer, apiKey, userClient } = options;
+    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl } = options;
 
-    this.client = new TorqueRequestClient(signer, apiKey);
+    this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
     this.userClient = userClient;
   }
 

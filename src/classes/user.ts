@@ -1,16 +1,10 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueSDK } from './sdk.js';
-import {
-  TORQUE_API_ROUTES,
-  torquePubkey,
-  TORQUE_SHARE_URL,
-  SOLANA_NETWORK,
-  PUBLISHER_ACCOUNT_SIZE,
-} from '../constants/index.js';
+import { TORQUE_API_ROUTES, torquePubkey, PUBLISHER_ACCOUNT_SIZE } from '../constants/index.js';
 import {
   ApiCampaign,
   ApiInputLogin,
@@ -26,6 +20,10 @@ export type TorqueUserClientOptions = {
   signer: Adapter | Keypair;
   publisherHandle?: string;
   rpc?: string;
+  apiUrl?: string;
+  appUrl?: string;
+  functionsUrl?: string;
+  network?: Cluster;
 };
 
 /**
@@ -50,6 +48,7 @@ export class TorqueUserClient {
   private user: ApiVerifiedUser | undefined;
   private signer: Adapter | Keypair;
   private connection: Connection;
+  private appUrl: string;
 
   /**
    * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
@@ -59,17 +58,20 @@ export class TorqueUserClient {
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
   constructor(options: TorqueUserClientOptions) {
-    const { signer, publisherHandle, rpc } = options;
+    const { signer, publisherHandle, rpc, apiUrl, appUrl, functionsUrl, network } = options;
 
     if (!signer.publicKey) {
       throw new Error('The wallet/signer provided does not have a public key.');
     }
 
-    this.client = new TorqueRequestClient(signer);
+    const solanaNetwork = network ?? 'devnet';
+
+    this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
     this.publicKey = signer.publicKey.toString();
     this.publisherHandle = publisherHandle;
     this.signer = signer;
-    this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');
+    this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+    this.appUrl = appUrl ?? 'https://app.torque.so';
   }
 
   /**
@@ -423,8 +425,10 @@ export class TorqueUserClient {
     const handle = this.getUserHandle();
     const isPublisher = this.isPublisher();
 
+    const shareUrl = `${this.appUrl}/share`;
+
     if (handle && isPublisher) {
-      return `${TORQUE_SHARE_URL}/${handle}/${campaignId}`;
+      return `${shareUrl}/${handle}/${campaignId}`;
     } else {
       throw new Error('The user is not a publisher.');
     }
