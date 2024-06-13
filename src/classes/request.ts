@@ -210,9 +210,7 @@ export class TorqueRequestClient {
     };
 
     try {
-      const fetchUrl = `${this.apiUrl}${TORQUE_API_ROUTES.transactions.build}`;
-
-      const txn = await this.apiFetch(fetchUrl, {
+      const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
       });
@@ -254,9 +252,7 @@ export class TorqueRequestClient {
     };
 
     try {
-      const fetchUrl = `${this.apiUrl}${TORQUE_API_ROUTES.transactions.execute}`;
-
-      const txn = await this.apiFetch<TxnExecuteResponse>(fetchUrl, {
+      const txn = await this.apiFetch<TxnExecuteResponse>(TORQUE_API_ROUTES.transactions.execute, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
       });
