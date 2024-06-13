@@ -1,7 +1,7 @@
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { TorqueSDK } from "../../src/classes/sdk";
 import { swapBonkCampaignSpl } from "../utils/campaign-configs";
-import {  TEST_USER_PATHS, loadBalances, loadCliWallet, sendShyftEvent, triggerUserPayouts } from "../utils/helper";
+import { TEST_USER_PATHS, loadBalances, loadCliWallet, sendShyftEvent, triggerUserPayouts } from "../utils/helper";
 import { BONK_SWAP_EVENT } from "../utils/event-configs";
 
 
@@ -9,18 +9,18 @@ describe("SWAP CONVERSION", () => {
     let advSdk: TorqueSDK, pubSdk: TorqueSDK;
     let use1Sdk: TorqueSDK, use2Sdk: TorqueSDK, use3Sdk: TorqueSDK;
     beforeAll(async () => {
-        advSdk = new TorqueSDK({apiKey: "advertiser1"});
+        advSdk = new TorqueSDK({ apiKey: "advertiser1" });
         await advSdk.initialize(loadCliWallet(TEST_USER_PATHS.advertiser1));
 
-        pubSdk = new TorqueSDK({apiKey: "publisher1"});
+        pubSdk = new TorqueSDK({ apiKey: "publisher1" });
         await pubSdk.initialize(loadCliWallet(TEST_USER_PATHS.publisher1));
-        
+
         const user1 = Keypair.generate();
         const user2 = Keypair.generate();
         const user3 = Keypair.generate();
-        use1Sdk = new TorqueSDK({apiKey: "user1"});
-        use2Sdk = new TorqueSDK({apiKey: "user2"});
-        use3Sdk = new TorqueSDK({apiKey: "user3"});
+        use1Sdk = new TorqueSDK({ apiKey: "user1" });
+        use2Sdk = new TorqueSDK({ apiKey: "user2" });
+        use3Sdk = new TorqueSDK({ apiKey: "user3" });
         await use1Sdk.initialize(user1);
         await use2Sdk.initialize(user2);
         await use3Sdk.initialize(user3);
@@ -31,7 +31,7 @@ describe("SWAP CONVERSION", () => {
         expect(result).toBeDefined();
         campaignId = result!.campaignId;
         console.log('-- create singature: ', result.signature);
-        console.log('-- campaign ID: ', result.campaignId); 
+        console.log('-- campaign ID: ', result.campaignId);
     });
 
     it('should accept offer as all 3 users', async () => {
@@ -51,7 +51,7 @@ describe("SWAP CONVERSION", () => {
 
     it("should send event to SHYFT handler converting all 3 users", async () => {
         const preBalances = await Promise.all([
-            loadBalances(new PublicKey(use1Sdk.user?.publicKey!)), 
+            loadBalances(new PublicKey(use1Sdk.user?.publicKey!)),
             loadBalances(new PublicKey(use2Sdk.user?.publicKey!)),
             loadBalances(new PublicKey(use3Sdk.user?.publicKey!)),
         ]);
@@ -68,10 +68,10 @@ describe("SWAP CONVERSION", () => {
             expect(result.eventResponse.data.transaction).toBeDefined();
         });
 
-        await triggerUserPayouts(); 
+        await triggerUserPayouts();
 
         const postBalances = await Promise.all([
-            loadBalances(new PublicKey(use1Sdk.user?.publicKey!)), 
+            loadBalances(new PublicKey(use1Sdk.user?.publicKey!)),
             loadBalances(new PublicKey(use2Sdk.user?.publicKey!)),
             loadBalances(new PublicKey(use3Sdk.user?.publicKey!)),
         ]);
@@ -81,7 +81,7 @@ describe("SWAP CONVERSION", () => {
     });
 
     it("should end campaign", async () => {
-        const result = await advSdk.api?.endCampaign({campaignId});
+        const result = await advSdk.api?.endCampaign({ campaignId });
         expect(result).toBeDefined();
         console.log('-- end singature: ', result.signature);
     });

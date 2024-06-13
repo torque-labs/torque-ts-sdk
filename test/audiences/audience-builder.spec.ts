@@ -12,7 +12,7 @@ describe("AUDIENCE BUILDER API", () => {
     });
 
     it("should initate building an audience", async () => {
-        const result = await sdk.audience?.buildAudience({audience: smbOrMadLadHolder});
+        const result = await sdk.audience?.buildAudience({ audience: smbOrMadLadHolder });
         expect(result).toBeDefined();
         expect(result?.message).toBe("Success. Your audience is being built.");
     });
@@ -23,7 +23,7 @@ describe("AUDIENCE BUILDER API", () => {
         it("valid", async () => {
             const result = await sdk.audience?.verifyAudience(smbOrMadLadHolder, validHolder);
             expect(result).toBe(true);
-        }); 
+        });
 
         it("invalid", async () => {
             const result = await sdk.audience?.verifyAudience(smbOrMadLadHolder, invalidHolder);
