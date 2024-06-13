@@ -1,3 +1,4 @@
+import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
@@ -100,7 +101,8 @@ export class TorqueUserClient {
         return currentUser;
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      console.log('-- User is not logged in, attempting to login');
     }
 
     try {
@@ -243,6 +245,9 @@ export class TorqueUserClient {
           TORQUE_API_ROUTES.currentUser,
           {
             method: 'GET',
+            headers: {
+              Authorization: `Bearer ${this.user.token}`,
+            },
           },
         );
 
@@ -287,6 +292,7 @@ export class TorqueUserClient {
         {
           method: 'GET',
         },
+        true,
       );
 
       if (result) {
@@ -298,7 +304,7 @@ export class TorqueUserClient {
 
       return undefined;
     } catch (error) {
-      console.error(error);
+      console.log('-- User is not logged in, will attempt to login');
     }
 
     return undefined;
@@ -312,7 +318,7 @@ export class TorqueUserClient {
   public getUserHandle() {
     if (this.user) {
       const handle =
-        this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
+        this.user.username || this.user.twitter || this.user.publisherPubKey || this.user.pubKey;
 
       return handle;
     }
@@ -382,6 +388,7 @@ export class TorqueUserClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.user?.token}`,
         },
         body: JSON.stringify({
           campaignId,
@@ -453,6 +460,33 @@ export class TorqueUserClient {
       const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
 
       return publisherPda;
+    }
+  }
+
+  static PUBLISHER_ACCOUNT_SIZE = 41;
+  public async getMaxTransferableSol() {
+    const balance = await this.connection.getBalance(this.getPublisherPda()!, 'processed');
+    const rentExemptBalance =
+      await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
+    const maxTransferable = balance - rentExemptBalance;
+    return maxTransferable;
+  }
+
+  public async getMaxTransferableSpl(token: PublicKey) {
+    try {
+      const associatedTokenAddress = await getAssociatedTokenAddress(
+        token,
+        new PublicKey(this.getPublisherPda()!),
+        true,
+      );
+      const tokenAccountInfo = await this.connection.getTokenAccountBalance(
+        associatedTokenAddress,
+        'processed',
+      );
+      return tokenAccountInfo.value.uiAmount ?? 0;
+    } catch (e) {
+      console.log('-!!! max spl failed to fetch', e);
+      return 0;
     }
   }
 

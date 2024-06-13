@@ -1,17 +1,20 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
+import { ApiRaffleRewards } from 'torque-ts-sdk';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
 import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.js';
 import {
+  ApiAudience,
   ApiCampaign,
   ApiCampaignLeaderboard,
-  ApiRaffleRewards,
   ApiTxnTypes,
+  Audience,
   CampaignCreateInput,
   CampaignEndInput,
   SafeToken,
+  WithSignature,
 } from '../types/index.js';
 
 /**
@@ -95,20 +98,21 @@ export class TorqueAdminClient {
    *
    * @param {CampaignCreateInput} data - The data for the campaign to create.
    *
-   * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+   * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
    */
-  public async createCampaign(data: CampaignCreateInput) {
+  public async createCampaign(data: CampaignCreateInput): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
+      const user = await this.userClient.getCurrentUser();
       const input = {
         txnType: ApiTxnTypes.CampaignCreate,
         data,
       } as const;
 
-      const signature = await this.client.transaction(input);
+      const signature = await this.client.transaction(input, user?.token);
 
       return signature;
     } catch (error) {
@@ -123,22 +127,23 @@ export class TorqueAdminClient {
    *
    * @param {CampaignEndInput} data - The ID of the campaign to end.
    *
-   * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+   * @returns {Promise<WithSignature<any>>} A promise that resolves to the signature of the transaction.
    *
    * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
    */
-  public async endCampaign(data: CampaignEndInput) {
+  public async endCampaign(data: CampaignEndInput): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
+      const user = await this.userClient.getCurrentUser();
       const input = {
         txnType: ApiTxnTypes.CampaignEnd,
         data,
       } as const;
 
-      const signature = await this.client.transaction(input);
+      const signature = await this.client.transaction(input, user?.token);
 
       return signature;
     } catch (error) {
@@ -228,10 +233,14 @@ export class TorqueAdminClient {
     }
 
     try {
-      const { signature } = await this.client.transaction({
-        txnType: ApiTxnTypes.PublisherCreate,
-        data: true,
-      });
+      const user = await this.userClient.getCurrentUser();
+      const { signature } = await this.client.transaction(
+        {
+          txnType: ApiTxnTypes.PublisherCreate,
+          data: true,
+        },
+        user?.token,
+      );
 
       await this.userClient.refreshUser();
 
@@ -256,10 +265,14 @@ export class TorqueAdminClient {
     }
 
     try {
-      const { signature } = await this.client.transaction({
-        txnType: ApiTxnTypes.PublisherPayout,
-        data,
-      });
+      const user = await this.userClient.getCurrentUser();
+      const { signature } = await this.client.transaction(
+        {
+          txnType: ApiTxnTypes.PublisherPayout,
+          data,
+        },
+        user?.token,
+      );
 
       return signature;
     } catch (error) {
@@ -305,6 +318,117 @@ export class TorqueAdminClient {
       console.error(error);
 
       throw new Error('There was an error fetching the safe token list.');
+    }
+  }
+
+  // AUDIENCE CRUD APIs
+  public async saveAudience(config: Audience, title: string, description?: string) {
+    const user = await this.userClient.getCurrentUser();
+    if (!this.client || !user) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const response = await this.client.apiFetch<unknown>(`${TORQUE_API_ROUTES.audienceBuilder}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          title,
+          description,
+          config,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error saving the audience.');
+    }
+  }
+
+  public async getAudience() {
+    const user = await this.userClient.getCurrentUser();
+    if (!this.client || !user) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const response = await this.client.apiFetch<{ audiences: ApiAudience[] }>(
+        `${TORQUE_API_ROUTES.audienceBuilder}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.token}`,
+          },
+        },
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error getting the audience.');
+    }
+  }
+
+  public async updateAudience(id: string, title: string, description?: string) {
+    const user = await this.userClient.getCurrentUser();
+    if (!this.client || !user) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const response = await this.client.apiFetch<Audience>(
+        `${TORQUE_API_ROUTES.audienceBuilder}`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({
+            title,
+            description,
+            id,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.token}`,
+          },
+        },
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error updating the audience.');
+    }
+  }
+
+  public async deleteAudience(id: string) {
+    const user = await this.userClient.getCurrentUser();
+    if (!this.client || !user) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const response = await this.client.apiFetch<Audience>(
+        `${TORQUE_API_ROUTES.audienceBuilder}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            id,
+          }),
+        },
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error deleting the audience.');
     }
   }
 }

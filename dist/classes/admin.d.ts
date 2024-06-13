@@ -1,7 +1,8 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 import { TorqueUserClient } from './user.js';
-import { ApiCampaign, ApiCampaignLeaderboard, ApiRaffleRewards, CampaignCreateInput, CampaignEndInput, SafeToken } from '../types/index.js';
+import { ApiAudience, ApiCampaign, ApiCampaignLeaderboard, Audience, CampaignCreateInput, CampaignEndInput, SafeToken, WithSignature } from '../types/index.js';
+import { ApiRaffleRewards } from 'torque-ts-sdk';
 /**
  * Options for the TorqueAdminClient.
  */
@@ -52,27 +53,19 @@ export declare class TorqueAdminClient {
      *
      * @param {CampaignCreateInput} data - The data for the campaign to create.
      *
-     * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+     * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
      */
-    createCampaign(data: CampaignCreateInput): Promise<{
-        signature: string;
-    } & Omit<{
-        serializedTx: string;
-    }, "serializedTx">>;
+    createCampaign(data: CampaignCreateInput): Promise<WithSignature<unknown>>;
     /**
      * End a campaign using the provided campaign ID.
      *
      * @param {CampaignEndInput} data - The ID of the campaign to end.
      *
-     * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+     * @returns {Promise<WithSignature<any>>} A promise that resolves to the signature of the transaction.
      *
      * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
      */
-    endCampaign(data: CampaignEndInput): Promise<{
-        signature: string;
-    } & Omit<{
-        serializedTx: string;
-    }, "serializedTx">>;
+    endCampaign(data: CampaignEndInput): Promise<WithSignature<unknown>>;
     /**
      * Get the leaderboard for a specific campaign.
      *
@@ -128,5 +121,11 @@ export declare class TorqueAdminClient {
      * @throws {Error} If the client is not initialized or there was an error fetching the safe token list.
      */
     getSafeTokenList(filter?: string): Promise<SafeToken[]>;
+    saveAudience(config: Audience, title: string, description?: string): Promise<unknown>;
+    getAudience(): Promise<{
+        audiences: ApiAudience[];
+    }>;
+    updateAudience(id: string, title: string, description?: string): Promise<Audience>;
+    deleteAudience(id: string): Promise<Audience>;
 }
 //# sourceMappingURL=admin.d.ts.map

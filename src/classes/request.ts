@@ -9,6 +9,7 @@ import {
   TxnExecute,
   TxnExecuteResponse,
   AudienceFunctionResponse,
+  WithSignature,
 } from '../types/index.js';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
@@ -115,7 +116,7 @@ export class TorqueRequestClient {
    *
    * @throws {Error} If there is an error performing the request.
    */
-  public async apiFetch<T>(url: string, options?: RequestInit) {
+  public async apiFetch<T>(url: string, options?: RequestInit, supressError = false) {
     const reqOptions: RequestInit = {
       credentials: 'include',
       ...options,
@@ -132,14 +133,15 @@ export class TorqueRequestClient {
       // TODO: Setup request caching
       const response = await fetch(fetchUrl, reqOptions);
       const result = (await response.json()) as unknown as ApiResponse<T>;
-
       if (result.status === 'SUCCESS') {
         return result.data;
       } else {
         throw new Error(result.message);
       }
     } catch (error) {
-      console.error(error);
+      if (!supressError) {
+        console.error(error);
+      }
 
       throw new Error('There was an error performing the request.');
     }
@@ -194,7 +196,7 @@ export class TorqueRequestClient {
    *
    * @throws {Error} Throws an error if the API is not able to build the transaction.
    */
-  private async buildTransaction<T>(txnInput: TxnInput) {
+  private async buildTransaction<T>(txnInput: TxnInput, token?: string) {
     const data = {
       ...(txnInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnInput.data } : {}),
 
@@ -213,6 +215,9 @@ export class TorqueRequestClient {
       const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       return txn as T & { serializedTx: string };
@@ -232,7 +237,7 @@ export class TorqueRequestClient {
    *
    * @throws {Error} Throws an error if the API request is unsuccessful or if the transaction fails.
    */
-  private async executeTransaction(txnExecuteInput: TxnExecute) {
+  private async executeTransaction(txnExecuteInput: TxnExecute, token?: string) {
     const data = {
       ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
         ? { createCampaign: txnExecuteInput.data }
@@ -255,6 +260,10 @@ export class TorqueRequestClient {
       const txn = await this.apiFetch<TxnExecuteResponse>(TORQUE_API_ROUTES.transactions.execute, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
+        headers: {
+          // todo: remove if token is undefined
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       return txn;
@@ -272,9 +281,9 @@ export class TorqueRequestClient {
    *
    * @param {TxnInput} txnInput - The input object of the transaction to process.
    *
-   * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
+   * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
    */
-  public async transaction<T>(txnInput: TxnInput) {
+  public async transaction<T>(txnInput: TxnInput, token?: string) {
     if (!this.signer) {
       throw new Error(
         'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
@@ -282,7 +291,7 @@ export class TorqueRequestClient {
     }
 
     try {
-      const { serializedTx, ...rest } = await this.buildTransaction<T>(txnInput);
+      const { serializedTx, ...rest } = await this.buildTransaction<T>(txnInput, token);
 
       const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
 
@@ -302,9 +311,9 @@ export class TorqueRequestClient {
         },
       };
 
-      const { signature } = await this.executeTransaction(executeInput);
+      const { signature } = await this.executeTransaction(executeInput, token);
 
-      return { signature, ...rest };
+      return { signature, ...rest } as WithSignature<T>;
     } catch (error) {
       console.error(error);
 

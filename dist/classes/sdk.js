@@ -64,7 +64,7 @@ export class TorqueSDK {
             await this.user.initializeUser(ApiInputLogin);
         }
         catch (error) {
-            console.error(error);
+            // console.error(error);
             throw new Error('There was an error initializing the Torque SDK.');
         }
         if (this.apiKey) {

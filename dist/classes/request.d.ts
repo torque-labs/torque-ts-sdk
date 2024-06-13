@@ -1,7 +1,7 @@
 /// <reference types="node" resolution-mode="require"/>
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
-import { TxnInput } from '../types/index.js';
+import { TxnInput, WithSignature } from '../types/index.js';
 /**
  * Options for the TorqueRequestClient.
  */
@@ -62,7 +62,7 @@ export declare class TorqueRequestClient {
      *
      * @throws {Error} If there is an error performing the request.
      */
-    apiFetch<T>(url: string, options?: RequestInit): Promise<T>;
+    apiFetch<T>(url: string, options?: RequestInit, supressError?: boolean): Promise<T>;
     /**
      * Perform a request to a Torque Function endpoint.
      *
@@ -105,13 +105,9 @@ export declare class TorqueRequestClient {
      *
      * @param {TxnInput} txnInput - The input object of the transaction to process.
      *
-     * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
+     * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
      */
-    transaction<T>(txnInput: TxnInput): Promise<{
-        signature: string;
-    } & Omit<T & {
-        serializedTx: string;
-    }, "serializedTx">>;
+    transaction<T>(txnInput: TxnInput, token?: string): Promise<WithSignature<T>>;
     /**
      * Signs a transaction with a Keypair.
      *

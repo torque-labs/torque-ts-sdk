@@ -30,4 +30,12 @@ export type TxnExecute = z.infer<typeof TxnExecuteSchema>;
 export type TxnExecuteResponse = {
     signature: string;
 };
+/**
+ * Transaction result response
+ */
+interface SignatureField {
+    signature: string;
+}
+export type WithSignature<T> = T & SignatureField;
+export {};
 //# sourceMappingURL=transactions.d.ts.map
