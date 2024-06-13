@@ -41,7 +41,7 @@ export type TorqueUserClientOptions = {
  *   : await this.initializeUser(ApiInputLogin);
  */
 export class TorqueUserClient {
-  public publisherHandle: string | undefined;
+  public publisherHandle: string;
   public initialized: boolean = false;
   public publicKey: string;
   private client: TorqueRequestClient;
@@ -68,7 +68,7 @@ export class TorqueUserClient {
 
     this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
     this.publicKey = signer.publicKey.toString();
-    this.publisherHandle = publisherHandle;
+    this.publisherHandle = publisherHandle ?? 'torqueprotocol';
     this.signer = signer;
     this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
     this.appUrl = appUrl ?? 'https://app.torque.so';
@@ -214,7 +214,7 @@ export class TorqueUserClient {
     // TODO: unset client
     // TODO: add logout endpoint to API?
     // TOOD: clear coookies?
-    this.publisherHandle = undefined;
+    this.publisherHandle = 'torqueprotocol';
     this.initialized = false;
     this.user = undefined;
   }
@@ -338,9 +338,10 @@ export class TorqueUserClient {
 
     try {
       // TODO: Verify what publisher handle does for this endpoint
-      const params = this.publisherHandle
-        ? new URLSearchParams({ publisher: this.publisherHandle, status: 'ACTIVE' })
-        : new URLSearchParams({ status: 'ACTIVE' });
+      const params = new URLSearchParams({
+        publisher: this.publisherHandle,
+        status: 'ACTIVE',
+      });
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
@@ -380,7 +381,10 @@ export class TorqueUserClient {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ campaignId, publisherHandle }),
+        body: JSON.stringify({
+          campaignId,
+          publisherHandle: publisherHandle ?? this.publisherHandle,
+        }),
       });
 
       return result;

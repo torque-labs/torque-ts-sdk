@@ -2,7 +2,7 @@
   "displayName": "Torque TypeScript SDK",
   "name": "torque-ts-sdk",
   "author": "Torque Labs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "The official Torque TypeScript SDK.",
   "license": "MIT",
   "type": "module",
