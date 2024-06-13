@@ -7,7 +7,7 @@ import {
   PublisherCreateInputSchema,
   TxnInputSchema,
   TxnExecuteSchema,
-} from '../schemas/index';
+} from '../schemas/index.js';
 
 /**
  * Campaign create input.

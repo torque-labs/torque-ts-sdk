@@ -1,17 +1,18 @@
-import { Adapter } from '@solana/wallet-adapter-base';
-import { Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import nacl from 'tweetnacl';
-import { TorqueRequestClient } from './request';
-import { TorqueSDK } from './sdk';
-import {
-  TORQUE_API_ROUTES,
-  torquePubkey,
-  TORQUE_SHARE_URL,
-  SOLANA_NETWORK,
-  PUBLISHER_ACCOUNT_SIZE,
-} from '../constants';
-import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types';
 import { getAssociatedTokenAddress } from '@solana/spl-token';
+import { Adapter } from '@solana/wallet-adapter-base';
+import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import nacl from 'tweetnacl';
+
+import { TorqueRequestClient } from './request.js';
+import { TorqueSDK } from './sdk.js';
+import { TORQUE_API_ROUTES, torquePubkey, PUBLISHER_ACCOUNT_SIZE } from '../constants/index.js';
+import {
+  ApiCampaign,
+  ApiInputLogin,
+  ApiShare,
+  ApiUserJourney,
+  ApiVerifiedUser,
+} from '../types/index.js';
 
 /**
  * Options for the TorqueUserClient.
@@ -20,6 +21,10 @@ export type TorqueUserClientOptions = {
   signer: Adapter | Keypair;
   publisherHandle?: string;
   rpc?: string;
+  apiUrl?: string;
+  appUrl?: string;
+  functionsUrl?: string;
+  network?: Cluster;
 };
 
 /**
@@ -37,13 +42,15 @@ export type TorqueUserClientOptions = {
  *   : await this.initializeUser(ApiInputLogin);
  */
 export class TorqueUserClient {
-  public publisherHandle: string | undefined;
+  public publisherHandle: string;
   public initialized: boolean = false;
   public publicKey: string;
   private client: TorqueRequestClient;
   private user: ApiVerifiedUser | undefined;
   private signer: Adapter | Keypair;
   private connection: Connection;
+  private appUrl: string;
+  private apiUrl: string;
 
   /**
    * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
@@ -53,17 +60,21 @@ export class TorqueUserClient {
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
   constructor(options: TorqueUserClientOptions) {
-    const { signer, publisherHandle, rpc } = options;
+    const { signer, publisherHandle, rpc, apiUrl, appUrl, functionsUrl, network } = options;
 
     if (!signer.publicKey) {
       throw new Error('The wallet/signer provided does not have a public key.');
     }
 
-    this.client = new TorqueRequestClient(signer);
+    const solanaNetwork = network ?? 'devnet';
+
+    this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
     this.publicKey = signer.publicKey.toString();
-    this.publisherHandle = publisherHandle;
+    this.publisherHandle = publisherHandle ?? 'torqueprotocol';
     this.signer = signer;
-    this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');
+    this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+    this.appUrl = appUrl ?? 'https://app.torque.so';
+    this.apiUrl = apiUrl ?? 'https://api.torque.so';
   }
 
   /**
@@ -91,14 +102,14 @@ export class TorqueUserClient {
       }
     } catch (error) {
       // console.error(error);
-      console.log("-- User is not logged in, attempting to login");
+      console.log('-- User is not logged in, attempting to login');
     }
 
     try {
       let loginBody: ApiInputLogin | undefined;
 
       if (!userAuth && this.signer.publicKey) {
-        const signPayloadInput = await TorqueSDK.getLoginPayload();
+        const signPayloadInput = await TorqueSDK.getLoginPayload(this.apiUrl);
 
         if ('signIn' in this.signer) {
           // Login with SIWS
@@ -207,7 +218,7 @@ export class TorqueUserClient {
     // TODO: unset client
     // TODO: add logout endpoint to API?
     // TOOD: clear coookies?
-    this.publisherHandle = undefined;
+    this.publisherHandle = 'torqueprotocol';
     this.initialized = false;
     this.user = undefined;
   }
@@ -235,8 +246,8 @@ export class TorqueUserClient {
           {
             method: 'GET',
             headers: {
-              'Authorization': `Bearer ${this.user.token}`,
-            }
+              Authorization: `Bearer ${this.user.token}`,
+            },
           },
         );
 
@@ -281,7 +292,7 @@ export class TorqueUserClient {
         {
           method: 'GET',
         },
-        true
+        true,
       );
 
       if (result) {
@@ -293,7 +304,7 @@ export class TorqueUserClient {
 
       return undefined;
     } catch (error) {
-      console.log("-- User is not logged in, will attempt to login");
+      console.log('-- User is not logged in, will attempt to login');
     }
 
     return undefined;
@@ -335,9 +346,10 @@ export class TorqueUserClient {
 
     try {
       // TODO: Verify what publisher handle does for this endpoint
-      const params = this.publisherHandle
-        ? new URLSearchParams({ publisher: this.publisherHandle, status: 'ACTIVE' })
-        : new URLSearchParams({ status: 'ACTIVE' });
+      const params = new URLSearchParams({
+        publisher: this.publisherHandle,
+        status: 'ACTIVE',
+      });
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
@@ -376,9 +388,12 @@ export class TorqueUserClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.user?.token}`,
+          Authorization: `Bearer ${this.user?.token}`,
         },
-        body: JSON.stringify({ campaignId, publisherHandle }),
+        body: JSON.stringify({
+          campaignId,
+          publisherHandle: publisherHandle ?? this.publisherHandle,
+        }),
       });
 
       return result;
@@ -423,8 +438,10 @@ export class TorqueUserClient {
     const handle = this.getUserHandle();
     const isPublisher = this.isPublisher();
 
+    const shareUrl = `${this.appUrl}/share`;
+
     if (handle && isPublisher) {
-      return `${TORQUE_SHARE_URL}/${handle}/${campaignId}`;
+      return `${shareUrl}/${handle}/${campaignId}`;
     } else {
       throw new Error('The user is not a publisher.');
     }
@@ -449,27 +466,29 @@ export class TorqueUserClient {
   static PUBLISHER_ACCOUNT_SIZE = 41;
   public async getMaxTransferableSol() {
     const balance = await this.connection.getBalance(this.getPublisherPda()!, 'processed');
-    const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(
-      PUBLISHER_ACCOUNT_SIZE,
-    );
+    const rentExemptBalance =
+      await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
     const maxTransferable = balance - rentExemptBalance;
     return maxTransferable;
-  };
+  }
 
   public async getMaxTransferableSpl(token: PublicKey) {
     try {
       const associatedTokenAddress = await getAssociatedTokenAddress(
-          token,
-          new PublicKey(this.getPublisherPda()!),
-          true
+        token,
+        new PublicKey(this.getPublisherPda()!),
+        true,
       );
-      const tokenAccountInfo = await this.connection.getTokenAccountBalance(associatedTokenAddress, "processed");
+      const tokenAccountInfo = await this.connection.getTokenAccountBalance(
+        associatedTokenAddress,
+        'processed',
+      );
       return tokenAccountInfo.value.uiAmount ?? 0;
     } catch (e) {
-      console.log("-!!! max spl failed to fetch", e);
+      console.log('-!!! max spl failed to fetch', e);
       return 0;
     }
-  };
+  }
 
   /**
    * Get the balance of the publisher PDA for the current user.
@@ -564,5 +583,3 @@ export class TorqueUserClient {
     }
   }
 }
-
-

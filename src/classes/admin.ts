@@ -1,9 +1,9 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 
-import { TorqueRequestClient } from './request';
-import { TorqueUserClient } from './user';
-import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants';
+import { TorqueRequestClient } from './request.js';
+import { TorqueUserClient } from './user.js';
+import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   ApiAudience,
   ApiCampaign,
@@ -14,7 +14,7 @@ import {
   CampaignEndInput,
   SafeToken,
   WithSignature,
-} from '../types';
+} from '../types/index.js';
 
 /**
  * Options for the TorqueAdminClient.
@@ -23,6 +23,9 @@ export type TorqueAdminClientOptions = {
   signer: Adapter | Keypair;
   apiKey: string;
   userClient: TorqueUserClient;
+  apiUrl?: string;
+  appUrl?: string;
+  functionsUrl?: string;
 };
 
 /**
@@ -45,9 +48,9 @@ export class TorqueAdminClient {
    * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
    */
   constructor(options: TorqueAdminClientOptions) {
-    const { signer, apiKey, userClient } = options;
+    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl } = options;
 
-    this.client = new TorqueRequestClient(signer, apiKey);
+    this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
     this.userClient = userClient;
   }
 
@@ -96,7 +99,7 @@ export class TorqueAdminClient {
    *
    * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
    */
-  public async createCampaign(data: CampaignCreateInput): Promise<WithSignature<any>> {
+  public async createCampaign(data: CampaignCreateInput): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -127,7 +130,7 @@ export class TorqueAdminClient {
    *
    * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
    */
-  public async endCampaign(data: CampaignEndInput): Promise<WithSignature<any>> {
+  public async endCampaign(data: CampaignEndInput): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -230,10 +233,13 @@ export class TorqueAdminClient {
 
     try {
       const user = await this.userClient.getCurrentUser();
-      const { signature } = await this.client.transaction({
-        txnType: ApiTxnTypes.PublisherCreate,
-        data: true,
-      }, user?.token);
+      const { signature } = await this.client.transaction(
+        {
+          txnType: ApiTxnTypes.PublisherCreate,
+          data: true,
+        },
+        user?.token,
+      );
 
       await this.userClient.refreshUser();
 
@@ -259,10 +265,13 @@ export class TorqueAdminClient {
 
     try {
       const user = await this.userClient.getCurrentUser();
-      const { signature } = await this.client.transaction({
-        txnType: ApiTxnTypes.PublisherPayout,
-        data,
-      }, user?.token);
+      const { signature } = await this.client.transaction(
+        {
+          txnType: ApiTxnTypes.PublisherPayout,
+          data,
+        },
+        user?.token,
+      );
 
       return signature;
     } catch (error) {
@@ -319,21 +328,18 @@ export class TorqueAdminClient {
     }
 
     try {
-      const response = await this.client.apiFetch<any>(
-        `${TORQUE_API_ROUTES.audienceBuilder}`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            title,
-            description,
-            config, 
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`,
-          },
+      const response = await this.client.apiFetch<unknown>(`${TORQUE_API_ROUTES.audienceBuilder}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          title,
+          description,
+          config,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
         },
-      );
+      });
 
       return response;
     } catch (error) {
@@ -349,13 +355,13 @@ export class TorqueAdminClient {
     }
 
     try {
-      const response = await this.client.apiFetch<{audiences: ApiAudience[]}>(
+      const response = await this.client.apiFetch<{ audiences: ApiAudience[] }>(
         `${TORQUE_API_ROUTES.audienceBuilder}`,
         {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         },
       );
@@ -381,11 +387,11 @@ export class TorqueAdminClient {
           body: JSON.stringify({
             title,
             description,
-            id
+            id,
           }),
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         },
       );
@@ -410,11 +416,11 @@ export class TorqueAdminClient {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify({
-            id
-          })
+            id,
+          }),
         },
       );
 
