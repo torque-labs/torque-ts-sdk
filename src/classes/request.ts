@@ -13,11 +13,22 @@ import {
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
 /**
+ * Options for the TorqueRequestClient.
+ */
+export type TorqueRequestOptions = {
+  signer: Adapter | Keypair;
+  apiKey?: string;
+  apiUrl?: string;
+  appUrl?: string;
+  functionsUrl?: string;
+};
+
+/**
  * The TorqueRequestClient class is used to make requests to the Torque API.
  * It provides methods for performing API requests and handling responses.
  *
  * @example
- * const client = new TorqueRequestClient(signer, apiKey);
+ * const client = new TorqueRequestClient(<options>);
  *
  * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
  */
@@ -25,6 +36,9 @@ export class TorqueRequestClient {
   private apiKey: string | undefined;
   private apiAuthHeader: Record<string, string>;
   private signer: Adapter | Keypair;
+  private apiUrl: string;
+  private appUrl: string;
+  private functionsUrl: string;
 
   /**
    * Create a new instance of the TorqueRequestClient class.
@@ -34,7 +48,9 @@ export class TorqueRequestClient {
    *
    * @throws {Error} Throws an error if a signer is not provided.
    */
-  constructor(signer: Adapter | Keypair, apiKey?: string) {
+  constructor(options: TorqueRequestOptions) {
+    const { signer, apiKey, apiUrl, appUrl, functionsUrl } = options;
+
     if (!signer) {
       throw new Error(
         'You need to provide a SignerWalletAdapter or Keypair in the signer parameter.',
@@ -43,6 +59,9 @@ export class TorqueRequestClient {
 
     this.signer = signer;
     this.apiKey = apiKey;
+    this.apiUrl = apiUrl ?? 'https://api.torque.so';
+    this.appUrl = appUrl ?? 'https://app.torque.so';
+    this.functionsUrl = functionsUrl ?? 'https://functions.torque.so';
     this.apiAuthHeader = apiKey
       ? {
           'x-torque-api-key': `${this.apiKey}`,
@@ -108,8 +127,10 @@ export class TorqueRequestClient {
     };
 
     try {
+      const fetchUrl = `${this.apiUrl}${url}`;
+
       // TODO: Setup request caching
-      const response = await fetch(url, reqOptions);
+      const response = await fetch(fetchUrl, reqOptions);
       const result = (await response.json()) as unknown as ApiResponse<T>;
 
       if (result.status === 'SUCCESS') {
@@ -148,8 +169,10 @@ export class TorqueRequestClient {
     };
 
     try {
+      const fetchUrl = `${this.functionsUrl}${url}`;
+
       // TODO: Setup request caching
-      const response = await fetch(url, reqOptions);
+      const response = await fetch(fetchUrl, reqOptions);
       const result = (await response.json()) as unknown as AudienceFunctionResponse<T>;
 
       return result;
@@ -187,7 +210,9 @@ export class TorqueRequestClient {
     };
 
     try {
-      const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
+      const fetchUrl = `${this.apiUrl}${TORQUE_API_ROUTES.transactions.build}`;
+
+      const txn = await this.apiFetch(fetchUrl, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
       });
@@ -229,7 +254,9 @@ export class TorqueRequestClient {
     };
 
     try {
-      const txn = await this.apiFetch<TxnExecuteResponse>(TORQUE_API_ROUTES.transactions.execute, {
+      const fetchUrl = `${this.apiUrl}${TORQUE_API_ROUTES.transactions.execute}`;
+
+      const txn = await this.apiFetch<TxnExecuteResponse>(fetchUrl, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
       });

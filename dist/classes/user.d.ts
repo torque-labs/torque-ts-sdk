@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair, PublicKey } from '@solana/web3.js';
+import { Cluster, Keypair, PublicKey } from '@solana/web3.js';
 import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types/index.js';
 /**
  * Options for the TorqueUserClient.
@@ -8,6 +8,10 @@ export type TorqueUserClientOptions = {
     signer: Adapter | Keypair;
     publisherHandle?: string;
     rpc?: string;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
+    network?: Cluster;
 };
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
@@ -31,6 +35,7 @@ export declare class TorqueUserClient {
     private user;
     private signer;
     private connection;
+    private appUrl;
     /**
      * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
      *

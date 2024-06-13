@@ -9,6 +9,9 @@ export type TorqueAudienceClientOptions = {
     signer: Adapter | Keypair;
     apiKey: string;
     userClient: TorqueUserClient;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
 };
 /**
  * The TorqueAudienceClient class is used to manage and verify audiencess for the Torque API.
