@@ -7,7 +7,6 @@ const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 
 const TORQUE_API_ROUTES = {
   audiences: '/audiences',
-  audiencesCustom: '/audiences/custom',
   audienceBuilder: `/audiences/builder`,
   campaigns: '/campaigns',
   currentUser: '/users/me',

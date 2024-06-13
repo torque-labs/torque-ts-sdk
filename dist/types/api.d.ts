@@ -103,7 +103,7 @@ export type ApiCampaign = {
 export type ApiAudience = {
     id: string;
     title: string;
-    imageUrl?: string;
+    config: object;
     description?: string;
 };
 /**
@@ -139,6 +139,7 @@ export type ApiUser = {
     profileImage?: string;
     isPublisher: boolean;
     publisherPubKey?: string | null;
+    token: string;
 };
 /**
  * A verified Torque user.

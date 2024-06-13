@@ -1,5 +1,9 @@
 import z from 'zod';
 import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
+export const AssymetricRewardSchema = z.object({
+    tokenAddress: z.string(),
+    amount: z.number(),
+});
 // TODO: Centralize schema definitions
 export const CampaignCreateInputSchema = z.object({
     campaignName: z.string(),
@@ -20,6 +24,7 @@ export const CampaignCreateInputSchema = z.object({
     startTime: z.number(),
     endTime: z.number(),
     audience: z.string().optional().nullable(),
+    asymmetricRewards: z.array(AssymetricRewardSchema).optional().nullable(),
 });
 export const CampaignEndInputSchema = z.object({
     campaignId: z.string(),

@@ -1,5 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
+import { ApiRaffleRewards } from 'torque-ts-sdk';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -198,7 +199,7 @@ export class TorqueAdminClient {
     try {
       const params = new URLSearchParams({ campaignId });
 
-      const result = await this.client.apiFetch<ApiAudience[]>(
+      const result = await this.client.apiFetch<ApiRaffleRewards>(
         `${TORQUE_API_ROUTES.raffle}?${params.toString()}`,
         {
           method: 'GET',

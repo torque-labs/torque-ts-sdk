@@ -1,5 +1,15 @@
 import z from 'zod';
 import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
+export declare const AssymetricRewardSchema: z.ZodObject<{
+    tokenAddress: z.ZodString;
+    amount: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    tokenAddress: string;
+    amount: number;
+}, {
+    tokenAddress: string;
+    amount: number;
+}>;
 export declare const CampaignCreateInputSchema: z.ZodObject<{
     campaignName: z.ZodString;
     campaignType: z.ZodString;
@@ -19,6 +29,16 @@ export declare const CampaignCreateInputSchema: z.ZodObject<{
     startTime: z.ZodNumber;
     endTime: z.ZodNumber;
     audience: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    asymmetricRewards: z.ZodNullable<z.ZodOptional<z.ZodArray<z.ZodObject<{
+        tokenAddress: z.ZodString;
+        amount: z.ZodNumber;
+    }, "strip", z.ZodTypeAny, {
+        tokenAddress: string;
+        amount: number;
+    }, {
+        tokenAddress: string;
+        amount: number;
+    }>, "many">>>;
 }, "strip", z.ZodTypeAny, {
     campaignName: string;
     campaignType: string;
@@ -38,6 +58,10 @@ export declare const CampaignCreateInputSchema: z.ZodObject<{
     minAmount?: number | null | undefined;
     proposal?: string | null | undefined;
     audience?: string | null | undefined;
+    asymmetricRewards?: {
+        tokenAddress: string;
+        amount: number;
+    }[] | null | undefined;
 }, {
     campaignName: string;
     campaignType: string;
@@ -57,6 +81,10 @@ export declare const CampaignCreateInputSchema: z.ZodObject<{
     minAmount?: number | null | undefined;
     proposal?: string | null | undefined;
     audience?: string | null | undefined;
+    asymmetricRewards?: {
+        tokenAddress: string;
+        amount: number;
+    }[] | null | undefined;
 }>;
 export declare const CampaignEndInputSchema: z.ZodObject<{
     campaignId: z.ZodString;
@@ -69,11 +97,11 @@ export declare const PublisherPayoutInputSchema: z.ZodObject<{
     token: z.ZodString;
     amount: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
-    token: string;
     amount: number;
+    token: string;
 }, {
-    token: string;
     amount: number;
+    token: string;
 }>;
 export declare const PublisherCreateInputSchema: z.ZodBoolean;
 export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodObject<{
@@ -97,6 +125,16 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         startTime: z.ZodNumber;
         endTime: z.ZodNumber;
         audience: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+        asymmetricRewards: z.ZodNullable<z.ZodOptional<z.ZodArray<z.ZodObject<{
+            tokenAddress: z.ZodString;
+            amount: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            tokenAddress: string;
+            amount: number;
+        }, {
+            tokenAddress: string;
+            amount: number;
+        }>, "many">>>;
     }, "strip", z.ZodTypeAny, {
         campaignName: string;
         campaignType: string;
@@ -116,6 +154,10 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         minAmount?: number | null | undefined;
         proposal?: string | null | undefined;
         audience?: string | null | undefined;
+        asymmetricRewards?: {
+            tokenAddress: string;
+            amount: number;
+        }[] | null | undefined;
     }, {
         campaignName: string;
         campaignType: string;
@@ -135,6 +177,10 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         minAmount?: number | null | undefined;
         proposal?: string | null | undefined;
         audience?: string | null | undefined;
+        asymmetricRewards?: {
+            tokenAddress: string;
+            amount: number;
+        }[] | null | undefined;
     }>;
 }, "strip", z.ZodTypeAny, {
     txnType: ApiTxnTypes.CampaignCreate;
@@ -157,6 +203,10 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         minAmount?: number | null | undefined;
         proposal?: string | null | undefined;
         audience?: string | null | undefined;
+        asymmetricRewards?: {
+            tokenAddress: string;
+            amount: number;
+        }[] | null | undefined;
     };
 }, {
     txnType: ApiTxnTypes.CampaignCreate;
@@ -179,6 +229,10 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         minAmount?: number | null | undefined;
         proposal?: string | null | undefined;
         audience?: string | null | undefined;
+        asymmetricRewards?: {
+            tokenAddress: string;
+            amount: number;
+        }[] | null | undefined;
     };
 }>, z.ZodObject<{
     txnType: z.ZodLiteral<ApiTxnTypes.CampaignEnd>;
@@ -214,23 +268,23 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         token: z.ZodString;
         amount: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
-        token: string;
         amount: number;
+        token: string;
     }, {
-        token: string;
         amount: number;
+        token: string;
     }>;
 }, "strip", z.ZodTypeAny, {
     txnType: ApiTxnTypes.PublisherPayout;
     data: {
-        token: string;
         amount: number;
+        token: string;
     };
 }, {
     txnType: ApiTxnTypes.PublisherPayout;
     data: {
-        token: string;
         amount: number;
+        token: string;
     };
 }>]>;
 export declare const TxnExecuteSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodObject<{

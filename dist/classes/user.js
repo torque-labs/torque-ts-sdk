@@ -1,3 +1,4 @@
+import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 import { TorqueRequestClient } from './request.js';
@@ -71,7 +72,8 @@ export class TorqueUserClient {
             }
         }
         catch (error) {
-            console.error(error);
+            // console.error(error);
+            console.log('-- User is not logged in, attempting to login');
         }
         try {
             let loginBody;
@@ -193,6 +195,9 @@ export class TorqueUserClient {
             try {
                 const result = await this.client.apiFetch(TORQUE_API_ROUTES.currentUser, {
                     method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${this.user.token}`,
+                    },
                 });
                 if (result) {
                     this.user = result;
@@ -228,7 +233,7 @@ export class TorqueUserClient {
             // TODO: Update server with login and verify endpoints
             const result = await this.client.apiFetch(TORQUE_API_ROUTES.currentUser, {
                 method: 'GET',
-            });
+            }, true);
             if (result) {
                 this.user = result;
                 this.initialized = true;
@@ -237,7 +242,7 @@ export class TorqueUserClient {
             return undefined;
         }
         catch (error) {
-            console.error(error);
+            console.log('-- User is not logged in, will attempt to login');
         }
         return undefined;
     }
@@ -248,7 +253,7 @@ export class TorqueUserClient {
      */
     getUserHandle() {
         if (this.user) {
-            const handle = this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
+            const handle = this.user.username || this.user.twitter || this.user.publisherPubKey || this.user.pubKey;
             return handle;
         }
         return undefined;
@@ -307,6 +312,7 @@ export class TorqueUserClient {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${this.user?.token}`,
                 },
                 body: JSON.stringify({
                     campaignId,
@@ -371,6 +377,24 @@ export class TorqueUserClient {
             const seeds = [Buffer.from('publisher'), Buffer.from(this.user?.pubKey)];
             const [publisherPda] = PublicKey.findProgramAddressSync(seeds, torquePubkey);
             return publisherPda;
+        }
+    }
+    static PUBLISHER_ACCOUNT_SIZE = 41;
+    async getMaxTransferableSol() {
+        const balance = await this.connection.getBalance(this.getPublisherPda(), 'processed');
+        const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
+        const maxTransferable = balance - rentExemptBalance;
+        return maxTransferable;
+    }
+    async getMaxTransferableSpl(token) {
+        try {
+            const associatedTokenAddress = await getAssociatedTokenAddress(token, new PublicKey(this.getPublisherPda()), true);
+            const tokenAccountInfo = await this.connection.getTokenAccountBalance(associatedTokenAddress, 'processed');
+            return tokenAccountInfo.value.uiAmount ?? 0;
+        }
+        catch (e) {
+            console.log('-!!! max spl failed to fetch', e);
+            return 0;
         }
     }
     /**

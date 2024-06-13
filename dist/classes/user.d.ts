@@ -100,7 +100,7 @@ export declare class TorqueUserClient {
      *
      * @returns The user's handle or `undefined` if no handle is available.
      */
-    getUserHandle(): string | null | undefined;
+    getUserHandle(): string | undefined;
     /**
      * ========================================================================
      * CAMPAIGNS
@@ -156,6 +156,9 @@ export declare class TorqueUserClient {
      * @returns {PublicKey} The publisher PDA for the current user.
      */
     getPublisherPda(): PublicKey | undefined;
+    static PUBLISHER_ACCOUNT_SIZE: number;
+    getMaxTransferableSol(): Promise<number>;
+    getMaxTransferableSpl(token: PublicKey): Promise<number>;
     /**
      * Get the balance of the publisher PDA for the current user.
      *

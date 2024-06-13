@@ -10,12 +10,12 @@ describe("CLICK CONVERSION", () => {
     const CLICK_RAFFLE_CAMPAIGN_SOL_ID = "clxahybv0002a13u3m52gykf9";
     const CLICK_RAFFLE_CAMPAIGN_SPL_ID = "clxapolfb002p3zp4imbiee66";
     beforeAll(async () => {
-        advertiserSdk = new TorqueSDK({apiKey: "advertiser1"});
-        pub1SDK = new TorqueSDK({apiKey: "publisher1"});
+        advertiserSdk = new TorqueSDK({ apiKey: "advertiser1" });
+        pub1SDK = new TorqueSDK({ apiKey: "publisher1" });
 
         const user1 = Keypair.generate();
         await airdrop(user1.publicKey, 1250000);
-        user1SDK = new TorqueSDK({apiKey: user1.publicKey.toString()});
+        user1SDK = new TorqueSDK({ apiKey: user1.publicKey.toString() });
 
         await advertiserSdk.initialize(loadCliWallet(TEST_USER_PATHS.advertiser1));
         await pub1SDK.initialize(loadCliWallet(TEST_USER_PATHS.publisher1));
@@ -23,7 +23,7 @@ describe("CLICK CONVERSION", () => {
 
         pub1Handle = pub1SDK.user?.getUserHandle();
         await pub1SDK.user?.getSharedLinkData(CLICK_RAFFLE_CAMPAIGN_SOL_ID, pub1Handle!);
-        await airdrop(new PublicKey(pub1SDK.user?.publicKey!), 1250000); 
+        await airdrop(new PublicKey(pub1SDK.user?.publicKey!), 1250000);
     });
 
     describe("set up", () => {
@@ -51,16 +51,20 @@ describe("CLICK CONVERSION", () => {
             it.skip("should set up a click raffle campaign", async () => {
                 const result = await advertiserSdk.api?.createCampaign(clickRaffleCampaignSol);
                 expect(result).toBeDefined();
-                console.log('-- create singature: ', result.signature);
+                if (result) {
+                    console.log('-- create singature: ', result.signature);
+                }
             });
         });
 
         describe("SPL", () => {
             it.skip("should set up a click raffle campaign", async () => {
-                await airdrop(new PublicKey(advertiserSdk.user?.publicKey!)); 
+                await airdrop(new PublicKey(advertiserSdk.user?.publicKey!));
                 const result = await advertiserSdk.api?.createCampaign(clickRaffleCampaignSpl);
                 expect(result).toBeDefined();
-                console.log('-- create singature: ', result.signature);
+                if (result) {
+                    console.log('-- create singature: ', result.signature);
+                }
             });
         });
     });
@@ -77,7 +81,7 @@ describe("CLICK CONVERSION", () => {
         it("should convert", async () => {
             const result = await user1SDK.user?.acceptCampaign(CLICK_RAFFLE_CAMPAIGN_SOL_ID, pub1Handle!);
             expect(result).toBeDefined();
-            expect(result?.status).toEqual("STARTED"); 
+            expect(result?.status).toEqual("STARTED");
         });
 
         it("should payout user", async () => {
@@ -87,10 +91,10 @@ describe("CLICK CONVERSION", () => {
         });
 
         it("should withdraw publisher rewards", async () => {
-            const payout = await pub1SDK.user?.getMaxTransferableSol();
+            const payout = await pub1SDK.user?.getPublisherBalance();
             expect(payout).toBeGreaterThanOrEqual(clickRaffleCampaignSol.publisherPayoutPerConversion!);
 
-            const result = await pub1SDK.api?.payoutPublisher({token: PublicKey.default.toString(), amount: payout!});
+            const result = await pub1SDK.api?.payoutPublisher({ token: PublicKey.default.toString(), amount: payout! });
             expect(result).toBeDefined();
             console.log('-- payout tx: ', result);
 
@@ -111,7 +115,7 @@ describe("CLICK CONVERSION", () => {
         it("should convert", async () => {
             const result = await user1SDK.user?.acceptCampaign(CLICK_RAFFLE_CAMPAIGN_SPL_ID, pub1Handle!);
             expect(result).toBeDefined();
-            expect(result?.status).toEqual("STARTED"); 
+            expect(result?.status).toEqual("STARTED");
         });
 
         it("should payout user", async () => {
@@ -124,7 +128,7 @@ describe("CLICK CONVERSION", () => {
             const payout = await pub1SDK.user?.getMaxTransferableSpl(TEST_SPL);
             expect(payout).toBeGreaterThanOrEqual(clickRaffleCampaignSpl.publisherPayoutPerConversion!);
 
-            const result = await pub1SDK.api?.payoutPublisher({token: TEST_SPL.toString(), amount: payout!});
+            const result = await pub1SDK.api?.payoutPublisher({ token: TEST_SPL.toString(), amount: payout! });
             expect(result).toBeDefined();
             console.log('-- payout tx: ', result);
 
