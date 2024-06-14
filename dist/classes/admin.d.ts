@@ -25,7 +25,7 @@ export type TorqueAdminClientOptions = {
 export declare class TorqueAdminClient {
     private client;
     private userClient;
-    tokenList: SafeToken[] | undefined;
+    static tokenList: SafeToken[] | undefined;
     /**
      * Create a new instance of the TorqueAdminClient class with the provided API key.
      *
@@ -108,7 +108,9 @@ export declare class TorqueAdminClient {
         amount: number;
     }): Promise<string>;
     /**
+     * ========================================================================
      * DATA
+     * ========================================================================
      */
     /**
      * Retrieves the list of safe tokens from the Jupiter ag.
@@ -119,7 +121,12 @@ export declare class TorqueAdminClient {
      *
      * @throws {Error} If the client is not initialized or there was an error fetching the safe token list.
      */
-    getSafeTokenList(filter?: string): Promise<SafeToken[]>;
+    static getSafeTokenList(filter?: string, apiUrl?: string): Promise<SafeToken[]>;
+    /**
+     * ========================================================================
+     * AUDIENCES
+     * ========================================================================
+     */
     saveAudience(config: Audience, title: string, description?: string): Promise<unknown>;
     getAudience(): Promise<{
         audiences: ApiAudience[];

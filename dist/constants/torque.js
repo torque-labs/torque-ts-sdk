@@ -15,6 +15,7 @@ const TORQUE_API_ROUTES = {
     publishers: '/publishers',
     raffle: '/asymmetricReward',
     share: '/share',
+    tokens: '/tokens',
     transactions: {
         build: '/tx/build',
         execute: '/tx/execute',

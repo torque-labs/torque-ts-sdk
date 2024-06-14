@@ -3,7 +3,7 @@ import { Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
-import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   ApiAudience,
   ApiCampaign,
@@ -15,6 +15,7 @@ import {
   SafeToken,
   WithSignature,
   ApiRaffleRewards,
+  ApiResponse,
 } from '../types/index.js';
 
 /**
@@ -41,7 +42,7 @@ export type TorqueAdminClientOptions = {
 export class TorqueAdminClient {
   private client: TorqueRequestClient;
   private userClient: TorqueUserClient;
-  public tokenList: SafeToken[] | undefined;
+  public static tokenList: SafeToken[] | undefined;
 
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
@@ -283,7 +284,9 @@ export class TorqueAdminClient {
   }
 
   /**
+   * ========================================================================
    * DATA
+   * ========================================================================
    */
 
   /**
@@ -295,11 +298,7 @@ export class TorqueAdminClient {
    *
    * @throws {Error} If the client is not initialized or there was an error fetching the safe token list.
    */
-  public async getSafeTokenList(filter?: string) {
-    if (!this.client) {
-      throw new Error('The client is not initialized.');
-    }
-
+  public static async getSafeTokenList(filter?: string, apiUrl?: string) {
     if (this.tokenList) {
       return !filter
         ? this.tokenList
@@ -307,9 +306,20 @@ export class TorqueAdminClient {
     }
 
     try {
-      const response = await this.client.anyFetch<SafeToken[]>(JUP_TOKEN_LIST);
+      const fetchUrl = `${apiUrl}${TORQUE_API_ROUTES.tokens}`;
 
-      this.tokenList = response;
+      const response = await TorqueRequestClient.anyFetch<ApiResponse<{ tokens: SafeToken[] }>>(
+        fetchUrl,
+        {
+          method: 'GET',
+        },
+      );
+
+      if (response.status !== 'SUCCESS') {
+        throw new Error('There was an error fetching the safe token list.');
+      }
+
+      this.tokenList = response.data.tokens;
 
       return !filter
         ? this.tokenList
@@ -321,7 +331,14 @@ export class TorqueAdminClient {
     }
   }
 
-  // AUDIENCE CRUD APIs
+  /**
+   * ========================================================================
+   * AUDIENCES
+   * ========================================================================
+   */
+
+  // TODO: Move to Audience class
+
   public async saveAudience(config: Audience, title: string, description?: string) {
     const user = await this.userClient.getCurrentUser();
     if (!this.client || !user) {

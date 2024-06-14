@@ -82,7 +82,7 @@ export class TorqueRequestClient {
    *
    * @throws {Error} If there is an error performing the request.
    */
-  public async anyFetch<T>(url: string, options?: RequestInit) {
+  public static async anyFetch<T>(url: string, options?: RequestInit) {
     const reqOptions: RequestInit = {
       ...options,
       mode: 'cors',

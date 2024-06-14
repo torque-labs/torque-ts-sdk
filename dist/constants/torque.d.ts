@@ -14,6 +14,7 @@ declare const TORQUE_API_ROUTES: {
     publishers: string;
     raffle: string;
     share: string;
+    tokens: string;
     transactions: {
         build: string;
         execute: string;

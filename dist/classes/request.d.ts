@@ -49,7 +49,7 @@ export declare class TorqueRequestClient {
      *
      * @throws {Error} If there is an error performing the request.
      */
-    anyFetch<T>(url: string, options?: RequestInit): Promise<T>;
+    static anyFetch<T>(url: string, options?: RequestInit): Promise<T>;
     /**
      * Perform a request to the Torque API.
      *

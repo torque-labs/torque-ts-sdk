@@ -1,5 +1,5 @@
 import { TorqueRequestClient } from './request.js';
-import { JUP_TOKEN_LIST, TORQUE_API_ROUTES } from '../constants/index.js';
+import { TORQUE_API_ROUTES } from '../constants/index.js';
 import { ApiTxnTypes, } from '../types/index.js';
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
@@ -13,7 +13,7 @@ import { ApiTxnTypes, } from '../types/index.js';
 export class TorqueAdminClient {
     client;
     userClient;
-    tokenList;
+    static tokenList;
     /**
      * Create a new instance of the TorqueAdminClient class with the provided API key.
      *
@@ -210,7 +210,9 @@ export class TorqueAdminClient {
         }
     }
     /**
+     * ========================================================================
      * DATA
+     * ========================================================================
      */
     /**
      * Retrieves the list of safe tokens from the Jupiter ag.
@@ -221,18 +223,21 @@ export class TorqueAdminClient {
      *
      * @throws {Error} If the client is not initialized or there was an error fetching the safe token list.
      */
-    async getSafeTokenList(filter) {
-        if (!this.client) {
-            throw new Error('The client is not initialized.');
-        }
+    static async getSafeTokenList(filter, apiUrl) {
         if (this.tokenList) {
             return !filter
                 ? this.tokenList
                 : this.tokenList.filter((token) => token.name.toLowerCase().includes(filter));
         }
         try {
-            const response = await this.client.anyFetch(JUP_TOKEN_LIST);
-            this.tokenList = response;
+            const fetchUrl = `${apiUrl}${TORQUE_API_ROUTES.tokens}`;
+            const response = await TorqueRequestClient.anyFetch(fetchUrl, {
+                method: 'GET',
+            });
+            if (response.status !== 'SUCCESS') {
+                throw new Error('There was an error fetching the safe token list.');
+            }
+            this.tokenList = response.data.tokens;
             return !filter
                 ? this.tokenList
                 : this.tokenList.filter((token) => token.name.toLowerCase().includes(filter));
@@ -242,7 +247,12 @@ export class TorqueAdminClient {
             throw new Error('There was an error fetching the safe token list.');
         }
     }
-    // AUDIENCE CRUD APIs
+    /**
+     * ========================================================================
+     * AUDIENCES
+     * ========================================================================
+     */
+    // TODO: Move to Audience class
     async saveAudience(config, title, description) {
         const user = await this.userClient.getCurrentUser();
         if (!this.client || !user) {
