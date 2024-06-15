@@ -217,3 +217,32 @@ export enum ApiTxnTypes {
   PublisherPayout = 'PublisherPayout',
   PublisherCreate = 'PublisherCreate',
 }
+
+export type ApiCreateCampaignInput = {
+  name: string;
+  landingPage: string;
+  conversionEvent: ConversionEvent;
+  publisherReward: ConversionReward;
+  userReward: ConversionReward;
+  asymmetricRewards: ConversionReward[];
+  conversionCount: number;
+  audience: string; // todo: validate user has access to inputted
+};
+export type ConversionEvent = {
+  type: ApiEventType;
+  buy: {
+    amount: number;
+    tokenAddress: string;
+  } | null;
+  sell: {
+    amount: number;
+    tokenAddress: string;
+  } | null;
+  interact: {
+    programAddress: string;
+  } | null;
+};
+export type ConversionReward = {
+  tokenAddress: string;
+  amount: number;
+};
