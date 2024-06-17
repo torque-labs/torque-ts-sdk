@@ -127,9 +127,29 @@ export declare class TorqueAdminClient {
      * AUDIENCES
      * ========================================================================
      */
-    saveAudience(config: Audience, title: string, description?: string): Promise<unknown>;
-    getAudience(): Promise<{
+    /**
+     * Get a list of the user's saved audiences.
+     *
+     * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
+     *
+     * @throws {Error} If the client is not initialized or there was an error getting the audiences.
+     */
+    getAudiences(): Promise<{
         audiences: ApiAudience[];
+    }>;
+    /**
+     * Save an audience to the user's account.
+     *
+     * @param {Audience} config - The configuration of the audience to save.
+     * @param {string} title - The title of the audience.
+     * @param {string} [description] - An optional description of the audience.
+     *
+     * @returns {Promise<{ audienceId: string }>} A promise that resolves to the id of the saved audience.
+     *
+     * @throws {Error} If the client is not initialized or there was an error saving the audience.
+     */
+    saveAudience(config: Audience, title: string, description?: string): Promise<{
+        audienceId: string;
     }>;
     updateAudience(id: string, title: string, description?: string): Promise<Audience>;
     deleteAudience(id: string): Promise<Audience>;
