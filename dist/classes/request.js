@@ -128,7 +128,6 @@ export class TorqueRequestClient {
      */
     async functionsFetch(url, options) {
         const reqOptions = {
-            credentials: 'include',
             ...options,
             headers: {
                 'Content-Type': 'application/json',
