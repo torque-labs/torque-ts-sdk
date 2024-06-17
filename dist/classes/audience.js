@@ -38,7 +38,7 @@ export class TorqueAudienceClient {
         try {
             const result = await this.client.functionsFetch(TORQUE_FUNCTIONS_ROUTES.audience.build, {
                 method: 'POST',
-                body: JSON.stringify(options),
+                body: JSON.stringify({ body: options }),
             });
             return result;
         }
@@ -64,8 +64,10 @@ export class TorqueAudienceClient {
             const result = await this.client.functionsFetch(TORQUE_FUNCTIONS_ROUTES.audience.verify, {
                 method: 'POST',
                 body: JSON.stringify({
-                    audience,
-                    publicKey,
+                    body: {
+                        audience,
+                        publicKey,
+                    },
                 }),
             });
             return result;

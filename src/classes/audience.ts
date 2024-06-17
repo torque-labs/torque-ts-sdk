@@ -62,7 +62,7 @@ export class TorqueAudienceClient {
         TORQUE_FUNCTIONS_ROUTES.audience.build,
         {
           method: 'POST',
-          body: JSON.stringify(options),
+          body: JSON.stringify({ body: options }),
         },
       );
 
@@ -94,8 +94,10 @@ export class TorqueAudienceClient {
         {
           method: 'POST',
           body: JSON.stringify({
-            audience,
-            publicKey,
+            body: {
+              audience,
+              publicKey,
+            },
           }),
         },
       );
