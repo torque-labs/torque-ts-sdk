@@ -337,37 +337,16 @@ export class TorqueAdminClient {
    * ========================================================================
    */
 
-  // TODO: Move to Audience class
-
-  public async saveAudience(config: Audience, title: string, description?: string) {
+  /**
+   * Get a list of the user's saved audiences.
+   *
+   * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
+   *
+   * @throws {Error} If the client is not initialized or there was an error getting the audiences.
+   */
+  public async getAudiences() {
     const user = await this.userClient.getCurrentUser();
-    if (!this.client || !user) {
-      throw new Error('The client is not initialized.');
-    }
 
-    try {
-      const response = await this.client.apiFetch<unknown>(`${TORQUE_API_ROUTES.audienceBuilder}`, {
-        method: 'POST',
-        body: JSON.stringify({
-          title,
-          description,
-          config,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw new Error('There was an error saving the audience.');
-    }
-  }
-
-  public async getAudience() {
-    const user = await this.userClient.getCurrentUser();
     if (!this.client || !user) {
       throw new Error('The client is not initialized.');
     }
@@ -378,7 +357,6 @@ export class TorqueAdminClient {
         {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${user.token}`,
           },
         },
@@ -388,6 +366,46 @@ export class TorqueAdminClient {
     } catch (error) {
       console.error(error);
       throw new Error('There was an error getting the audience.');
+    }
+  }
+
+  /**
+   * Save an audience to the user's account.
+   *
+   * @param {Audience} config - The configuration of the audience to save.
+   * @param {string} title - The title of the audience.
+   * @param {string} [description] - An optional description of the audience.
+   *
+   * @returns {Promise<{ audienceId: string }>} A promise that resolves to the id of the saved audience.
+   *
+   * @throws {Error} If the client is not initialized or there was an error saving the audience.
+   */
+  public async saveAudience(config: Audience, title: string, description?: string) {
+    const user = await this.userClient.getCurrentUser();
+    if (!this.client || !user) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const response = await this.client.apiFetch<{ audienceId: string }>(
+        `${TORQUE_API_ROUTES.audienceBuilder}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            config,
+          }),
+        },
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error saving the audience.');
     }
   }
 
