@@ -151,7 +151,11 @@ export declare class TorqueAdminClient {
     saveAudience(config: Audience, title: string, description?: string): Promise<{
         audienceId: string;
     }>;
-    updateAudience(id: string, title: string, description?: string): Promise<Audience>;
-    deleteAudience(id: string): Promise<Audience>;
+    updateAudience(id: string, config: Audience, title?: string, description?: string): Promise<{
+        audienceId: string;
+    }>;
+    deleteAudience(id: string): Promise<{
+        audienceId: string;
+    }>;
 }
 //# sourceMappingURL=admin.d.ts.map

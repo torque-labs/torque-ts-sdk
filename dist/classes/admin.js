@@ -268,7 +268,7 @@ export class TorqueAdminClient {
             const response = await this.client.apiFetch(`${TORQUE_API_ROUTES.audienceBuilder}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user.token}`, // TODO: remove if tokens if not api key
                 },
             });
             return response;
@@ -295,7 +295,7 @@ export class TorqueAdminClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            const response = await this.client.apiFetch(`${TORQUE_API_ROUTES.audienceBuilder}`, {
+            const response = await this.client.apiFetch(TORQUE_API_ROUTES.audienceBuilder, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${user.token}`,
@@ -313,21 +313,21 @@ export class TorqueAdminClient {
             throw new Error('There was an error saving the audience.');
         }
     }
-    async updateAudience(id, title, description) {
+    async updateAudience(id, config, title, description) {
         const user = await this.userClient.getCurrentUser();
         if (!this.client || !user) {
             throw new Error('The client is not initialized.');
         }
         try {
-            const response = await this.client.apiFetch(`${TORQUE_API_ROUTES.audienceBuilder}`, {
+            const response = await this.client.apiFetch(TORQUE_API_ROUTES.audienceBuilder, {
                 method: 'PATCH',
                 body: JSON.stringify({
                     title,
                     description,
                     id,
+                    config,
                 }),
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${user.token}`,
                 },
             });
@@ -344,10 +344,9 @@ export class TorqueAdminClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            const response = await this.client.apiFetch(`${TORQUE_API_ROUTES.audienceBuilder}`, {
+            const response = await this.client.apiFetch(TORQUE_API_ROUTES.audienceBuilder, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify({
