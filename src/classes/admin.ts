@@ -357,7 +357,7 @@ export class TorqueAdminClient {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`, // TODO: remove if tokens if not api key
           },
         },
       );
@@ -388,7 +388,7 @@ export class TorqueAdminClient {
 
     try {
       const response = await this.client.apiFetch<{ audienceId: string }>(
-        `${TORQUE_API_ROUTES.audienceBuilder}`,
+        TORQUE_API_ROUTES.audienceBuilder,
         {
           method: 'POST',
           headers: {
@@ -409,24 +409,24 @@ export class TorqueAdminClient {
     }
   }
 
-  public async updateAudience(id: string, title: string, description?: string) {
+  public async updateAudience(id: string, config: Audience, title?: string, description?: string) {
     const user = await this.userClient.getCurrentUser();
     if (!this.client || !user) {
       throw new Error('The client is not initialized.');
     }
 
     try {
-      const response = await this.client.apiFetch<Audience>(
-        `${TORQUE_API_ROUTES.audienceBuilder}`,
+      const response = await this.client.apiFetch<{ audienceId: string }>(
+        TORQUE_API_ROUTES.audienceBuilder,
         {
           method: 'PATCH',
           body: JSON.stringify({
             title,
             description,
             id,
+            config,
           }),
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${user.token}`,
           },
         },
@@ -446,12 +446,11 @@ export class TorqueAdminClient {
     }
 
     try {
-      const response = await this.client.apiFetch<Audience>(
-        `${TORQUE_API_ROUTES.audienceBuilder}`,
+      const response = await this.client.apiFetch<{ audienceId: string }>(
+        TORQUE_API_ROUTES.audienceBuilder,
         {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify({
