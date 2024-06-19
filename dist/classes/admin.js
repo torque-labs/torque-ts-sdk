@@ -41,7 +41,7 @@ export class TorqueAdminClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            const params = new URLSearchParams({ status: 'ACTIVE' });
+            const params = new URLSearchParams();
             const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.campaigns}?${params.toString()}`, {
                 method: 'GET',
                 headers: {

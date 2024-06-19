@@ -75,7 +75,7 @@ export class TorqueAdminClient {
     }
 
     try {
-      const params = new URLSearchParams({ status: 'ACTIVE' });
+      const params = new URLSearchParams();
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];

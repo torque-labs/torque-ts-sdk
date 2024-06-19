@@ -275,16 +275,9 @@ export class TorqueUserClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            // TODO: Verify what publisher handle does for this endpoint
-            const params = new URLSearchParams({
-                publisher: this.publisherHandle,
-                status: 'ACTIVE',
-            });
-            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
+            // TODO: Add publisher handle to offer urls
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.usersOffers}/${this.publicKey}}`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
             });
             return result;
         }

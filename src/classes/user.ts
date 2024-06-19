@@ -345,19 +345,11 @@ export class TorqueUserClient {
     }
 
     try {
-      // TODO: Verify what publisher handle does for this endpoint
-      const params = new URLSearchParams({
-        publisher: this.publisherHandle,
-        status: 'ACTIVE',
-      });
-
+      // TODO: Add publisher handle to offer urls
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
-      }>(`${TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
+      }>(`${TORQUE_API_ROUTES.usersOffers}/${this.publicKey}}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
 
       return result;
