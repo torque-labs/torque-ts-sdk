@@ -24,6 +24,9 @@ export class TorqueAdminClient {
         this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
         this.userClient = userClient;
     }
+    async logout() {
+        this.userClient = undefined;
+    }
     /**
      * ========================================================================
      * CAMPAIGNS
@@ -66,6 +69,9 @@ export class TorqueAdminClient {
         if (!this.client) {
             throw new Error('The client is not initialized.');
         }
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
+        }
         try {
             const user = await this.userClient.getCurrentUser();
             const input = {
@@ -92,6 +98,9 @@ export class TorqueAdminClient {
     async endCampaign(data) {
         if (!this.client) {
             throw new Error('The client is not initialized.');
+        }
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
         }
         try {
             const user = await this.userClient.getCurrentUser();
@@ -171,6 +180,9 @@ export class TorqueAdminClient {
         if (!this.client) {
             throw new Error('The client is not initialized.');
         }
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
+        }
         try {
             const user = await this.userClient.getCurrentUser();
             const { signature } = await this.client.transaction({
@@ -195,6 +207,9 @@ export class TorqueAdminClient {
     async payoutPublisher(data) {
         if (!this.client) {
             throw new Error('The client is not initialized.');
+        }
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
         }
         try {
             const user = await this.userClient.getCurrentUser();
@@ -260,6 +275,9 @@ export class TorqueAdminClient {
      * @throws {Error} If the client is not initialized or there was an error getting the audiences.
      */
     async getAudiences() {
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
+        }
         const user = await this.userClient.getCurrentUser();
         if (!this.client || !user) {
             throw new Error('The client is not initialized.');
@@ -290,6 +308,9 @@ export class TorqueAdminClient {
      * @throws {Error} If the client is not initialized or there was an error saving the audience.
      */
     async saveAudience(config, title, description) {
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
+        }
         const user = await this.userClient.getCurrentUser();
         if (!this.client || !user) {
             throw new Error('The client is not initialized.');
@@ -314,6 +335,9 @@ export class TorqueAdminClient {
         }
     }
     async updateAudience(id, config, title, description) {
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
+        }
         const user = await this.userClient.getCurrentUser();
         if (!this.client || !user) {
             throw new Error('The client is not initialized.');
@@ -339,6 +363,9 @@ export class TorqueAdminClient {
         }
     }
     async deleteAudience(id) {
+        if (!this.userClient) {
+            throw new Error('The user client is not initialized.');
+        }
         const user = await this.userClient.getCurrentUser();
         if (!this.client || !user) {
             throw new Error('The client is not initialized.');

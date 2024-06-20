@@ -75,7 +75,9 @@ export declare class TorqueUserClient {
      *
      * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
      */
-    private logout;
+    logout(): Promise<{
+        cleared: boolean;
+    }>;
     /**
      * ========================================================================
      * USER

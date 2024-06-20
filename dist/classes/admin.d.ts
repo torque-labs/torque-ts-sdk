@@ -32,6 +32,7 @@ export declare class TorqueAdminClient {
      * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
      */
     constructor(options: TorqueAdminClientOptions);
+    logout(): Promise<void>;
     /**
      * ========================================================================
      * CAMPAIGNS

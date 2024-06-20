@@ -51,6 +51,7 @@ export class TorqueSDK {
   private apiUrl: string | undefined;
   private appUrl: string | undefined;
   private functionsUrl: string | undefined;
+  private initialized: boolean = false;
 
   /**
    * Initializes the TorqueSDK with the provided options.
@@ -87,8 +88,6 @@ export class TorqueSDK {
     try {
       await this.user.initializeUser(ApiInputLogin);
     } catch (error) {
-      // console.error(error);
-
       throw new Error('There was an error initializing the Torque SDK.');
     }
 
@@ -110,6 +109,34 @@ export class TorqueSDK {
         appUrl: this.appUrl,
         functionsUrl: this.functionsUrl,
       });
+    }
+
+    this.initialized = true;
+  }
+
+  /**
+   * Logout the user from the Torque API.
+   *
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
+   */
+  public async logout() {
+    if (this.initialized) {
+      if (this.user) {
+        await this.user?.logout();
+      }
+
+      if (this.api) {
+        await this.api.logout();
+      }
+
+      if (this.audience) {
+        await this.audience.logout();
+      }
+
+      this.user = undefined;
+      this.api = undefined;
+      this.audience = undefined;
+      this.initialized = false;
     }
   }
 

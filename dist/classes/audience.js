@@ -22,6 +22,9 @@ export class TorqueAudienceClient {
         this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
         this.userClient = userClient;
     }
+    async logout() {
+        this.userClient = undefined;
+    }
     /**
      * Builds an audience with the provided options.
      *

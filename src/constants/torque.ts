@@ -15,6 +15,7 @@ const TORQUE_API_ROUTES = {
   leaderboards: '/leaderboards',
   links: '/links',
   login: '/login',
+  logout: '/logout',
   publishers: '/publishers',
   raffle: '/asymmetricReward',
   share: '/share',

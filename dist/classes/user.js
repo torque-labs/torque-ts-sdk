@@ -163,19 +163,25 @@ export class TorqueUserClient {
      *
      * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
      */
-    logout() {
+    async logout() {
         if (!this.client) {
             throw new Error('The client was not initialized.');
         }
         if (!this.user) {
             throw new Error('There is no user signed in.');
         }
-        // TODO: unset client
-        // TODO: add logout endpoint to API?
-        // TOOD: clear coookies?
-        this.publisherHandle = 'torqueprotocol';
-        this.initialized = false;
-        this.user = undefined;
+        try {
+            const result = await this.client.apiFetch(TORQUE_API_ROUTES.logout, {
+                method: 'GET',
+            });
+            this.initialized = false;
+            this.user = undefined;
+            return result;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error('There was an error logging in.');
+        }
     }
     /**
      * ========================================================================

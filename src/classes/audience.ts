@@ -29,7 +29,7 @@ export type TorqueAudienceClientOptions = {
  */
 export class TorqueAudienceClient {
   private client: TorqueRequestClient;
-  private userClient: TorqueUserClient;
+  private userClient: TorqueUserClient | undefined;
 
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
@@ -41,6 +41,10 @@ export class TorqueAudienceClient {
 
     this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
     this.userClient = userClient;
+  }
+
+  public async logout() {
+    this.userClient = undefined;
   }
 
   /**

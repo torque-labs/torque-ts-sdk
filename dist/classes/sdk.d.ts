@@ -47,6 +47,7 @@ export declare class TorqueSDK {
     private apiUrl;
     private appUrl;
     private functionsUrl;
+    private initialized;
     /**
      * Initializes the TorqueSDK with the provided options.
      *
@@ -56,6 +57,12 @@ export declare class TorqueSDK {
      */
     constructor(options: TorqueSDKOptions);
     initialize(signer: Adapter | Keypair, ApiInputLogin?: ApiInputLogin): Promise<void>;
+    /**
+     * Logout the user from the Torque API.
+     *
+     * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
+     */
+    logout(): Promise<void>;
     /**
      * Static method to verify the login options with the Torque API.
      *

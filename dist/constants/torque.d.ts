@@ -11,6 +11,7 @@ declare const TORQUE_API_ROUTES: {
     leaderboards: string;
     links: string;
     login: string;
+    logout: string;
     publishers: string;
     raffle: string;
     share: string;

@@ -31,6 +31,7 @@ export declare class TorqueAudienceClient {
      * @param {TorqueAudienceClientOptions} options - The options for the TorqueAudienceClient.
      */
     constructor(options: TorqueAudienceClientOptions);
+    logout(): Promise<void>;
     /**
      * Builds an audience with the provided options.
      *
