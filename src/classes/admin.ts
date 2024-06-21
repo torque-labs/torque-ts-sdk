@@ -358,6 +358,44 @@ export class TorqueAdminClient {
    */
 
   /**
+   * Get an audience by ID.
+   *
+   * @param {string} id - The ID of the audience to fetch.
+   *
+   * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
+   *
+   * @throws {Error} If the client is not initialized or there was an error getting the audience.
+   */
+  public async getAudience(id: string) {
+    if (!this.userClient) {
+      throw new Error('The user client is not initialized.');
+    }
+
+    const user = await this.userClient.getCurrentUser();
+
+    if (!this.client || !user) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const response = await this.client.apiFetch<ApiAudience>(
+        `${TORQUE_API_ROUTES.audienceBuilder}/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${user.token}`, // TODO: remove if tokens if not api key
+          },
+        },
+      );
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error getting the audience.');
+    }
+  }
+
+  /**
    * Get a list of the user's saved audiences.
    *
    * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.

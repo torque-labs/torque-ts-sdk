@@ -129,6 +129,16 @@ export declare class TorqueAdminClient {
      * ========================================================================
      */
     /**
+     * Get an audience by ID.
+     *
+     * @param {string} id - The ID of the audience to fetch.
+     *
+     * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
+     *
+     * @throws {Error} If the client is not initialized or there was an error getting the audience.
+     */
+    getAudience(id: string): Promise<ApiAudience>;
+    /**
      * Get a list of the user's saved audiences.
      *
      * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
