@@ -23,6 +23,7 @@ declare const TORQUE_API_ROUTES: {
     userCampaigns: string;
     users: string;
     usersOffers: string;
+    userPayout: string;
 };
 declare const TORQUE_FUNCTIONS_ROUTES: {
     audience: {

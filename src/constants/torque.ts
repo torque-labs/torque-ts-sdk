@@ -27,6 +27,7 @@ const TORQUE_API_ROUTES = {
   userCampaigns: '/users/campaigns',
   users: '/users',
   usersOffers: '/offers',
+  userPayout: '/users/payout',
 };
 
 const TORQUE_FUNCTIONS_ROUTES = {

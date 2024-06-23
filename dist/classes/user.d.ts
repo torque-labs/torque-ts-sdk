@@ -1,6 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, Keypair, PublicKey } from '@solana/web3.js';
-import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types/index.js';
+import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiUserPayout, ApiVerifiedUser } from '../types/index.js';
 /**
  * Options for the TorqueUserClient.
  */
@@ -196,5 +196,18 @@ export declare class TorqueUserClient {
      * @throws {Error} Throws an error there was an error getting the shared link data.
      */
     getSharedLinkData(campaignId: string, handle: string): Promise<ApiShare>;
+    /**
+     * ========================================================================
+     * USER PAYOUTS
+     * ========================================================================
+     */
+    /**
+     * Retrieves user's payout history from conversions.
+     *
+     * @returns {Promise<ApiShare>} The data associated with the shared link if the request is successful.
+     *
+     * @throws {Error} Throws an error there was an error getting the shared link data.
+     */
+    getUserPayout(): Promise<ApiUserPayout>;
 }
 //# sourceMappingURL=user.d.ts.map
