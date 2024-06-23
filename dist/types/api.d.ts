@@ -92,6 +92,11 @@ export type ApiCampaign = {
         tokenAddress: string;
         amount: number;
     }[];
+    advertiser?: {
+        profileImage?: string | null;
+        twitter?: string | null;
+        username?: string | null;
+    };
     audiences: {
         id: string;
         title: string;
