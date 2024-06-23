@@ -22,8 +22,8 @@ export class TorqueUserClient {
     publisherHandle;
     initialized = false;
     publicKey;
-    client;
     user;
+    client;
     signer;
     connection;
     appUrl;
@@ -73,7 +73,7 @@ export class TorqueUserClient {
         }
         catch (error) {
             // console.error(error);
-            console.log('-- User is not logged in, attempting to login');
+            console.log('-- initializeUser -- User is not logged in, attempting to login');
         }
         try {
             let loginBody;

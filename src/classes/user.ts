@@ -46,8 +46,8 @@ export class TorqueUserClient {
   public publisherHandle: string;
   public initialized: boolean = false;
   public publicKey: string;
+  public user: ApiVerifiedUser | undefined;
   private client: TorqueRequestClient;
-  private user: ApiVerifiedUser | undefined;
   private signer: Adapter | Keypair;
   private connection: Connection;
   private appUrl: string;
@@ -103,7 +103,7 @@ export class TorqueUserClient {
       }
     } catch (error) {
       // console.error(error);
-      console.log('-- User is not logged in, attempting to login');
+      console.log('-- initializeUser -- User is not logged in, attempting to login');
     }
 
     try {

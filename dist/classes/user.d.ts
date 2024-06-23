@@ -31,8 +31,8 @@ export declare class TorqueUserClient {
     publisherHandle: string;
     initialized: boolean;
     publicKey: string;
+    user: ApiVerifiedUser | undefined;
     private client;
-    private user;
     private signer;
     private connection;
     private appUrl;
