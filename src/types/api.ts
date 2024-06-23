@@ -209,6 +209,22 @@ export type ApiRaffleRewards = {
 };
 
 /**
+ * User Payout data.
+ */
+export type ApiUserPayout = {
+  payouts: {
+    amount: number;
+    id: string;
+    campaignId: string;
+    userPubKey: string;
+    tokenAddress: string;
+    payoutTx: string | null;
+    isRafflePayout: boolean;
+    createdAt: Date;
+  }[];
+};
+
+/**
  * Torque functions that require a wallet signature.
  */
 export enum ApiTxnTypes {

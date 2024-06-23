@@ -11,6 +11,7 @@ import {
   ApiInputLogin,
   ApiShare,
   ApiUserJourney,
+  ApiUserPayout,
   ApiVerifiedUser,
 } from '../types/index.js';
 
@@ -563,6 +564,40 @@ export class TorqueUserClient {
 
       const result = await this.client.apiFetch<ApiShare>(
         `${TORQUE_API_ROUTES.share}?${params.toString()}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the shared link data.');
+    }
+  }
+
+  /**
+   * ========================================================================
+   * USER PAYOUTS
+   * ========================================================================
+   */
+
+  /**
+   * Retrieves user's payout history from conversions.
+   *
+   * @returns {Promise<ApiShare>} The data associated with the shared link if the request is successful.
+   *
+   * @throws {Error} Throws an error there was an error getting the shared link data.
+   */
+  public async getUserPayout() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<ApiUserPayout>(
+        `${TORQUE_API_ROUTES.userPayout}/${this.publicKey}`,
         {
           method: 'GET',
         },
