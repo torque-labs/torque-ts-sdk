@@ -1,6 +1,6 @@
 /// <reference types="node" resolution-mode="require"/>
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair } from '@solana/web3.js';
+import { Connection, Keypair } from '@solana/web3.js';
 import { TxnInput, WithSignature } from '../types/index.js';
 /**
  * Options for the TorqueRequestClient.
@@ -11,6 +11,7 @@ export type TorqueRequestOptions = {
     apiUrl?: string;
     appUrl?: string;
     functionsUrl?: string;
+    connection?: Connection;
 };
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
@@ -28,6 +29,7 @@ export declare class TorqueRequestClient {
     private apiUrl;
     private appUrl;
     private functionsUrl;
+    private connection;
     /**
      * Create a new instance of the TorqueRequestClient class.
      *
@@ -89,17 +91,17 @@ export declare class TorqueRequestClient {
      */
     private buildTransaction;
     /**
-     * Executes the serialized transaction using the API.
+     * Syncs the db with transaction execyted using the API.
      *
-     * @param {TxnExecute} txnExecuteInput - The input object of the transaction to execute.
+     * @param {TxnSync} TxnSyncInput - The input object of the transaction to sync with the db.
      *
-     * @returns {Promise<TxnExecuteResponse>} A promise that resolves with the signature of the transaction.
+     * @returns {Promise<TxnSyncResponse>} A promise that resolves with the signature of the transaction.
      *
      * @throws {Error} Throws an error if the API request is unsuccessful or if the transaction fails.
      */
-    private executeTransaction;
+    private syncTransaction;
     /**
-     * Builds and executes the transaction using the Torque API.
+     * Builds and syncs the transaction using the Torque API.
      *
      * @template {object} T - The type of the response data.
      *

@@ -18,7 +18,7 @@ declare const TORQUE_API_ROUTES: {
     tokens: string;
     transactions: {
         build: string;
-        execute: string;
+        sync: string;
     };
     userCampaigns: string;
     users: string;

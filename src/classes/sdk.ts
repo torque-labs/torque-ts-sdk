@@ -1,6 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { SolanaSignInOutput } from '@solana/wallet-standard-features';
-import { Keypair } from '@solana/web3.js';
+import { Connection, Keypair, clusterApiUrl } from '@solana/web3.js';
 
 import { TorqueAdminClient } from './admin.js';
 import { TorqueAudienceClient } from './audience.js';
@@ -92,6 +92,7 @@ export class TorqueSDK {
     }
 
     if (this.apiKey) {
+      const connection = new Connection(this.rpc ?? clusterApiUrl("mainnet-beta"), 'confirmed');
       this.api = new TorqueAdminClient({
         signer: signer,
         apiKey: this.apiKey,
@@ -99,6 +100,7 @@ export class TorqueSDK {
         apiUrl: this.apiUrl,
         appUrl: this.appUrl,
         functionsUrl: this.functionsUrl,
+        connection: connection
       });
 
       this.audience = new TorqueAudienceClient({
@@ -108,6 +110,7 @@ export class TorqueSDK {
         apiUrl: this.apiUrl,
         appUrl: this.appUrl,
         functionsUrl: this.functionsUrl,
+        connection: connection
       });
     }
 
@@ -230,28 +233,28 @@ export class TorqueSDK {
     const body =
       authType === 'siws'
         ? {
-            authType,
-            pubKey,
-            payload: {
-              input: payload.input,
-              output: {
-                account: {
-                  ...payload.output.account,
-                  publicKey: Array.from(new Uint8Array(payload.output.account.publicKey)),
-                },
-                signature: new Uint8Array(payload.output.signature),
-                signedMessage: new Uint8Array(payload.output.signedMessage),
-              } as unknown as SolanaSignInOutput,
-            },
-          }
+          authType,
+          pubKey,
+          payload: {
+            input: payload.input,
+            output: {
+              account: {
+                ...payload.output.account,
+                publicKey: Array.from(new Uint8Array(payload.output.account.publicKey)),
+              },
+              signature: new Uint8Array(payload.output.signature),
+              signedMessage: new Uint8Array(payload.output.signedMessage),
+            } as unknown as SolanaSignInOutput,
+          },
+        }
         : {
-            authType,
-            pubKey,
-            payload: {
-              input: payload.input,
-              output: payload.output,
-            },
-          };
+          authType,
+          pubKey,
+          payload: {
+            input: payload.input,
+            output: payload.output,
+          },
+        };
 
     return body;
   }

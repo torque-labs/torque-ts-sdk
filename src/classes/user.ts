@@ -68,12 +68,13 @@ export class TorqueUserClient {
     }
 
     const solanaNetwork = network ?? 'devnet';
+    const connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
 
-    this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
+    this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl, connection });
     this.publicKey = signer.publicKey.toString();
     this.publisherHandle = publisherHandle ?? 'torqueprotocol';
     this.signer = signer;
-    this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+    this.connection = connection;
     this.appUrl = appUrl ?? 'https://app.torque.so';
     this.apiUrl = apiUrl ?? 'https://api.torque.so';
   }
@@ -536,7 +537,7 @@ export class TorqueUserClient {
   }
 
   // TODO: set user publisher when txn is executed
-  public setUserPublisher() {}
+  public setUserPublisher() { }
 
   /**
    * ========================================================================

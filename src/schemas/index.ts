@@ -60,19 +60,19 @@ export const TxnInputSchema = z.discriminatedUnion('txnType', [
   }),
 ]);
 
-const TxnExecuteDefaults = z.object({
-  userSignature: z.string(),
-  blockhash: z.string(),
-});
 
-export const TxnExecuteSchema = z.discriminatedUnion('txnType', [
+export const TxnSyncSchema = z.discriminatedUnion('txnType', [
   z.object({
     txnType: z.enum([ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd]),
-    data: TxnExecuteDefaults.extend({ campaignId: z.string() }),
+    data: z.object({ campaignId: z.string() }),
   }),
   z.object({
-    txnType: z.string(),
-    data: TxnExecuteDefaults,
+    txnType: z.literal(ApiTxnTypes.PublisherPayout),
+    data: z.object({ signature: z.string() }),
+  }),
+  z.object({
+    txnType: z.literal(ApiTxnTypes.PublisherCreate),
+    data: z.boolean(),
   }),
 ]);
 

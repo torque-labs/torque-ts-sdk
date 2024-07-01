@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair } from '@solana/web3.js';
+import { Connection, Keypair } from '@solana/web3.js';
 import { TorqueUserClient } from './user.js';
 import { Audience, AudienceBuild, AudienceBuildResponse } from '../types/index.js';
 /**
@@ -12,6 +12,7 @@ export type TorqueAudienceClientOptions = {
     apiUrl?: string;
     appUrl?: string;
     functionsUrl?: string;
+    connection?: Connection;
 };
 /**
  * The TorqueAudienceClient class is used to manage and verify audiencess for the Torque API.

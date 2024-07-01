@@ -41,11 +41,12 @@ export class TorqueUserClient {
             throw new Error('The wallet/signer provided does not have a public key.');
         }
         const solanaNetwork = network ?? 'devnet';
-        this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
+        const connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+        this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl, connection });
         this.publicKey = signer.publicKey.toString();
         this.publisherHandle = publisherHandle ?? 'torqueprotocol';
         this.signer = signer;
-        this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+        this.connection = connection;
         this.appUrl = appUrl ?? 'https://app.torque.so';
         this.apiUrl = apiUrl ?? 'https://api.torque.so';
     }

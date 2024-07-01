@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair } from '@solana/web3.js';
+import { Connection, Keypair } from '@solana/web3.js';
 import { TorqueUserClient } from './user.js';
 import { ApiAudience, ApiCampaign, ApiCampaignLeaderboard, Audience, CampaignCreateInput, CampaignEndInput, SafeToken, WithSignature, ApiRaffleRewards } from '../types/index.js';
 /**
@@ -12,6 +12,7 @@ export type TorqueAdminClientOptions = {
     apiUrl?: string;
     appUrl?: string;
     functionsUrl?: string;
+    connection?: Connection;
 };
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.

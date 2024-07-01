@@ -59,18 +59,18 @@ export type ApiResponse<T> = ApiResponseSuccess<T> | ApiResponseError;
  */
 export type ApiInputLogin =
   | {
-      authType: 'siws';
-      pubKey: string;
-      payload: {
-        input: SolanaSignInInput;
-        output: SolanaSignInOutput;
-      };
-    }
-  | {
-      authType: 'basic';
-      pubKey: string;
-      payload: { input: string; output: string };
+    authType: 'siws';
+    pubKey: string;
+    payload: {
+      input: SolanaSignInInput;
+      output: SolanaSignInOutput;
     };
+  }
+  | {
+    authType: 'basic';
+    pubKey: string;
+    payload: { input: string; output: string };
+  };
 
 /**
  * Campaign data.

@@ -22,7 +22,7 @@ const TORQUE_API_ROUTES = {
   tokens: '/tokens',
   transactions: {
     build: '/tx/build',
-    execute: '/tx/execute',
+    sync: '/tx/sync',
   },
   userCampaigns: '/users/campaigns',
   users: '/users',

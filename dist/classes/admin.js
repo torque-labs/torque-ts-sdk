@@ -20,8 +20,8 @@ export class TorqueAdminClient {
      * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
      */
     constructor(options) {
-        const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl } = options;
-        this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
+        const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl, connection } = options;
+        this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl, connection });
         this.userClient = userClient;
     }
     async logout() {

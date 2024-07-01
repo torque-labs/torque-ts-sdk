@@ -1,15 +1,15 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair, VersionedTransaction } from '@solana/web3.js';
+import { Connection, Keypair, VersionedTransaction, clusterApiUrl } from '@solana/web3.js';
 
 import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   TxnInput,
   ApiTxnTypes,
   ApiResponse,
-  TxnExecute,
-  TxnExecuteResponse,
   AudienceFunctionResponse,
   WithSignature,
+  TxnSync,
+  TxnSyncResponse,
 } from '../types/index.js';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
@@ -22,6 +22,7 @@ export type TorqueRequestOptions = {
   apiUrl?: string;
   appUrl?: string;
   functionsUrl?: string;
+  connection?: Connection;
 };
 
 /**
@@ -40,6 +41,7 @@ export class TorqueRequestClient {
   private apiUrl: string;
   private appUrl: string;
   private functionsUrl: string;
+  private connection: Connection;
 
   /**
    * Create a new instance of the TorqueRequestClient class.
@@ -50,7 +52,7 @@ export class TorqueRequestClient {
    * @throws {Error} Throws an error if a signer is not provided.
    */
   constructor(options: TorqueRequestOptions) {
-    const { signer, apiKey, apiUrl, appUrl, functionsUrl } = options;
+    const { signer, apiKey, apiUrl, appUrl, functionsUrl, connection } = options;
 
     if (!signer) {
       throw new Error(
@@ -65,9 +67,10 @@ export class TorqueRequestClient {
     this.functionsUrl = functionsUrl ?? 'https://functions.torque.so';
     this.apiAuthHeader = apiKey
       ? {
-          'x-torque-api-key': `${this.apiKey}`,
-        }
+        'x-torque-api-key': `${this.apiKey}`,
+      }
       : {};
+    this.connection = connection ?? new Connection(clusterApiUrl('mainnet-beta'));
   }
 
   /**
@@ -218,6 +221,7 @@ export class TorqueRequestClient {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log('-- txn: ', txn);
 
       return txn as T & { serializedTx: string };
     } catch (error) {
@@ -228,35 +232,35 @@ export class TorqueRequestClient {
   }
 
   /**
-   * Executes the serialized transaction using the API.
+   * Syncs the db with transaction execyted using the API.
    *
-   * @param {TxnExecute} txnExecuteInput - The input object of the transaction to execute.
+   * @param {TxnSync} TxnSyncInput - The input object of the transaction to sync with the db.
    *
-   * @returns {Promise<TxnExecuteResponse>} A promise that resolves with the signature of the transaction.
+   * @returns {Promise<TxnSyncResponse>} A promise that resolves with the signature of the transaction.
    *
    * @throws {Error} Throws an error if the API request is unsuccessful or if the transaction fails.
    */
-  private async executeTransaction(txnExecuteInput: TxnExecute, token?: string) {
+  private async syncTransaction(txnSyncInput: TxnSync, token?: string) {
     const data = {
-      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
-        ? { createCampaign: txnExecuteInput.data }
+      ...(txnSyncInput.txnType === ApiTxnTypes.CampaignCreate
+        ? { createCampaign: txnSyncInput.data }
         : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignEnd
-        ? { endCampaign: txnExecuteInput.data }
+      ...(txnSyncInput.txnType === ApiTxnTypes.CampaignEnd
+        ? { endCampaign: txnSyncInput.data }
         : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherCreate
-        ? { createPublisher: txnExecuteInput.data }
+      ...(txnSyncInput.txnType === ApiTxnTypes.PublisherCreate
+        ? { createPublisher: txnSyncInput.data }
         : {}),
 
-      ...(txnExecuteInput.txnType === ApiTxnTypes.PublisherPayout
-        ? { payoutPublisher: txnExecuteInput.data }
+      ...(txnSyncInput.txnType === ApiTxnTypes.PublisherPayout
+        ? { payoutPublisher: txnSyncInput.data }
         : {}),
     };
 
     try {
-      const txn = await this.apiFetch<TxnExecuteResponse>(TORQUE_API_ROUTES.transactions.execute, {
+      const { status } = await this.apiFetch<TxnSyncResponse>(TORQUE_API_ROUTES.transactions.sync, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
         headers: {
@@ -265,16 +269,16 @@ export class TorqueRequestClient {
         },
       });
 
-      return txn;
+      return status;
     } catch (error) {
       console.error(error);
 
-      throw new Error('Unable to execute the transaction.');
+      throw new Error('Unable to sync the transaction.');
     }
   }
 
   /**
-   * Builds and executes the transaction using the Torque API.
+   * Builds and syncs the transaction using the Torque API.
    *
    * @template {object} T - The type of the response data.
    *
@@ -283,6 +287,7 @@ export class TorqueRequestClient {
    * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
    */
   public async transaction<T>(txnInput: TxnInput, token?: string) {
+    console.log('-- ATTEMPTING TO SEND TRANSACTION');
     if (!this.signer) {
       throw new Error(
         'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
@@ -290,6 +295,7 @@ export class TorqueRequestClient {
     }
 
     try {
+      console.log('-- building tx.... ');
       const { serializedTx, ...rest } = await this.buildTransaction<T>(txnInput, token);
 
       const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
@@ -299,20 +305,40 @@ export class TorqueRequestClient {
           ? await this.signer.signTransaction(txn)
           : this.signWithKeypair(txn);
 
-      const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
-
-      const executeInput = {
-        txnType: txnInput.txnType,
-        data: {
-          userSignature,
-          blockhash: txn.message.recentBlockhash,
-          ...rest,
+      console.log('-- sending tx.... ');
+      const signature = await this.connection.sendTransaction(signedTx, { skipPreflight: true });
+      console.log('-- confirming: ', signature);
+      const { blockhash, lastValidBlockHeight } = await this.connection.getLatestBlockhash();
+      await this.connection.confirmTransaction(
+        {
+          blockhash,
+          lastValidBlockHeight,
+          signature,
         },
-      };
+        "confirmed"
+      );
+      let syncData;
+      switch (txnInput.txnType) {
+        case ApiTxnTypes.CampaignCreate:
+        case ApiTxnTypes.CampaignEnd:
+          if ('campaignId' in rest) {
+            syncData = { txnType: txnInput.txnType, data: { campaignId: rest.campaignId as string } };
+          } else {
+            throw new Error('campaignId is missing from the transaction data');
+          }
+          break;
+        case ApiTxnTypes.PublisherPayout:
+          syncData = { txnType: txnInput.txnType, data: { signature } };
+          break;
+        case ApiTxnTypes.PublisherCreate:
+          syncData = { txnType: txnInput.txnType, data: true };
+          break;
+        default:
+          throw new Error('Unsupported transaction type');
+      }
+      const syncResult = await this.syncTransaction(syncData, token);
 
-      const { signature } = await this.executeTransaction(executeInput, token);
-
-      return { signature, ...rest } as WithSignature<T>;
+      return { signature, ...rest, syncResult } as WithSignature<T>;
     } catch (error) {
       console.error(error);
 

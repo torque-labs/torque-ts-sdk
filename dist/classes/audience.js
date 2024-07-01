@@ -18,8 +18,8 @@ export class TorqueAudienceClient {
      * @param {TorqueAudienceClientOptions} options - The options for the TorqueAudienceClient.
      */
     constructor(options) {
-        const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl } = options;
-        this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
+        const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl, connection } = options;
+        this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl, connection });
         this.userClient = userClient;
     }
     async logout() {

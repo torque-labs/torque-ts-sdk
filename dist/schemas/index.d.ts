@@ -287,60 +287,53 @@ export declare const TxnInputSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodOb
         token: string;
     };
 }>]>;
-export declare const TxnExecuteSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodObject<{
+export declare const TxnSyncSchema: z.ZodDiscriminatedUnion<"txnType", [z.ZodObject<{
     txnType: z.ZodEnum<[ApiTxnTypes.CampaignCreate, ApiTxnTypes.CampaignEnd]>;
-    data: z.ZodObject<z.objectUtil.extendShape<{
-        userSignature: z.ZodString;
-        blockhash: z.ZodString;
-    }, {
+    data: z.ZodObject<{
         campaignId: z.ZodString;
-    }>, "strip", z.ZodTypeAny, {
+    }, "strip", z.ZodTypeAny, {
         campaignId: string;
-        userSignature: string;
-        blockhash: string;
     }, {
         campaignId: string;
-        userSignature: string;
-        blockhash: string;
     }>;
 }, "strip", z.ZodTypeAny, {
     txnType: ApiTxnTypes.CampaignCreate | ApiTxnTypes.CampaignEnd;
     data: {
         campaignId: string;
-        userSignature: string;
-        blockhash: string;
     };
 }, {
     txnType: ApiTxnTypes.CampaignCreate | ApiTxnTypes.CampaignEnd;
     data: {
         campaignId: string;
-        userSignature: string;
-        blockhash: string;
     };
 }>, z.ZodObject<{
-    txnType: z.ZodString;
+    txnType: z.ZodLiteral<ApiTxnTypes.PublisherPayout>;
     data: z.ZodObject<{
-        userSignature: z.ZodString;
-        blockhash: z.ZodString;
+        signature: z.ZodString;
     }, "strip", z.ZodTypeAny, {
-        userSignature: string;
-        blockhash: string;
+        signature: string;
     }, {
-        userSignature: string;
-        blockhash: string;
+        signature: string;
     }>;
 }, "strip", z.ZodTypeAny, {
-    txnType: string;
+    txnType: ApiTxnTypes.PublisherPayout;
     data: {
-        userSignature: string;
-        blockhash: string;
+        signature: string;
     };
 }, {
-    txnType: string;
+    txnType: ApiTxnTypes.PublisherPayout;
     data: {
-        userSignature: string;
-        blockhash: string;
+        signature: string;
     };
+}>, z.ZodObject<{
+    txnType: z.ZodLiteral<ApiTxnTypes.PublisherCreate>;
+    data: z.ZodBoolean;
+}, "strip", z.ZodTypeAny, {
+    txnType: ApiTxnTypes.PublisherCreate;
+    data: boolean;
+}, {
+    txnType: ApiTxnTypes.PublisherCreate;
+    data: boolean;
 }>]>;
 export declare const TxnBuildResponseSchemas: {
     campaign: z.ZodObject<z.objectUtil.extendShape<{

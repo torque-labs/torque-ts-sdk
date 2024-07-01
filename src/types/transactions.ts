@@ -6,7 +6,7 @@ import {
   PublisherPayoutInputSchema,
   PublisherCreateInputSchema,
   TxnInputSchema,
-  TxnExecuteSchema,
+  TxnSyncSchema,
 } from '../schemas/index.js';
 
 /**
@@ -35,19 +35,20 @@ export type PublisherCreateInput = z.infer<typeof PublisherCreateInputSchema>;
 export type TxnInput = z.infer<typeof TxnInputSchema>;
 
 /**
- * On-chain transaction execute input.
+ * On-chain transaction sync input.
  */
-export type TxnExecute = z.infer<typeof TxnExecuteSchema>;
+export type TxnSync = z.infer<typeof TxnSyncSchema>;
 
 /**
- * On-chain transaction execute response.
+ * On-chain transaction sync response.
  */
-export type TxnExecuteResponse = { signature: string };
+export type TxnSyncResponse = { status: string };
 
 /**
  * Transaction result response
  */
 interface SignatureField {
   signature: string;
+  syncResult?: string;
 }
 export type WithSignature<T> = T & SignatureField;

@@ -1,3 +1,4 @@
+import { Connection, clusterApiUrl } from '@solana/web3.js';
 import { TorqueAdminClient } from './admin.js';
 import { TorqueAudienceClient } from './audience.js';
 import { TorqueUserClient } from './user.js';
@@ -68,6 +69,7 @@ export class TorqueSDK {
             throw new Error('There was an error initializing the Torque SDK.');
         }
         if (this.apiKey) {
+            const connection = new Connection(this.rpc ?? clusterApiUrl("mainnet-beta"), 'confirmed');
             this.api = new TorqueAdminClient({
                 signer: signer,
                 apiKey: this.apiKey,
@@ -75,6 +77,7 @@ export class TorqueSDK {
                 apiUrl: this.apiUrl,
                 appUrl: this.appUrl,
                 functionsUrl: this.functionsUrl,
+                connection: connection
             });
             this.audience = new TorqueAudienceClient({
                 signer: signer,
@@ -83,6 +86,7 @@ export class TorqueSDK {
                 apiUrl: this.apiUrl,
                 appUrl: this.appUrl,
                 functionsUrl: this.functionsUrl,
+                connection: connection
             });
         }
         this.initialized = true;

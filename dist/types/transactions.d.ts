@@ -1,5 +1,5 @@
 import z from 'zod';
-import { CampaignCreateInputSchema, CampaignEndInputSchema, PublisherPayoutInputSchema, PublisherCreateInputSchema, TxnInputSchema, TxnExecuteSchema } from '../schemas/index.js';
+import { CampaignCreateInputSchema, CampaignEndInputSchema, PublisherPayoutInputSchema, PublisherCreateInputSchema, TxnInputSchema, TxnSyncSchema } from '../schemas/index.js';
 /**
  * Campaign create input.
  */
@@ -21,20 +21,21 @@ export type PublisherCreateInput = z.infer<typeof PublisherCreateInputSchema>;
  */
 export type TxnInput = z.infer<typeof TxnInputSchema>;
 /**
- * On-chain transaction execute input.
+ * On-chain transaction sync input.
  */
-export type TxnExecute = z.infer<typeof TxnExecuteSchema>;
+export type TxnSync = z.infer<typeof TxnSyncSchema>;
 /**
- * On-chain transaction execute response.
+ * On-chain transaction sync response.
  */
-export type TxnExecuteResponse = {
-    signature: string;
+export type TxnSyncResponse = {
+    status: string;
 };
 /**
  * Transaction result response
  */
 interface SignatureField {
     signature: string;
+    syncResult?: string;
 }
 export type WithSignature<T> = T & SignatureField;
 export {};

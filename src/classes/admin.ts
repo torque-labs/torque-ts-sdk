@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair } from '@solana/web3.js';
+import { Connection, Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -28,6 +28,7 @@ export type TorqueAdminClientOptions = {
   apiUrl?: string;
   appUrl?: string;
   functionsUrl?: string;
+  connection?: Connection;
 };
 
 /**
@@ -50,9 +51,9 @@ export class TorqueAdminClient {
    * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
    */
   constructor(options: TorqueAdminClientOptions) {
-    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl } = options;
+    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl, connection } = options;
 
-    this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
+    this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl, connection });
     this.userClient = userClient;
   }
 
