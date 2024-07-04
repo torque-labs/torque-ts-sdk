@@ -16,11 +16,7 @@ export declare enum ApiStatus {
 export declare enum ApiEventType {
     CLICK = "CLICK",
     SWAP = "SWAP",
-    CAST_VOTE = "CAST_VOTE",
-    COMPRESSED_NFT_MINT = "COMPRESSED_NFT_MINT",
-    ADD_LIQUIDITY = "ADD_LIQUIDITY",
-    INTERACT = "INTERACT",
-    SIGN_UP = "SIGN_UP"
+    NFT_COLLECTION_TRADE = "NFT_COLLECTION_TRADE"
 }
 /**
  * The rewards type of a campaign.

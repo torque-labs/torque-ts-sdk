@@ -17,11 +17,7 @@ export var ApiEventType;
 (function (ApiEventType) {
     ApiEventType["CLICK"] = "CLICK";
     ApiEventType["SWAP"] = "SWAP";
-    ApiEventType["CAST_VOTE"] = "CAST_VOTE";
-    ApiEventType["COMPRESSED_NFT_MINT"] = "COMPRESSED_NFT_MINT";
-    ApiEventType["ADD_LIQUIDITY"] = "ADD_LIQUIDITY";
-    ApiEventType["INTERACT"] = "INTERACT";
-    ApiEventType["SIGN_UP"] = "SIGN_UP";
+    ApiEventType["NFT_COLLECTION_TRADE"] = "NFT_COLLECTION_TRADE";
 })(ApiEventType || (ApiEventType = {}));
 /**
  * The rewards type of a campaign.
