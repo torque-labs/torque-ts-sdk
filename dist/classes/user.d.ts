@@ -1,6 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair, PublicKey } from '@solana/web3.js';
-import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiVerifiedUser } from '../types/index.js';
+import { Cluster, Keypair, PublicKey } from '@solana/web3.js';
+import { ApiCampaign, ApiInputLogin, ApiShare, ApiUserJourney, ApiUserPayout, ApiVerifiedUser } from '../types/index.js';
 /**
  * Options for the TorqueUserClient.
  */
@@ -8,6 +8,10 @@ export type TorqueUserClientOptions = {
     signer: Adapter | Keypair;
     publisherHandle?: string;
     rpc?: string;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
+    network?: Cluster;
 };
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
@@ -24,13 +28,15 @@ export type TorqueUserClientOptions = {
  *   : await this.initializeUser(ApiInputLogin);
  */
 export declare class TorqueUserClient {
-    publisherHandle: string | undefined;
+    publisherHandle: string;
     initialized: boolean;
     publicKey: string;
+    user: ApiVerifiedUser | undefined;
     private client;
-    private user;
     private signer;
     private connection;
+    private appUrl;
+    private apiUrl;
     /**
      * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
      *
@@ -69,7 +75,9 @@ export declare class TorqueUserClient {
      *
      * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
      */
-    private logout;
+    logout(): Promise<{
+        cleared: boolean;
+    }>;
     /**
      * ========================================================================
      * USER
@@ -94,7 +102,7 @@ export declare class TorqueUserClient {
      *
      * @returns The user's handle or `undefined` if no handle is available.
      */
-    getUserHandle(): string | null | undefined;
+    getUserHandle(): string | undefined;
     /**
      * ========================================================================
      * CAMPAIGNS
@@ -150,6 +158,8 @@ export declare class TorqueUserClient {
      * @returns {PublicKey} The publisher PDA for the current user.
      */
     getPublisherPda(): PublicKey | undefined;
+    static PUBLISHER_ACCOUNT_SIZE: number;
+    getMaxTransferableSpl(token: PublicKey): Promise<number>;
     /**
      * Get the balance of the publisher PDA for the current user.
      *
@@ -186,5 +196,18 @@ export declare class TorqueUserClient {
      * @throws {Error} Throws an error there was an error getting the shared link data.
      */
     getSharedLinkData(campaignId: string, handle: string): Promise<ApiShare>;
+    /**
+     * ========================================================================
+     * USER PAYOUTS
+     * ========================================================================
+     */
+    /**
+     * Retrieves user's payout history from conversions.
+     *
+     * @returns {Promise<ApiShare>} The data associated with the shared link if the request is successful.
+     *
+     * @throws {Error} Throws an error there was an error getting the shared link data.
+     */
+    getUserPayout(): Promise<ApiUserPayout>;
 }
 //# sourceMappingURL=user.d.ts.map

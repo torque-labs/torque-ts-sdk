@@ -29,6 +29,10 @@ export class TorqueSDK {
     apiKey;
     publisherHandle;
     rpc;
+    apiUrl;
+    appUrl;
+    functionsUrl;
+    initialized = false;
     /**
      * Initializes the TorqueSDK with the provided options.
      *
@@ -43,19 +47,24 @@ export class TorqueSDK {
         this.apiKey = options.apiKey;
         this.publisherHandle = options.publisherHandle;
         this.rpc = options.rpc;
+        this.apiUrl = options.apiUrl;
+        this.appUrl = options.appUrl;
+        this.functionsUrl = options.functionsUrl;
     }
     async initialize(signer, ApiInputLogin) {
         const userClient = new TorqueUserClient({
             signer: signer,
             publisherHandle: this.publisherHandle,
             rpc: this.rpc,
+            apiUrl: this.apiUrl,
+            appUrl: this.appUrl,
+            functionsUrl: this.functionsUrl,
         });
         this.user = userClient;
         try {
             await this.user.initializeUser(ApiInputLogin);
         }
         catch (error) {
-            console.error(error);
             throw new Error('There was an error initializing the Torque SDK.');
         }
         if (this.apiKey) {
@@ -63,27 +72,58 @@ export class TorqueSDK {
                 signer: signer,
                 apiKey: this.apiKey,
                 userClient: userClient,
+                apiUrl: this.apiUrl,
+                appUrl: this.appUrl,
+                functionsUrl: this.functionsUrl,
             });
             this.audience = new TorqueAudienceClient({
                 signer: signer,
                 apiKey: this.apiKey,
                 userClient: userClient,
+                apiUrl: this.apiUrl,
+                appUrl: this.appUrl,
+                functionsUrl: this.functionsUrl,
             });
+        }
+        this.initialized = true;
+    }
+    /**
+     * Logout the user from the Torque API.
+     *
+     * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
+     */
+    async logout() {
+        if (this.initialized) {
+            if (this.user) {
+                await this.user?.logout();
+            }
+            if (this.api) {
+                await this.api.logout();
+            }
+            if (this.audience) {
+                await this.audience.logout();
+            }
+            this.user = undefined;
+            this.api = undefined;
+            this.audience = undefined;
+            this.initialized = false;
         }
     }
     /**
      * Static method to verify the login options with the Torque API.
      *
      * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
+     * @param {string} apiUrl - The API URL to use for the verification. Defaults to the Torque API URL.
      *
      * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
      *
      * @throws {Error} Throws an error if there is an error authenticating the user.
      */
-    static async verifyLogin(loginOptions) {
+    static async verifyLogin(loginOptions, apiUrl = 'https://api.torque.so') {
         try {
+            const url = `${apiUrl}${TORQUE_API_ROUTES.login}`;
             // TODO: Setup request caching
-            const response = await fetch(TORQUE_API_ROUTES.login, {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,13 +149,16 @@ export class TorqueSDK {
     /**
      * Retrieves a sample SIWS payload for l ogging into the Torque API.
      *
+     * @param {string} apiUrl - The API URL to use for the payload. Defaults to the Torque API URL.
+     *
      * @returns {Promise<ApiIdentifyPayload>} A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
      *
      * @throws {Error} Throws an error if the API request is unsuccessful.
      */
-    static async getLoginPayload() {
+    static async getLoginPayload(apiUrl = 'https://api.torque.so') {
         try {
-            const response = await fetch(TORQUE_API_ROUTES.identify, {
+            const url = `${apiUrl}${TORQUE_API_ROUTES.identify}`;
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,13 +1,23 @@
 /// <reference types="node" resolution-mode="require"/>
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
-import { TxnInput } from '../types/index.js';
+import { TxnInput, WithSignature } from '../types/index.js';
+/**
+ * Options for the TorqueRequestClient.
+ */
+export type TorqueRequestOptions = {
+    signer: Adapter | Keypair;
+    apiKey?: string;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
+};
 /**
  * The TorqueRequestClient class is used to make requests to the Torque API.
  * It provides methods for performing API requests and handling responses.
  *
  * @example
- * const client = new TorqueRequestClient(signer, apiKey);
+ * const client = new TorqueRequestClient(<options>);
  *
  * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
  */
@@ -15,6 +25,9 @@ export declare class TorqueRequestClient {
     private apiKey;
     private apiAuthHeader;
     private signer;
+    private apiUrl;
+    private appUrl;
+    private functionsUrl;
     /**
      * Create a new instance of the TorqueRequestClient class.
      *
@@ -23,7 +36,7 @@ export declare class TorqueRequestClient {
      *
      * @throws {Error} Throws an error if a signer is not provided.
      */
-    constructor(signer: Adapter | Keypair, apiKey?: string);
+    constructor(options: TorqueRequestOptions);
     /**
      * Perform a regular request to any endpoint.
      *
@@ -36,7 +49,7 @@ export declare class TorqueRequestClient {
      *
      * @throws {Error} If there is an error performing the request.
      */
-    anyFetch<T>(url: string, options?: RequestInit): Promise<T>;
+    static anyFetch<T>(url: string, options?: RequestInit): Promise<T>;
     /**
      * Perform a request to the Torque API.
      *
@@ -49,7 +62,7 @@ export declare class TorqueRequestClient {
      *
      * @throws {Error} If there is an error performing the request.
      */
-    apiFetch<T>(url: string, options?: RequestInit): Promise<T>;
+    apiFetch<T>(url: string, options?: RequestInit, supressError?: boolean): Promise<T>;
     /**
      * Perform a request to a Torque Function endpoint.
      *
@@ -92,13 +105,9 @@ export declare class TorqueRequestClient {
      *
      * @param {TxnInput} txnInput - The input object of the transaction to process.
      *
-     * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
+     * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
      */
-    transaction<T>(txnInput: TxnInput): Promise<{
-        signature: string;
-    } & Omit<T & {
-        serializedTx: string;
-    }, "serializedTx">>;
+    transaction<T>(txnInput: TxnInput, token?: string): Promise<WithSignature<T>>;
     /**
      * Signs a transaction with a Keypair.
      *

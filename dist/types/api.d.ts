@@ -92,6 +92,11 @@ export type ApiCampaign = {
         tokenAddress: string;
         amount: number;
     }[];
+    advertiser?: {
+        profileImage?: string | null;
+        twitter?: string | null;
+        username?: string | null;
+    };
     audiences: {
         id: string;
         title: string;
@@ -103,7 +108,7 @@ export type ApiCampaign = {
 export type ApiAudience = {
     id: string;
     title: string;
-    imageUrl?: string;
+    config: object;
     description?: string;
 };
 /**
@@ -139,6 +144,7 @@ export type ApiUser = {
     profileImage?: string;
     isPublisher: boolean;
     publisherPubKey?: string | null;
+    token: string;
 };
 /**
  * A verified Torque user.
@@ -191,6 +197,21 @@ export type ApiRaffleRewards = {
         userPubKey: string;
         amount: number;
         tokenAddress: string;
+    }[];
+};
+/**
+ * User Payout data.
+ */
+export type ApiUserPayout = {
+    payouts: {
+        amount: number;
+        id: string;
+        campaignId: string;
+        userPubKey: string;
+        tokenAddress: string;
+        payoutTx: string | null;
+        isRafflePayout: boolean;
+        createdAt: Date;
     }[];
 };
 /**

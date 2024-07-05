@@ -43,3 +43,11 @@ export type TxnExecute = z.infer<typeof TxnExecuteSchema>;
  * On-chain transaction execute response.
  */
 export type TxnExecuteResponse = { signature: string };
+
+/**
+ * Transaction result response
+ */
+interface SignatureField {
+  signature: string;
+}
+export type WithSignature<T> = T & SignatureField;

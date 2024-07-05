@@ -1,8 +1,9 @@
+import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import nacl from 'tweetnacl';
 import { TorqueRequestClient } from './request.js';
 import { TorqueSDK } from './sdk.js';
-import { TORQUE_API_ROUTES, torquePubkey, TORQUE_SHARE_URL, SOLANA_NETWORK, PUBLISHER_ACCOUNT_SIZE, } from '../constants/index.js';
+import { TORQUE_API_ROUTES, torquePubkey, PUBLISHER_ACCOUNT_SIZE } from '../constants/index.js';
 /**
  * The TorqueUserClient class is used to authenticate a user with the Torque API.
  * The user client allows publishers to fetch campaigns and offers that are savailable for the current user.
@@ -21,10 +22,12 @@ export class TorqueUserClient {
     publisherHandle;
     initialized = false;
     publicKey;
-    client;
     user;
+    client;
     signer;
     connection;
+    appUrl;
+    apiUrl;
     /**
      * Create a new instance of the TorqueUserClient class with the publisher's handle, if provided.
      *
@@ -33,15 +36,18 @@ export class TorqueUserClient {
      * @throws {Error} Throws an error if the user's wallet is not provided.
      */
     constructor(options) {
-        const { signer, publisherHandle, rpc } = options;
+        const { signer, publisherHandle, rpc, apiUrl, appUrl, functionsUrl, network } = options;
         if (!signer.publicKey) {
             throw new Error('The wallet/signer provided does not have a public key.');
         }
-        this.client = new TorqueRequestClient(signer);
+        const solanaNetwork = network ?? 'devnet';
+        this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
         this.publicKey = signer.publicKey.toString();
-        this.publisherHandle = publisherHandle;
+        this.publisherHandle = publisherHandle ?? 'torqueprotocol';
         this.signer = signer;
-        this.connection = new Connection(rpc ?? clusterApiUrl(SOLANA_NETWORK), 'confirmed');
+        this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+        this.appUrl = appUrl ?? 'https://app.torque.so';
+        this.apiUrl = apiUrl ?? 'https://api.torque.so';
     }
     /**
      * ========================================================================
@@ -66,12 +72,13 @@ export class TorqueUserClient {
             }
         }
         catch (error) {
-            console.error(error);
+            // console.error(error);
+            console.log('-- initializeUser -- User is not logged in, attempting to login');
         }
         try {
             let loginBody;
             if (!userAuth && this.signer.publicKey) {
-                const signPayloadInput = await TorqueSDK.getLoginPayload();
+                const signPayloadInput = await TorqueSDK.getLoginPayload(this.apiUrl);
                 if ('signIn' in this.signer) {
                     // Login with SIWS
                     const signOutPayload = await this.signer.signIn(signPayloadInput.payload);
@@ -156,19 +163,25 @@ export class TorqueUserClient {
      *
      * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
      */
-    logout() {
+    async logout() {
         if (!this.client) {
             throw new Error('The client was not initialized.');
         }
         if (!this.user) {
             throw new Error('There is no user signed in.');
         }
-        // TODO: unset client
-        // TODO: add logout endpoint to API?
-        // TOOD: clear coookies?
-        this.publisherHandle = undefined;
-        this.initialized = false;
-        this.user = undefined;
+        try {
+            const result = await this.client.apiFetch(TORQUE_API_ROUTES.logout, {
+                method: 'GET',
+            });
+            this.initialized = false;
+            this.user = undefined;
+            return result;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error('There was an error logging in.');
+        }
     }
     /**
      * ========================================================================
@@ -188,6 +201,9 @@ export class TorqueUserClient {
             try {
                 const result = await this.client.apiFetch(TORQUE_API_ROUTES.currentUser, {
                     method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${this.user.token}`,
+                    },
                 });
                 if (result) {
                     this.user = result;
@@ -223,7 +239,7 @@ export class TorqueUserClient {
             // TODO: Update server with login and verify endpoints
             const result = await this.client.apiFetch(TORQUE_API_ROUTES.currentUser, {
                 method: 'GET',
-            });
+            }, true);
             if (result) {
                 this.user = result;
                 this.initialized = true;
@@ -232,7 +248,7 @@ export class TorqueUserClient {
             return undefined;
         }
         catch (error) {
-            console.error(error);
+            console.log('-- User is not logged in, will attempt to login');
         }
         return undefined;
     }
@@ -243,7 +259,7 @@ export class TorqueUserClient {
      */
     getUserHandle() {
         if (this.user) {
-            const handle = this.user.username || this.user.twitter || this.user.pubKey || this.user.publisherPubKey;
+            const handle = this.user.username || this.user.twitter || this.user.publisherPubKey || this.user.pubKey;
             return handle;
         }
         return undefined;
@@ -265,15 +281,9 @@ export class TorqueUserClient {
             throw new Error('The client is not initialized.');
         }
         try {
-            // TODO: Verify what publisher handle does for this endpoint
-            const params = this.publisherHandle
-                ? new URLSearchParams({ publisher: this.publisherHandle, status: 'ACTIVE' })
-                : new URLSearchParams({ status: 'ACTIVE' });
-            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.userCampaigns}?${params.toString()}`, {
+            // TODO: Add publisher handle to offer urls
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.usersOffers}/${this.publicKey}}`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
             });
             return result;
         }
@@ -301,8 +311,12 @@ export class TorqueUserClient {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${this.user?.token}`,
                 },
-                body: JSON.stringify({ campaignId, publisherHandle }),
+                body: JSON.stringify({
+                    campaignId,
+                    publisherHandle: publisherHandle ?? this.publisherHandle,
+                }),
             });
             return result;
         }
@@ -341,8 +355,9 @@ export class TorqueUserClient {
     getUserShareLink(campaignId) {
         const handle = this.getUserHandle();
         const isPublisher = this.isPublisher();
+        const shareUrl = `${this.appUrl}/share`;
         if (handle && isPublisher) {
-            return `${TORQUE_SHARE_URL}/${handle}/${campaignId}`;
+            return `${shareUrl}/${handle}/${campaignId}`;
         }
         else {
             throw new Error('The user is not a publisher.');
@@ -363,6 +378,18 @@ export class TorqueUserClient {
             return publisherPda;
         }
     }
+    static PUBLISHER_ACCOUNT_SIZE = 41;
+    async getMaxTransferableSpl(token) {
+        try {
+            const associatedTokenAddress = await getAssociatedTokenAddress(token, new PublicKey(this.getPublisherPda()), true);
+            const tokenAccountInfo = await this.connection.getTokenAccountBalance(associatedTokenAddress, 'processed');
+            return tokenAccountInfo.value.uiAmount ?? 0;
+        }
+        catch (e) {
+            console.log('-!!! max spl failed to fetch', e);
+            return 0;
+        }
+    }
     /**
      * Get the balance of the publisher PDA for the current user.
      *
@@ -371,7 +398,7 @@ export class TorqueUserClient {
     async getPublisherBalance() {
         const pda = this.getPublisherPda();
         if (pda) {
-            const balance = await this.connection.getBalance(pda);
+            const balance = await this.connection.getBalance(pda, 'processed');
             const rentExemptBalance = await this.connection.getMinimumBalanceForRentExemption(PUBLISHER_ACCOUNT_SIZE);
             const maxTransferable = balance - rentExemptBalance;
             return maxTransferable;
@@ -426,6 +453,33 @@ export class TorqueUserClient {
         try {
             const params = new URLSearchParams({ campaignId, handle });
             const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.share}?${params.toString()}`, {
+                method: 'GET',
+            });
+            return result;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error('There was an error getting the shared link data.');
+        }
+    }
+    /**
+     * ========================================================================
+     * USER PAYOUTS
+     * ========================================================================
+     */
+    /**
+     * Retrieves user's payout history from conversions.
+     *
+     * @returns {Promise<ApiShare>} The data associated with the shared link if the request is successful.
+     *
+     * @throws {Error} Throws an error there was an error getting the shared link data.
+     */
+    async getUserPayout() {
+        if (!this.client) {
+            throw new Error('The client is not initialized.');
+        }
+        try {
+            const result = await this.client.apiFetch(`${TORQUE_API_ROUTES.userPayout}/${this.publicKey}`, {
                 method: 'GET',
             });
             return result;

@@ -7,7 +7,7 @@ import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
  * It provides methods for performing API requests and handling responses.
  *
  * @example
- * const client = new TorqueRequestClient(signer, apiKey);
+ * const client = new TorqueRequestClient(<options>);
  *
  * const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
  */
@@ -15,6 +15,9 @@ export class TorqueRequestClient {
     apiKey;
     apiAuthHeader;
     signer;
+    apiUrl;
+    appUrl;
+    functionsUrl;
     /**
      * Create a new instance of the TorqueRequestClient class.
      *
@@ -23,12 +26,16 @@ export class TorqueRequestClient {
      *
      * @throws {Error} Throws an error if a signer is not provided.
      */
-    constructor(signer, apiKey) {
+    constructor(options) {
+        const { signer, apiKey, apiUrl, appUrl, functionsUrl } = options;
         if (!signer) {
             throw new Error('You need to provide a SignerWalletAdapter or Keypair in the signer parameter.');
         }
         this.signer = signer;
         this.apiKey = apiKey;
+        this.apiUrl = apiUrl ?? 'https://api.torque.so';
+        this.appUrl = appUrl ?? 'https://app.torque.so';
+        this.functionsUrl = functionsUrl ?? 'https://functions.torque.so';
         this.apiAuthHeader = apiKey
             ? {
                 'x-torque-api-key': `${this.apiKey}`,
@@ -47,7 +54,7 @@ export class TorqueRequestClient {
      *
      * @throws {Error} If there is an error performing the request.
      */
-    async anyFetch(url, options) {
+    static async anyFetch(url, options) {
         const reqOptions = {
             ...options,
             mode: 'cors',
@@ -78,7 +85,7 @@ export class TorqueRequestClient {
      *
      * @throws {Error} If there is an error performing the request.
      */
-    async apiFetch(url, options) {
+    async apiFetch(url, options, supressError = false) {
         const reqOptions = {
             credentials: 'include',
             ...options,
@@ -89,8 +96,9 @@ export class TorqueRequestClient {
             },
         };
         try {
+            const fetchUrl = `${this.apiUrl}${url}`;
             // TODO: Setup request caching
-            const response = await fetch(url, reqOptions);
+            const response = await fetch(fetchUrl, reqOptions);
             const result = (await response.json());
             if (result.status === 'SUCCESS') {
                 return result.data;
@@ -100,7 +108,9 @@ export class TorqueRequestClient {
             }
         }
         catch (error) {
-            console.error(error);
+            if (!supressError) {
+                console.error(error);
+            }
             throw new Error('There was an error performing the request.');
         }
     }
@@ -118,7 +128,6 @@ export class TorqueRequestClient {
      */
     async functionsFetch(url, options) {
         const reqOptions = {
-            credentials: 'include',
             ...options,
             headers: {
                 'Content-Type': 'application/json',
@@ -127,8 +136,9 @@ export class TorqueRequestClient {
             },
         };
         try {
+            const fetchUrl = `${this.functionsUrl}${url}`;
             // TODO: Setup request caching
-            const response = await fetch(url, reqOptions);
+            const response = await fetch(fetchUrl, reqOptions);
             const result = (await response.json());
             return result;
         }
@@ -148,7 +158,7 @@ export class TorqueRequestClient {
      *
      * @throws {Error} Throws an error if the API is not able to build the transaction.
      */
-    async buildTransaction(txnInput) {
+    async buildTransaction(txnInput, token) {
         const data = {
             ...(txnInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnInput.data } : {}),
             ...(txnInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnInput.data } : {}),
@@ -163,6 +173,9 @@ export class TorqueRequestClient {
             const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
                 method: 'POST',
                 body: JSON.stringify({ ...data }),
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
             return txn;
         }
@@ -180,7 +193,7 @@ export class TorqueRequestClient {
      *
      * @throws {Error} Throws an error if the API request is unsuccessful or if the transaction fails.
      */
-    async executeTransaction(txnExecuteInput) {
+    async executeTransaction(txnExecuteInput, token) {
         const data = {
             ...(txnExecuteInput.txnType === ApiTxnTypes.CampaignCreate
                 ? { createCampaign: txnExecuteInput.data }
@@ -199,6 +212,10 @@ export class TorqueRequestClient {
             const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.execute, {
                 method: 'POST',
                 body: JSON.stringify({ ...data }),
+                headers: {
+                    // todo: remove if token is undefined
+                    Authorization: `Bearer ${token}`,
+                },
             });
             return txn;
         }
@@ -214,14 +231,14 @@ export class TorqueRequestClient {
      *
      * @param {TxnInput} txnInput - The input object of the transaction to process.
      *
-     * @returns {Promise<T & { signature: string }>} A promise that resolves with the signature of the transaction.
+     * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
      */
-    async transaction(txnInput) {
+    async transaction(txnInput, token) {
         if (!this.signer) {
             throw new Error('The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.');
         }
         try {
-            const { serializedTx, ...rest } = await this.buildTransaction(txnInput);
+            const { serializedTx, ...rest } = await this.buildTransaction(txnInput, token);
             const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
             const signedTx = 'signTransaction' in this.signer
                 ? await this.signer.signTransaction(txn)
@@ -235,7 +252,7 @@ export class TorqueRequestClient {
                     ...rest,
                 },
             };
-            const { signature } = await this.executeTransaction(executeInput);
+            const { signature } = await this.executeTransaction(executeInput, token);
             return { signature, ...rest };
         }
         catch (error) {

@@ -13,6 +13,9 @@ export type TorqueSDKOptions = {
     apiKey?: string;
     publisherHandle?: string;
     rpc?: string;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
 };
 /**
  * The official Torque Typescript SDK.
@@ -41,6 +44,10 @@ export declare class TorqueSDK {
     private apiKey;
     private publisherHandle;
     private rpc;
+    private apiUrl;
+    private appUrl;
+    private functionsUrl;
+    private initialized;
     /**
      * Initializes the TorqueSDK with the provided options.
      *
@@ -51,26 +58,35 @@ export declare class TorqueSDK {
     constructor(options: TorqueSDKOptions);
     initialize(signer: Adapter | Keypair, ApiInputLogin?: ApiInputLogin): Promise<void>;
     /**
+     * Logout the user from the Torque API.
+     *
+     * @throws {Error} Throws an error if the client is not initialized or if there is an error logging out the user.
+     */
+    logout(): Promise<void>;
+    /**
      * Static method to verify the login options with the Torque API.
      *
      * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
+     * @param {string} apiUrl - The API URL to use for the verification. Defaults to the Torque API URL.
      *
      * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
      *
      * @throws {Error} Throws an error if there is an error authenticating the user.
      */
-    static verifyLogin(loginOptions: ApiInputLogin): Promise<ApiVerifiedUser>;
+    static verifyLogin(loginOptions: ApiInputLogin, apiUrl?: string): Promise<ApiVerifiedUser>;
     /**
      * AUTHENTICATION HELPER METHODS
      */
     /**
      * Retrieves a sample SIWS payload for l ogging into the Torque API.
      *
+     * @param {string} apiUrl - The API URL to use for the payload. Defaults to the Torque API URL.
+     *
      * @returns {Promise<ApiIdentifyPayload>} A Promise that resolves to the payload containing the identification statement, issued at time, and expiration time.
      *
      * @throws {Error} Throws an error if the API request is unsuccessful.
      */
-    static getLoginPayload(): Promise<ApiIdentifyPayload>;
+    static getLoginPayload(apiUrl?: string): Promise<ApiIdentifyPayload>;
     /**
      * Constructs the body for the login API request based on the authentication type.
      *

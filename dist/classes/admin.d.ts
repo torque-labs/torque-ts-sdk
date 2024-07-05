@@ -1,7 +1,7 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Keypair } from '@solana/web3.js';
 import { TorqueUserClient } from './user.js';
-import { ApiCampaign, ApiCampaignLeaderboard, ApiRaffleRewards, CampaignCreateInput, CampaignEndInput, SafeToken } from '../types/index.js';
+import { ApiAudience, ApiCampaign, ApiCampaignLeaderboard, Audience, CampaignCreateInput, CampaignEndInput, SafeToken, WithSignature, ApiRaffleRewards } from '../types/index.js';
 /**
  * Options for the TorqueAdminClient.
  */
@@ -9,6 +9,9 @@ export type TorqueAdminClientOptions = {
     signer: Adapter | Keypair;
     apiKey: string;
     userClient: TorqueUserClient;
+    apiUrl?: string;
+    appUrl?: string;
+    functionsUrl?: string;
 };
 /**
  * The TorqueAdminClient class is used to manage admin actions in the Torque API.
@@ -22,13 +25,14 @@ export type TorqueAdminClientOptions = {
 export declare class TorqueAdminClient {
     private client;
     private userClient;
-    tokenList: SafeToken[] | undefined;
+    static tokenList: SafeToken[] | undefined;
     /**
      * Create a new instance of the TorqueAdminClient class with the provided API key.
      *
      * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
      */
     constructor(options: TorqueAdminClientOptions);
+    logout(): Promise<void>;
     /**
      * ========================================================================
      * CAMPAIGNS
@@ -49,27 +53,19 @@ export declare class TorqueAdminClient {
      *
      * @param {CampaignCreateInput} data - The data for the campaign to create.
      *
-     * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+     * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
      */
-    createCampaign(data: CampaignCreateInput): Promise<{
-        signature: string;
-    } & Omit<{
-        serializedTx: string;
-    }, "serializedTx">>;
+    createCampaign(data: CampaignCreateInput): Promise<WithSignature<unknown>>;
     /**
      * End a campaign using the provided campaign ID.
      *
      * @param {CampaignEndInput} data - The ID of the campaign to end.
      *
-     * @returns {Promise<string>} A promise that resolves to the signature of the transaction.
+     * @returns {Promise<WithSignature<any>>} A promise that resolves to the signature of the transaction.
      *
      * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
      */
-    endCampaign(data: CampaignEndInput): Promise<{
-        signature: string;
-    } & Omit<{
-        serializedTx: string;
-    }, "serializedTx">>;
+    endCampaign(data: CampaignEndInput): Promise<WithSignature<unknown>>;
     /**
      * Get the leaderboard for a specific campaign.
      *
@@ -113,7 +109,9 @@ export declare class TorqueAdminClient {
         amount: number;
     }): Promise<string>;
     /**
+     * ========================================================================
      * DATA
+     * ========================================================================
      */
     /**
      * Retrieves the list of safe tokens from the Jupiter ag.
@@ -124,6 +122,51 @@ export declare class TorqueAdminClient {
      *
      * @throws {Error} If the client is not initialized or there was an error fetching the safe token list.
      */
-    getSafeTokenList(filter?: string): Promise<SafeToken[]>;
+    static getSafeTokenList(filter?: string, apiUrl?: string): Promise<SafeToken[]>;
+    /**
+     * ========================================================================
+     * AUDIENCES
+     * ========================================================================
+     */
+    /**
+     * Get an audience by ID.
+     *
+     * @param {string} id - The ID of the audience to fetch.
+     *
+     * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
+     *
+     * @throws {Error} If the client is not initialized or there was an error getting the audience.
+     */
+    getAudience(id: string): Promise<ApiAudience>;
+    /**
+     * Get a list of the user's saved audiences.
+     *
+     * @returns {Promise<ApiAudience[]>} A promise that resolves to an array of Audiences.
+     *
+     * @throws {Error} If the client is not initialized or there was an error getting the audiences.
+     */
+    getAudiences(): Promise<{
+        audiences: ApiAudience[];
+    }>;
+    /**
+     * Save an audience to the user's account.
+     *
+     * @param {Audience} config - The configuration of the audience to save.
+     * @param {string} title - The title of the audience.
+     * @param {string} [description] - An optional description of the audience.
+     *
+     * @returns {Promise<{ audienceId: string }>} A promise that resolves to the id of the saved audience.
+     *
+     * @throws {Error} If the client is not initialized or there was an error saving the audience.
+     */
+    saveAudience(config: Audience, title: string, description?: string): Promise<{
+        audienceId: string;
+    }>;
+    updateAudience(id: string, config: Audience, title?: string, description?: string): Promise<{
+        audienceId: string;
+    }>;
+    deleteAudience(id: string): Promise<{
+        audienceId: string;
+    }>;
 }
 //# sourceMappingURL=admin.d.ts.map
