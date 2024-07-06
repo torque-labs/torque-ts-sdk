@@ -66,6 +66,7 @@ const config: Config = {
 
   themeConfig: {
     // TOOD: Add social metatags
+    noSkipToContent: true,
     image: 'img/torque-logo.jpg',
     navbar: {
       title: 'Torque Labs',
