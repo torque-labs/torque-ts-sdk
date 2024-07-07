@@ -109,6 +109,7 @@ export type ApiAudience = {
     title: string;
     config: object;
     description?: string;
+    global: boolean;
 };
 /**
  * Share link data.
