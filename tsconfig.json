@@ -8,7 +8,6 @@
     "module": "NodeNext",
     "target": "ES2022",
     "isolatedModules": true,
-    "incremental": true,
     "declaration": true,
     "rootDir": "./src",
     "outDir": "./dist",
