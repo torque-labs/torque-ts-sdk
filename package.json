@@ -21,7 +21,8 @@
     "typecheck": "tsc --noEmit --pretty",
     "prepare": "husky",
     "test-local": "jest --testTimeout=100000",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "repository": {
     "type": "git",
