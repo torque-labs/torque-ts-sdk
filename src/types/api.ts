@@ -221,7 +221,7 @@ export type ApiUserPayout = {
   payouts: {
     amount: number;
     id: string;
-    campaignId: string;
+    campaign: ApiCampaign;
     userPubKey: string;
     tokenAddress: string;
     payoutTx: string | null;
