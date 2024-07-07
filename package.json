@@ -2,7 +2,7 @@
   "displayName": "Torque TypeScript SDK",
   "name": "@torque-labs/torque-ts-sdk",
   "author": "Torque Labs",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "The official Torque TypeScript SDK.",
   "license": "MIT",
   "type": "module",
@@ -22,7 +22,8 @@
     "prepare": "husky",
     "test-local": "jest --testTimeout=100000",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
