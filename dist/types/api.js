@@ -26,6 +26,7 @@ export var ApiRewardType;
 (function (ApiRewardType) {
     ApiRewardType["POINTS"] = "POINTS";
     ApiRewardType["TOKENS"] = "TOKENS";
+    ApiRewardType["ASYMMETRIC_REWARDS"] = "ASYMMETRIC_REWARDS";
 })(ApiRewardType || (ApiRewardType = {}));
 /**
  * Torque functions that require a wallet signature.

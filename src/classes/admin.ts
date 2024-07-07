@@ -326,7 +326,7 @@ export class TorqueAdminClient {
     }
 
     try {
-      const fetchUrl = `${apiUrl}${TORQUE_API_ROUTES.tokens}`;
+      const fetchUrl = `${apiUrl ?? 'https://api.torque.so'}${TORQUE_API_ROUTES.tokens}`;
 
       const response = await TorqueRequestClient.anyFetch<ApiResponse<{ tokens: SafeToken[] }>>(
         fetchUrl,

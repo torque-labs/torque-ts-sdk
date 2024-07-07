@@ -245,7 +245,7 @@ export class TorqueAdminClient {
                 : this.tokenList.filter((token) => token.name.toLowerCase().includes(filter));
         }
         try {
-            const fetchUrl = `${apiUrl}${TORQUE_API_ROUTES.tokens}`;
+            const fetchUrl = `${apiUrl ?? 'https://api.torque.so'}${TORQUE_API_ROUTES.tokens}`;
             const response = await TorqueRequestClient.anyFetch(fetchUrl, {
                 method: 'GET',
             });

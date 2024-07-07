@@ -1,4 +1,7 @@
 import { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features';
+import { NftCollectionTradeAction, SwapAction } from '@torque-labs/torque-utils';
+
+import { Audience } from './audience.js';
 
 /**
  * The API response success type.
@@ -27,6 +30,7 @@ export enum ApiEventType {
 export enum ApiRewardType {
   POINTS = 'POINTS',
   TOKENS = 'TOKENS',
+  ASYMMETRIC_REWARDS = 'ASYMMETRIC_REWARDS',
 }
 
 /**
@@ -234,3 +238,58 @@ export enum ApiTxnTypes {
   PublisherPayout = 'PublisherPayout',
   PublisherCreate = 'PublisherCreate',
 }
+
+/**
+ * Swap action bounty step requirements.
+ */
+type OfferSwapAction = {
+  type: ApiEventType.SWAP;
+  eventConfig: SwapAction;
+};
+
+/**
+ * NFT collection trade action bounty step requirements.
+ */
+type OfferNFTTradeAction = {
+  type: ApiEventType.NFT_COLLECTION_TRADE;
+  eventConfig: NftCollectionTradeAction;
+};
+
+/**
+ * Full bounty step requirement type.
+ */
+export type ApiRequirement = OfferSwapAction | OfferNFTTradeAction;
+
+/**
+ * Campaign data with bounty steps.
+ */
+export type ApiBountySteps = {
+  campaign: {
+    type: string;
+    status: string;
+    id: string;
+    pubKey: string;
+    title: string;
+    advertiserPubKey: string;
+    startTime: Date;
+    endTime: Date;
+    totalConversions: number;
+    remainingConversions: number;
+    imageUrl?: string;
+    description?: string;
+    targetLink?: string;
+    userRewardToken?: string;
+    userRewardAmount: string;
+    userRewardType: ApiRewardType;
+    publisherRewardToken?: string;
+    publisherRewardAmount?: number;
+    publisherRewardType: ApiRewardType;
+    asymmetricRewards: { tokenAddress: string; amount: string }[];
+    audiences: {
+      id: string;
+      title: string;
+      config: Audience[];
+    }[];
+    requirements: ApiRequirement[];
+  };
+};
