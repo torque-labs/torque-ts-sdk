@@ -134,6 +134,7 @@ export type ApiShare = {
       twitter?: string | null;
       profileImage?: string | null;
     };
+    imageUrl?: string;
   };
   publisher: {
     username: string | null;
