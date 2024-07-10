@@ -1,5 +1,9 @@
 import { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-features';
-import { NftCollectionTradeAction, SwapAction } from '@torque-labs/torque-utils';
+import {
+  NftCollectionTradeAction,
+  SwapAction,
+  HedgehogPlaceBetAction,
+} from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
 
@@ -22,6 +26,7 @@ export enum ApiEventType {
   CLICK = 'CLICK',
   SWAP = 'SWAP',
   NFT_COLLECTION_TRADE = 'NFT_COLLECTION_TRADE',
+  HEDGEHOG_PLACE_BET = 'HEDGEHOG_PLACE_BET',
 }
 
 /**
@@ -258,9 +263,17 @@ type OfferNFTTradeAction = {
 };
 
 /**
+ * Hedgehog bet action bounty step requirements.
+ */
+type OfferHedgehogBetAction = {
+  type: ApiEventType.HEDGEHOG_PLACE_BET;
+  eventConfig: HedgehogPlaceBetAction;
+};
+
+/**
  * Full bounty step requirement type.
  */
-export type ApiRequirement = OfferSwapAction | OfferNFTTradeAction;
+export type ApiRequirement = OfferSwapAction | OfferNFTTradeAction | OfferHedgehogBetAction;
 
 /**
  * Campaign data with bounty steps.
