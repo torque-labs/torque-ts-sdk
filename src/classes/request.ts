@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair, VersionedTransaction } from '@solana/web3.js';
+import { Connection, Keypair, VersionedTransaction } from '@solana/web3.js';
 
 import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
@@ -15,6 +15,13 @@ import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
 /**
  * Options for the TorqueRequestClient.
+ *
+ * @property {Adapter | Keypair} signer - The signer used to sign transactions.
+ * @property {string} [apiKey] - The API key for the client.
+ * @property {string} [apiUrl] - The API URL for the client.
+ * @property {string} [appUrl] - The app URL for the client.
+ * @property {string} [functionsUrl] - The functions URL for the client.
+ * @property {Connection} [connection] - The connection for the client.
  */
 export type TorqueRequestOptions = {
   signer: Adapter | Keypair;
@@ -22,6 +29,7 @@ export type TorqueRequestOptions = {
   apiUrl?: string;
   appUrl?: string;
   functionsUrl?: string;
+  connection?: Connection;
 };
 
 /**
@@ -40,6 +48,7 @@ export class TorqueRequestClient {
   private apiUrl: string;
   private appUrl: string;
   private functionsUrl: string;
+  private connection: Connection | undefined;
 
   /**
    * Create a new instance of the TorqueRequestClient class.
@@ -50,7 +59,7 @@ export class TorqueRequestClient {
    * @throws {Error} Throws an error if a signer is not provided.
    */
   constructor(options: TorqueRequestOptions) {
-    const { signer, apiKey, apiUrl, appUrl, functionsUrl } = options;
+    const { signer, apiKey, apiUrl, appUrl, functionsUrl, connection } = options;
 
     if (!signer) {
       throw new Error(
@@ -63,6 +72,7 @@ export class TorqueRequestClient {
     this.apiUrl = apiUrl ?? 'https://api.torque.so';
     this.appUrl = appUrl ?? 'https://app.torque.so';
     this.functionsUrl = functionsUrl ?? 'https://functions.torque.so';
+    this.connection = connection;
     this.apiAuthHeader = apiKey
       ? {
           'x-torque-api-key': `${this.apiKey}`,

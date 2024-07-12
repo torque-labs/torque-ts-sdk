@@ -1,6 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { SolanaSignInOutput } from '@solana/wallet-standard-features';
-import { Keypair } from '@solana/web3.js';
+import { Cluster, Keypair } from '@solana/web3.js';
 
 import { TorqueAdminClient } from './admin.js';
 import { TorqueAudienceClient } from './audience.js';
@@ -10,6 +10,15 @@ import { ApiIdentifyPayload, ApiInputLogin, ApiResponse, ApiVerifiedUser } from 
 
 /**
  * Options for the TorqueSDK.
+ *
+ * @property {Adapter | Keypair} [signer] - The signer used to sign transactions.
+ * @property {string} [apiKey] - The API key for the client.
+ * @property {string} [publisherHandle] - The publisher handle for the client. Defaults to 'torqueprotocol'.
+ * @property {string} [rpc] - The RPC URL for the client. Defaults to the Solana mainnet-beta cluster.
+ * @property {string} [apiUrl] - The API URL for the client.
+ * @property {string} [appUrl] - The app URL for the client.
+ * @property {string} [functionsUrl] - The functions URL for the client.
+ * @property {Cluster} [network] - The network for the client. Defaults to 'mainnet-beta'.
  */
 export type TorqueSDKOptions = {
   signer?: Adapter | Keypair;
@@ -19,6 +28,7 @@ export type TorqueSDKOptions = {
   apiUrl?: string;
   appUrl?: string;
   functionsUrl?: string;
+  network?: Cluster;
 };
 
 /**
@@ -52,6 +62,7 @@ export class TorqueSDK {
   private appUrl: string | undefined;
   private functionsUrl: string | undefined;
   private initialized: boolean = false;
+  private network: Cluster;
 
   /**
    * Initializes the TorqueSDK with the provided options.
@@ -71,6 +82,7 @@ export class TorqueSDK {
     this.apiUrl = options.apiUrl;
     this.appUrl = options.appUrl;
     this.functionsUrl = options.functionsUrl;
+    this.network = options.network ?? 'mainnet-beta';
   }
 
   public async initialize(signer: Adapter | Keypair, ApiInputLogin?: ApiInputLogin) {
@@ -81,6 +93,7 @@ export class TorqueSDK {
       apiUrl: this.apiUrl,
       appUrl: this.appUrl,
       functionsUrl: this.functionsUrl,
+      network: this.network,
     });
 
     this.user = userClient;

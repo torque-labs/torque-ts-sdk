@@ -8,6 +8,13 @@ import { Audience, AudienceBuild, AudienceBuildResponse } from '../types/index.j
 
 /**
  * Options for the TorqueAudienceClient.
+ *
+ * @property {Adapter | Keypair} signer - The signer used to sign transactions.
+ * @property {string} apiKey - The API key for the client.
+ * @property {TorqueUserClient} userClient - The user client for the client.
+ * @property {string} [apiUrl] - The API URL for the client.
+ * @property {string} [appUrl] - The app URL for the client.
+ * @property {string} [functionsUrl] - The functions URL for the client.
  */
 export type TorqueAudienceClientOptions = {
   signer: Adapter | Keypair;

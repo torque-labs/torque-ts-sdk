@@ -18,6 +18,14 @@ import {
 
 /**
  * Options for the TorqueUserClient.
+ *
+ * @property {Adapter | Keypair} signer - The signer used to sign transactions.
+ * @property {string} [publisherHandle] - The publisher handle for the client. Defaults to 'torqueprotocol'.
+ * @property {string} [rpc] - The RPC URL for the client.
+ * @property {string} [apiUrl] - The API URL for the client.
+ * @property {string} [appUrl] - The app URL for the client.
+ * @property {string} [functionsUrl] - The functions URL for the client.
+ * @property {Cluster} network - The network for the client.
  */
 export type TorqueUserClientOptions = {
   signer: Adapter | Keypair;
@@ -26,7 +34,7 @@ export type TorqueUserClientOptions = {
   apiUrl?: string;
   appUrl?: string;
   functionsUrl?: string;
-  network?: Cluster;
+  network: Cluster;
 };
 
 /**
@@ -68,15 +76,20 @@ export class TorqueUserClient {
       throw new Error('The wallet/signer provided does not have a public key.');
     }
 
-    const solanaNetwork = network ?? 'devnet';
-
-    this.client = new TorqueRequestClient({ signer, apiUrl, appUrl, functionsUrl });
     this.publicKey = signer.publicKey.toString();
     this.publisherHandle = publisherHandle ?? 'torqueprotocol';
     this.signer = signer;
-    this.connection = new Connection(rpc ?? clusterApiUrl(solanaNetwork), 'confirmed');
+    this.connection = new Connection(rpc ?? clusterApiUrl(network), 'confirmed');
     this.appUrl = appUrl ?? 'https://app.torque.so';
     this.apiUrl = apiUrl ?? 'https://api.torque.so';
+
+    this.client = new TorqueRequestClient({
+      signer,
+      apiUrl,
+      appUrl,
+      functionsUrl,
+      connection: this.connection,
+    });
   }
 
   /**
