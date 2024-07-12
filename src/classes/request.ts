@@ -15,20 +15,31 @@ import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
 
 /**
  * Options for the TorqueRequestClient.
- *
- * @property {Adapter | Keypair} signer - The signer used to sign transactions.
- * @property {string} [apiKey] - The API key for the client.
- * @property {string} [apiUrl] - The API URL for the client.
- * @property {string} [appUrl] - The app URL for the client.
- * @property {string} [functionsUrl] - The functions URL for the client.
- * @property {Connection} [connection] - The connection for the client.
  */
 export type TorqueRequestOptions = {
+  /**
+   * The signer used to sign transactions.
+   */
   signer: Adapter | Keypair;
+  /**
+   * The API key for the client.
+   */
   apiKey?: string;
+  /**
+   * The API URL for the client.
+   */
   apiUrl?: string;
+  /**
+   * The app URL for the client.
+   */
   appUrl?: string;
+  /**
+   * The functions URL for the client.
+   */
   functionsUrl?: string;
+  /**
+   * The connection for the client.
+   */
   connection?: Connection;
 };
 

@@ -20,20 +20,31 @@ import {
 
 /**
  * Options for the TorqueAdminClient.
- *
- * @property {Adapter | Keypair} signer - The signer used to sign transactions.
- * @property {string} apiKey - The API key for the client.
- * @property {TorqueUserClient} userClient - The user client for the client.
- * @property {string} [apiUrl] - The API URL for the client.
- * @property {string} [appUrl] - The app URL for the client.
- * @property {string} [functionsUrl] - The functions URL for the client.
  */
 export type TorqueAdminClientOptions = {
+  /**
+   * The signer used to sign transactions.
+   */
   signer: Adapter | Keypair;
+  /**
+   * The API key for the client.
+   */
   apiKey: string;
+  /**
+   * The user client for the user based API requests.
+   */
   userClient: TorqueUserClient;
+  /**
+   * The API URL for the client.
+   */
   apiUrl?: string;
+  /**
+   * The app URL for the client.
+   */
   appUrl?: string;
+  /**
+   * The functions URL for the client.
+   */
   functionsUrl?: string;
 };
 

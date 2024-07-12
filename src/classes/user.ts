@@ -18,22 +18,35 @@ import {
 
 /**
  * Options for the TorqueUserClient.
- *
- * @property {Adapter | Keypair} signer - The signer used to sign transactions.
- * @property {string} [publisherHandle] - The publisher handle for the client. Defaults to 'torqueprotocol'.
- * @property {string} [rpc] - The RPC URL for the client.
- * @property {string} [apiUrl] - The API URL for the client.
- * @property {string} [appUrl] - The app URL for the client.
- * @property {string} [functionsUrl] - The functions URL for the client.
- * @property {Cluster} network - The network for the client.
  */
 export type TorqueUserClientOptions = {
+  /**
+   * The signer used to sign transactions.
+   */
   signer: Adapter | Keypair;
+  /**
+   * The publisher handle for the client. Defaults to 'torqueprotocol'.
+   */
   publisherHandle?: string;
+  /**
+   * RPC URL for the client.
+   */
   rpc?: string;
+  /**
+   * API URL for the client.
+   */
   apiUrl?: string;
+  /**
+   * App URL for the client.
+   */
   appUrl?: string;
+  /**
+   * Functions URL for the client.
+   */
   functionsUrl?: string;
+  /**
+   * The network for the client. Defaults to 'mainnet-beta'.
+   */
   network: Cluster;
 };
 
