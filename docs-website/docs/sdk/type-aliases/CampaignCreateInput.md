@@ -150,4 +150,4 @@ optional userTokenAddress: string;
 
 ## Source
 
-[src/types/transactions.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/transactions.ts#L15)
+[src/types/transactions.ts:15](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/types/transactions.ts#L15)

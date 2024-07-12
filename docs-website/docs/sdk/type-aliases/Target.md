@@ -8,4 +8,4 @@ The target of an audience.
 
 ## Source
 
-[src/types/audience.ts:205](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/audience.ts#L205)
+[src/types/audience.ts:205](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/types/audience.ts#L205)
