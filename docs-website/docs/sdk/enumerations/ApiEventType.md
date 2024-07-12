@@ -6,10 +6,7 @@ On-chain event types for the API.
 
 | Enumeration Member | Value |
 | :------ | :------ |
-| `ADD_LIQUIDITY` | `"ADD_LIQUIDITY"` |
-| `CAST_VOTE` | `"CAST_VOTE"` |
 | `CLICK` | `"CLICK"` |
-| `COMPRESSED_NFT_MINT` | `"COMPRESSED_NFT_MINT"` |
-| `INTERACT` | `"INTERACT"` |
-| `SIGN_UP` | `"SIGN_UP"` |
+| `HEDGEHOG_PLACE_BET` | `"HEDGEHOG_PLACE_BET"` |
+| `NFT_COLLECTION_TRADE` | `"NFT_COLLECTION_TRADE"` |
 | `SWAP` | `"SWAP"` |

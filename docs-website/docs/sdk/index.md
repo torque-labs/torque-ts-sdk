@@ -10,6 +10,7 @@ The official Torque Client TypeScript SDK.
 | :------ | :------ |
 | [ActionType](enumerations/ActionType.md) | The type of action that will be used to filter the addresses for a target. |
 | [ApiEventType](enumerations/ApiEventType.md) | On-chain event types for the API. |
+| [ApiProgressStatus](enumerations/ApiProgressStatus.md) | Campaign journey progress status. |
 | [ApiRewardType](enumerations/ApiRewardType.md) | The rewards type of a campaign. |
 | [ApiStatus](enumerations/ApiStatus.md) | The API response success type. |
 | [ApiTxnTypes](enumerations/ApiTxnTypes.md) | Torque functions that require a wallet signature. |
@@ -37,18 +38,22 @@ The official Torque Client TypeScript SDK.
 | [ApiAudience](type-aliases/ApiAudience.md) | Audience data. |
 | [ApiAudienceCreateInput](type-aliases/ApiAudienceCreateInput.md) | Audience creation input. |
 | [ApiAudienceResponse](type-aliases/ApiAudienceResponse.md) | Audience creation response. |
+| [ApiBountySteps](type-aliases/ApiBountySteps.md) | Campaign data with bounty steps. |
 | [ApiCampaign](type-aliases/ApiCampaign.md) | Campaign data. |
+| [ApiCampaignJourney](type-aliases/ApiCampaignJourney.md) | A user's campaign journey data. |
 | [ApiCampaignLeaderboard](type-aliases/ApiCampaignLeaderboard.md) | Campaign leaderboard data. |
 | [ApiIdentifyPayload](type-aliases/ApiIdentifyPayload.md) | Payload returned from the API as a sample payload for sign in. |
 | [ApiInputLogin](type-aliases/ApiInputLogin.md) | Input login options for the API. |
 | [ApiLinks](type-aliases/ApiLinks.md) | An array of the user's share links. |
 | [ApiRaffleRewards](type-aliases/ApiRaffleRewards.md) | Raffle rewards data. |
+| [ApiRequirement](type-aliases/ApiRequirement.md) | Full bounty step requirement type. |
 | [ApiResponse](type-aliases/ApiResponse.md) | Generic response for an API request. |
 | [ApiResponseError](type-aliases/ApiResponseError.md) | Generic error response for the API. |
 | [ApiResponseSuccess](type-aliases/ApiResponseSuccess.md) | Generic success response for the API. |
 | [ApiShare](type-aliases/ApiShare.md) | Share link data. |
 | [ApiUser](type-aliases/ApiUser.md) | A Torque user. |
 | [ApiUserJourney](type-aliases/ApiUserJourney.md) | A user's journey data. |
+| [ApiUserPayout](type-aliases/ApiUserPayout.md) | User Payout data. |
 | [ApiVerifiedUser](type-aliases/ApiVerifiedUser.md) | A verified Torque user. |
 | [Audience](type-aliases/Audience.md) | Audiences are used to define the conditions under which a user can participate in a campaign. |
 | [AudienceBuild](type-aliases/AudienceBuild.md) | Build audience request options. |
@@ -79,6 +84,7 @@ The official Torque Client TypeScript SDK.
 | [TokenHoldingTarget](type-aliases/TokenHoldingTarget.md) | A token holding target for an audience. |
 | [TorqueAdminClientOptions](type-aliases/TorqueAdminClientOptions.md) | Options for the TorqueAdminClient. |
 | [TorqueAudienceClientOptions](type-aliases/TorqueAudienceClientOptions.md) | Options for the TorqueAudienceClient. |
+| [TorqueRequestOptions](type-aliases/TorqueRequestOptions.md) | Options for the TorqueRequestClient. |
 | [TorqueSDKOptions](type-aliases/TorqueSDKOptions.md) | Options for the TorqueSDK. |
 | [TorqueUserClientOptions](type-aliases/TorqueUserClientOptions.md) | Options for the TorqueUserClient. |
 | [TxnExecute](type-aliases/TxnExecute.md) | On-chain transaction execute input. |
@@ -86,3 +92,4 @@ The official Torque Client TypeScript SDK.
 | [TxnInput](type-aliases/TxnInput.md) | On-chain transaction build input |
 | [VoteAction](type-aliases/VoteAction.md) | Parameters for a vote action. |
 | [VoteActionRequirements](type-aliases/VoteActionRequirements.md) | Vote action requirements. |
+| [WithSignature](type-aliases/WithSignature.md) | - |

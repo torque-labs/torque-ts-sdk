@@ -33,25 +33,22 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Source
 
-[src/classes/admin.ts:43](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L43)
+[src/classes/admin.ts:59](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L59)
 
 ## Properties
 
 | Property | Modifier | Type |
 | :------ | :------ | :------ |
 | `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) |
-| `userClient` | `private` | [`TorqueUserClient`](TorqueUserClient.md) |
+| `userClient` | `private` | `undefined` \| [`TorqueUserClient`](TorqueUserClient.md) |
+| `tokenList` | `static` | `undefined` \| [`SafeToken`](../type-aliases/SafeToken.md)[] |
 
 ## Methods
 
 ### createCampaign()
 
 ```ts
-createCampaign(data): Promise<{
-  signature: string;
- } & Omit<{
-  serializedTx: string;
-}, "serializedTx">>
+createCampaign(data): Promise<SignatureField>
 ```
 
 Create a new campaign with the provided data.
@@ -61,6 +58,7 @@ Create a new campaign with the provided data.
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `data` | `object` | The data for the campaign to create. |
+| `data.asymmetricRewards`? | `null` \| \{ `amount`: `number`; `tokenAddress`: `string`; \}[] | - |
 | `data.audience`? | `null` \| `string` | - |
 | `data.campaignName` | `string` | - |
 | `data.campaignType` | `string` | - |
@@ -77,33 +75,65 @@ Create a new campaign with the provided data.
 | `data.publisherTokenAddress`? | `string` | - |
 | `data.startTime` | `number` | - |
 | `data.userPayoutPerConversion`? | `number` | - |
-| `data.userRewardType`? | `POINTS` \| `TOKENS` | - |
+| `data.userRewardType`? | `POINTS` \| `TOKENS` \| `ASYMMETRIC_REWARDS` | - |
 | `data.userTokenAddress`? | `string` | - |
 
 #### Returns
 
-`Promise`\<\{
-  `signature`: `string`;
- \} & `Omit`\<\{
-  `serializedTx`: `string`;
- \}, `"serializedTx"`\>\>
+`Promise`\<`SignatureField`\>
 
-A promise that resolves to the signature of the transaction.
+A promise that resolves with the signature of the transaction.
 
 #### Source
 
-[src/classes/admin.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L93)
+[src/classes/admin.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L115)
+
+***
+
+### deleteAudience()
+
+```ts
+deleteAudience(id): Promise<{
+  audienceId: string;
+}>
+```
+
+Delete an existing audience.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The ID of the audience to delete. |
+
+#### Returns
+
+`Promise`\<\{
+  `audienceId`: `string`;
+ \}\>
+
+A promise that resolves to the deleted audience.
+
+##### audienceId
+
+```ts
+audienceId: string;
+```
+
+#### Throws
+
+If the client is not initialized or if there was an error deleting the audience.
+
+#### Source
+
+[src/classes/admin.ts:540](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L540)
 
 ***
 
 ### endCampaign()
 
 ```ts
-endCampaign(data): Promise<{
-  signature: string;
- } & Omit<{
-  serializedTx: string;
-}, "serializedTx">>
+endCampaign(data): Promise<SignatureField>
 ```
 
 End a campaign using the provided campaign ID.
@@ -117,11 +147,7 @@ End a campaign using the provided campaign ID.
 
 #### Returns
 
-`Promise`\<\{
-  `signature`: `string`;
- \} & `Omit`\<\{
-  `serializedTx`: `string`;
- \}, `"serializedTx"`\>\>
+`Promise`\<`SignatureField`\>
 
 A promise that resolves to the signature of the transaction.
 
@@ -131,7 +157,71 @@ Throws an error if the client is not initialized or if there is an error ending 
 
 #### Source
 
-[src/classes/admin.ts:122](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L122)
+[src/classes/admin.ts:150](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L150)
+
+***
+
+### getAudience()
+
+```ts
+getAudience(id): Promise<ApiAudience>
+```
+
+Get an audience by ID.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The ID of the audience to fetch. |
+
+#### Returns
+
+`Promise` \<[`ApiAudience`](../type-aliases/ApiAudience.md)\>
+
+A promise that resolves to an array of Audiences.
+
+#### Throws
+
+If the client is not initialized or there was an error getting the audience.
+
+#### Source
+
+[src/classes/admin.ts:376](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L376)
+
+***
+
+### getAudiences()
+
+```ts
+getAudiences(): Promise<{
+  audiences: ApiAudience[];
+}>
+```
+
+Get a list of the user's saved audiences.
+
+#### Returns
+
+`Promise`\<\{
+  `audiences`: [`ApiAudience`](../type-aliases/ApiAudience.md)[];
+ \}\>
+
+A promise that resolves to an array of Audiences.
+
+##### audiences
+
+```ts
+audiences: ApiAudience[];
+```
+
+#### Throws
+
+If the client is not initialized or there was an error getting the audiences.
+
+#### Source
+
+[src/classes/admin.ts:412](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L412)
 
 ***
 
@@ -151,7 +241,7 @@ Get a list of all currently active campaigns.
   `campaigns`: [`ApiCampaign`](../type-aliases/ApiCampaign.md)[];
  \}\>
 
-i
+A promise that resolves to an array of ApiCampaign objects.
 
 ##### campaigns
 
@@ -159,9 +249,13 @@ i
 campaigns: ApiCampaign[];
 ```
 
+#### Throws
+
+If the client is not initialized or there was an error getting the list of campaigns.
+
 #### Source
 
-[src/classes/admin.ts:61](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L61)
+[src/classes/admin.ts:83](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L83)
 
 ***
 
@@ -191,7 +285,7 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Source
 
-[src/classes/admin.ts:151](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L151)
+[src/classes/admin.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L184)
 
 ***
 
@@ -215,7 +309,23 @@ Throws an error if there was an error creating the publisher.
 
 #### Source
 
-[src/classes/admin.ts:217](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L217)
+[src/classes/admin.ts:250](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L250)
+
+***
+
+### logout()
+
+```ts
+logout(): Promise<void>
+```
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Source
+
+[src/classes/admin.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L66)
 
 ***
 
@@ -247,7 +357,7 @@ Throws an error if there was an error paying out the publisher.
 
 #### Source
 
-[src/classes/admin.ts:245](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L245)
+[src/classes/admin.ts:286](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L286)
 
 ***
 
@@ -275,4 +385,127 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Source
 
-[src/classes/admin.ts:181](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L181)
+[src/classes/admin.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L214)
+
+***
+
+### saveAudience()
+
+```ts
+saveAudience(
+   config, 
+   title, 
+   description?): Promise<{
+  audienceId: string;
+}>
+```
+
+Save an audience to the user's account.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`Audience`](../type-aliases/Audience.md) | The configuration of the audience to save. |
+| `title` | `string` | The title of the audience. |
+| `description`? | `string` | An optional description of the audience. |
+
+#### Returns
+
+`Promise`\<\{
+  `audienceId`: `string`;
+ \}\>
+
+A promise that resolves to the id of the saved audience.
+
+##### audienceId
+
+```ts
+audienceId: string;
+```
+
+#### Throws
+
+If the client is not initialized or there was an error saving the audience.
+
+#### Source
+
+[src/classes/admin.ts:452](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L452)
+
+***
+
+### updateAudience()
+
+```ts
+updateAudience(
+   id, 
+   config, 
+   title?, 
+   description?): Promise<{
+  audienceId: string;
+}>
+```
+
+Update an existing audience with the provided configuration.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `id` | `string` | The ID of the audience to update. |
+| `config` | [`Audience`](../type-aliases/Audience.md) | The configuration of the audience to update. |
+| `title`? | `string` | The title of the audience. |
+| `description`? | `string` | The description of the audience. |
+
+#### Returns
+
+`Promise`\<\{
+  `audienceId`: `string`;
+ \}\>
+
+A promise that resolves to the updated audience.
+
+##### audienceId
+
+```ts
+audienceId: string;
+```
+
+#### Throws
+
+If the client is not initialized or if there was an error updating the audience.
+
+#### Source
+
+[src/classes/admin.ts:497](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L497)
+
+***
+
+### getSafeTokenList()
+
+```ts
+static getSafeTokenList(filter?, apiUrl?): Promise<SafeToken[]>
+```
+
+Retrieves the list of safe tokens from the Jupiter ag.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `filter`? | `string` | An optional filter to filter the tokens by text. |
+| `apiUrl`? | `string` | - |
+
+#### Returns
+
+`Promise` \<[`SafeToken`](../type-aliases/SafeToken.md)[]\>
+
+A promise that resolves to an array of SafeToken objects.
+
+#### Throws
+
+If the client is not initialized or there was an error fetching the safe token list.
+
+#### Source
+
+[src/classes/admin.ts:328](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L328)

@@ -18,4 +18,4 @@ verified: boolean;
 
 ## Source
 
-[src/types/api.ts:154](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/types/api.ts#L154)
+[src/types/api.ts:167](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/api.ts#L167)

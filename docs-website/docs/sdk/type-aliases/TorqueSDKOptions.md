@@ -3,6 +3,10 @@
 ```ts
 type TorqueSDKOptions: {
   apiKey: string;
+  apiUrl: string;
+  appUrl: string;
+  functionsUrl: string;
+  network: Cluster;
   publisherHandle: string;
   rpc: string;
   signer: Adapter | Keypair;
@@ -19,6 +23,30 @@ Options for the TorqueSDK.
 optional apiKey: string;
 ```
 
+### apiUrl?
+
+```ts
+optional apiUrl: string;
+```
+
+### appUrl?
+
+```ts
+optional appUrl: string;
+```
+
+### functionsUrl?
+
+```ts
+optional functionsUrl: string;
+```
+
+### network?
+
+```ts
+optional network: Cluster;
+```
+
 ### publisherHandle?
 
 ```ts
@@ -31,12 +59,12 @@ optional publisherHandle: string;
 optional rpc: string;
 ```
 
-### signer
+### signer?
 
 ```ts
-signer: Adapter | Keypair;
+optional signer: Adapter | Keypair;
 ```
 
 ## Source
 
-[src/classes/sdk.ts:13](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/sdk.ts#L13)
+[src/classes/sdk.ts:23](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/sdk.ts#L23)

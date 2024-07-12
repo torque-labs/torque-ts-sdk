@@ -3,6 +3,9 @@
 ```ts
 type TorqueAdminClientOptions: {
   apiKey: string;
+  apiUrl: string;
+  appUrl: string;
+  functionsUrl: string;
   signer: Adapter | Keypair;
   userClient: TorqueUserClient;
 };
@@ -16,6 +19,24 @@ Options for the TorqueAdminClient.
 
 ```ts
 apiKey: string;
+```
+
+### apiUrl?
+
+```ts
+optional apiUrl: string;
+```
+
+### appUrl?
+
+```ts
+optional appUrl: string;
+```
+
+### functionsUrl?
+
+```ts
+optional functionsUrl: string;
 ```
 
 ### signer
@@ -32,4 +53,4 @@ userClient: TorqueUserClient;
 
 ## Source
 
-[src/classes/admin.ts:19](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/admin.ts#L19)
+[src/classes/admin.ts:31](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/admin.ts#L31)

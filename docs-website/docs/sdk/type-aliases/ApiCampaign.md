@@ -2,6 +2,11 @@
 
 ```ts
 type ApiCampaign: {
+  advertiser: {
+     profileImage: string | null;
+     twitter: string | null;
+     username: string | null;
+    };
   advertiserPubKey: string;
   asymmetricRewards: {
      amount: number;
@@ -35,6 +40,34 @@ type ApiCampaign: {
 Campaign data.
 
 ## Type declaration
+
+### advertiser?
+
+```ts
+optional advertiser: {
+  profileImage: string | null;
+  twitter: string | null;
+  username: string | null;
+};
+```
+
+### advertiser.profileImage?
+
+```ts
+optional profileImage: string | null;
+```
+
+### advertiser.twitter?
+
+```ts
+optional twitter: string | null;
+```
+
+### advertiser.username?
+
+```ts
+optional username: string | null;
+```
 
 ### advertiserPubKey
 
@@ -170,4 +203,4 @@ optional userRewardToken: string;
 
 ## Source
 
-[src/types/api.ts:78](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/types/api.ts#L78)
+[src/types/api.ts:83](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/api.ts#L83)

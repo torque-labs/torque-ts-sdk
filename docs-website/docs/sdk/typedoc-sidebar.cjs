@@ -17,6 +17,11 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/enumerations/ApiProgressStatus",
+        "label": "ApiProgressStatus"
+      },
+      {
+        "type": "doc",
         "id": "sdk/enumerations/ApiRewardType",
         "label": "ApiRewardType"
       },
@@ -89,13 +94,43 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/type-aliases/AggreggationCreateInput",
+        "label": "AggreggationCreateInput"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/AndOperator",
+        "label": "AndOperator"
+      },
+      {
+        "type": "doc",
         "id": "sdk/type-aliases/ApiAudience",
         "label": "ApiAudience"
       },
       {
         "type": "doc",
+        "id": "sdk/type-aliases/ApiAudienceCreateInput",
+        "label": "ApiAudienceCreateInput"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/ApiAudienceResponse",
+        "label": "ApiAudienceResponse"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/ApiBountySteps",
+        "label": "ApiBountySteps"
+      },
+      {
+        "type": "doc",
         "id": "sdk/type-aliases/ApiCampaign",
         "label": "ApiCampaign"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/ApiCampaignJourney",
+        "label": "ApiCampaignJourney"
       },
       {
         "type": "doc",
@@ -121,6 +156,11 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/ApiRaffleRewards",
         "label": "ApiRaffleRewards"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/ApiRequirement",
+        "label": "ApiRequirement"
       },
       {
         "type": "doc",
@@ -151,6 +191,11 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/ApiUserJourney",
         "label": "ApiUserJourney"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/ApiUserPayout",
+        "label": "ApiUserPayout"
       },
       {
         "type": "doc",
@@ -199,6 +244,11 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/type-aliases/Condition",
+        "label": "Condition"
+      },
+      {
+        "type": "doc",
         "id": "sdk/type-aliases/NftMintAction",
         "label": "NftMintAction"
       },
@@ -219,6 +269,16 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/type-aliases/Operator",
+        "label": "Operator"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/OrOperator",
+        "label": "OrOperator"
+      },
+      {
+        "type": "doc",
         "id": "sdk/type-aliases/ProgramInteractionAction",
         "label": "ProgramInteractionAction"
       },
@@ -236,6 +296,11 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/PublisherPayoutInput",
         "label": "PublisherPayoutInput"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/SafeToken",
+        "label": "SafeToken"
       },
       {
         "type": "doc",
@@ -284,6 +349,11 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/type-aliases/TorqueRequestOptions",
+        "label": "TorqueRequestOptions"
+      },
+      {
+        "type": "doc",
         "id": "sdk/type-aliases/TorqueSDKOptions",
         "label": "TorqueSDKOptions"
       },
@@ -316,6 +386,11 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/VoteActionRequirements",
         "label": "VoteActionRequirements"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/WithSignature",
+        "label": "WithSignature"
       }
     ]
   }

@@ -33,14 +33,14 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Source
 
-[src/classes/audience.ts:36](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/audience.ts#L36)
+[src/classes/audience.ts:46](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/audience.ts#L46)
 
 ## Properties
 
 | Property | Modifier | Type |
 | :------ | :------ | :------ |
 | `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) |
-| `userClient` | `private` | [`TorqueUserClient`](TorqueUserClient.md) |
+| `userClient` | `private` | `undefined` \| [`TorqueUserClient`](TorqueUserClient.md) |
 
 ## Methods
 
@@ -70,14 +70,30 @@ If there is an error building the audience.
 
 #### Source
 
-[src/classes/audience.ts:51](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/audience.ts#L51)
+[src/classes/audience.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/audience.ts#L66)
+
+***
+
+### logout()
+
+```ts
+logout(): Promise<void>
+```
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Source
+
+[src/classes/audience.ts:53](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/audience.ts#L53)
 
 ***
 
 ### verifyAudience()
 
 ```ts
-verifyAudience(audience): Promise<boolean>
+verifyAudience(audience, publicKey?): Promise<boolean>
 ```
 
 Verifies the current user with the provided audience.
@@ -87,6 +103,7 @@ Verifies the current user with the provided audience.
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `audience` | [`Audience`](../type-aliases/Audience.md) | The options for the audience verification. |
+| `publicKey`? | `string` | - |
 
 #### Returns
 
@@ -100,4 +117,4 @@ If there is an error verifying the user with the audience.
 
 #### Source
 
-[src/classes/audience.ts:82](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/classes/audience.ts#L82)
+[src/classes/audience.ts:97](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/classes/audience.ts#L97)

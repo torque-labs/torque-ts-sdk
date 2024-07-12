@@ -6,6 +6,7 @@ type ApiUser: {
   profileImage: string;
   pubKey: string;
   publisherPubKey: string | null;
+  token: string;
   twitter: string;
   username: string;
 };
@@ -39,6 +40,12 @@ pubKey: string;
 optional publisherPubKey: string | null;
 ```
 
+### token
+
+```ts
+token: string;
+```
+
 ### twitter?
 
 ```ts
@@ -53,4 +60,4 @@ optional username: string;
 
 ## Source
 
-[src/types/api.ts:142](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/types/api.ts#L142)
+[src/types/api.ts:154](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/api.ts#L154)

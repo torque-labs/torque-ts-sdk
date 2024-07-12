@@ -39,4 +39,4 @@ optional tokenAddress: string;
 
 ## Source
 
-[src/types/audience.ts:145](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/types/audience.ts#L145)
+[src/types/audience.ts:149](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/audience.ts#L149)

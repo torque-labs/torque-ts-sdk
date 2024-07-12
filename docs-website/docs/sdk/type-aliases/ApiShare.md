@@ -10,6 +10,7 @@ type ApiShare: {
        };
      endTime: Date;
      id: string;
+     imageUrl: string;
      startTime: Date;
      targetLink: string;
      title: string;
@@ -38,6 +39,7 @@ campaign: {
     };
   endTime: Date;
   id: string;
+  imageUrl: string;
   startTime: Date;
   targetLink: string;
   title: string;
@@ -83,6 +85,12 @@ endTime: Date;
 
 ```ts
 id: string;
+```
+
+### campaign.imageUrl?
+
+```ts
+optional imageUrl: string;
 ```
 
 ### campaign.startTime
@@ -139,4 +147,4 @@ username: string | null;
 
 ## Source
 
-[src/types/api.ts:118](https://github.com/torque-labs/torque-ts-sdk/blob/35180ea2561c531d50df4b23b7bd32172a5fdc80/src/types/api.ts#L118)
+[src/types/api.ts:129](https://github.com/torque-labs/torque-ts-sdk/blob/60b058a1261e69e5eb8f4ad7130e050df24bb92d/src/types/api.ts#L129)
