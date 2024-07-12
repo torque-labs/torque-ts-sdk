@@ -210,6 +210,30 @@ export type ApiUserJourney = {
 };
 
 /**
+ * Campaign journey progress status.
+ */
+export enum ApiProgressStatus {
+  STARTED = 'STARTED',
+  DONE = 'DONE',
+  EXPIRED = 'EXPIRED',
+  INVALID = 'INVALID',
+}
+
+/**
+ * A user's campaign journey data.
+ */
+export type ApiCampaignJourney = {
+  campaignId: string;
+  userPubKey: string;
+  totalSteps: number;
+  currentStep: number;
+  status: ApiProgressStatus;
+  transaction?: string;
+  publisherPubKey: string;
+  campaign: ApiCampaign;
+};
+
+/**
  * Raffle rewards data.
  */
 export type ApiRaffleRewards = {

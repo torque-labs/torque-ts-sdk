@@ -8,6 +8,7 @@ import { TorqueSDK } from './sdk.js';
 import { TORQUE_API_ROUTES, torquePubkey, PUBLISHER_ACCOUNT_SIZE } from '../constants/index.js';
 import {
   ApiCampaign,
+  ApiCampaignJourney,
   ApiInputLogin,
   ApiShare,
   ApiUserJourney,
@@ -370,7 +371,7 @@ export class TorqueUserClient {
   }
 
   /**
-   * Accepts a campaign for the current user.
+   * Initiate a user journey to accept a campaign for the current user.
    *
    * @param {string} campaignId - The ID of the campaign to accept.
    * @param {string} publisherHandle - The handle of the publisher to accept the campaign for.
@@ -385,10 +386,9 @@ export class TorqueUserClient {
     }
 
     try {
-      const result = await this.client.apiFetch<ApiUserJourney>(TORQUE_API_ROUTES.journey, {
+      const result = await this.client.apiFetch<ApiUserJourney>(TORQUE_API_ROUTES.journeyStart, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${this.user?.token}`,
         },
         body: JSON.stringify({
@@ -402,6 +402,42 @@ export class TorqueUserClient {
       console.error(error);
 
       throw new Error('There was an error accepting the campaign.');
+    }
+  }
+
+  /**
+   * Retrieves the user's campaign journey for the specified campaign.
+   *
+   * @param {string} campaignId - The ID of the campaign to retrieve the journey for.
+   *
+   * @returns {Promise<ApiCampaignJourney>} A Promise that resolves to the user's campaign journey.
+   *
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error getting the journey.
+   */
+  public async getCampaignJourney(campaignId: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<{
+        journeys: ApiCampaignJourney[];
+      }>(`${TORQUE_API_ROUTES.userJourney}/?campaignId=${campaignId}`, {
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
+      });
+
+      // Extract the user's journey for the specified campaign from array
+      if (result.journeys.length > 0) {
+        return result.journeys[0];
+      } else {
+        return undefined;
+      }
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the campaign journey.');
     }
   }
 

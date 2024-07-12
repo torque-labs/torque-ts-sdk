@@ -475,6 +475,18 @@ export class TorqueAdminClient {
     }
   }
 
+  /**
+   * Update an existing audience with the provided configuration.
+   *
+   * @param {string} id - The ID of the audience to update.
+   * @param {Audience} config - The configuration of the audience to update.
+   * @param {string} [title] - The title of the audience.
+   * @param {string} [description] - The description of the audience.
+   *
+   * @returns {Promise<ApiAudienceResponse>} A promise that resolves to the updated audience.
+   *
+   * @throws {Error} If the client is not initialized or if there was an error updating the audience.
+   */
   public async updateAudience(id: string, config: Audience, title?: string, description?: string) {
     if (!this.userClient) {
       throw new Error('The user client is not initialized.');
@@ -509,6 +521,15 @@ export class TorqueAdminClient {
     }
   }
 
+  /**
+   * Delete an existing audience.
+   *
+   * @param {string} id - The ID of the audience to delete.
+   *
+   * @returns {Promise<ApiAudienceResponse>} A promise that resolves to the deleted audience.
+   *
+   * @throws {Error} If the client is not initialized or if there was an error deleting the audience.
+   */
   public async deleteAudience(id: string) {
     if (!this.userClient) {
       throw new Error('The user client is not initialized.');

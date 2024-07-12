@@ -12,6 +12,7 @@ const TORQUE_API_ROUTES = {
   currentUser: '/users/me',
   identify: '/identify',
   journey: '/journey',
+  journeyStart: '/journey/start',
   leaderboards: '/leaderboards',
   links: '/links',
   login: '/login',
@@ -28,6 +29,7 @@ const TORQUE_API_ROUTES = {
   users: '/users',
   usersOffers: '/offers',
   userPayout: '/users/payout',
+  userJourney: '/users/journey',
 };
 
 const TORQUE_FUNCTIONS_ROUTES = {
