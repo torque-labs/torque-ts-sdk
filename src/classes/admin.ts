@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Keypair } from '@solana/web3.js';
+import { Cluster, clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -8,14 +8,14 @@ import {
   ApiAudience,
   ApiCampaign,
   ApiCampaignLeaderboard,
+  ApiRaffleRewards,
+  ApiResponse,
   ApiTxnTypes,
   Audience,
   CampaignCreateInput,
   CampaignEndInput,
   SafeToken,
   WithSignature,
-  ApiRaffleRewards,
-  ApiResponse,
 } from '../types/index.js';
 
 /**
@@ -46,6 +46,14 @@ export type TorqueAdminClientOptions = {
    * The functions URL for the client.
    */
   functionsUrl?: string;
+  /**
+   * RPC URL for the client.
+   */
+  rpc?: string;
+  /**
+   * The network for the client. Defaults to 'mainnet-beta'.
+   */
+  network: Cluster;
 };
 
 /**
@@ -61,6 +69,7 @@ export class TorqueAdminClient {
   private client: TorqueRequestClient;
   private userClient: TorqueUserClient | undefined;
   public static tokenList: SafeToken[] | undefined;
+  private connection: Connection;
 
   /**
    * Create a new instance of the TorqueAdminClient class with the provided API key.
@@ -68,9 +77,17 @@ export class TorqueAdminClient {
    * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
    */
   constructor(options: TorqueAdminClientOptions) {
-    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl } = options;
+    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl, network, rpc } = options;
 
-    this.client = new TorqueRequestClient({ signer, apiKey, apiUrl, appUrl, functionsUrl });
+    this.connection = new Connection(rpc ?? clusterApiUrl(network), 'confirmed');
+    this.client = new TorqueRequestClient({
+      signer,
+      apiKey,
+      apiUrl,
+      appUrl,
+      functionsUrl,
+      connection: this.connection,
+    });
     this.userClient = userClient;
   }
 

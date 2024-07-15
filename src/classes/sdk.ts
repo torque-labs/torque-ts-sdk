@@ -128,6 +128,8 @@ export class TorqueSDK {
         apiUrl: this.apiUrl,
         appUrl: this.appUrl,
         functionsUrl: this.functionsUrl,
+        rpc: this.rpc,
+        network: this.network,
       });
 
       this.audience = new TorqueAudienceClient({
