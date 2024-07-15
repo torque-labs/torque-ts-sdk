@@ -3,12 +3,12 @@ import { Connection, Keypair, VersionedTransaction } from '@solana/web3.js';
 
 import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
-  TxnInput,
-  ApiTxnTypes,
   ApiResponse,
+  ApiTxnTypes,
+  AudienceFunctionResponse,
   TxnExecute,
   TxnExecuteResponse,
-  AudienceFunctionResponse,
+  TxnInput,
   WithSignature,
 } from '../types/index.js';
 import { base64ToUint8Array, uint8ArrayToBase64 } from '../utils.js';
@@ -315,25 +315,33 @@ export class TorqueRequestClient {
 
       const txn = VersionedTransaction.deserialize(base64ToUint8Array(serializedTx));
 
-      const signedTx =
-        'signTransaction' in this.signer
-          ? await this.signer.signTransaction(txn)
-          : this.signWithKeypair(txn);
+      const blockhash = await this.connection?.getLatestBlockhash();
 
-      const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
+      if (blockhash) {
+        txn.message.recentBlockhash = blockhash?.blockhash;
 
-      const executeInput = {
-        txnType: txnInput.txnType,
-        data: {
-          userSignature,
-          blockhash: txn.message.recentBlockhash,
-          ...rest,
-        },
-      };
+        const signedTx =
+          'signTransaction' in this.signer
+            ? await this.signer.signTransaction(txn)
+            : this.signWithKeypair(txn);
 
-      const { signature } = await this.executeTransaction(executeInput, token);
+        const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
 
-      return { signature, ...rest } as WithSignature<T>;
+        const executeInput = {
+          txnType: txnInput.txnType,
+          data: {
+            userSignature,
+            blockhash: txn.message.recentBlockhash,
+            ...rest,
+          },
+        };
+
+        const { signature } = await this.executeTransaction(executeInput, token);
+
+        return { signature, ...rest } as WithSignature<T>;
+      } else {
+        throw new Error('Unable to get latest blockhash.');
+      }
     } catch (error) {
       console.error(error);
 
