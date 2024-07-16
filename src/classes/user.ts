@@ -455,7 +455,7 @@ export class TorqueUserClient {
     try {
       const result = await this.client.apiFetch<{
         journeys: ApiCampaignJourney[];
-      }>(`${TORQUE_API_ROUTES.userJourney}/?campaignId=${campaignId}`, {
+      }>(`${TORQUE_API_ROUTES.userJourney}?campaignId=${campaignId}`, {
         headers: {
           Authorization: `Bearer ${this.user?.token}`,
         },
