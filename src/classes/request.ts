@@ -303,7 +303,11 @@ export class TorqueRequestClient {
    *
    * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
    */
-  public async transaction<T>(txnInput: TxnInput, token?: string) {
+  public async transaction<T>(
+    txnInput: TxnInput,
+    token?: string,
+    signMethod?: (transaction: VersionedTransaction) => Promise<unknown>,
+  ) {
     if (!this.signer) {
       throw new Error(
         'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
@@ -320,11 +324,13 @@ export class TorqueRequestClient {
       if (blockhash) {
         txn.message.recentBlockhash = blockhash?.blockhash;
 
-        const signedTx =
-          'signTransaction' in this.signer
+        const signedTx = signMethod
+          ? await signMethod(txn)
+          : 'signTransaction' in this.signer
             ? await this.signer.signTransaction(txn)
             : this.signWithKeypair(txn);
 
+        // @ts-expect-error overrides the signTransaction method
         const userSignature = uint8ArrayToBase64(signedTx.signatures[0]);
 
         const executeInput = {

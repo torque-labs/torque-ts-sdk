@@ -13,10 +13,6 @@ import { ApiIdentifyPayload, ApiInputLogin, ApiResponse, ApiVerifiedUser } from 
  */
 export type TorqueSDKOptions = {
   /**
-   * The signer used to sign transactions.
-   */
-  signer?: Adapter | Keypair;
-  /**
    * The API key for the client.
    */
   apiKey?: string;

@@ -1,5 +1,5 @@
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Cluster, clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
+import { Cluster, clusterApiUrl, Connection, Keypair, VersionedTransaction } from '@solana/web3.js';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -140,7 +140,10 @@ export class TorqueAdminClient {
    *
    * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
    */
-  public async createCampaign(data: CampaignCreateInput): Promise<WithSignature<unknown>> {
+  public async createCampaign(
+    data: CampaignCreateInput,
+    signMethod?: (transaction: VersionedTransaction) => Promise<unknown>,
+  ): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -156,7 +159,7 @@ export class TorqueAdminClient {
         data,
       } as const;
 
-      const signature = await this.client.transaction(input, user?.token);
+      const signature = await this.client.transaction(input, user?.token, signMethod);
 
       return signature;
     } catch (error) {
@@ -175,7 +178,10 @@ export class TorqueAdminClient {
    *
    * @throws {Error} Throws an error if the client is not initialized or if there is an error ending the campaign.
    */
-  public async endCampaign(data: CampaignEndInput): Promise<WithSignature<unknown>> {
+  public async endCampaign(
+    data: CampaignEndInput,
+    signMethod?: (transaction: VersionedTransaction) => Promise<unknown>,
+  ): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -191,7 +197,7 @@ export class TorqueAdminClient {
         data,
       } as const;
 
-      const signature = await this.client.transaction(input, user?.token);
+      const signature = await this.client.transaction(input, user?.token, signMethod);
 
       return signature;
     } catch (error) {
@@ -275,7 +281,7 @@ export class TorqueAdminClient {
    *
    * @throws {Error} Throws an error if there was an error creating the publisher.
    */
-  public async initPublisher() {
+  public async initPublisher(signMethod?: (transaction: VersionedTransaction) => Promise<unknown>) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -292,6 +298,7 @@ export class TorqueAdminClient {
           data: true,
         },
         user?.token,
+        signMethod,
       );
 
       await this.userClient.refreshUser();
@@ -311,7 +318,10 @@ export class TorqueAdminClient {
    *
    * @throws {Error} Throws an error if there was an error paying out the publisher.
    */
-  public async payoutPublisher(data: { token: string; amount: number }) {
+  public async payoutPublisher(
+    data: { token: string; amount: number },
+    signMethod?: (transaction: VersionedTransaction) => Promise<unknown>,
+  ) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
@@ -328,6 +338,7 @@ export class TorqueAdminClient {
           data,
         },
         user?.token,
+        signMethod,
       );
 
       return signature;
