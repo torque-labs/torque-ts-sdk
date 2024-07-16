@@ -14,6 +14,7 @@ import {
   ApiUserJourney,
   ApiUserPayout,
   ApiVerifiedUser,
+  SignTransaction,
 } from '../types/index.js';
 
 /**
@@ -48,6 +49,10 @@ export type TorqueUserClientOptions = {
    * The network for the client. Defaults to 'mainnet-beta'.
    */
   network: Cluster;
+  /**
+   * The function used to sign transactions. If provided, it will override the default signing method.
+   */
+  signTransaction?: SignTransaction;
 };
 
 /**
@@ -83,7 +88,8 @@ export class TorqueUserClient {
    * @throws {Error} Throws an error if the user's wallet is not provided.
    */
   constructor(options: TorqueUserClientOptions) {
-    const { signer, publisherHandle, rpc, apiUrl, appUrl, functionsUrl, network } = options;
+    const { signer, publisherHandle, rpc, apiUrl, appUrl, functionsUrl, network, signTransaction } =
+      options;
 
     if (!signer.publicKey) {
       throw new Error('The wallet/signer provided does not have a public key.');
@@ -102,6 +108,7 @@ export class TorqueUserClient {
       appUrl,
       functionsUrl,
       connection: this.connection,
+      signTransaction,
     });
   }
 

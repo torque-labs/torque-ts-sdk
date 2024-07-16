@@ -6,6 +6,7 @@ import {
   ApiResponse,
   ApiTxnTypes,
   AudienceFunctionResponse,
+  SignTransaction,
   TxnExecute,
   TxnExecuteResponse,
   TxnInput,
@@ -41,6 +42,10 @@ export type TorqueRequestOptions = {
    * The connection for the client.
    */
   connection?: Connection;
+  /**
+   * The function used to sign transactions. If provided, it will override the default signing method.
+   */
+  signTransaction?: SignTransaction;
 };
 
 /**
@@ -60,6 +65,7 @@ export class TorqueRequestClient {
   private appUrl: string;
   private functionsUrl: string;
   private connection: Connection | undefined;
+  private signTransaction: SignTransaction | undefined;
 
   /**
    * Create a new instance of the TorqueRequestClient class.
@@ -70,11 +76,11 @@ export class TorqueRequestClient {
    * @throws {Error} Throws an error if a signer is not provided.
    */
   constructor(options: TorqueRequestOptions) {
-    const { signer, apiKey, apiUrl, appUrl, functionsUrl, connection } = options;
+    const { signer, apiKey, apiUrl, appUrl, functionsUrl, connection, signTransaction } = options;
 
-    if (!signer) {
+    if (!signer && !signTransaction) {
       throw new Error(
-        'You need to provide a SignerWalletAdapter or Keypair in the signer parameter.',
+        'You need to provide a SignerWalletAdapter, Keypair, or a signTransaction function.',
       );
     }
 
@@ -84,6 +90,7 @@ export class TorqueRequestClient {
     this.appUrl = appUrl ?? 'https://app.torque.so';
     this.functionsUrl = functionsUrl ?? 'https://functions.torque.so';
     this.connection = connection;
+    this.signTransaction = signTransaction;
     this.apiAuthHeader = apiKey
       ? {
           'x-torque-api-key': `${this.apiKey}`,
@@ -211,6 +218,7 @@ export class TorqueRequestClient {
    * @template {object} T - The type of the response data.
    *
    * @param {TxnInput} txnInput - The input object of the transaction to build.
+   * @param {string} [token] - The Torque API token to use for the transaction.
    *
    * @returns {Promise<T>} A promise that resolves with the serialized transaction.
    *
@@ -252,6 +260,7 @@ export class TorqueRequestClient {
    * Executes the serialized transaction using the API.
    *
    * @param {TxnExecute} txnExecuteInput - The input object of the transaction to execute.
+   * @param {string} [token] - The Torque API token to use for the transaction.
    *
    * @returns {Promise<TxnExecuteResponse>} A promise that resolves with the signature of the transaction.
    *
@@ -300,13 +309,14 @@ export class TorqueRequestClient {
    * @template {object} T - The type of the response data.
    *
    * @param {TxnInput} txnInput - The input object of the transaction to process.
+   * @param {string} [token] - The Torque API token to use for the transaction.
    *
    * @returns {Promise<WithSignature>} A promise that resolves with the signature of the transaction.
    */
   public async transaction<T>(txnInput: TxnInput, token?: string) {
-    if (!this.signer) {
+    if (!this.signer && !this.signTransaction) {
       throw new Error(
-        'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
+        'Cannot sign transaction. You need to provide a SignerWalletAdapter, Keypair, or a signTransaction function.',
       );
     }
 
@@ -320,8 +330,9 @@ export class TorqueRequestClient {
       if (blockhash) {
         txn.message.recentBlockhash = blockhash?.blockhash;
 
-        const signedTx =
-          'signTransaction' in this.signer
+        const signedTx = this.signTransaction
+          ? await this.signTransaction(txn)
+          : 'signTransaction' in this.signer
             ? await this.signer.signTransaction(txn)
             : this.signWithKeypair(txn);
 
@@ -359,9 +370,9 @@ export class TorqueRequestClient {
    * @throws {Error} If the signer is not initialized or if the signer is not a Keypair.
    */
   private signWithKeypair(txn: VersionedTransaction) {
-    if (!this.signer) {
+    if (!this.signer && !this.signTransaction) {
       throw new Error(
-        'The signer is not initialized. You need to provide a SignerWalletAdapter or Keypair.',
+        'Cannot sign with Keypair. The signer is not initialized. You need to provide a SignerWalletAdapter, Keypair, or a signTransaction function.',
       );
     }
 

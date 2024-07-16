@@ -15,6 +15,7 @@ import {
   CampaignCreateInput,
   CampaignEndInput,
   SafeToken,
+  SignTransaction,
   WithSignature,
 } from '../types/index.js';
 
@@ -54,6 +55,10 @@ export type TorqueAdminClientOptions = {
    * The network for the client. Defaults to 'mainnet-beta'.
    */
   network: Cluster;
+  /**
+   * The function used to sign transactions. If provided, it will override the default signing method.
+   */
+  signTransaction?: SignTransaction;
 };
 
 /**
@@ -77,9 +82,20 @@ export class TorqueAdminClient {
    * @param {TorqueAdminClientOptions} options - The options for the TorqueAdminClient.
    */
   constructor(options: TorqueAdminClientOptions) {
-    const { signer, apiKey, userClient, apiUrl, appUrl, functionsUrl, network, rpc } = options;
+    const {
+      signer,
+      apiKey,
+      userClient,
+      apiUrl,
+      appUrl,
+      functionsUrl,
+      network,
+      rpc,
+      signTransaction,
+    } = options;
 
     this.connection = new Connection(rpc ?? clusterApiUrl(network), 'confirmed');
+
     this.client = new TorqueRequestClient({
       signer,
       apiKey,
@@ -87,6 +103,7 @@ export class TorqueAdminClient {
       appUrl,
       functionsUrl,
       connection: this.connection,
+      signTransaction,
     });
     this.userClient = userClient;
   }
