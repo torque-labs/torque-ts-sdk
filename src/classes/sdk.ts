@@ -6,7 +6,13 @@ import { TorqueAdminClient } from './admin.js';
 import { TorqueAudienceClient } from './audience.js';
 import { TorqueUserClient } from './user.js';
 import { TORQUE_API_ROUTES } from '../constants/index.js';
-import { ApiIdentifyPayload, ApiInputLogin, ApiResponse, ApiVerifiedUser } from '../types/index.js';
+import {
+  ApiIdentifyPayload,
+  ApiInputLogin,
+  ApiResponse,
+  ApiVerifiedUser,
+  SignTransaction,
+} from '../types/index.js';
 
 /**
  * Options for the TorqueSDK.
@@ -97,7 +103,20 @@ export class TorqueSDK {
     this.network = options.network ?? 'mainnet-beta';
   }
 
-  public async initialize(signer: Adapter | Keypair, ApiInputLogin?: ApiInputLogin) {
+  /**
+   * Initializes the TorqueSDK with the provided options.
+   *
+   * @param {Adapter | Keypair} signer - The signer used to sign transactions.
+   * @param {SignTransaction} [signTransaction] - The function used to sign transactions. If provided, it will override the default signing method.
+   * @param {ApiInputLogin} [ApiInputLogin] - The login options for the user.
+   *
+   * @throws {Error} Throws an error if the there is no api key or publisher handle provided.
+   */
+  public async initialize(
+    signer: Adapter | Keypair,
+    signTransaction?: SignTransaction,
+    ApiInputLogin?: ApiInputLogin,
+  ) {
     const userClient = new TorqueUserClient({
       signer: signer,
       publisherHandle: this.publisherHandle,
@@ -106,6 +125,7 @@ export class TorqueSDK {
       appUrl: this.appUrl,
       functionsUrl: this.functionsUrl,
       network: this.network,
+      signTransaction: signTransaction,
     });
 
     this.user = userClient;
@@ -126,6 +146,7 @@ export class TorqueSDK {
         functionsUrl: this.functionsUrl,
         rpc: this.rpc,
         network: this.network,
+        signTransaction: signTransaction,
       });
 
       this.audience = new TorqueAudienceClient({

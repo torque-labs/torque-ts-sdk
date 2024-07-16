@@ -1,3 +1,4 @@
+import { Transaction, VersionedTransaction } from '@solana/web3.js';
 import z from 'zod';
 
 import {
@@ -51,3 +52,10 @@ interface SignatureField {
   signature: string;
 }
 export type WithSignature<T> = T & SignatureField;
+
+/**
+ * Sign transaction function type
+ */
+export type SignTransaction = <T extends Transaction | VersionedTransaction>(
+  transaction: T,
+) => Promise<T>;
