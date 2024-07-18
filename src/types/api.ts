@@ -93,6 +93,7 @@ export type ApiCampaign = {
   remainingConversions: number;
   imageUrl?: string;
   description?: string;
+  content?: string;
   targetLink?: string;
   offerLink?: string;
   userRewardToken?: string;
@@ -316,6 +317,7 @@ export type ApiBountySteps = {
     remainingConversions: number;
     imageUrl?: string;
     description?: string;
+    content?: string;
     targetLink?: string;
     userRewardToken?: string;
     userRewardAmount: string;
