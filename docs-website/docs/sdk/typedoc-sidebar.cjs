@@ -12,11 +12,6 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
-        "id": "sdk/enumerations/ApiEventType",
-        "label": "ApiEventType"
-      },
-      {
-        "type": "doc",
         "id": "sdk/enumerations/ApiProgressStatus",
         "label": "ApiProgressStatus"
       },
@@ -301,6 +296,11 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/SafeToken",
         "label": "SafeToken"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/SignTransaction",
+        "label": "SignTransaction"
       },
       {
         "type": "doc",

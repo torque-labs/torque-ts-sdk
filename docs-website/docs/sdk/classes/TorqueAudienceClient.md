@@ -33,7 +33,7 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Source
 
-[src/classes/audience.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/audience.ts#L57)
+[src/classes/audience.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/audience.ts#L57)
 
 ## Properties
 
@@ -70,7 +70,7 @@ If there is an error building the audience.
 
 #### Source
 
-[src/classes/audience.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/audience.ts#L77)
+[src/classes/audience.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/audience.ts#L77)
 
 ***
 
@@ -86,7 +86,7 @@ logout(): Promise<void>
 
 #### Source
 
-[src/classes/audience.ts:64](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/audience.ts#L64)
+[src/classes/audience.ts:64](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/audience.ts#L64)
 
 ***
 
@@ -117,4 +117,4 @@ If there is an error verifying the user with the audience.
 
 #### Source
 
-[src/classes/audience.ts:108](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/audience.ts#L108)
+[src/classes/audience.ts:108](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/audience.ts#L108)

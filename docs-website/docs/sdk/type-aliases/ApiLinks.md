@@ -24,4 +24,4 @@ links: {
 
 ## Source
 
-[src/types/api.ts:185](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/types/api.ts#L185)
+[src/types/api.ts:179](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L179)

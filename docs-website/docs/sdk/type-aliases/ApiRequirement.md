@@ -1,11 +1,16 @@
 # Type alias: ApiRequirement
 
 ```ts
-type ApiRequirement: OfferSwapAction | OfferNFTTradeAction | OfferHedgehogBetAction;
+type ApiRequirement: 
+  | OfferSwapAction
+  | OfferNFTTradeAction
+  | OfferHedgehogBetAction
+  | OfferClickAction
+  | OfferSignUpAction;
 ```
 
 Full bounty step requirement type.
 
 ## Source
 
-[src/types/api.ts:300](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/types/api.ts#L300)
+[src/types/api.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L310)

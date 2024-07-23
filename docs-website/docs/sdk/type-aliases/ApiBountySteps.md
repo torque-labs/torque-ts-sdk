@@ -13,6 +13,7 @@ type ApiBountySteps: {
         id: string;
         title: string;
        }[];
+     content: string;
      description: string;
      endTime: Date;
      id: string;
@@ -54,6 +55,7 @@ campaign: {
      id: string;
      title: string;
     }[];
+  content: string;
   description: string;
   endTime: Date;
   id: string;
@@ -99,6 +101,12 @@ audiences: {
   id: string;
   title: string;
  }[];
+```
+
+### campaign.content?
+
+```ts
+optional content: string;
 ```
 
 ### campaign.description?
@@ -217,4 +225,4 @@ userRewardType: ApiRewardType;
 
 ## Source
 
-[src/types/api.ts:305](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/types/api.ts#L305)
+[src/types/api.ts:320](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L320)

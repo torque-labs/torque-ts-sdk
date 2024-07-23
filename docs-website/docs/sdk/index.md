@@ -9,7 +9,6 @@ The official Torque Client TypeScript SDK.
 | Enumeration | Description |
 | :------ | :------ |
 | [ActionType](enumerations/ActionType.md) | The type of action that will be used to filter the addresses for a target. |
-| [ApiEventType](enumerations/ApiEventType.md) | On-chain event types for the API. |
 | [ApiProgressStatus](enumerations/ApiProgressStatus.md) | Campaign journey progress status. |
 | [ApiRewardType](enumerations/ApiRewardType.md) | The rewards type of a campaign. |
 | [ApiStatus](enumerations/ApiStatus.md) | The API response success type. |
@@ -75,6 +74,7 @@ The official Torque Client TypeScript SDK.
 | [PublisherCreateInput](type-aliases/PublisherCreateInput.md) | Publisher create input. |
 | [PublisherPayoutInput](type-aliases/PublisherPayoutInput.md) | Publisher payout input. |
 | [SafeToken](type-aliases/SafeToken.md) | - |
+| [SignTransaction](type-aliases/SignTransaction.md) | Sign transaction function type |
 | [StakedSolRequirementsInput](type-aliases/StakedSolRequirementsInput.md) | Staked sol requirements input. |
 | [StakedSolTarget](type-aliases/StakedSolTarget.md) | A staked sol target for an audience. |
 | [SwapAction](type-aliases/SwapAction.md) | Parameters for a swap action. |

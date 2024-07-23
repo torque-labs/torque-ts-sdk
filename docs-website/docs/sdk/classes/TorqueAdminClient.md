@@ -33,13 +33,14 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Source
 
-[src/classes/admin.ts:70](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L70)
+[src/classes/admin.ts:84](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L84)
 
 ## Properties
 
 | Property | Modifier | Type |
 | :------ | :------ | :------ |
 | `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) |
+| `connection` | `private` | `Connection` |
 | `userClient` | `private` | `undefined` \| [`TorqueUserClient`](TorqueUserClient.md) |
 | `tokenList` | `static` | `undefined` \| [`SafeToken`](../type-aliases/SafeToken.md)[] |
 
@@ -66,7 +67,7 @@ Create a new campaign with the provided data.
 | `data.endTime` | `number` | - |
 | `data.eventProgramAddress`? | `string` | - |
 | `data.eventTokenAddress`? | `string` | - |
-| `data.eventType` | [`ApiEventType`](../enumerations/ApiEventType.md) | - |
+| `data.eventType` | `EventType` | - |
 | `data.landingPage` | `string` | - |
 | `data.minAmount`? | `null` \| `number` | - |
 | `data.proposal`? | `null` \| `string` | - |
@@ -86,7 +87,7 @@ A promise that resolves with the signature of the transaction.
 
 #### Source
 
-[src/classes/admin.ts:126](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L126)
+[src/classes/admin.ts:160](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L160)
 
 ***
 
@@ -126,7 +127,7 @@ If the client is not initialized or if there was an error deleting the audience.
 
 #### Source
 
-[src/classes/admin.ts:551](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L551)
+[src/classes/admin.ts:585](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L585)
 
 ***
 
@@ -157,7 +158,7 @@ Throws an error if the client is not initialized or if there is an error ending 
 
 #### Source
 
-[src/classes/admin.ts:161](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L161)
+[src/classes/admin.ts:195](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L195)
 
 ***
 
@@ -187,7 +188,7 @@ If the client is not initialized or there was an error getting the audience.
 
 #### Source
 
-[src/classes/admin.ts:387](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L387)
+[src/classes/admin.ts:421](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L421)
 
 ***
 
@@ -221,7 +222,7 @@ If the client is not initialized or there was an error getting the audiences.
 
 #### Source
 
-[src/classes/admin.ts:423](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L423)
+[src/classes/admin.ts:457](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L457)
 
 ***
 
@@ -255,7 +256,7 @@ If the client is not initialized or there was an error getting the list of campa
 
 #### Source
 
-[src/classes/admin.ts:94](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L94)
+[src/classes/admin.ts:128](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L128)
 
 ***
 
@@ -285,7 +286,7 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Source
 
-[src/classes/admin.ts:195](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L195)
+[src/classes/admin.ts:229](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L229)
 
 ***
 
@@ -309,7 +310,7 @@ Throws an error if there was an error creating the publisher.
 
 #### Source
 
-[src/classes/admin.ts:261](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L261)
+[src/classes/admin.ts:295](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L295)
 
 ***
 
@@ -325,7 +326,7 @@ logout(): Promise<void>
 
 #### Source
 
-[src/classes/admin.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L77)
+[src/classes/admin.ts:111](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L111)
 
 ***
 
@@ -357,7 +358,7 @@ Throws an error if there was an error paying out the publisher.
 
 #### Source
 
-[src/classes/admin.ts:297](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L297)
+[src/classes/admin.ts:331](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L331)
 
 ***
 
@@ -385,7 +386,7 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Source
 
-[src/classes/admin.ts:225](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L225)
+[src/classes/admin.ts:259](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L259)
 
 ***
 
@@ -430,7 +431,7 @@ If the client is not initialized or there was an error saving the audience.
 
 #### Source
 
-[src/classes/admin.ts:463](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L463)
+[src/classes/admin.ts:497](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L497)
 
 ***
 
@@ -477,7 +478,7 @@ If the client is not initialized or if there was an error updating the audience.
 
 #### Source
 
-[src/classes/admin.ts:508](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L508)
+[src/classes/admin.ts:542](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L542)
 
 ***
 
@@ -508,4 +509,4 @@ If the client is not initialized or there was an error fetching the safe token l
 
 #### Source
 
-[src/classes/admin.ts:339](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L339)
+[src/classes/admin.ts:373](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L373)

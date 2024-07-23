@@ -6,6 +6,9 @@ type TorqueAdminClientOptions: {
   apiUrl: string;
   appUrl: string;
   functionsUrl: string;
+  network: Cluster;
+  rpc: string;
+  signTransaction: SignTransaction;
   signer: Adapter | Keypair;
   userClient: TorqueUserClient;
 };
@@ -47,6 +50,30 @@ optional functionsUrl: string;
 
 The functions URL for the client.
 
+### network
+
+```ts
+network: Cluster;
+```
+
+The network for the client. Defaults to 'mainnet-beta'.
+
+### rpc?
+
+```ts
+optional rpc: string;
+```
+
+RPC URL for the client.
+
+### signTransaction?
+
+```ts
+optional signTransaction: SignTransaction;
+```
+
+The function used to sign transactions. If provided, it will override the default signing method.
+
 ### signer
 
 ```ts
@@ -65,4 +92,4 @@ The user client for the user based API requests.
 
 ## Source
 
-[src/classes/admin.ts:24](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/admin.ts#L24)
+[src/classes/admin.ts:25](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/admin.ts#L25)

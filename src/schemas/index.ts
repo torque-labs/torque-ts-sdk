@@ -1,6 +1,7 @@
+import { EventType } from '@torque-labs/torque-utils';
 import z from 'zod';
 
-import { ApiEventType, ApiRewardType, ApiTxnTypes } from '../types/index.js';
+import { ApiRewardType, ApiTxnTypes } from '../types/index.js';
 
 export const AssymetricRewardSchema = z.object({
   tokenAddress: z.string(),
@@ -12,7 +13,7 @@ export const CampaignCreateInputSchema = z.object({
   campaignName: z.string(),
   campaignType: z.string(),
   landingPage: z.string(),
-  eventType: z.nativeEnum(ApiEventType),
+  eventType: z.nativeEnum(EventType),
   eventProgramAddress: z.string().optional(),
   eventTokenAddress: z.string().optional(),
   publisherRewardType: z.nativeEnum(ApiRewardType),

@@ -3,6 +3,9 @@ import {
   NftCollectionTradeAction,
   SwapAction,
   HedgehogPlaceBetAction,
+  ClickAction,
+  EventType,
+  SignUpAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -17,17 +20,6 @@ export enum ApiStatus {
   FORBIDDEN = 'FORBIDDEN',
   NOT_FOUND = 'NOT_FOUND',
   INTERNAL_ERROR = 'INTERNAL_ERROR',
-}
-
-/**
- * On-chain event types for the API.
- */
-export enum ApiEventType {
-  CLICK = 'CLICK',
-  SWAP = 'SWAP',
-  NFT_COLLECTION_TRADE = 'NFT_COLLECTION_TRADE',
-  HEDGEHOG_PLACE_BET = 'HEDGEHOG_PLACE_BET',
-  SIGN_UP = 'SIGN_UP',
 }
 
 /**
@@ -273,10 +265,18 @@ export enum ApiTxnTypes {
 }
 
 /**
+ * Click action bounty step requirements.
+ */
+type OfferClickAction = {
+  type: EventType.CLICK;
+  eventConfig: ClickAction;
+};
+
+/**
  * Swap action bounty step requirements.
  */
 type OfferSwapAction = {
-  type: ApiEventType.SWAP;
+  type: EventType.SWAP;
   eventConfig: SwapAction;
 };
 
@@ -284,7 +284,7 @@ type OfferSwapAction = {
  * NFT collection trade action bounty step requirements.
  */
 type OfferNFTTradeAction = {
-  type: ApiEventType.NFT_COLLECTION_TRADE;
+  type: EventType.NFT_COLLECTION_TRADE;
   eventConfig: NftCollectionTradeAction;
 };
 
@@ -292,14 +292,27 @@ type OfferNFTTradeAction = {
  * Hedgehog bet action bounty step requirements.
  */
 type OfferHedgehogBetAction = {
-  type: ApiEventType.HEDGEHOG_PLACE_BET;
+  type: EventType.HEDGEHOG_PLACE_BET;
   eventConfig: HedgehogPlaceBetAction;
+};
+
+/**
+ * Sign up action bounty step requirements.
+ */
+type OfferSignUpAction = {
+  type: EventType.SIGN_UP;
+  eventConfig: SignUpAction; // TODO: fix sign up action type to use schema with email
 };
 
 /**
  * Full bounty step requirement type.
  */
-export type ApiRequirement = OfferSwapAction | OfferNFTTradeAction | OfferHedgehogBetAction;
+export type ApiRequirement =
+  | OfferSwapAction
+  | OfferNFTTradeAction
+  | OfferHedgehogBetAction
+  | OfferClickAction
+  | OfferSignUpAction;
 
 /**
  * Campaign data with bounty steps.

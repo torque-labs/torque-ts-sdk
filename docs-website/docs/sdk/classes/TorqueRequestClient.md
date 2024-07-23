@@ -37,7 +37,7 @@ Throws an error if a signer is not provided.
 
 #### Source
 
-[src/classes/request.ts:72](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L72)
+[src/classes/request.ts:78](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L78)
 
 ## Properties
 
@@ -49,6 +49,7 @@ Throws an error if a signer is not provided.
 | `appUrl` | `private` | `string` |
 | `connection` | `private` | `undefined` \| `Connection` |
 | `functionsUrl` | `private` | `string` |
+| `signTransaction` | `private` | `undefined` \| [`SignTransaction`](../type-aliases/SignTransaction.md) |
 | `signer` | `private` | `Adapter` \| `Keypair` |
 
 ## Methods
@@ -90,7 +91,7 @@ If there is an error performing the request.
 
 #### Source
 
-[src/classes/request.ts:140](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L140)
+[src/classes/request.ts:147](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L147)
 
 ***
 
@@ -115,7 +116,7 @@ Builds and returns a serialized transaction from the API based on the provided t
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `txnInput` | \{ `data`: `CampaignCreateInputSchema`; `txnType`: `CampaignCreate`; \} \| \{ `data`: `CampaignEndInputSchema`; `txnType`: `CampaignEnd`; \} \| \{ `data`: `PublisherCreateInputSchema`; `txnType`: `PublisherCreate`; \} \| \{ `data`: `PublisherPayoutInputSchema`; `txnType`: `PublisherPayout`; \} | The input object of the transaction to build. |
-| `token`? | `string` | - |
+| `token`? | `string` | The Torque API token to use for the transaction. |
 
 #### Returns
 
@@ -131,7 +132,7 @@ Throws an error if the API is not able to build the transaction.
 
 #### Source
 
-[src/classes/request.ts:219](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L219)
+[src/classes/request.ts:227](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L227)
 
 ***
 
@@ -148,7 +149,7 @@ Executes the serialized transaction using the API.
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `txnExecuteInput` | \{ `data`: \{ `blockhash`: `string`; `campaignId`: `string`; `userSignature`: `string`; \}; `txnType`: `CampaignCreate` \| `CampaignEnd`; \} \| \{ `data`: `TxnExecuteDefaults`; `txnType`: `string`; \} | The input object of the transaction to execute. |
-| `token`? | `string` | - |
+| `token`? | `string` | The Torque API token to use for the transaction. |
 
 #### Returns
 
@@ -162,7 +163,7 @@ Throws an error if the API request is unsuccessful or if the transaction fails.
 
 #### Source
 
-[src/classes/request.ts:260](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L260)
+[src/classes/request.ts:269](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L269)
 
 ***
 
@@ -199,7 +200,7 @@ If there is an error performing the request.
 
 #### Source
 
-[src/classes/request.ts:183](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L183)
+[src/classes/request.ts:190](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L190)
 
 ***
 
@@ -229,7 +230,7 @@ If the signer is not initialized or if the signer is not a Keypair.
 
 #### Source
 
-[src/classes/request.ts:353](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L353)
+[src/classes/request.ts:372](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L372)
 
 ***
 
@@ -252,7 +253,7 @@ Builds and executes the transaction using the Torque API.
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
 | `txnInput` | \{ `data`: `CampaignCreateInputSchema`; `txnType`: `CampaignCreate`; \} \| \{ `data`: `CampaignEndInputSchema`; `txnType`: `CampaignEnd`; \} \| \{ `data`: `PublisherCreateInputSchema`; `txnType`: `PublisherCreate`; \} \| \{ `data`: `PublisherPayoutInputSchema`; `txnType`: `PublisherPayout`; \} | The input object of the transaction to process. |
-| `token`? | `string` | - |
+| `token`? | `string` | The Torque API token to use for the transaction. |
 
 #### Returns
 
@@ -262,7 +263,7 @@ A promise that resolves with the signature of the transaction.
 
 #### Source
 
-[src/classes/request.ts:306](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L306)
+[src/classes/request.ts:316](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L316)
 
 ***
 
@@ -299,4 +300,4 @@ If there is an error performing the request.
 
 #### Source
 
-[src/classes/request.ts:106](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/request.ts#L106)
+[src/classes/request.ts:113](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/request.ts#L113)

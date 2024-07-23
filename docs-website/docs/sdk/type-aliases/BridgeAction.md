@@ -46,4 +46,4 @@ optional withinDays: number;
 
 ## Source
 
-[src/types/audience.ts:45](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/types/audience.ts#L45)
+[src/types/audience.ts:45](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/audience.ts#L45)

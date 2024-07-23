@@ -49,7 +49,7 @@ Throws an error if the there is no api key or publisher handle provided.
 
 #### Source
 
-[src/classes/sdk.ts:90](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/sdk.ts#L90)
+[src/classes/sdk.ts:92](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L92)
 
 ## Properties
 
@@ -72,23 +72,33 @@ Throws an error if the there is no api key or publisher handle provided.
 ### initialize()
 
 ```ts
-initialize(signer, ApiInputLogin?): Promise<void>
+initialize(
+   signer, 
+   signTransaction?, 
+ApiInputLogin?): Promise<void>
 ```
+
+Initializes the TorqueSDK with the provided options.
 
 #### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `signer` | `Adapter` \| `Keypair` |
-| `ApiInputLogin`? | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `signer` | `Adapter` \| `Keypair` | The signer used to sign transactions. |
+| `signTransaction`? | [`SignTransaction`](../type-aliases/SignTransaction.md) | The function used to sign transactions. If provided, it will override the default signing method. |
+| `ApiInputLogin`? | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | The login options for the user. |
 
 #### Returns
 
 `Promise`\<`void`\>
 
+#### Throws
+
+Throws an error if the there is no api key or publisher handle provided.
+
 #### Source
 
-[src/classes/sdk.ts:104](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/sdk.ts#L104)
+[src/classes/sdk.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L115)
 
 ***
 
@@ -110,7 +120,7 @@ Throws an error if the client is not initialized or if there is an error logging
 
 #### Source
 
-[src/classes/sdk.ts:151](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/sdk.ts#L151)
+[src/classes/sdk.ts:170](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L170)
 
 ***
 
@@ -164,7 +174,7 @@ The constructed body for the verify API request, formatted based on the authenti
 
 #### Source
 
-[src/classes/sdk.ts:257](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/sdk.ts#L257)
+[src/classes/sdk.ts:276](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L276)
 
 ***
 
@@ -194,7 +204,7 @@ Throws an error if the API request is unsuccessful.
 
 #### Source
 
-[src/classes/sdk.ts:225](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/sdk.ts#L225)
+[src/classes/sdk.ts:244](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L244)
 
 ***
 
@@ -225,4 +235,4 @@ Throws an error if there is an error authenticating the user.
 
 #### Source
 
-[src/classes/sdk.ts:182](https://github.com/torque-labs/torque-ts-sdk/blob/c95828d99ae8c726ef550803d1dbba9bc4dfc9f3/src/classes/sdk.ts#L182)
+[src/classes/sdk.ts:201](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L201)

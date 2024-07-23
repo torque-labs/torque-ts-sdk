@@ -1,13 +1,14 @@
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
+import { EventType } from '@torque-labs/torque-utils';
 
 import { TEST_SPL } from './helper';
-import { ApiEventType, ApiRewardType, CampaignCreateInput } from '../../src/types/index';
+import { ApiRewardType, CampaignCreateInput } from '../../src/types/index';
 
 export const pointsCampaign: CampaignCreateInput = {
   campaignName: 'pointsCampaign',
   campaignType: 'CLICK',
   landingPage: 'https://www.example.com',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.POINTS,
@@ -29,7 +30,7 @@ export const publisherUserSOL: CampaignCreateInput = {
   campaignName: `pubUserSOL_${new Date().getTime()}`,
   campaignType: 'CLICK',
   landingPage: 'https://www.example.com',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.TOKENS,
@@ -51,7 +52,7 @@ export const publisherUserSPL: CampaignCreateInput = {
   campaignName: `pubUserSPL_${new Date().getTime()}`,
   campaignType: 'CLICK',
   landingPage: 'https://www.example.com',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.TOKENS,
@@ -73,7 +74,7 @@ export const raffleSOL: CampaignCreateInput = {
   campaignName: `raffleSOL_${new Date().getTime()}`,
   campaignType: 'CLICK',
   landingPage: 'https://www.example.com',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.TOKENS,
@@ -100,7 +101,7 @@ export const raffleSPL: CampaignCreateInput = {
   campaignName: `raffleSPL_${new Date().getTime()}`,
   campaignType: 'CLICK',
   landingPage: 'https://www.example.com',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.TOKENS,
@@ -127,7 +128,7 @@ export const clickRaffleCampaignSol: CampaignCreateInput = {
   campaignName: 'click_raffle_sol',
   campaignType: 'CLICK',
   landingPage: 'app.torque.so',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.TOKENS,
@@ -155,7 +156,7 @@ export const clickRaffleCampaignSpl: CampaignCreateInput = {
   campaignName: 'click_raffle_spl',
   campaignType: 'CLICK',
   landingPage: 'app.torque.so',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: '',
   publisherRewardType: ApiRewardType.TOKENS,
@@ -183,7 +184,7 @@ export const swapBonkCampaignSpl: CampaignCreateInput = {
   campaignName: `swap_bonk_${new Date().getTime()}.t`,
   campaignType: 'BOUNTY',
   landingPage: 'app.torque.so',
-  eventType: ApiEventType.SWAP,
+  eventType: EventType.SWAP,
   eventProgramAddress: '',
   eventTokenAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
   minAmount: 10,
@@ -206,7 +207,7 @@ export const raffle1Winner: CampaignCreateInput = {
   campaignName: `1_winner${new Date().getTime()}.t`,
   campaignType: 'CLICK',
   landingPage: 'app.torque.so',
-  eventType: ApiEventType.CLICK,
+  eventType: EventType.CLICK,
   eventProgramAddress: '',
   eventTokenAddress: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
   minAmount: null,
