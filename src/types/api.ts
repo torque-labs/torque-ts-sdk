@@ -94,7 +94,7 @@ export type ApiCampaign = {
   publisherRewardToken?: string;
   publisherRewardAmount?: number;
   publisherRewardType?: string;
-  asymmetricRewards: { tokenAddress: string; amount: number }[];
+  asymmetricRewards: { tokenAddress: string; amount: number; userPubKey: string }[];
   advertiser?: {
     profileImage?: string | null;
     twitter?: string | null;
