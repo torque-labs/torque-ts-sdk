@@ -104,6 +104,7 @@ export type ApiCampaign = {
     id: string;
     title: string;
   }[];
+  requirements?: ApiRequirement[];
 };
 
 /**
