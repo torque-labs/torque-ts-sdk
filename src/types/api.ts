@@ -81,6 +81,11 @@ export type ApiCampaign = {
   pubKey: string;
   title: string;
   advertiserPubKey: string;
+  advertiser?: {
+    profileImage?: string | null;
+    twitter?: string | null;
+    username?: string | null;
+  };
   startTime: Date;
   endTime: Date;
   totalConversions: number;
@@ -91,21 +96,27 @@ export type ApiCampaign = {
   targetLink?: string;
   offerLink?: string;
   userRewardToken?: string;
-  userRewardAmount?: number;
+  userRewardAmount?: string;
+  userRewardType?: ApiRewardType;
   publisherRewardToken?: string;
-  publisherRewardAmount?: number;
-  publisherRewardType?: string;
-  asymmetricRewards: { tokenAddress: string; amount: number; userPubKey: string }[];
-  advertiser?: {
-    profileImage?: string | null;
-    twitter?: string | null;
-    username?: string | null;
-  };
+  publisherRewardAmount?: string;
+  publisherRewardType?: ApiRewardType;
+  asymmetricRewards: AssymetricReward[];
   audiences: {
     id: string;
     title: string;
+    config: Audience[];
   }[];
-  requirements?: ApiRequirement[];
+  requirements: ApiRequirement[];
+  userPayouts?: {
+    user: {
+      pubkey: string;
+      username?: string | null;
+      twitter?: string | null;
+      profileImage?: string | null;
+    };
+    payoutTx?: string | null;
+  }[];
 };
 
 /**
@@ -315,38 +326,3 @@ export type ApiRequirement =
   | OfferHedgehogBetAction
   | OfferClickAction
   | OfferSignUpAction;
-
-/**
- * Campaign data with bounty steps.
- */
-export type ApiBountySteps = {
-  campaign: {
-    type: string;
-    status: string;
-    id: string;
-    pubKey: string;
-    title: string;
-    advertiserPubKey: string;
-    startTime: Date;
-    endTime: Date;
-    totalConversions: number;
-    remainingConversions: number;
-    imageUrl?: string;
-    description?: string;
-    content?: string;
-    targetLink?: string;
-    userRewardToken?: string;
-    userRewardAmount: string;
-    userRewardType: ApiRewardType;
-    publisherRewardToken?: string;
-    publisherRewardAmount?: number;
-    publisherRewardType: ApiRewardType;
-    asymmetricRewards: AssymetricReward[];
-    audiences: {
-      id: string;
-      title: string;
-      config: Audience[];
-    }[];
-    requirements: ApiRequirement[];
-  };
-};
