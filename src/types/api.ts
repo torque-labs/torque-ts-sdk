@@ -33,6 +33,15 @@ export enum ApiRewardType {
 }
 
 /**
+ * The user that get entered into a raffle.
+ */
+export enum ApiRaffleParticipant {
+  USER = 'USER',
+  PUBLISHER = 'PUBLISHER',
+  BOTH = 'BOTH',
+}
+
+/**
  * Generic success response for the API.
  */
 export type ApiResponseSuccess<T> = {

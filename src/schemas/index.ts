@@ -1,11 +1,12 @@
 import { EventType } from '@torque-labs/torque-utils';
 import z from 'zod';
 
-import { ApiRewardType, ApiTxnTypes } from '../types/index.js';
+import { ApiRaffleParticipant, ApiRewardType, ApiTxnTypes } from '../types/index.js';
 
 export const AssymetricRewardInputSchema = z.object({
   tokenAddress: z.string(),
   amount: z.number(),
+  participants: z.nativeEnum(ApiRaffleParticipant).optional().nullable(),
 });
 
 // TODO: Centralize schema definitions
