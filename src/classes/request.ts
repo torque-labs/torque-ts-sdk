@@ -21,7 +21,7 @@ export type TorqueRequestOptions = {
   /**
    * The signer used to sign transactions.
    */
-  signer: Adapter | Keypair;
+  signer?: Adapter | Keypair;
   /**
    * The API key for the client.
    */
@@ -60,7 +60,7 @@ export type TorqueRequestOptions = {
 export class TorqueRequestClient {
   private apiKey: string | undefined;
   private apiAuthHeader: Record<string, string>;
-  private signer: Adapter | Keypair;
+  private signer: Adapter | Keypair | undefined;
   private apiUrl: string;
   private appUrl: string;
   private functionsUrl: string;
@@ -77,12 +77,6 @@ export class TorqueRequestClient {
    */
   constructor(options: TorqueRequestOptions) {
     const { signer, apiKey, apiUrl, appUrl, functionsUrl, connection, signTransaction } = options;
-
-    if (!signer && !signTransaction) {
-      throw new Error(
-        'You need to provide a SignerWalletAdapter, Keypair, or a signTransaction function.',
-      );
-    }
 
     this.signer = signer;
     this.apiKey = apiKey;
@@ -332,7 +326,7 @@ export class TorqueRequestClient {
 
         const signedTx = this.signTransaction
           ? await this.signTransaction(txn)
-          : 'signTransaction' in this.signer
+          : this.signer && 'signTransaction' in this.signer
             ? await this.signer.signTransaction(txn)
             : this.signWithKeypair(txn);
 
@@ -376,7 +370,7 @@ export class TorqueRequestClient {
       );
     }
 
-    if ('signTransaction' in this.signer) {
+    if (this.signer && 'signTransaction' in this.signer) {
       throw new Error('This method is only for signing with a Keypair.');
     }
 

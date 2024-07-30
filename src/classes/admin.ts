@@ -27,7 +27,7 @@ export type TorqueAdminClientOptions = {
   /**
    * The signer used to sign transactions.
    */
-  signer: Adapter | Keypair;
+  signer?: Adapter | Keypair;
   /**
    * The API key for the client.
    */
@@ -35,7 +35,7 @@ export type TorqueAdminClientOptions = {
   /**
    * The user client for the user based API requests.
    */
-  userClient: TorqueUserClient;
+  userClient?: TorqueUserClient;
   /**
    * The API URL for the client.
    */
@@ -106,6 +106,7 @@ export class TorqueAdminClient {
       connection: this.connection,
       signTransaction,
     });
+
     this.userClient = userClient;
   }
 
