@@ -6,6 +6,9 @@ const TORQUE_FUNCTIONS_URL =
 const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 
 const TORQUE_API_ROUTES = {
+  analytics: {
+    campaigns: '/analytics/campaigns',
+  },
   audiences: '/audiences',
   audienceBuilder: `/audiences/builder`,
   campaigns: '/campaigns',

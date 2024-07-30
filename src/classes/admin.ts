@@ -14,6 +14,7 @@ import {
   Audience,
   CampaignCreateInput,
   CampaignEndInput,
+  ConversionTime,
   SafeToken,
   SignTransaction,
   WithSignature,
@@ -147,6 +148,38 @@ export class TorqueAdminClient {
       console.error(error);
 
       throw new Error("There was an error getting user's eligible campaigns.");
+    }
+  }
+
+  /**
+   * Get the details of a specific campaign.
+   *
+   * @param {string} campaignId - The ID of the campaign to retrieve.
+   *
+   * @returns {Promise<ApiCampaign>} A Promise that resolves to the campaign data.
+   *
+   * @throws {Error} Throws an error if a fetching a campaign failed.
+   */
+  public async getCampaign(campaignId: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const params = new URLSearchParams({ campaignId });
+
+      const result = await this.client.apiFetch<ApiCampaign>(
+        `${TORQUE_API_ROUTES.campaigns}/${params.toString()}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the campaign.');
     }
   }
 
@@ -400,6 +433,44 @@ export class TorqueAdminClient {
       console.error(error);
 
       throw new Error('There was an error fetching the safe token list.');
+    }
+  }
+
+  /**
+   * ========================================================================
+   * ANALYTICS
+   * ========================================================================
+   */
+
+  /**
+   * Get the analytics data for a specific campaign.
+   *
+   * @param {string} campaignId - The ID of the campaign to retrieve the analytics for.
+   *
+   * @returns {Promise<ConversionTime[]>} A Promise that resolves to the analytics data for the campaign.
+   *
+   * @throws {Error} Throws an error if a fetching a campaign failed.
+   */
+  public async getCampaignAnalytics(campaignId: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const params = new URLSearchParams({ campaignId });
+
+      const result = await this.client.apiFetch<{ conversions: ConversionTime[] }>(
+        `${TORQUE_API_ROUTES.analytics.campaigns}/${params.toString()}`,
+        {
+          method: 'GET',
+        },
+      );
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error(`There was an error getting the analytics for the campaign: ${campaignId}`);
     }
   }
 
