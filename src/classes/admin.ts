@@ -133,11 +133,9 @@ export class TorqueAdminClient {
     }
 
     try {
-      const params = new URLSearchParams();
-
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
-      }>(`${TORQUE_API_ROUTES.campaigns}?${params.toString()}`, {
+      }>(`${TORQUE_API_ROUTES.campaigns}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -167,10 +165,8 @@ export class TorqueAdminClient {
     }
 
     try {
-      const params = new URLSearchParams({ campaignId });
-
       const result = await this.client.apiFetch<ApiCampaign>(
-        `${TORQUE_API_ROUTES.campaigns}/${params.toString()}`,
+        `${TORQUE_API_ROUTES.campaigns}/${campaignId}`,
         {
           method: 'GET',
         },
@@ -458,10 +454,8 @@ export class TorqueAdminClient {
     }
 
     try {
-      const params = new URLSearchParams({ campaignId });
-
       const result = await this.client.apiFetch<{ conversions: ConversionTime[] }>(
-        `${TORQUE_API_ROUTES.analytics.campaigns}/${params.toString()}`,
+        `${TORQUE_API_ROUTES.analytics.campaigns}/${campaignId}`,
         {
           method: 'GET',
         },
