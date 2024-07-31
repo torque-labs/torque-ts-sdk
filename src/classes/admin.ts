@@ -12,9 +12,9 @@ import {
   ApiResponse,
   ApiTxnTypes,
   Audience,
+  CampaignAnalytics,
   CampaignCreateInput,
   CampaignEndInput,
-  ConversionTime,
   SafeToken,
   SignTransaction,
   WithSignature,
@@ -444,7 +444,7 @@ export class TorqueAdminClient {
    *
    * @param {string} campaignId - The ID of the campaign to retrieve the analytics for.
    *
-   * @returns {Promise<ConversionTime[]>} A Promise that resolves to the analytics data for the campaign.
+   * @returns {Promise<CampaignAnalytics>} A Promise that resolves to the analytics data for the campaign.
    *
    * @throws {Error} Throws an error if a fetching a campaign failed.
    */
@@ -454,7 +454,7 @@ export class TorqueAdminClient {
     }
 
     try {
-      const result = await this.client.apiFetch<{ conversions: ConversionTime[] }>(
+      const result = await this.client.apiFetch<CampaignAnalytics>(
         `${TORQUE_API_ROUTES.analytics.campaigns}/${campaignId}`,
         {
           method: 'GET',
