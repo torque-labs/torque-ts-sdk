@@ -1,5 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
+import { CreateCampaignInput } from '@torque-labs/torque-utils';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -13,7 +14,6 @@ import {
   ApiTxnTypes,
   Audience,
   CampaignAnalytics,
-  CampaignCreateInput,
   CampaignEndInput,
   SafeToken,
   SignTransaction,
@@ -183,11 +183,11 @@ export class TorqueAdminClient {
   /**
    * Create a new campaign with the provided data.
    *
-   * @param {CampaignCreateInput} data - The data for the campaign to create.
+   * @param {CreateCampaignInput} data - The data for the campaign to create.
    *
    * @returns {Promise<WithSignature<T>>} A promise that resolves with the signature of the transaction.
    */
-  public async createCampaign(data: CampaignCreateInput): Promise<WithSignature<unknown>> {
+  public async createCampaign(data: CreateCampaignInput): Promise<WithSignature<unknown>> {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }

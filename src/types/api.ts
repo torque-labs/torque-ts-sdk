@@ -7,6 +7,7 @@ import {
   EventType,
   SignUpAction,
   AsymmetricReward,
+  TensorAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -30,15 +31,6 @@ export enum ApiRewardType {
   POINTS = 'POINTS',
   TOKENS = 'TOKENS',
   ASYMMETRIC_REWARDS = 'ASYMMETRIC_REWARDS',
-}
-
-/**
- * The user that get entered into a raffle.
- */
-export enum ApiRaffleParticipant {
-  USER = 'USER',
-  PUBLISHER = 'PUBLISHER',
-  BOTH = 'BOTH',
 }
 
 /**
@@ -327,6 +319,22 @@ type OfferSignUpAction = {
 };
 
 /**
+ * Tensor buy action bounty step requirements.
+ */
+type OfferTensorBuyAction = {
+  type: EventType.TENSOR_BUY;
+  eventConfig: TensorAction;
+};
+
+/**
+ * Tensor bid action bounty step requirements.
+ */
+type OfferTensorBidAction = {
+  type: EventType.TENSOR_BID;
+  eventConfig: TensorAction;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
@@ -334,4 +342,6 @@ export type ApiRequirement =
   | OfferNFTTradeAction
   | OfferHedgehogBetAction
   | OfferClickAction
-  | OfferSignUpAction;
+  | OfferSignUpAction
+  | OfferTensorBuyAction
+  | OfferTensorBidAction;

@@ -1,36 +1,7 @@
-import { EventType } from '@torque-labs/torque-utils';
+import { CreateCampaignInputSchema } from '@torque-labs/torque-utils';
 import z from 'zod';
 
-import { ApiRaffleParticipant, ApiRewardType, ApiTxnTypes } from '../types/index.js';
-
-export const AsymmetricRewardInputSchema = z.object({
-  tokenAddress: z.string(),
-  amount: z.number(),
-  participants: z.nativeEnum(ApiRaffleParticipant).optional().nullable(),
-});
-
-// TODO: Centralize schema definitions
-export const CampaignCreateInputSchema = z.object({
-  campaignName: z.string(),
-  campaignType: z.string(),
-  landingPage: z.string(),
-  eventType: z.nativeEnum(EventType),
-  eventProgramAddress: z.string().optional(),
-  eventTokenAddress: z.string().optional(),
-  publisherRewardType: z.nativeEnum(ApiRewardType),
-  publisherTokenAddress: z.string().optional(),
-  publisherPayoutPerConversion: z.number(),
-  userRewardType: z.nativeEnum(ApiRewardType).optional(),
-  userTokenAddress: z.string().optional(),
-  userPayoutPerConversion: z.number().optional(),
-  conversionCount: z.number().optional().nullable(),
-  minAmount: z.number().optional().nullable(),
-  proposal: z.string().optional().nullable(),
-  startTime: z.number(),
-  endTime: z.number(),
-  audience: z.string().optional().nullable(),
-  asymmetricRewards: z.array(AsymmetricRewardInputSchema).optional().nullable(),
-});
+import { ApiTxnTypes } from '../types/index.js';
 
 export const CampaignEndInputSchema = z.object({
   campaignId: z.string(),
@@ -46,7 +17,7 @@ export const PublisherCreateInputSchema = z.boolean();
 export const TxnInputSchema = z.discriminatedUnion('txnType', [
   z.object({
     txnType: z.literal(ApiTxnTypes.CampaignCreate),
-    data: CampaignCreateInputSchema,
+    data: CreateCampaignInputSchema,
   }),
   z.object({
     txnType: z.literal(ApiTxnTypes.CampaignEnd),

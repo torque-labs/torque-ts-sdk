@@ -2,18 +2,12 @@ import { Transaction, VersionedTransaction } from '@solana/web3.js';
 import z from 'zod';
 
 import {
-  CampaignCreateInputSchema,
   CampaignEndInputSchema,
   PublisherPayoutInputSchema,
   PublisherCreateInputSchema,
   TxnInputSchema,
   TxnExecuteSchema,
 } from '../schemas/index.js';
-
-/**
- * Campaign create input.
- */
-export type CampaignCreateInput = z.infer<typeof CampaignCreateInputSchema>;
 
 /**
  * Campaign end input.
