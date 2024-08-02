@@ -6,7 +6,7 @@ import {
   ClickAction,
   EventType,
   SignUpAction,
-  AssymetricReward,
+  AsymmetricReward,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -110,7 +110,7 @@ export type ApiCampaign = {
   publisherRewardToken?: string;
   publisherRewardAmount?: string;
   publisherRewardType?: ApiRewardType;
-  asymmetricRewards: AssymetricReward[];
+  asymmetricRewards: AsymmetricReward[];
   audiences: {
     id: string;
     title: string;

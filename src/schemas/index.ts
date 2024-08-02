@@ -3,7 +3,7 @@ import z from 'zod';
 
 import { ApiRaffleParticipant, ApiRewardType, ApiTxnTypes } from '../types/index.js';
 
-export const AssymetricRewardInputSchema = z.object({
+export const AsymmetricRewardInputSchema = z.object({
   tokenAddress: z.string(),
   amount: z.number(),
   participants: z.nativeEnum(ApiRaffleParticipant).optional().nullable(),
@@ -29,7 +29,7 @@ export const CampaignCreateInputSchema = z.object({
   startTime: z.number(),
   endTime: z.number(),
   audience: z.string().optional().nullable(),
-  asymmetricRewards: z.array(AssymetricRewardInputSchema).optional().nullable(),
+  asymmetricRewards: z.array(AsymmetricRewardInputSchema).optional().nullable(),
 });
 
 export const CampaignEndInputSchema = z.object({
