@@ -384,14 +384,14 @@ export class TorqueUserClient {
    *
    * @throws {Error} An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
    */
-  public async getOffers(slug?: string) {
+  public async getOffers(profileSlug?: string) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
       const params = new URLSearchParams({
-        ...(slug ? { slug } : {}),
+        ...(profileSlug ? { profile: profileSlug } : {}),
       }).toString();
 
       // TODO: Add publisher handle to offer urls
