@@ -378,20 +378,26 @@ export class TorqueUserClient {
   /**
    * Retrieves a list of active campaigns from the Torque API that the user is eligible to participate in.
    *
+   * @param {string} [slug] - An optional profile slug to filter the campaigns by.
+   *
    * @returns {Promise<ApiCampaign[]>} A Promise resolving to an array of `ApiCampaign` objects representing the active campaigns.
    *
    * @throws {Error} An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
    */
-  public async getOffers() {
+  public async getOffers(slug?: string) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
+      const params = new URLSearchParams({
+        ...(slug ? { slug } : {}),
+      }).toString();
+
       // TODO: Add publisher handle to offer urls
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
-      }>(`${TORQUE_API_ROUTES.usersOffers}/${this.publicKey}}`, {
+      }>(`${TORQUE_API_ROUTES.usersOffers}/${this.publicKey}${params ? `?${params}` : ''}`, {
         method: 'GET',
       });
 

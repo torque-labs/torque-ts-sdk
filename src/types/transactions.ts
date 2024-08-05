@@ -45,6 +45,10 @@ export type TxnExecuteResponse = { signature: string };
 interface SignatureField {
   signature: string;
 }
+
+/**
+ * Generic with signture type
+ */
 export type WithSignature<T> = T & SignatureField;
 
 /**
