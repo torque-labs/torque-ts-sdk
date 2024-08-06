@@ -96,6 +96,7 @@ export type ApiCampaign = {
   content?: string;
   targetLink?: string;
   offerLink?: string;
+  blinkOnly?: boolean;
   userRewardToken?: string;
   userRewardAmount?: string;
   userRewardType?: ApiRewardType;
