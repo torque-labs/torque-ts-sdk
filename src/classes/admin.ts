@@ -133,15 +133,14 @@ export class TorqueAdminClient {
     }
 
     try {
-      const filters = params
-        ? Object.entries(params).map(([string, value]) => {
-            return {
-              [string]: value.toString(),
-            };
-          })
-        : {};
+      const filters: Record<string, string> = {};
 
-      const querystring = params ? new URLSearchParams(filters) : '';
+      params &&
+        Object.entries(params).map(([string, value]) => {
+          filters[string] = value.toString();
+        });
+
+      const querystring = new URLSearchParams(filters).toString();
 
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
