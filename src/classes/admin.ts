@@ -1,6 +1,6 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
-import { CreateCampaignInput } from '@torque-labs/torque-utils';
+import { CampaignRequestParams, CreateCampaignInput } from '@torque-labs/torque-utils';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -127,15 +127,25 @@ export class TorqueAdminClient {
    *
    * @throws {Error} If the client is not initialized or there was an error getting the list of campaigns.
    */
-  public async getCampaigns() {
+  public async getCampaigns(params?: CampaignRequestParams) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
+      const filters = params
+        ? Object.entries(params).map(([string, value]) => {
+            return {
+              [string]: value.toString(),
+            };
+          })
+        : {};
+
+      const querystring = params ? new URLSearchParams(filters) : '';
+
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
-      }>(`${TORQUE_API_ROUTES.campaigns}`, {
+      }>(`${TORQUE_API_ROUTES.campaigns}${querystring ? `?${querystring}` : ''}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
