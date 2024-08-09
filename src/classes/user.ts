@@ -481,6 +481,40 @@ export class TorqueUserClient {
   }
 
   /**
+   * Retrieves the user's campaign journeys
+   *
+   * @returns {Promise<ApiCampaignJourney>} A Promise that resolves to the user's campaign journey.
+   *
+   * @throws {Error} Throws an error if the client is not initialized or if there is an error getting the journey.
+   */
+  public async getJourneys() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<{
+        journeys: ApiCampaignJourney[];
+      }>(`${TORQUE_API_ROUTES.userJourney}`, {
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
+      });
+
+      // Extract the user's journey for the specified campaign from array
+      if (result.journeys.length > 0) {
+        return result.journeys[0];
+      } else {
+        return undefined;
+      }
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error getting the campaign journey.');
+    }
+  }
+
+  /**
    * ========================================================================
    * PUBLISHER
    * ========================================================================
