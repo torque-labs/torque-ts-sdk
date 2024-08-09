@@ -503,7 +503,7 @@ export class TorqueUserClient {
 
       // Extract the user's journey for the specified campaign from array
       if (result.journeys.length > 0) {
-        return result.journeys[0];
+        return result.journeys;
       } else {
         return undefined;
       }
