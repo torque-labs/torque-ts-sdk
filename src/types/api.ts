@@ -336,6 +336,11 @@ type OfferTensorBidAction = {
   eventConfig: TensorAction;
 };
 
+type NftBidBuyAction = {
+  type: EventType.NFT_BUY_BID;
+  eventConfig: NftBidBuy;
+};
+
 /**
  * Full bounty step requirement type.
  */
@@ -347,4 +352,4 @@ export type ApiRequirement =
   | OfferSignUpAction
   | OfferTensorBuyAction
   | OfferTensorBidAction
-  | NftBidBuy;
+  | NftBidBuyAction;
