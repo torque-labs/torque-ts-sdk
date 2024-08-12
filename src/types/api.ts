@@ -8,6 +8,7 @@ import {
   SignUpAction,
   AsymmetricReward,
   TensorAction,
+  NftBidBuy,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -345,4 +346,5 @@ export type ApiRequirement =
   | OfferClickAction
   | OfferSignUpAction
   | OfferTensorBuyAction
-  | OfferTensorBidAction;
+  | OfferTensorBidAction
+  | NftBidBuy;
