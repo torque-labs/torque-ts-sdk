@@ -13,7 +13,7 @@ import {
   ApiShare,
   ApiUserJourney,
   ApiUserPayout,
-  ApiVerifiedUser,
+  ApiUser,
   SignTransaction,
 } from '../types/index.js';
 
@@ -73,7 +73,7 @@ export class TorqueUserClient {
   public publisherHandle: string;
   public initialized: boolean = false;
   public publicKey: string;
-  public user: ApiVerifiedUser | undefined;
+  public user: ApiUser | undefined;
   private client: TorqueRequestClient;
   private signer: Adapter | Keypair;
   private connection: Connection;
@@ -123,7 +123,7 @@ export class TorqueUserClient {
    *
    * @param {ApiInputLogin} userAuth - User signature object that is required to authenticate a user with Torque.
    *
-   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves when the initialization is complete.
+   * @returns {Promise<ApiUser>} A Promise that resolves when the initialization is complete.
    *
    * @throws {Error} If user was not verified.
    */
@@ -190,9 +190,9 @@ export class TorqueUserClient {
       }
 
       if (loginBody) {
-        const verifiedUser = await this.login(loginBody);
+        const loggedInUser = await this.login(loginBody);
 
-        this.user = verifiedUser;
+        this.user = loggedInUser;
         this.initialized = true;
 
         return this.user;
@@ -212,7 +212,7 @@ export class TorqueUserClient {
    *
    * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
    *
-   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
+   * @returns {Promise<ApiUser>} A Promise that resolves to an object containing the user information.
    *
    * @throws {Error} Throws an error if there is an error authenticating the user.
    */
@@ -223,7 +223,7 @@ export class TorqueUserClient {
 
     try {
       // TODO: Update server with login and verify endpoints
-      const result = await this.client.apiFetch<ApiVerifiedUser>(TORQUE_API_ROUTES.login, {
+      const result = await this.client.apiFetch<ApiUser>(TORQUE_API_ROUTES.login, {
         method: 'POST',
         body: JSON.stringify(loginOptions),
       });
@@ -275,7 +275,7 @@ export class TorqueUserClient {
   /**
    * Rereshes the user's information from the Torque API.
    *
-   * @returns {Promise<ApiVerifiedUser | undefined>} A promise that resolves to the user if they are signed in, otherwise undefined.
+   * @returns {Promise<ApiUser | undefined>} A promise that resolves to the user if they are signed in, otherwise undefined.
    */
   public async refreshUser() {
     if (!this.client) {
@@ -284,15 +284,12 @@ export class TorqueUserClient {
 
     if (this.user && this.initialized) {
       try {
-        const result = await this.client.apiFetch<ApiVerifiedUser | false>(
-          TORQUE_API_ROUTES.currentUser,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${this.user.token}`,
-            },
+        const result = await this.client.apiFetch<ApiUser | false>(TORQUE_API_ROUTES.currentUser, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${this.user.token}`,
           },
-        );
+        });
 
         if (result) {
           this.user = result;
@@ -300,7 +297,6 @@ export class TorqueUserClient {
           return result;
         }
 
-        // TODO: Unset user if not verified or no result
         return undefined;
       } catch (error) {
         console.error(error);
@@ -315,7 +311,7 @@ export class TorqueUserClient {
   /**
    * Checks to see if the user is already logged into the Torque API.
    *
-   * @returns {Promise<ApiVerifiedUser | undefined>} A promise that resolves to the user if they are signed in, otherwise undefined.
+   * @returns {Promise<ApiUser | undefined>} A promise that resolves to the user if they are signed in, otherwise undefined.
    *
    * @throws {Error} Throws an error if checking the user's login status fails.
    */
@@ -329,8 +325,7 @@ export class TorqueUserClient {
         return this.user;
       }
 
-      // TODO: Update server with login and verify endpoints
-      const result = await this.client.apiFetch<ApiVerifiedUser | false>(
+      const result = await this.client.apiFetch<ApiUser | false>(
         TORQUE_API_ROUTES.currentUser,
         {
           method: 'GET',
