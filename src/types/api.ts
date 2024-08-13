@@ -8,6 +8,7 @@ import {
   SignUpAction,
   AsymmetricReward,
   TensorAction,
+  NftBidBuy,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -329,6 +330,11 @@ type OfferTensorBidAction = {
   eventConfig: TensorAction;
 };
 
+type NftBidBuyAction = {
+  type: EventType.NFT_BUY_BID;
+  eventConfig: NftBidBuy;
+};
+
 /**
  * Full bounty step requirement type.
  */
@@ -339,4 +345,5 @@ export type ApiRequirement =
   | OfferClickAction
   | OfferSignUpAction
   | OfferTensorBuyAction
-  | OfferTensorBidAction;
+  | OfferTensorBidAction
+  | NftBidBuyAction;
