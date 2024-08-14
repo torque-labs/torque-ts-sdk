@@ -10,6 +10,14 @@ export type ConversionTime = {
  * Campaign analytics type retrieved from the API.
  */
 export type CampaignAnalytics = {
+  totals: {
+    converted: number;
+    started: number;
+  };
+  payouts: {
+    amount: number;
+    count: number;
+  };
   conversions: {
     '15min': ConversionTime[];
     '1hr': ConversionTime[];
