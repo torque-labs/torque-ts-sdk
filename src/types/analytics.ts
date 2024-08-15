@@ -18,6 +18,7 @@ export type CampaignAnalytics = {
     amount: number;
     count: number;
   };
+  volume?: number | null;
   conversions: {
     '15min': ConversionTime[];
     '1hr': ConversionTime[];
