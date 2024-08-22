@@ -351,7 +351,7 @@ type NftBidBuyAction = {
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
-  | (OfferSwapAction & { timeConfig: TimeConfig })
+  | OfferSwapAction
   | OfferNFTTradeAction
   | OfferHedgehogBetAction
   | OfferClickAction
