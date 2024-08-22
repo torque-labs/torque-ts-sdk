@@ -290,6 +290,7 @@ export enum ApiTxnTypes {
 type OfferClickAction = {
   type: EventType.CLICK;
   eventConfig: ClickAction;
+  timeConfig?: TimeConfig;
 };
 
 /**
@@ -298,6 +299,7 @@ type OfferClickAction = {
 type OfferSwapAction = {
   type: EventType.SWAP;
   eventConfig: SwapAction;
+  timeConfig?: TimeConfig;
 };
 
 /**
@@ -306,6 +308,7 @@ type OfferSwapAction = {
 type OfferNFTTradeAction = {
   type: EventType.NFT_COLLECTION_TRADE;
   eventConfig: NftCollectionTradeAction;
+  timeConfig?: TimeConfig;
 };
 
 /**
@@ -314,6 +317,7 @@ type OfferNFTTradeAction = {
 type OfferHedgehogBetAction = {
   type: EventType.HEDGEHOG_PLACE_BET;
   eventConfig: HedgehogPlaceBetAction;
+  timeConfig?: TimeConfig;
 };
 
 /**
@@ -322,6 +326,7 @@ type OfferHedgehogBetAction = {
 type OfferSignUpAction = {
   type: EventType.SIGN_UP;
   eventConfig: SignUpAction; // TODO: fix sign up action type to use schema with email
+  timeConfig?: TimeConfig;
 };
 
 /**
@@ -330,6 +335,7 @@ type OfferSignUpAction = {
 type OfferTensorBuyAction = {
   type: EventType.TENSOR_BUY;
   eventConfig: TensorAction;
+  timeConfig?: TimeConfig;
 };
 
 /**
@@ -338,11 +344,13 @@ type OfferTensorBuyAction = {
 type OfferTensorBidAction = {
   type: EventType.TENSOR_BID;
   eventConfig: TensorAction;
+  timeConfig?: TimeConfig;
 };
 
 type NftBidBuyAction = {
   type: EventType.NFT_BUY_BID;
   eventConfig: NftBidBuy;
+  timeConfig?: TimeConfig;
 };
 
 /**
