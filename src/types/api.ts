@@ -9,6 +9,7 @@ import {
   AsymmetricReward,
   TensorAction,
   NftBidBuy,
+  TimeConfig,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -120,6 +121,7 @@ export type ApiCampaign = {
     };
     payoutTx?: string | null;
   }[];
+  pendingConversions?: number;
 };
 
 /**
@@ -227,6 +229,7 @@ export enum ApiProgressStatus {
   DONE = 'DONE',
   EXPIRED = 'EXPIRED',
   INVALID = 'INVALID',
+  PENDING = 'PENDING',
 }
 
 /**
@@ -241,6 +244,7 @@ export type ApiCampaignJourney = {
   transaction?: string;
   publisherPubKey: string;
   campaign: ApiCampaign;
+  updatedAt: Date;
 };
 
 /**
@@ -345,7 +349,7 @@ type NftBidBuyAction = {
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
-  | OfferSwapAction
+  | (OfferSwapAction & { timeConfig: TimeConfig })
   | OfferNFTTradeAction
   | OfferHedgehogBetAction
   | OfferClickAction
