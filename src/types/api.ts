@@ -171,12 +171,6 @@ export type ApiUser = {
   isPublisher: boolean;
   publisherPubKey?: string | null;
   token: string;
-};
-
-/**
- * A verified Torque user.
- */
-export type ApiVerifiedUser = ApiUser & {
   verified: boolean;
 };
 

@@ -10,7 +10,7 @@ import {
   ApiIdentifyPayload,
   ApiInputLogin,
   ApiResponse,
-  ApiVerifiedUser,
+  ApiUser,
   SignTransaction,
 } from '../types/index.js';
 
@@ -194,7 +194,7 @@ export class TorqueSDK {
    * @param {ApiInputLogin} loginOptions - The verification object that is required to authenticate a user with Torque.
    * @param {string} apiUrl - The API URL to use for the verification. Defaults to the Torque API URL.
    *
-   * @returns {Promise<ApiVerifiedUser>} A Promise that resolves to an object containing the user information.
+   * @returns {Promise<ApiUser>} A Promise that resolves to an object containing the user information.
    *
    * @throws {Error} Throws an error if there is an error authenticating the user.
    */
@@ -214,7 +214,7 @@ export class TorqueSDK {
         body: JSON.stringify(loginOptions),
       });
 
-      const result = (await response.json()) as unknown as ApiResponse<ApiVerifiedUser>;
+      const result = (await response.json()) as unknown as ApiResponse<ApiUser>;
 
       if (result.status === 'SUCCESS') {
         return result.data;
