@@ -239,6 +239,8 @@ export type ApiCampaignJourney = {
   publisherPubKey: string;
   campaign: ApiCampaign;
   updatedAt: Date;
+  startTime?: Date;
+  startTx?: string;
 };
 
 /**
