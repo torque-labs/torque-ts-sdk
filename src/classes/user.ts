@@ -510,6 +510,33 @@ export class TorqueUserClient {
   }
 
   /**
+   * Fetches the user's custom events
+   *
+   * @returns {Promise<{ id: string; name: string }[]>} A Promise that resolves to an array of custom events.
+   *
+   * @throws {Error} If the client is not initialized or there was an error fetching the custom events.
+   */
+  public async getCustomEvents() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<{
+        customEvents: { id: string; name: string }[];
+      }>(`${TORQUE_API_ROUTES.events}`, {
+        method: 'GET',
+      });
+
+      return result.customEvents;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error fetching custom events.');
+    }
+  }
+
+  /**
    * ========================================================================
    * PUBLISHER
    * ========================================================================
