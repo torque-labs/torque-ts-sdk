@@ -1,6 +1,7 @@
 import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import { CustomEventDefinition } from '@torque-labs/torque-utils';
 import nacl from 'tweetnacl';
 
 import { TorqueRequestClient } from './request.js';
@@ -512,7 +513,7 @@ export class TorqueUserClient {
   /**
    * Fetches the user's custom events
    *
-   * @returns {Promise<{ id: string; name: string }[]>} A Promise that resolves to an array of custom events.
+   * @returns {Promise<{ id: string; name: string; config: unknown }[]>} A Promise that resolves to an array of custom events.
    *
    * @throws {Error} If the client is not initialized or there was an error fetching the custom events.
    */
@@ -523,7 +524,7 @@ export class TorqueUserClient {
 
     try {
       const result = await this.client.apiFetch<{
-        customEvents: { id: string; name: string }[];
+        customEvents: { id: string; name: string; config: CustomEventDefinition }[];
       }>(`${TORQUE_API_ROUTES.events}`, {
         method: 'GET',
       });
