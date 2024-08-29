@@ -126,14 +126,37 @@ export type ApiCampaign = {
 };
 
 /**
+ *
+ */
+export enum AudienceType {
+  STANDARD = 'STANDARD',
+  CAMPAIGN = 'CAMPAIGN',
+  UPLOAD = 'UPLOAD',
+}
+
+/**
  * Audience data.
  */
 export type ApiAudience = {
   id: string;
   title: string;
+  type: AudienceType;
   config: object;
   description?: string;
   global: boolean;
+  fileKey?: string;
+  bucket?: string;
+};
+
+/**
+ * Audience metadata
+ */
+export type ApiAudienceMetadata = {
+  type: AudienceType;
+  title: string;
+  description: string;
+  fileKey?: string;
+  bucket?: string;
 };
 
 /**

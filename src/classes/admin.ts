@@ -7,6 +7,7 @@ import { TorqueUserClient } from './user.js';
 import { TORQUE_API_ROUTES } from '../constants/index.js';
 import {
   ApiAudience,
+  ApiAudienceMetadata,
   ApiCampaign,
   ApiCampaignLeaderboard,
   ApiRaffleRewards,
@@ -562,14 +563,13 @@ export class TorqueAdminClient {
    * Save an audience to the user's account.
    *
    * @param {Audience} config - The configuration of the audience to save.
-   * @param {string} title - The title of the audience.
-   * @param {string} [description] - An optional description of the audience.
+   * @param {ApiAudienceMetadata} metadata - The metadata of the audience.
    *
    * @returns {Promise<{ audienceId: string }>} A promise that resolves to the id of the saved audience.
    *
    * @throws {Error} If the client is not initialized or there was an error saving the audience.
    */
-  public async saveAudience(config: Audience, title: string, description?: string) {
+  public async saveAudience(metadata: ApiAudienceMetadata, config?: Audience) {
     if (!this.userClient) {
       throw new Error('The user client is not initialized.');
     }
@@ -588,8 +588,10 @@ export class TorqueAdminClient {
             Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify({
-            title,
-            description,
+            title: metadata.title,
+            description: metadata.description,
+            fileKey: metadata.fileKey,
+            bucket: metadata.bucket,
             config,
           }),
         },
@@ -607,14 +609,13 @@ export class TorqueAdminClient {
    *
    * @param {string} id - The ID of the audience to update.
    * @param {Audience} config - The configuration of the audience to update.
-   * @param {string} [title] - The title of the audience.
-   * @param {string} [description] - The description of the audience.
+   * @param {ApiAudienceMetadata} [metadata] - The metadata of the audience.
    *
    * @returns {Promise<ApiAudienceResponse>} A promise that resolves to the updated audience.
    *
    * @throws {Error} If the client is not initialized or if there was an error updating the audience.
    */
-  public async updateAudience(id: string, config: Audience, title?: string, description?: string) {
+  public async updateAudience(id: string, metadata: ApiAudienceMetadata, config?: Audience) {
     if (!this.userClient) {
       throw new Error('The user client is not initialized.');
     }
@@ -630,8 +631,10 @@ export class TorqueAdminClient {
         {
           method: 'PATCH',
           body: JSON.stringify({
-            title,
-            description,
+            title: metadata.title,
+            description: metadata.description,
+            fileKey: metadata.fileKey,
+            bucket: metadata.bucket,
             id,
             config,
           }),
