@@ -10,6 +10,7 @@ import {
   TensorAction,
   NftBidBuy,
   TimeConfig,
+  CustomEventConfig,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -350,6 +351,15 @@ type NftBidBuyAction = {
 };
 
 /**
+ * Custom event bounty step requirements.
+ */
+type OfferCustomEventAction = {
+  type: EventType.CUSTOM_EVENT;
+  eventConfig: CustomEventConfig;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
@@ -360,4 +370,5 @@ export type ApiRequirement =
   | OfferSignUpAction
   | OfferTensorBuyAction
   | OfferTensorBidAction
-  | NftBidBuyAction;
+  | NftBidBuyAction
+  | OfferCustomEventAction;
