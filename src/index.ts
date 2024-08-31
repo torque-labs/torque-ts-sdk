@@ -4,3 +4,4 @@ export * from './classes/request.js';
 export * from './classes/sdk.js';
 export * from './classes/user.js';
 export * from './types/index.js';
+export { TorqueAdminClient } from './classes/admin.js';

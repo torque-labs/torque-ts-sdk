@@ -128,18 +128,43 @@ export class TorqueAdminClient {
    *
    * @throws {Error} If the client is not initialized or there was an error getting the list of campaigns.
    */
-  public async getCampaigns(params?: CampaignRequestParams) {
+  public async getActiveCampaigns(params?: CampaignRequestParams) {
+    return this.getCampaigns(params, false);
+  }
+
+  /**
+   * Get a list of all historic campaigns.
+   *
+   * @returns {Promise<ApiCampaign[]>} A promise that resolves to an array of ApiCampaign objects.
+   *
+   * @throws {Error} If the client is not initialized or there was an error getting the list of campaigns.
+   */
+  public async getHistoricCampaigns(params?: CampaignRequestParams) {
+    const historicParams: CampaignRequestParams = {
+      ...params,
+      status: 'ENDED',
+    };
+    return this.getCampaigns(historicParams, true);
+  }
+
+  private async getCampaigns(params?: CampaignRequestParams, includeHistoric: boolean = false) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
-      const filters: Record<string, string> = {};
-
-      params &&
-        Object.entries(params).map(([string, value]) => {
-          filters[string] = value.toString();
-        });
+      const filters: Record<string, string> = {
+        ...Object.entries(params || {}).reduce(
+          (acc, [key, value]) => {
+            if (value !== undefined) {
+              acc[key] = value.toString();
+            }
+            return acc;
+          },
+          {} as Record<string, string>,
+        ),
+        includeHistoric: includeHistoric.toString(),
+      };
 
       const querystring = new URLSearchParams(filters).toString();
 
@@ -155,8 +180,9 @@ export class TorqueAdminClient {
       return result;
     } catch (error) {
       console.error(error);
-
-      throw new Error("There was an error getting user's eligible campaigns.");
+      throw new Error(
+        `There was an error getting ${includeHistoric ? 'historic' : 'active'} campaigns.`,
+      );
     }
   }
 
