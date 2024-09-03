@@ -147,7 +147,7 @@ export class TorqueAdminClient {
     return this.getCampaigns(historicParams, true);
   }
 
-  private async getCampaigns(params?: CampaignRequestParams, includeHistoric: boolean = false) {
+  public async getCampaigns(params?: CampaignRequestParams, includeHistoric: boolean = false) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
