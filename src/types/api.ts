@@ -11,6 +11,7 @@ import {
   NftBidBuy,
   TimeConfig,
   CustomEventConfig,
+  RealmsVoteAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -373,6 +374,12 @@ type NftBidBuyAction = {
   timeConfig?: TimeConfig;
 };
 
+type RealmsDaoVoteAction = {
+  type: EventType.REALMS_VOTE;
+  eventConfig: RealmsVoteAction;
+  timeConfig?: TimeConfig;
+};
+
 /**
  * Custom event bounty step requirements.
  */
@@ -394,4 +401,5 @@ export type ApiRequirement =
   | OfferTensorBuyAction
   | OfferTensorBidAction
   | NftBidBuyAction
-  | OfferCustomEventAction;
+  | OfferCustomEventAction
+  | RealmsDaoVoteAction;
