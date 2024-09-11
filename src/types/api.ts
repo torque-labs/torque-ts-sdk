@@ -2,7 +2,6 @@ import { SolanaSignInInput, SolanaSignInOutput } from '@solana/wallet-standard-f
 import {
   NftCollectionTradeAction,
   SwapAction,
-  HedgehogPlaceBetAction,
   ClickAction,
   EventType,
   SignUpAction,
@@ -333,15 +332,6 @@ type OfferNFTTradeAction = {
 };
 
 /**
- * Hedgehog bet action bounty step requirements.
- */
-type OfferHedgehogBetAction = {
-  type: EventType.HEDGEHOG_PLACE_BET;
-  eventConfig: HedgehogPlaceBetAction;
-  timeConfig?: TimeConfig;
-};
-
-/**
  * Sign up action bounty step requirements.
  */
 type OfferSignUpAction = {
@@ -395,7 +385,6 @@ type OfferCustomEventAction = {
 export type ApiRequirement =
   | OfferSwapAction
   | OfferNFTTradeAction
-  | OfferHedgehogBetAction
   | OfferClickAction
   | OfferSignUpAction
   | OfferTensorBuyAction
