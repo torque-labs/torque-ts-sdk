@@ -1,4 +1,4 @@
-import { CreateCampaignInputSchema } from '@torque-labs/torque-utils';
+import { CreateCampaignInputSchema, CreateTarpInputSchema } from '@torque-labs/torque-utils';
 import z from 'zod';
 
 import { ApiTxnTypes } from '../types/index.js';
@@ -6,6 +6,11 @@ import { ApiTxnTypes } from '../types/index.js';
 export const CampaignEndInputSchema = z.object({
   campaignId: z.string(),
 });
+
+export const TarpEndInputSchema = z.object({
+  tarpId: z.string(),
+});
+export type TarpEndInput = z.infer<typeof TarpEndInputSchema>;
 
 export const PublisherPayoutInputSchema = z.object({
   token: z.string(),
@@ -30,6 +35,14 @@ export const TxnInputSchema = z.discriminatedUnion('txnType', [
   z.object({
     txnType: z.literal(ApiTxnTypes.PublisherPayout),
     data: PublisherPayoutInputSchema,
+  }),
+  z.object({
+    txnType: z.literal(ApiTxnTypes.TarpCreate),
+    data: CreateTarpInputSchema,
+  }),
+  z.object({
+    txnType: z.literal(ApiTxnTypes.TarpEnd),
+    data: TarpEndInputSchema,
   }),
 ]);
 

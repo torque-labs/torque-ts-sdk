@@ -303,6 +303,8 @@ export enum ApiTxnTypes {
   CampaignEnd = 'CampaignEnd',
   PublisherPayout = 'PublisherPayout',
   PublisherCreate = 'PublisherCreate',
+  TarpCreate = 'TarpCreate',
+  TarpEnd = 'TarpEnd',
 }
 
 /**

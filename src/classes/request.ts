@@ -221,20 +221,24 @@ export class TorqueRequestClient {
   private async buildTransaction<T>(txnInput: TxnInput, token?: string) {
     const data = {
       ...(txnInput.txnType === ApiTxnTypes.CampaignCreate ? { createCampaign: txnInput.data } : {}),
-
       ...(txnInput.txnType === ApiTxnTypes.CampaignEnd ? { endCampaign: txnInput.data } : {}),
-
       ...(txnInput.txnType === ApiTxnTypes.PublisherCreate
         ? { createPublisher: txnInput.data }
         : {}),
-
       ...(txnInput.txnType === ApiTxnTypes.PublisherPayout
         ? { payoutPublisher: txnInput.data }
         : {}),
+      ...(txnInput.txnType === ApiTxnTypes.TarpCreate ? { createTarp: txnInput.data } : {}),
+      ...(txnInput.txnType === ApiTxnTypes.TarpEnd ? { endTarp: txnInput.data } : {}),
     };
 
+    let postUrl = TORQUE_API_ROUTES.transactions.offer.build;
+    if (ApiTxnTypes.TarpCreate === txnInput.txnType || ApiTxnTypes.TarpEnd === txnInput.txnType) {
+      postUrl = TORQUE_API_ROUTES.transactions.tarp.build;
+    }
+
     try {
-      const txn = await this.apiFetch(TORQUE_API_ROUTES.transactions.build, {
+      const txn = await this.apiFetch(postUrl, {
         method: 'POST',
         body: JSON.stringify({ ...data }),
         headers: {
@@ -280,14 +284,17 @@ export class TorqueRequestClient {
     };
 
     try {
-      const txn = await this.apiFetch<TxnExecuteResponse>(TORQUE_API_ROUTES.transactions.execute, {
-        method: 'POST',
-        body: JSON.stringify({ ...data }),
-        headers: {
-          // todo: remove if token is undefined
-          Authorization: `Bearer ${token}`,
+      const txn = await this.apiFetch<TxnExecuteResponse>(
+        TORQUE_API_ROUTES.transactions.offer.execute,
+        {
+          method: 'POST',
+          body: JSON.stringify({ ...data }),
+          headers: {
+            // todo: remove if token is undefined
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       return txn;
     } catch (error) {

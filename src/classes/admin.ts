@@ -1,6 +1,11 @@
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, clusterApiUrl, Connection, Keypair } from '@solana/web3.js';
-import { CampaignRequestParams, CreateCampaignInput } from '@torque-labs/torque-utils';
+import {
+  CampaignRequestParams,
+  CreateCampaignInput,
+  CreateTarpInput,
+  TarpRequestParams,
+} from '@torque-labs/torque-utils';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueUserClient } from './user.js';
@@ -20,6 +25,7 @@ import {
   SignTransaction,
   WithSignature,
 } from '../types/index.js';
+import { TarpEndInput } from '../schemas/index.js';
 
 /**
  * Options for the TorqueAdminClient.
@@ -717,6 +723,102 @@ export class TorqueAdminClient {
     } catch (error) {
       console.error(error);
       throw new Error('There was an error deleting the audience.');
+    }
+  }
+
+  /**
+   * ========================================================================
+   * TARP
+   * ========================================================================
+   */
+
+  public async createTarp(data: CreateTarpInput): Promise<WithSignature<unknown>> {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    if (!this.userClient) {
+      throw new Error('The user client is not initialized.');
+    }
+
+    try {
+      const user = await this.userClient.getCurrentUser();
+      const input = {
+        txnType: ApiTxnTypes.TarpCreate,
+        data,
+      } as const;
+
+      const signature = await this.client.transaction(input, user?.token);
+
+      return signature;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error creating the campaign.');
+    }
+  }
+
+  public async endTarp(data: TarpEndInput): Promise<WithSignature<unknown>> {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    if (!this.userClient) {
+      throw new Error('The user client is not initialized.');
+    }
+
+    try {
+      const user = await this.userClient.getCurrentUser();
+      const input = {
+        txnType: ApiTxnTypes.TarpEnd,
+        data,
+      } as const;
+
+      const signature = await this.client.transaction(input, user?.token);
+
+      return signature;
+    } catch (error) {
+      console.error(error);
+      throw new Error('There was an error ending the campaign.');
+    }
+  }
+
+  public async getTarps(params?: CampaignRequestParams, includeHistoric: boolean = false) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const filters: Record<string, string> = {
+        ...Object.entries(params || {}).reduce(
+          (acc, [key, value]) => {
+            if (value !== undefined) {
+              acc[key] = value.toString();
+            }
+            return acc;
+          },
+          {} as Record<string, string>,
+        ),
+        includeHistoric: includeHistoric.toString(),
+      };
+
+      const querystring = new URLSearchParams(filters).toString();
+
+      const result = await this.client.apiFetch<{
+        campaigns: ApiCampaign[];
+      }>(`${TORQUE_API_ROUTES.tarps}${querystring ? `?${querystring}` : ''}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+      throw new Error(
+        `There was an error getting ${includeHistoric ? 'historic' : 'active'} campaigns.`,
+      );
     }
   }
 }

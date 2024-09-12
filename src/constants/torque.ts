@@ -25,10 +25,17 @@ const TORQUE_API_ROUTES = {
   publishers: '/publishers',
   raffle: '/asymmetricReward',
   share: '/share',
+  tarps: '/tarps',
   tokens: '/tokens',
   transactions: {
-    build: '/tx/build',
-    execute: '/tx/execute',
+    offer: {
+      build: '/tx/offer/build',
+      execute: '/tx/offer/execute',
+    },
+    tarp: {
+      build: '/tx/tarp/build',
+      execute: '/tx/tarp/execute',
+    },
   },
   userCampaigns: '/users/campaigns',
   users: '/users',
