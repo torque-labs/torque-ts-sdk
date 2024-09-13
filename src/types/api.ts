@@ -4,13 +4,14 @@ import {
   SwapAction,
   ClickAction,
   EventType,
-  SignUpAction,
+  MemoAction,
   AsymmetricReward,
   TensorAction,
   NftBidBuy,
   TimeConfig,
   CustomEventConfig,
   RealmsVoteAction,
+  MarginfiLendAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -334,9 +335,9 @@ type OfferNFTTradeAction = {
 /**
  * Sign up action bounty step requirements.
  */
-type OfferSignUpAction = {
-  type: EventType.SIGN_UP;
-  eventConfig: SignUpAction; // TODO: fix sign up action type to use schema with email
+type OfferMemoAction = {
+  type: EventType.MEMO;
+  eventConfig: MemoAction; // TODO: fix sign up action type to use schema with email
   timeConfig?: TimeConfig;
 };
 
@@ -358,12 +359,18 @@ type OfferTensorBidAction = {
   timeConfig?: TimeConfig;
 };
 
+/**
+ * NFT bid buy action bounty step requirements.
+ */
 type NftBidBuyAction = {
   type: EventType.NFT_BUY_BID;
   eventConfig: NftBidBuy;
   timeConfig?: TimeConfig;
 };
 
+/**
+ * Realms DAO vote action bounty step requirements.
+ */
 type RealmsDaoVoteAction = {
   type: EventType.REALMS_VOTE;
   eventConfig: RealmsVoteAction;
@@ -380,15 +387,25 @@ type OfferCustomEventAction = {
 };
 
 /**
+ * Marginfi lend action bounty step requirements.
+ */
+type OfferMarginfiLendAction = {
+  type: EventType.MARGINFI_LEND;
+  eventConfig: MarginfiLendAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
   | OfferSwapAction
   | OfferNFTTradeAction
   | OfferClickAction
-  | OfferSignUpAction
+  | OfferMemoAction
   | OfferTensorBuyAction
   | OfferTensorBidAction
   | NftBidBuyAction
   | OfferCustomEventAction
-  | RealmsDaoVoteAction;
+  | RealmsDaoVoteAction
+  | OfferMarginfiLendAction;
