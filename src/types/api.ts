@@ -12,6 +12,7 @@ import {
   CustomEventConfig,
   RealmsVoteAction,
   MarginfiLendAction,
+  KaminoLendAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -396,6 +397,15 @@ type OfferMarginfiLendAction = {
 };
 
 /**
+ * Kamino lend action bounty step requirements.
+ */
+type OfferKaminoLendAction = {
+  type: EventType.KAMINO_LEND;
+  eventConfig: KaminoLendAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
@@ -408,4 +418,5 @@ export type ApiRequirement =
   | NftBidBuyAction
   | OfferCustomEventAction
   | RealmsDaoVoteAction
-  | OfferMarginfiLendAction;
+  | OfferMarginfiLendAction
+  | OfferKaminoLendAction;
