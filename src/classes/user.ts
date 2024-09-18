@@ -16,6 +16,7 @@ import {
   ApiUserPayout,
   ApiUser,
   SignTransaction,
+  ApiTelegramAuth,
 } from '../types/index.js';
 
 /**
@@ -740,6 +741,43 @@ export class TorqueUserClient {
       console.error(error);
 
       throw new Error('There was an error getting the shared link data.');
+    }
+  }
+
+  /**
+   * ========================================================================
+   * TELEGRAM
+   * ========================================================================
+   */
+  /**
+   * Links user's telegram account to their Torque account.
+   *
+   * @returns {Promise<ApiTelegramAuth>} The data associated with the shared link if the request is successful.
+   *
+   * @throws {Error} Throws an error there was an error getting the shared link data.
+   */
+  public async authTelegram(user: {
+    id: number;
+    first_name: string;
+    username: string;
+    photo_url: string;
+    auth_date: number;
+    hash: string;
+  }): Promise<ApiTelegramAuth> {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+    try {
+      const result = await this.client.apiFetch<ApiTelegramAuth>(TORQUE_API_ROUTES.telegramAuth, {
+        method: 'POST',
+        body: JSON.stringify(user),
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error authenticating the user.');
     }
   }
 }

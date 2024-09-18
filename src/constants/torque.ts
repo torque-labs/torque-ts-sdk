@@ -35,6 +35,7 @@ const TORQUE_API_ROUTES = {
   usersOffers: '/offers',
   userPayout: '/users/payout',
   userJourney: '/users/journey',
+  telegramAuth: '/bot/telegram/auth',
 };
 
 const TORQUE_FUNCTIONS_ROUTES = {

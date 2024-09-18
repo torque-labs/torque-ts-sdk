@@ -198,6 +198,16 @@ export type ApiUser = {
   publisherPubKey?: string | null;
   token: string;
   verified: boolean;
+  telegram?: string;
+};
+
+/**
+ * Telegram auth response.
+ */
+export type ApiTelegramAuth = {
+  pubKey: string;
+  telegram?: string;
+  publisherPubKey?: string;
 };
 
 /**
