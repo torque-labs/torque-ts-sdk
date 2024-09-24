@@ -13,6 +13,8 @@ import {
   RealmsVoteAction,
   MarginfiLendAction,
   KaminoLendAction,
+  DriftBetAction,
+  DriftDepositAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -416,6 +418,24 @@ type OfferKaminoLendAction = {
 };
 
 /**
+ * Drift bet action bounty step requirements.
+ */
+type OfferDriftBetAction = {
+  type: EventType.DRIFT_BET;
+  eventConfig: DriftBetAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
+ * Drift bet action bounty step requirements.
+ */
+type OfferDriftDepositAction = {
+  type: EventType.DRIFT_DEPOSIT;
+  eventConfig: DriftDepositAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement =
@@ -429,4 +449,6 @@ export type ApiRequirement =
   | OfferCustomEventAction
   | RealmsDaoVoteAction
   | OfferMarginfiLendAction
-  | OfferKaminoLendAction;
+  | OfferKaminoLendAction
+  | OfferDriftBetAction
+  | OfferDriftDepositAction;
