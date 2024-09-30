@@ -277,6 +277,13 @@ export type ApiCampaignJourney = {
   publisherPubKey: string;
   campaign: ApiCampaign;
   updatedAt: Date;
+  userBountySteps?: {
+    id?: string;
+    bountyStepId: string;
+    userJourneyId: string;
+    status: ApiProgressStatus;
+    transaction?: string;
+  }[];
   startTime?: Date;
   startTx?: string;
 };
