@@ -438,7 +438,7 @@ type OfferDriftDepositAction = {
 /**
  * Full bounty step requirement type.
  */
-export type ApiRequirement =
+export type ApiRequirement = (
   | OfferSwapAction
   | OfferNFTTradeAction
   | OfferClickAction
@@ -451,4 +451,7 @@ export type ApiRequirement =
   | OfferMarginfiLendAction
   | OfferKaminoLendAction
   | OfferDriftBetAction
-  | OfferDriftDepositAction;
+  | OfferDriftDepositAction
+) & {
+  id?: string;
+};
