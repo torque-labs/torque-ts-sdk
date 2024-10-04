@@ -15,6 +15,7 @@ import {
   KaminoLendAction,
   DriftBetAction,
   DriftDepositAction,
+  OfferTheme,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -102,6 +103,8 @@ export type ApiCampaign = {
   description?: string;
   content?: string;
   targetLink?: string;
+  offerBgImage?: string;
+  offerTheme: OfferTheme;
   offerLink?: string;
   blinkOnly?: boolean;
   userRewardToken?: string;
