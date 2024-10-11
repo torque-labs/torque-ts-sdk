@@ -456,6 +456,8 @@ export class TorqueUserClient {
     }
 
     try {
+      console.log(this.user);
+
       const result = await this.client.apiFetch<{
         journeys: ApiCampaignJourney[];
       }>(`${TORQUE_API_ROUTES.userJourney}?campaignId=${campaignId}`, {
