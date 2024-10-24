@@ -6,11 +6,10 @@ const TORQUE_FUNCTIONS_URL =
 const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
 
 const TORQUE_API_ROUTES = {
-  analytics: {
-    campaigns: '/analytics/campaigns',
-  },
-  audiences: '/audiences',
+  actions: '/actions',
+  analytics: { campaigns: '/analytics/campaigns' },
   audienceBuilder: `/audiences/builder`,
+  audiences: '/audiences',
   audienceUpload: '/audiences/upload',
   campaigns: '/campaigns',
   currentUser: '/users/me',
@@ -25,17 +24,14 @@ const TORQUE_API_ROUTES = {
   publishers: '/publishers',
   raffle: '/asymmetricReward',
   share: '/share',
+  telegramAuth: '/bot/telegram/auth',
   tokens: '/tokens',
-  transactions: {
-    build: '/tx/build',
-    execute: '/tx/execute',
-  },
+  transactions: { build: '/tx/build', execute: '/tx/execute' },
   userCampaigns: '/users/campaigns',
+  userJourney: '/users/journey',
+  userPayout: '/users/payout',
   users: '/users',
   usersOffers: '/offers',
-  userPayout: '/users/payout',
-  userJourney: '/users/journey',
-  telegramAuth: '/bot/telegram/auth',
 };
 
 const TORQUE_FUNCTIONS_ROUTES = {

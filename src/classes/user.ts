@@ -1,3 +1,4 @@
+import { ActionPostResponse } from '@solana/actions';
 import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
@@ -537,6 +538,44 @@ export class TorqueUserClient {
       console.error(error);
 
       throw new Error('There was an error fetching custom events.');
+    }
+  }
+
+  /**
+   * Get the transaction for a specific bounty/requirement step.
+   *
+   * @param {string} campaignId - The ID of the campaign to retrieve the journey for.
+   * @param {number} actionIndex - The index of the offer requirement to retrieve the transaction for.
+   *
+   * @returns {Promise<ActionPostResponse>} The Solana Action response which contains the transaction.
+   */
+  public async getBountyStepTransaction(campaignId: string, actionIndex: number = 0) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const url =
+        `${this.apiUrl}${TORQUE_API_ROUTES.actions}` +
+        `/${this.publisherHandle}/${campaignId}` +
+        `?index=${actionIndex}`;
+
+      const result = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          account: this.publicKey.toString(),
+        }),
+      });
+
+      if (result.ok) {
+        const response = await result.json();
+
+        return response as ActionPostResponse;
+      }
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error fetching the solana transaction.');
     }
   }
 

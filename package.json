@@ -2,7 +2,7 @@
   "displayName": "Torque TypeScript SDK",
   "name": "@torque-labs/torque-ts-sdk",
   "author": "Torque Labs",
-  "version": "0.0.104",
+  "version": "0.0.105",
   "description": "The official Torque TypeScript SDK.",
   "license": "MIT",
   "type": "module",
@@ -35,6 +35,7 @@
   "homepage": "https://torque.so",
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
+    "@solana/actions": "^1.6.5",
     "@solana/spl-token": "^0.4.6",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-standard-features": "^1.2.0",
