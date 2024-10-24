@@ -450,6 +450,7 @@ type OfferDriftDepositAction = {
 /**
  * Form submission action bounty step requirements.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type OfferFormSubmissionAction = {
   type: EventType.FORM_SUBMISSION;
   eventConfig: FormSubmissionAction;
@@ -459,6 +460,7 @@ type OfferFormSubmissionAction = {
 /**
  * Stake solana action bounty step requirements.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type OfferStakeSolanaAction = {
   type: EventType.STAKE_SOL;
   eventConfig: StakeSolanaAction;
@@ -482,8 +484,6 @@ export type ApiRequirement = (
   | OfferKaminoLendAction
   | OfferDriftBetAction
   | OfferDriftDepositAction
-  | OfferFormSubmissionAction
-  | OfferStakeSolanaAction
 ) & {
   id?: string;
 };
