@@ -16,6 +16,8 @@ import {
   DriftBetAction,
   DriftDepositAction,
   OfferTheme,
+  FormSubmissionAction,
+  StakeSolanaAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -446,6 +448,24 @@ type OfferDriftDepositAction = {
 };
 
 /**
+ * Form submission action bounty step requirements.
+ */
+type OfferFormSubmissionAction = {
+  type: EventType.FORM_SUBMISSION;
+  eventConfig: FormSubmissionAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
+ * Stake solana action bounty step requirements.
+ */
+type OfferStakeSolanaAction = {
+  type: EventType.STAKE_SOL;
+  eventConfig: StakeSolanaAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement = (
@@ -462,6 +482,8 @@ export type ApiRequirement = (
   | OfferKaminoLendAction
   | OfferDriftBetAction
   | OfferDriftDepositAction
+  | OfferFormSubmissionAction
+  | OfferStakeSolanaAction
 ) & {
   id?: string;
 };
