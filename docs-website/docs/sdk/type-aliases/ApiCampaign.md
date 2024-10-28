@@ -8,33 +8,46 @@ type ApiCampaign: {
      username: string | null;
     };
   advertiserPubKey: string;
-  asymmetricRewards: {
-     amount: number;
-     tokenAddress: string;
-    }[];
+  asymmetricRewards: AsymmetricReward[];
   audiences: {
+     config: Audience[];
      id: string;
      title: string;
     }[];
+  blinkOnly: boolean;
   content: string;
   description: string;
   endTime: Date;
   id: string;
   imageUrl: string;
+  offerBgImage: string;
   offerLink: string;
+  offerTheme: OfferTheme;
+  pendingConversions: number;
   pubKey: string;
-  publisherRewardAmount: number;
+  publisherRewardAmount: string;
   publisherRewardToken: string;
-  publisherRewardType: string;
+  publisherRewardType: ApiRewardType;
   remainingConversions: number;
+  requirements: ApiRequirement[];
   startTime: Date;
   status: string;
   targetLink: string;
   title: string;
   totalConversions: number;
   type: string;
-  userRewardAmount: number;
+  userPayouts: {
+     payoutTx: string | null;
+     user: {
+        profileImage: string | null;
+        pubkey: string;
+        twitter: string | null;
+        username: string | null;
+       };
+    }[];
+  userRewardAmount: string;
   userRewardToken: string;
+  userRewardType: ApiRewardType;
 };
 ```
 
@@ -79,19 +92,23 @@ advertiserPubKey: string;
 ### asymmetricRewards
 
 ```ts
-asymmetricRewards: {
-  amount: number;
-  tokenAddress: string;
- }[];
+asymmetricRewards: AsymmetricReward[];
 ```
 
 ### audiences
 
 ```ts
 audiences: {
+  config: Audience[];
   id: string;
   title: string;
  }[];
+```
+
+### blinkOnly?
+
+```ts
+optional blinkOnly: boolean;
 ```
 
 ### content?
@@ -124,10 +141,28 @@ id: string;
 optional imageUrl: string;
 ```
 
+### offerBgImage?
+
+```ts
+optional offerBgImage: string;
+```
+
 ### offerLink?
 
 ```ts
 optional offerLink: string;
+```
+
+### offerTheme
+
+```ts
+offerTheme: OfferTheme;
+```
+
+### pendingConversions?
+
+```ts
+optional pendingConversions: number;
 ```
 
 ### pubKey
@@ -139,7 +174,7 @@ pubKey: string;
 ### publisherRewardAmount?
 
 ```ts
-optional publisherRewardAmount: number;
+optional publisherRewardAmount: string;
 ```
 
 ### publisherRewardToken?
@@ -151,13 +186,19 @@ optional publisherRewardToken: string;
 ### publisherRewardType?
 
 ```ts
-optional publisherRewardType: string;
+optional publisherRewardType: ApiRewardType;
 ```
 
 ### remainingConversions
 
 ```ts
 remainingConversions: number;
+```
+
+### requirements
+
+```ts
+requirements: ApiRequirement[];
 ```
 
 ### startTime
@@ -196,10 +237,24 @@ totalConversions: number;
 type: string;
 ```
 
+### userPayouts?
+
+```ts
+optional userPayouts: {
+  payoutTx: string | null;
+  user: {
+     profileImage: string | null;
+     pubkey: string;
+     twitter: string | null;
+     username: string | null;
+    };
+ }[];
+```
+
 ### userRewardAmount?
 
 ```ts
-optional userRewardAmount: number;
+optional userRewardAmount: string;
 ```
 
 ### userRewardToken?
@@ -208,6 +263,12 @@ optional userRewardAmount: number;
 optional userRewardToken: string;
 ```
 
+### userRewardType?
+
+```ts
+optional userRewardType: ApiRewardType;
+```
+
 ## Source
 
-[src/types/api.ts:76](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L76)
+[src/types/api.ts:88](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L88)

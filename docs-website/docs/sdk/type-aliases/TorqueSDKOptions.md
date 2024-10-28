@@ -74,4 +74,4 @@ The RPC URL for the client. Defaults to the Solana mainnet-beta cluster.
 
 ## Source
 
-[src/classes/sdk.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/classes/sdk.ts#L20)
+[src/classes/sdk.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L20)

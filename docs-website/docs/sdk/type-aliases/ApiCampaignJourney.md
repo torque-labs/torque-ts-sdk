@@ -6,9 +6,19 @@ type ApiCampaignJourney: {
   campaignId: string;
   currentStep: number;
   publisherPubKey: string;
+  startTime: Date;
+  startTx: string;
   status: ApiProgressStatus;
   totalSteps: number;
   transaction: string;
+  updatedAt: Date;
+  userBountySteps: {
+     bountyStepId: string;
+     id: string;
+     status: ApiProgressStatus;
+     transaction: string;
+     userJourneyId: string;
+    }[];
   userPubKey: string;
 };
 ```
@@ -41,6 +51,18 @@ currentStep: number;
 publisherPubKey: string;
 ```
 
+### startTime?
+
+```ts
+optional startTime: Date;
+```
+
+### startTx?
+
+```ts
+optional startTx: string;
+```
+
 ### status
 
 ```ts
@@ -59,6 +81,24 @@ totalSteps: number;
 optional transaction: string;
 ```
 
+### updatedAt
+
+```ts
+updatedAt: Date;
+```
+
+### userBountySteps?
+
+```ts
+optional userBountySteps: {
+  bountyStepId: string;
+  id: string;
+  status: ApiProgressStatus;
+  transaction: string;
+  userJourneyId: string;
+ }[];
+```
+
 ### userPubKey
 
 ```ts
@@ -67,4 +107,4 @@ userPubKey: string;
 
 ## Source
 
-[src/types/api.ts:219](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L219)
+[src/types/api.ts:275](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L275)

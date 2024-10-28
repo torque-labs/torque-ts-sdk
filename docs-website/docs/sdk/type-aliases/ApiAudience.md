@@ -2,17 +2,26 @@
 
 ```ts
 type ApiAudience: {
+  bucket: string;
   config: object;
   description: string;
+  fileKey: string;
   global: boolean;
   id: string;
   title: string;
+  type: AudienceType;
 };
 ```
 
 Audience data.
 
 ## Type declaration
+
+### bucket?
+
+```ts
+optional bucket: string;
+```
 
 ### config
 
@@ -24,6 +33,12 @@ config: object;
 
 ```ts
 optional description: string;
+```
+
+### fileKey?
+
+```ts
+optional fileKey: string;
 ```
 
 ### global
@@ -44,6 +59,12 @@ id: string;
 title: string;
 ```
 
+### type
+
+```ts
+type: AudienceType;
+```
+
 ## Source
 
-[src/types/api.ts:112](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L112)
+[src/types/api.ts:149](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L149)

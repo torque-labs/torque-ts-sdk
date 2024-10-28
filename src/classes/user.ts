@@ -542,40 +542,84 @@ export class TorqueUserClient {
   }
 
   /**
-   * Get the transaction for a specific bounty/requirement step.
+   * Get the Solana action for a specific bounty/requirement step.
    *
    * @param {string} campaignId - The ID of the campaign to retrieve the journey for.
    * @param {number} actionIndex - The index of the offer requirement to retrieve the transaction for.
+   * @param {Record<string, string>} data - Additional data to be sent with the request.
    *
    * @returns {Promise<ActionPostResponse>} The Solana Action response which contains the transaction.
    */
-  public async getBountyStepTransaction(campaignId: string, actionIndex: number = 0) {
+  public async getBountyStepAction(
+    campaignId: string,
+    actionIndex: number,
+    data: Record<string, string> = {},
+  ) {
     if (!this.client) {
       throw new Error('The client is not initialized.');
     }
 
     try {
+      const urlParams = new URLSearchParams({
+        ...data,
+        index: actionIndex.toString(),
+      }).toString();
+
       const url =
         `${this.apiUrl}${TORQUE_API_ROUTES.actions}` +
         `/${this.publisherHandle}/${campaignId}` +
-        `?index=${actionIndex}`;
+        `?${urlParams}`;
 
-      const result = await fetch(url, {
+      const result = await TorqueRequestClient.anyFetch<ActionPostResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
           account: this.publicKey.toString(),
         }),
       });
 
-      if (result.ok) {
-        const response = await result.json();
-
-        return response as ActionPostResponse;
-      }
+      return result;
     } catch (error) {
       console.error(error);
 
-      throw new Error('There was an error fetching the solana transaction.');
+      throw new Error("There was an error fetching the requirement's transaction.");
+    }
+  }
+
+  /**
+   * Sends a signed message to the Torque API to confirm the user's signature for a requirement.
+   *
+   * @param {string} campaignId - The ID of the campaign/offer to confirm the signature for.
+   * @param {number} index - The index of the offer requirement within the campaign.
+   * @param {string} signedMessage - The encoded signed message from the user's wallet.
+   *
+   * @returns {Promise<ActionPostResponse>} A Solana action response that contains the next requirement.
+   */
+  public async confirmActionSignature(campaignId: string, index: number, encodedMessage: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const urlParams = new URLSearchParams({
+        campaignId,
+        index: index.toString(),
+      }).toString();
+
+      const url = `${TORQUE_API_ROUTES.actionsCallback}?${urlParams}`;
+
+      const result = await TorqueRequestClient.anyFetch<ActionPostResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          account: this.publicKey.toString(),
+          signature: encodedMessage,
+        }),
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error sending the action signature.');
     }
   }
 

@@ -44,4 +44,4 @@ statement: string;
 
 ## Source
 
-[src/types/api.ts:168](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L168)
+[src/types/api.ts:223](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L223)

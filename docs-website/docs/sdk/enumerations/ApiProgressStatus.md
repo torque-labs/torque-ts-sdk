@@ -9,4 +9,5 @@ Campaign journey progress status.
 | `DONE` | `"DONE"` |
 | `EXPIRED` | `"EXPIRED"` |
 | `INVALID` | `"INVALID"` |
+| `PENDING` | `"PENDING"` |
 | `STARTED` | `"STARTED"` |

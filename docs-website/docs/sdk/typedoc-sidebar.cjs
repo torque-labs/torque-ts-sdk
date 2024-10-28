@@ -32,6 +32,11 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/enumerations/AudienceType",
+        "label": "AudienceType"
+      },
+      {
+        "type": "doc",
         "id": "sdk/enumerations/Operation",
         "label": "Operation"
       },
@@ -109,13 +114,13 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
-        "id": "sdk/type-aliases/ApiAudienceResponse",
-        "label": "ApiAudienceResponse"
+        "id": "sdk/type-aliases/ApiAudienceMetadata",
+        "label": "ApiAudienceMetadata"
       },
       {
         "type": "doc",
-        "id": "sdk/type-aliases/ApiBountySteps",
-        "label": "ApiBountySteps"
+        "id": "sdk/type-aliases/ApiAudienceResponse",
+        "label": "ApiAudienceResponse"
       },
       {
         "type": "doc",
@@ -179,6 +184,11 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
+        "id": "sdk/type-aliases/ApiTelegramAuth",
+        "label": "ApiTelegramAuth"
+      },
+      {
+        "type": "doc",
         "id": "sdk/type-aliases/ApiUser",
         "label": "ApiUser"
       },
@@ -191,11 +201,6 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/ApiUserPayout",
         "label": "ApiUserPayout"
-      },
-      {
-        "type": "doc",
-        "id": "sdk/type-aliases/ApiVerifiedUser",
-        "label": "ApiVerifiedUser"
       },
       {
         "type": "doc",
@@ -229,8 +234,8 @@ const typedocSidebar = { items: [
       },
       {
         "type": "doc",
-        "id": "sdk/type-aliases/CampaignCreateInput",
-        "label": "CampaignCreateInput"
+        "id": "sdk/type-aliases/CampaignAnalytics",
+        "label": "CampaignAnalytics"
       },
       {
         "type": "doc",
@@ -241,6 +246,11 @@ const typedocSidebar = { items: [
         "type": "doc",
         "id": "sdk/type-aliases/Condition",
         "label": "Condition"
+      },
+      {
+        "type": "doc",
+        "id": "sdk/type-aliases/ConversionTime",
+        "label": "ConversionTime"
       },
       {
         "type": "doc",

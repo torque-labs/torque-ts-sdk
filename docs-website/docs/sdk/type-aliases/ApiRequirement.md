@@ -4,13 +4,31 @@
 type ApiRequirement: 
   | OfferSwapAction
   | OfferNFTTradeAction
-  | OfferHedgehogBetAction
   | OfferClickAction
-  | OfferSignUpAction;
+  | OfferMemoAction
+  | OfferTensorBuyAction
+  | OfferTensorBidAction
+  | NftBidBuyAction
+  | OfferCustomEventAction
+  | RealmsDaoVoteAction
+  | OfferMarginfiLendAction
+  | OfferKaminoLendAction
+  | OfferDriftBetAction
+  | OfferDriftDepositAction & {
+  id: string;
+};
 ```
 
 Full bounty step requirement type.
 
+## Type declaration
+
+### id?
+
+```ts
+optional id: string;
+```
+
 ## Source
 
-[src/types/api.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L310)
+[src/types/api.ts:473](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L473)

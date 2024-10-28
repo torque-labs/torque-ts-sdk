@@ -6,9 +6,11 @@ type ApiUser: {
   profileImage: string;
   pubKey: string;
   publisherPubKey: string | null;
+  telegram: string;
   token: string;
   twitter: string;
   username: string;
+  verified: boolean;
 };
 ```
 
@@ -40,6 +42,12 @@ pubKey: string;
 optional publisherPubKey: string | null;
 ```
 
+### telegram?
+
+```ts
+optional telegram: string;
+```
+
 ### token
 
 ```ts
@@ -58,6 +66,12 @@ optional twitter: string;
 optional username: string;
 ```
 
+### verified
+
+```ts
+verified: boolean;
+```
+
 ## Source
 
-[src/types/api.ts:148](https://github.com/torque-labs/torque-ts-sdk/blob/06c96b69b43209c72870e94ce49516c9ed8e9158/src/types/api.ts#L148)
+[src/types/api.ts:199](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L199)

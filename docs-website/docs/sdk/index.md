@@ -13,6 +13,7 @@ The official Torque Client TypeScript SDK.
 | [ApiRewardType](enumerations/ApiRewardType.md) | The rewards type of a campaign. |
 | [ApiStatus](enumerations/ApiStatus.md) | The API response success type. |
 | [ApiTxnTypes](enumerations/ApiTxnTypes.md) | Torque functions that require a wallet signature. |
+| [AudienceType](enumerations/AudienceType.md) | - |
 | [Operation](enumerations/Operation.md) | The operation type of an audience. |
 | [TargetType](enumerations/TargetType.md) | The target type of an audience. |
 
@@ -36,8 +37,8 @@ The official Torque Client TypeScript SDK.
 | [AndOperator](type-aliases/AndOperator.md) | Aggregation and operator. |
 | [ApiAudience](type-aliases/ApiAudience.md) | Audience data. |
 | [ApiAudienceCreateInput](type-aliases/ApiAudienceCreateInput.md) | Audience creation input. |
+| [ApiAudienceMetadata](type-aliases/ApiAudienceMetadata.md) | Audience metadata |
 | [ApiAudienceResponse](type-aliases/ApiAudienceResponse.md) | Audience creation response. |
-| [ApiBountySteps](type-aliases/ApiBountySteps.md) | Campaign data with bounty steps. |
 | [ApiCampaign](type-aliases/ApiCampaign.md) | Campaign data. |
 | [ApiCampaignJourney](type-aliases/ApiCampaignJourney.md) | A user's campaign journey data. |
 | [ApiCampaignLeaderboard](type-aliases/ApiCampaignLeaderboard.md) | Campaign leaderboard data. |
@@ -50,19 +51,20 @@ The official Torque Client TypeScript SDK.
 | [ApiResponseError](type-aliases/ApiResponseError.md) | Generic error response for the API. |
 | [ApiResponseSuccess](type-aliases/ApiResponseSuccess.md) | Generic success response for the API. |
 | [ApiShare](type-aliases/ApiShare.md) | Share link data. |
+| [ApiTelegramAuth](type-aliases/ApiTelegramAuth.md) | Telegram auth response. |
 | [ApiUser](type-aliases/ApiUser.md) | A Torque user. |
 | [ApiUserJourney](type-aliases/ApiUserJourney.md) | A user's journey data. |
 | [ApiUserPayout](type-aliases/ApiUserPayout.md) | User Payout data. |
-| [ApiVerifiedUser](type-aliases/ApiVerifiedUser.md) | A verified Torque user. |
 | [Audience](type-aliases/Audience.md) | Audiences are used to define the conditions under which a user can participate in a campaign. |
 | [AudienceBuild](type-aliases/AudienceBuild.md) | Build audience request options. |
 | [AudienceBuildResponse](type-aliases/AudienceBuildResponse.md) | Build audience response. |
 | [AudienceFunctionResponse](type-aliases/AudienceFunctionResponse.md) | Generic response for an audience request. |
 | [BridgeAction](type-aliases/BridgeAction.md) | Parameters for a bridge action. |
 | [BridgeActionRequirements](type-aliases/BridgeActionRequirements.md) | Bridge action requirements. |
-| [CampaignCreateInput](type-aliases/CampaignCreateInput.md) | Campaign create input. |
+| [CampaignAnalytics](type-aliases/CampaignAnalytics.md) | Campaign analytics type retrieved from the API. |
 | [CampaignEndInput](type-aliases/CampaignEndInput.md) | Campaign end input. |
 | [Condition](type-aliases/Condition.md) | Aggregation query condition. |
+| [ConversionTime](type-aliases/ConversionTime.md) | Conversion time type for analytics. |
 | [NftMintAction](type-aliases/NftMintAction.md) | Parameters for a NFT mint action. |
 | [NftMintActionRequirements](type-aliases/NftMintActionRequirements.md) | Nft mint action requirements. |
 | [OpenPositionRequirementsInput](type-aliases/OpenPositionRequirementsInput.md) | Open position requirements input. |
@@ -92,4 +94,4 @@ The official Torque Client TypeScript SDK.
 | [TxnInput](type-aliases/TxnInput.md) | On-chain transaction build input |
 | [VoteAction](type-aliases/VoteAction.md) | Parameters for a vote action. |
 | [VoteActionRequirements](type-aliases/VoteActionRequirements.md) | Vote action requirements. |
-| [WithSignature](type-aliases/WithSignature.md) | - |
+| [WithSignature](type-aliases/WithSignature.md) | Generic with signture type |

@@ -3,10 +3,11 @@ const TORQUE_APP_URL = process.env.TORQUE_APP_URL ?? 'https://app.torque.so';
 const TORQUE_FUNCTIONS_URL =
   process.env.TORQUE_FUNCTIONS_URL ?? 'https://0tvum434ha.execute-api.us-east-1.amazonaws.com/Prod';
 
-const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share`;
+const TORQUE_SHARE_URL = `${TORQUE_APP_URL}/share` as const;
 
 const TORQUE_API_ROUTES = {
   actions: '/actions',
+  actionsCallback: `/actions/callback`,
   analytics: { campaigns: '/analytics/campaigns' },
   audienceBuilder: `/audiences/builder`,
   audiences: '/audiences',
@@ -32,14 +33,14 @@ const TORQUE_API_ROUTES = {
   userPayout: '/users/payout',
   users: '/users',
   usersOffers: '/offers',
-};
+} as const;
 
 const TORQUE_FUNCTIONS_ROUTES = {
   audience: {
     build: '/build',
     verify: '/verify',
   },
-};
+} as const;
 
 export {
   TORQUE_API_URL,
