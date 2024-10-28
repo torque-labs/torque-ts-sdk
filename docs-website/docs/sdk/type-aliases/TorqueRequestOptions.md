@@ -74,4 +74,4 @@ The signer used to sign transactions.
 
 ## Source
 
-[src/classes/request.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L20)
+[src/classes/request.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L20)

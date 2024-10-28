@@ -49,7 +49,7 @@ Throws an error if the there is no api key or publisher handle provided.
 
 #### Source
 
-[src/classes/sdk.ts:92](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L92)
+[src/classes/sdk.ts:92](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L92)
 
 ## Properties
 
@@ -98,7 +98,7 @@ Throws an error if the there is no api key or publisher handle provided.
 
 #### Source
 
-[src/classes/sdk.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L115)
+[src/classes/sdk.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L115)
 
 ***
 
@@ -120,7 +120,7 @@ Throws an error if the client is not initialized or if there is an error logging
 
 #### Source
 
-[src/classes/sdk.ts:170](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L170)
+[src/classes/sdk.ts:170](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L170)
 
 ***
 
@@ -174,7 +174,7 @@ The constructed body for the verify API request, formatted based on the authenti
 
 #### Source
 
-[src/classes/sdk.ts:276](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L276)
+[src/classes/sdk.ts:276](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L276)
 
 ***
 
@@ -204,7 +204,7 @@ Throws an error if the API request is unsuccessful.
 
 #### Source
 
-[src/classes/sdk.ts:244](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L244)
+[src/classes/sdk.ts:244](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L244)
 
 ***
 
@@ -235,4 +235,4 @@ Throws an error if there is an error authenticating the user.
 
 #### Source
 
-[src/classes/sdk.ts:201](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/sdk.ts#L201)
+[src/classes/sdk.ts:201](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L201)

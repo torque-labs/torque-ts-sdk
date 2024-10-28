@@ -31,4 +31,4 @@ optional id: string;
 
 ## Source
 
-[src/types/api.ts:473](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/types/api.ts#L473)
+[src/types/api.ts:473](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L473)

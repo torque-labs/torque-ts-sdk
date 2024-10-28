@@ -69,12 +69,18 @@ const config: Config = {
     noSkipToContent: true,
     image: 'img/torque-logo.jpg',
     navbar: {
-      title: 'Torque Labs',
       logo: {
         alt: 'Torque',
-        src: 'img/torque-logo.jpg',
+        src: 'img/torque-full-logo-black.svg',
+        srcDark: 'img/torque-full-logo-white.svg',
       },
       items: [
+        {
+          type: 'doc',
+          position: 'left',
+          docId: 'intro',
+          label: 'Home',
+        },
         {
           type: 'doc',
           position: 'left',

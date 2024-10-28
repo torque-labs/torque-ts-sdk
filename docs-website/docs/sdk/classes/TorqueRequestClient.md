@@ -37,7 +37,7 @@ Throws an error if a signer is not provided.
 
 #### Source
 
-[src/classes/request.ts:78](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L78)
+[src/classes/request.ts:78](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L78)
 
 ## Properties
 
@@ -91,7 +91,7 @@ If there is an error performing the request.
 
 #### Source
 
-[src/classes/request.ts:141](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L141)
+[src/classes/request.ts:141](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L141)
 
 ***
 
@@ -132,7 +132,7 @@ Throws an error if the API is not able to build the transaction.
 
 #### Source
 
-[src/classes/request.ts:221](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L221)
+[src/classes/request.ts:221](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L221)
 
 ***
 
@@ -163,7 +163,7 @@ Throws an error if the API request is unsuccessful or if the transaction fails.
 
 #### Source
 
-[src/classes/request.ts:263](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L263)
+[src/classes/request.ts:263](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L263)
 
 ***
 
@@ -200,7 +200,7 @@ If there is an error performing the request.
 
 #### Source
 
-[src/classes/request.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L184)
+[src/classes/request.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L184)
 
 ***
 
@@ -230,7 +230,7 @@ If the signer is not initialized or if the signer is not a Keypair.
 
 #### Source
 
-[src/classes/request.ts:366](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L366)
+[src/classes/request.ts:366](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L366)
 
 ***
 
@@ -263,7 +263,7 @@ A promise that resolves with the signature of the transaction.
 
 #### Source
 
-[src/classes/request.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L310)
+[src/classes/request.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L310)
 
 ***
 
@@ -300,4 +300,4 @@ If there is an error performing the request.
 
 #### Source
 
-[src/classes/request.ts:107](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/request.ts#L107)
+[src/classes/request.ts:107](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L107)

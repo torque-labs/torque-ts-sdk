@@ -42,7 +42,7 @@ Throws an error if the user's wallet is not provided.
 
 #### Source
 
-[src/classes/user.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L93)
+[src/classes/user.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L93)
 
 ## Properties
 
@@ -88,7 +88,7 @@ Throws an error if the client is not initialized or if there is an error accepti
 
 #### Source
 
-[src/classes/user.ts:420](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L420)
+[src/classes/user.ts:420](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L420)
 
 ***
 
@@ -124,7 +124,7 @@ Throws an error there was an error getting the shared link data.
 
 #### Source
 
-[src/classes/user.ts:844](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L844)
+[src/classes/user.ts:844](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L844)
 
 ***
 
@@ -155,7 +155,7 @@ A Solana action response that contains the next requirement.
 
 #### Source
 
-[src/classes/user.ts:597](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L597)
+[src/classes/user.ts:597](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L597)
 
 ***
 
@@ -198,7 +198,7 @@ An error if the link fetch fails.
 
 #### Source
 
-[src/classes/user.ts:733](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L733)
+[src/classes/user.ts:733](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L733)
 
 ***
 
@@ -229,7 +229,7 @@ The Solana Action response which contains the transaction.
 
 #### Source
 
-[src/classes/user.ts:553](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L553)
+[src/classes/user.ts:553](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L553)
 
 ***
 
@@ -259,7 +259,7 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Source
 
-[src/classes/user.ts:454](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L454)
+[src/classes/user.ts:454](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L454)
 
 ***
 
@@ -283,7 +283,7 @@ Throws an error if checking the user's login status fails.
 
 #### Source
 
-[src/classes/user.ts:321](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L321)
+[src/classes/user.ts:321](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L321)
 
 ***
 
@@ -315,7 +315,7 @@ If the client is not initialized or there was an error fetching the custom event
 
 #### Source
 
-[src/classes/user.ts:524](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L524)
+[src/classes/user.ts:524](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L524)
 
 ***
 
@@ -339,7 +339,7 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Source
 
-[src/classes/user.ts:490](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L490)
+[src/classes/user.ts:490](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L490)
 
 ***
 
@@ -361,7 +361,7 @@ getMaxTransferableSpl(token): Promise<number>
 
 #### Source
 
-[src/classes/user.ts:687](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L687)
+[src/classes/user.ts:687](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L687)
 
 ***
 
@@ -401,7 +401,7 @@ An error if the fetch operation fails, or if the API returns a status other than
 
 #### Source
 
-[src/classes/user.ts:385](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L385)
+[src/classes/user.ts:385](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L385)
 
 ***
 
@@ -421,7 +421,7 @@ The balance of the publisher PDA for the current user in lamports.
 
 #### Source
 
-[src/classes/user.ts:710](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L710)
+[src/classes/user.ts:710](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L710)
 
 ***
 
@@ -441,7 +441,7 @@ The publisher PDA for the current user.
 
 #### Source
 
-[src/classes/user.ts:674](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L674)
+[src/classes/user.ts:674](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L674)
 
 ***
 
@@ -472,7 +472,7 @@ Throws an error there was an error getting the shared link data.
 
 #### Source
 
-[src/classes/user.ts:775](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L775)
+[src/classes/user.ts:775](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L775)
 
 ***
 
@@ -492,7 +492,7 @@ The user's handle or `undefined` if no handle is available.
 
 #### Source
 
-[src/classes/user.ts:359](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L359)
+[src/classes/user.ts:359](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L359)
 
 ***
 
@@ -516,7 +516,7 @@ Throws an error there was an error getting the shared link data.
 
 #### Source
 
-[src/classes/user.ts:811](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L811)
+[src/classes/user.ts:811](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L811)
 
 ***
 
@@ -546,7 +546,7 @@ Throws an error if the user is not a publisher or does not have a handle.
 
 #### Source
 
-[src/classes/user.ts:656](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L656)
+[src/classes/user.ts:656](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L656)
 
 ***
 
@@ -576,7 +576,7 @@ If user was not verified.
 
 #### Source
 
-[src/classes/user.ts:133](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L133)
+[src/classes/user.ts:133](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L133)
 
 ***
 
@@ -600,7 +600,7 @@ Throws an error if the user is not signed in.
 
 #### Source
 
-[src/classes/user.ts:639](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L639)
+[src/classes/user.ts:639](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L639)
 
 ***
 
@@ -630,7 +630,7 @@ Throws an error if there is an error authenticating the user.
 
 #### Source
 
-[src/classes/user.ts:222](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L222)
+[src/classes/user.ts:222](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L222)
 
 ***
 
@@ -662,7 +662,7 @@ Throws an error if the client is not initialized or if there is an error logging
 
 #### Source
 
-[src/classes/user.ts:247](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L247)
+[src/classes/user.ts:247](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L247)
 
 ***
 
@@ -682,7 +682,7 @@ A promise that resolves to the user if they are signed in, otherwise undefined.
 
 #### Source
 
-[src/classes/user.ts:283](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L283)
+[src/classes/user.ts:283](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L283)
 
 ***
 
@@ -698,4 +698,4 @@ setUserPublisher(): void
 
 #### Source
 
-[src/classes/user.ts:757](https://github.com/torque-labs/torque-ts-sdk/blob/2e5f57950645ce53fe6b770ba8048e80e413132e/src/classes/user.ts#L757)
+[src/classes/user.ts:757](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L757)
