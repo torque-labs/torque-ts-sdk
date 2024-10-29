@@ -109,6 +109,7 @@ export type ApiCampaign = {
   offerTheme: OfferTheme;
   offerLink?: string;
   blinkOnly?: boolean;
+  hideRewards: boolean;
   userRewardToken?: string;
   userRewardAmount?: string;
   userRewardType?: ApiRewardType;
