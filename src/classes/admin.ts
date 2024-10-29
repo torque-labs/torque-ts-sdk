@@ -30,9 +30,9 @@ export type TorqueAdminClientOptions = {
    */
   signer?: Adapter | Keypair;
   /**
-   * The API key for the client.
+   * The API key for the admin client.
    */
-  apiKey: string;
+  apiKey?: string;
   /**
    * The user client for the user based API requests.
    */

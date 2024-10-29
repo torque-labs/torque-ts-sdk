@@ -515,6 +515,38 @@ export class TorqueUserClient {
   }
 
   /**
+   * Verifies that the user is part of the audience for a specific campaign.
+   *
+   * @param {string} campaignId - The ID of the campaign to verify the audience for.
+   *
+   * @returns {Promise<boolean>} A Promise that resolves to true if the user is part of the audience for the campaign, false otherwise.
+   */
+  public async verifyCampaignAudience(campaignId: string) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const urlParams = new URLSearchParams({
+        publicKey: this.publicKey.toString(),
+        campaignId,
+      });
+
+      const result = await this.client.apiFetch<{
+        valid: boolean;
+      }>(`${TORQUE_API_ROUTES.audienceVerify}?${urlParams}`, {
+        method: 'GET',
+      });
+
+      return result.valid;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error fetching custom events.');
+    }
+  }
+
+  /**
    * Fetches the user's custom events
    *
    * @returns {Promise<{ id: string; name: string; config: unknown }[]>} A Promise that resolves to an array of custom events.

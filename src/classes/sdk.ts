@@ -136,19 +136,19 @@ export class TorqueSDK {
       throw new Error('There was an error initializing the Torque SDK.');
     }
 
-    if (this.apiKey) {
-      this.api = new TorqueAdminClient({
-        signer: signer,
-        apiKey: this.apiKey,
-        userClient: userClient,
-        apiUrl: this.apiUrl,
-        appUrl: this.appUrl,
-        functionsUrl: this.functionsUrl,
-        rpc: this.rpc,
-        network: this.network,
-        signTransaction: signTransaction,
-      });
+    this.api = new TorqueAdminClient({
+      signer: signer,
+      apiKey: this.apiKey,
+      userClient: userClient,
+      apiUrl: this.apiUrl,
+      appUrl: this.appUrl,
+      functionsUrl: this.functionsUrl,
+      rpc: this.rpc,
+      network: this.network,
+      signTransaction: signTransaction,
+    });
 
+    if (this.apiKey) {
       this.audience = new TorqueAudienceClient({
         signer: signer,
         apiKey: this.apiKey,
