@@ -18,6 +18,7 @@ import {
   OfferTheme,
   FormSubmissionAction,
   StakeSolanaAction,
+  LootBoxReward,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -117,6 +118,7 @@ export type ApiCampaign = {
   publisherRewardAmount?: string;
   publisherRewardType?: ApiRewardType;
   asymmetricRewards: AsymmetricReward[];
+  lootBoxRewards?: LootBoxReward;
   audiences: {
     id: string;
     title: string;
