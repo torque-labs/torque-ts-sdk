@@ -118,7 +118,7 @@ export type ApiCampaign = {
   publisherRewardAmount?: string;
   publisherRewardType?: ApiRewardType;
   asymmetricRewards: AsymmetricReward[];
-  lootBoxRewards?: LootBoxReward;
+  lootBoxRewards?: LootBoxReward & { id: string };
   audiences: {
     id: string;
     title: string;
