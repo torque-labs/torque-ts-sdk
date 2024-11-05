@@ -378,20 +378,19 @@ export class TorqueUserClient {
     }
 
     try {
-      const result = await this.client.apiFetch<{ key: string }>(
-        TORQUE_API_ROUTES.userApi,
-        {
-          method: 'GET',
+      const result = await this.client.apiFetch<{ key: string }>(TORQUE_API_ROUTES.userApi, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
         },
-        true,
-      );
+      });
 
-      return result.key;
+      return result;
     } catch (error) {
       console.log('No api key found.');
-    } finally {
-      return undefined;
     }
+
+    return undefined;
   }
 
   /**
