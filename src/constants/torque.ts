@@ -33,6 +33,7 @@ const TORQUE_API_ROUTES = {
   userJourney: '/users/journey',
   userPayout: '/users/payout',
   users: '/users',
+  userApi: '/users/api',
   usersOffers: '/offers',
 } as const;
 

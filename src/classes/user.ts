@@ -368,6 +368,32 @@ export class TorqueUserClient {
   }
 
   /**
+   * Retrieves the user's API key.
+   *
+   * @returns {Promise<string | undefined>} A Promise that resolves to the user's API key.
+   */
+  public async getUserApiKey() {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<{ key: string }>(TORQUE_API_ROUTES.userApi, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
+      });
+
+      return result;
+    } catch (error) {
+      console.log('No api key found.');
+    }
+
+    return undefined;
+  }
+
+  /**
    * ========================================================================
    * CAMPAIGNS
    * ========================================================================

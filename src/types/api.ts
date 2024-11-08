@@ -487,6 +487,7 @@ export type ApiRequirement = (
   | OfferKaminoLendAction
   | OfferDriftBetAction
   | OfferDriftDepositAction
+  | OfferStakeSolanaAction
 ) & {
   id?: string;
 };

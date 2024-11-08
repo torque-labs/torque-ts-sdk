@@ -233,7 +233,7 @@ export class TorqueSDK {
    */
 
   /**
-   * Retrieves a sample SIWS payload for l ogging into the Torque API.
+   * Retrieves a sample SIWS payload for logging into the Torque API.
    *
    * @param {string} apiUrl - The API URL to use for the payload. Defaults to the Torque API URL.
    *
