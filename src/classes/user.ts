@@ -2,7 +2,7 @@ import { ActionPostResponse } from '@solana/actions';
 import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Adapter } from '@solana/wallet-adapter-base';
 import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { CustomEventDefinition } from '@torque-labs/torque-utils';
+import { CreateCustomEventInput, CustomEventModel } from '@torque-labs/torque-utils';
 import nacl from 'tweetnacl';
 
 import { TorqueRequestClient } from './request.js';
@@ -368,32 +368,6 @@ export class TorqueUserClient {
   }
 
   /**
-   * Retrieves the user's API key.
-   *
-   * @returns {Promise<string | undefined>} A Promise that resolves to the user's API key.
-   */
-  public async getUserApiKey() {
-    if (!this.client) {
-      throw new Error('The client is not initialized.');
-    }
-
-    try {
-      const result = await this.client.apiFetch<{ key: string }>(TORQUE_API_ROUTES.userApi, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${this.user?.token}`,
-        },
-      });
-
-      return result;
-    } catch (error) {
-      console.log('No api key found.');
-    }
-
-    return undefined;
-  }
-
-  /**
    * ========================================================================
    * CAMPAIGNS
    * ========================================================================
@@ -575,7 +549,7 @@ export class TorqueUserClient {
   /**
    * Fetches the user's custom events
    *
-   * @returns {Promise<{ id: string; name: string; config: unknown }[]>} A Promise that resolves to an array of custom events.
+   * @returns {Promise<CustomEventModel[]>} A Promise that resolves to an array of custom events.
    *
    * @throws {Error} If the client is not initialized or there was an error fetching the custom events.
    */
@@ -586,8 +560,8 @@ export class TorqueUserClient {
 
     try {
       const result = await this.client.apiFetch<{
-        customEvents: { id: string; name: string; config: CustomEventDefinition }[];
-      }>(`${TORQUE_API_ROUTES.events}`, {
+        customEvents: CustomEventModel[];
+      }>(`${TORQUE_API_ROUTES.customEvents}`, {
         method: 'GET',
       });
 
@@ -596,6 +570,69 @@ export class TorqueUserClient {
       console.error(error);
 
       throw new Error('There was an error fetching custom events.');
+    }
+  }
+
+  /**
+   * Creates a new a custom event for the user's account which can be used for custom
+   * event requirements during a campaign.
+   *
+   * @param {CreateCustomEventInput} customEvent - The configuration of the custom event.
+   *
+   * @returns {Promise<{ id: string }>} A Promise that resolves to the id of the new custom event.
+   */
+  public async createCustomEvent(customEvent: CreateCustomEventInput) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<{
+        id: string;
+      }>(`${TORQUE_API_ROUTES.customEvents}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
+        body: JSON.stringify(customEvent),
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error creating the custom event.');
+    }
+  }
+
+  /**
+   * Updates an existing custom event for the user's account.
+   *
+   * @param {CustomEventModel} customEvent - The updated configuration of the custom event.
+   *
+   * @returns {Promise<CustomEventModel>} A Promise that resolves to the id of the updated custom event.
+   */
+  public async updateCustomEvent(customEvent: CustomEventModel) {
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      const result = await this.client.apiFetch<{
+        id: string;
+      }>(`${TORQUE_API_ROUTES.customEvents}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
+        body: JSON.stringify(customEvent),
+      });
+
+      return result;
+    } catch (error) {
+      console.error(error);
+
+      throw new Error('There was an error saving the custom event.');
     }
   }
 

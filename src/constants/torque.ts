@@ -15,6 +15,7 @@ const TORQUE_API_ROUTES = {
   audienceUpload: '/audiences/upload',
   campaigns: '/campaigns',
   currentUser: '/users/me',
+  customEvents: '/custom-events',
   events: '/events',
   identify: '/identify',
   journey: '/journey',
