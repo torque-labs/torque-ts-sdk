@@ -1,4 +1,4 @@
-# Type alias: TorqueAdminClientOptions
+# Type Alias: TorqueAdminClientOptions
 
 ```ts
 type TorqueAdminClientOptions: {
@@ -8,8 +8,8 @@ type TorqueAdminClientOptions: {
   functionsUrl: string;
   network: Cluster;
   rpc: string;
-  signTransaction: SignTransaction;
   signer: Adapter | Keypair;
+  signTransaction: SignTransaction;
   userClient: TorqueUserClient;
 };
 ```
@@ -18,78 +18,171 @@ Options for the TorqueAdminClient.
 
 ## Type declaration
 
-### apiKey
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-apiKey: string;
-```
+`apiKey`?
 
-The API key for the client.
+</td>
+<td>
 
-### apiUrl?
+`string`
 
-```ts
-optional apiUrl: string;
-```
+</td>
+<td>
+
+The API key for the admin client.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`apiUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API URL for the client.
 
-### appUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional appUrl: string;
-```
+`appUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The app URL for the client.
 
-### functionsUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional functionsUrl: string;
-```
+`functionsUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The functions URL for the client.
 
-### network
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-network: Cluster;
-```
+`network`
+
+</td>
+<td>
+
+`Cluster`
+
+</td>
+<td>
 
 The network for the client. Defaults to 'mainnet-beta'.
 
-### rpc?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional rpc: string;
-```
+`rpc`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 RPC URL for the client.
 
-### signTransaction?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional signTransaction: SignTransaction;
-```
+`signer`?
 
-The function used to sign transactions. If provided, it will override the default signing method.
+</td>
+<td>
 
-### signer?
+`Adapter` \| `Keypair`
 
-```ts
-optional signer: Adapter | Keypair;
-```
+</td>
+<td>
 
 The signer used to sign transactions.
 
-### userClient?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional userClient: TorqueUserClient;
-```
+`signTransaction`?
+
+</td>
+<td>
+
+[`SignTransaction`](SignTransaction.md)
+
+</td>
+<td>
+
+The function used to sign transactions. If provided, it will override the default signing method.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userClient`?
+
+</td>
+<td>
+
+[`TorqueUserClient`](../classes/TorqueUserClient.md)
+
+</td>
+<td>
 
 The user client for the user based API requests.
 
-## Source
+</td>
+</tr>
+</tbody>
+</table>
 
-[src/classes/admin.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/admin.ts#L27)
+## Defined in
+
+[torque-ts-sdk/src/classes/admin.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L27)

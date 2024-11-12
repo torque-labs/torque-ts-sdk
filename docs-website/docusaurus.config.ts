@@ -53,7 +53,7 @@ const config: Config = {
         parametersFormat: 'table',
         propertiesFormat: 'table',
         enumMembersFormat: 'table',
-        typeDeclarationFormat: 'list',
+        typeDeclarationFormat: 'htmlTable',
         indexFormat: 'table',
         expandObjects: true,
         useCodeBlocks: true,

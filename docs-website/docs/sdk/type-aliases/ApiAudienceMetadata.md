@@ -1,4 +1,4 @@
-# Type alias: ApiAudienceMetadata
+# Type Alias: ApiAudienceMetadata
 
 ```ts
 type ApiAudienceMetadata: {
@@ -14,36 +14,77 @@ Audience metadata
 
 ## Type declaration
 
-### bucket?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional bucket: string;
-```
+`bucket`?
 
-### description
+</td>
+<td>
 
-```ts
-description: string;
-```
+`string`
 
-### fileKey?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional fileKey: string;
-```
+`description`
 
-### title
+</td>
+<td>
 
-```ts
-title: string;
-```
+`string`
 
-### type
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-type: AudienceType;
-```
+`fileKey`?
 
-## Source
+</td>
+<td>
 
-[src/types/api.ts:163](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L163)
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`title`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`type`
+
+</td>
+<td>
+
+[`AudienceType`](../enumerations/AudienceType.md)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:166](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L166)

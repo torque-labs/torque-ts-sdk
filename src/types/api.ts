@@ -7,7 +7,7 @@ import {
   MemoAction,
   AsymmetricReward,
   TensorAction,
-  NftBidBuy,
+  NftBidBuyAction,
   TimeConfig,
   CustomEventConfig,
   RealmsVoteAction,
@@ -336,7 +336,7 @@ export enum ApiTxnTypes {
 /**
  * Click action bounty step requirements.
  */
-type OfferClickAction = {
+export type OfferClickAction = {
   type: EventType.CLICK;
   eventConfig: ClickAction;
   timeConfig?: TimeConfig;
@@ -345,7 +345,7 @@ type OfferClickAction = {
 /**
  * Swap action bounty step requirements.
  */
-type OfferSwapAction = {
+export type OfferSwapAction = {
   type: EventType.SWAP;
   eventConfig: SwapAction;
   timeConfig?: TimeConfig;
@@ -354,7 +354,7 @@ type OfferSwapAction = {
 /**
  * NFT collection trade action bounty step requirements.
  */
-type OfferNFTTradeAction = {
+export type OfferNFTTradeAction = {
   type: EventType.NFT_COLLECTION_TRADE;
   eventConfig: NftCollectionTradeAction;
   timeConfig?: TimeConfig;
@@ -363,7 +363,7 @@ type OfferNFTTradeAction = {
 /**
  * Sign up action bounty step requirements.
  */
-type OfferMemoAction = {
+export type OfferMemoAction = {
   type: EventType.MEMO;
   eventConfig: MemoAction; // TODO: fix sign up action type to use schema with email
   timeConfig?: TimeConfig;
@@ -372,7 +372,7 @@ type OfferMemoAction = {
 /**
  * Tensor buy action bounty step requirements.
  */
-type OfferTensorBuyAction = {
+export type OfferTensorBuyAction = {
   type: EventType.TENSOR_BUY;
   eventConfig: TensorAction;
   timeConfig?: TimeConfig;
@@ -381,7 +381,7 @@ type OfferTensorBuyAction = {
 /**
  * Tensor bid action bounty step requirements.
  */
-type OfferTensorBidAction = {
+export type OfferTensorBidAction = {
   type: EventType.TENSOR_BID;
   eventConfig: TensorAction;
   timeConfig?: TimeConfig;
@@ -390,16 +390,16 @@ type OfferTensorBidAction = {
 /**
  * NFT bid buy action bounty step requirements.
  */
-type NftBidBuyAction = {
+export type OfferNftBidBuyAction = {
   type: EventType.NFT_BUY_BID;
-  eventConfig: NftBidBuy;
+  eventConfig: NftBidBuyAction;
   timeConfig?: TimeConfig;
 };
 
 /**
  * Realms DAO vote action bounty step requirements.
  */
-type RealmsDaoVoteAction = {
+export type OfferRealmsVoteAction = {
   type: EventType.REALMS_VOTE;
   eventConfig: RealmsVoteAction;
   timeConfig?: TimeConfig;
@@ -408,7 +408,7 @@ type RealmsDaoVoteAction = {
 /**
  * Custom event bounty step requirements.
  */
-type OfferCustomEventAction = {
+export type OfferCustomEventAction = {
   type: EventType.CUSTOM_EVENT;
   eventConfig: CustomEventConfig;
   timeConfig?: TimeConfig;
@@ -417,7 +417,7 @@ type OfferCustomEventAction = {
 /**
  * Marginfi lend action bounty step requirements.
  */
-type OfferMarginfiLendAction = {
+export type OfferMarginfiLendAction = {
   type: EventType.MARGINFI_LEND;
   eventConfig: MarginfiLendAction;
   timeConfig?: TimeConfig;
@@ -426,7 +426,7 @@ type OfferMarginfiLendAction = {
 /**
  * Kamino lend action bounty step requirements.
  */
-type OfferKaminoLendAction = {
+export type OfferKaminoLendAction = {
   type: EventType.KAMINO_LEND;
   eventConfig: KaminoLendAction;
   timeConfig?: TimeConfig;
@@ -435,7 +435,7 @@ type OfferKaminoLendAction = {
 /**
  * Drift bet action bounty step requirements.
  */
-type OfferDriftBetAction = {
+export type OfferDriftBetAction = {
   type: EventType.DRIFT_BET;
   eventConfig: DriftBetAction;
   timeConfig?: TimeConfig;
@@ -444,7 +444,7 @@ type OfferDriftBetAction = {
 /**
  * Drift bet action bounty step requirements.
  */
-type OfferDriftDepositAction = {
+export type OfferDriftDepositAction = {
   type: EventType.DRIFT_DEPOSIT;
   eventConfig: DriftDepositAction;
   timeConfig?: TimeConfig;
@@ -453,8 +453,7 @@ type OfferDriftDepositAction = {
 /**
  * Form submission action bounty step requirements.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type OfferFormSubmissionAction = {
+export type OfferFormSubmissionAction = {
   type: EventType.FORM_SUBMISSION;
   eventConfig: FormSubmissionAction;
   timeConfig?: TimeConfig;
@@ -463,8 +462,7 @@ type OfferFormSubmissionAction = {
 /**
  * Stake solana action bounty step requirements.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type OfferStakeSolanaAction = {
+export type OfferStakeSolanaAction = {
   type: EventType.STAKE_SOL;
   eventConfig: StakeSolanaAction;
   timeConfig?: TimeConfig;
@@ -480,9 +478,9 @@ export type ApiRequirement = (
   | OfferMemoAction
   | OfferTensorBuyAction
   | OfferTensorBidAction
-  | NftBidBuyAction
+  | OfferNftBidBuyAction
   | OfferCustomEventAction
-  | RealmsDaoVoteAction
+  | OfferRealmsVoteAction
   | OfferMarginfiLendAction
   | OfferKaminoLendAction
   | OfferDriftBetAction

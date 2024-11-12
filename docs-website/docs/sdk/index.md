@@ -2,12 +2,10 @@
 
 The official Torque Client TypeScript SDK.
 
-## API Index
-
-### Enumerations
+## Enumerations
 
 | Enumeration | Description |
-| :------ | :------ |
+| ------ | ------ |
 | [ActionType](enumerations/ActionType.md) | The type of action that will be used to filter the addresses for a target. |
 | [ApiProgressStatus](enumerations/ApiProgressStatus.md) | Campaign journey progress status. |
 | [ApiRewardType](enumerations/ApiRewardType.md) | The rewards type of a campaign. |
@@ -17,20 +15,20 @@ The official Torque Client TypeScript SDK.
 | [Operation](enumerations/Operation.md) | The operation type of an audience. |
 | [TargetType](enumerations/TargetType.md) | The target type of an audience. |
 
-### Classes
+## Classes
 
 | Class | Description |
-| :------ | :------ |
+| ------ | ------ |
 | [TorqueAdminClient](classes/TorqueAdminClient.md) | The TorqueAdminClient class is used to manage admin actions in the Torque API. |
 | [TorqueAudienceClient](classes/TorqueAudienceClient.md) | The TorqueAudienceClient class is used to manage and verify audiencess for the Torque API. |
 | [TorqueRequestClient](classes/TorqueRequestClient.md) | The TorqueRequestClient class is used to make requests to the Torque API. It provides methods for performing API requests and handling responses. |
 | [TorqueSDK](classes/TorqueSDK.md) | The official Torque Typescript SDK. |
 | [TorqueUserClient](classes/TorqueUserClient.md) | The TorqueUserClient class is used to authenticate a user with the Torque API. The user client allows publishers to fetch campaigns and offers that are savailable for the current user. |
 
-### Type Aliases
+## Type Aliases
 
 | Type alias | Description |
-| :------ | :------ |
+| ------ | ------ |
 | [ActionRequirementsInput](type-aliases/ActionRequirementsInput.md) | Action requirements input. |
 | [ActionTarget](type-aliases/ActionTarget.md) | An action target for an audience. |
 | [AggreggationCreateInput](type-aliases/AggreggationCreateInput.md) | Aggregation create input. |

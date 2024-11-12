@@ -42,7 +42,7 @@ export type TxnExecuteResponse = { signature: string };
 /**
  * Transaction result response
  */
-interface SignatureField {
+export interface SignatureField {
   signature: string;
 }
 

@@ -1,4 +1,4 @@
-# Type alias: OrOperator
+# Type Alias: OrOperator
 
 ```ts
 type OrOperator: {
@@ -10,12 +10,29 @@ Aggregation or operator.
 
 ## Type declaration
 
-### $or
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-$or: (Condition | AndOperator | OrOperator)[];
-```
+`$or`
 
-## Source
+</td>
+<td>
 
-[src/types/audience.ts:268](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L268)
+([`Condition`](Condition.md) \| [`AndOperator`](AndOperator.md) \| [`OrOperator`](OrOperator.md))[]
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:268](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L268)

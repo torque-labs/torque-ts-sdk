@@ -1,4 +1,4 @@
-# Type alias: OpenPositionRequirementsInput
+# Type Alias: OpenPositionRequirementsInput
 
 ```ts
 type OpenPositionRequirementsInput: {
@@ -13,30 +13,65 @@ Open position requirements input.
 
 ## Type declaration
 
-### maxAmount?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional maxAmount: number;
-```
+`maxAmount`?
 
-### minAmount?
+</td>
+<td>
 
-```ts
-optional minAmount: number;
-```
+`number`
 
-### programAddress?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional programAddress: string;
-```
+`minAmount`?
 
-### tokenAddress
+</td>
+<td>
 
-```ts
-tokenAddress: string;
-```
+`number`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/audience.ts:139](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L139)
+`programAddress`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`tokenAddress`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:139](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L139)

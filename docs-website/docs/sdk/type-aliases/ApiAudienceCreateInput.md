@@ -1,4 +1,4 @@
-# Type alias: ApiAudienceCreateInput
+# Type Alias: ApiAudienceCreateInput
 
 ```ts
 type ApiAudienceCreateInput: {
@@ -13,30 +13,13 @@ Audience creation input.
 
 ## Type declaration
 
-### config?
+| Name | Type |
+| ------ | ------ |
+| `config`? | `any` |
+| `description`? | `null` \| `string` |
+| `global` | `boolean` |
+| `title` | `string` |
 
-```ts
-optional config: any;
-```
+## Defined in
 
-### description?
-
-```ts
-optional description: null | string;
-```
-
-### global
-
-```ts
-global: boolean;
-```
-
-### title
-
-```ts
-title: string;
-```
-
-## Source
-
-[src/types/audience.ts:234](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L234)
+[torque-ts-sdk/src/types/audience.ts:234](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L234)

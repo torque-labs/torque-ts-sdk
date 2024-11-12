@@ -1,4 +1,4 @@
-# Type alias: ApiUser
+# Type Alias: ApiUser
 
 ```ts
 type ApiUser: {
@@ -18,60 +18,125 @@ A Torque user.
 
 ## Type declaration
 
-### isPublisher
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-isPublisher: boolean;
-```
+`isPublisher`
 
-### profileImage?
+</td>
+<td>
 
-```ts
-optional profileImage: string;
-```
+`boolean`
 
-### pubKey
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-pubKey: string;
-```
+`profileImage`?
 
-### publisherPubKey?
+</td>
+<td>
 
-```ts
-optional publisherPubKey: string | null;
-```
+`string`
 
-### telegram?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional telegram: string;
-```
+`pubKey`
 
-### token
+</td>
+<td>
 
-```ts
-token: string;
-```
+`string`
 
-### twitter?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional twitter: string;
-```
+`publisherPubKey`?
 
-### username?
+</td>
+<td>
 
-```ts
-optional username: string;
-```
+`string` \| `null`
 
-### verified
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-verified: boolean;
-```
+`telegram`?
 
-## Source
+</td>
+<td>
 
-[src/types/api.ts:199](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L199)
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`token`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`twitter`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`username`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`verified`
+
+</td>
+<td>
+
+`boolean`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:202](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L202)

@@ -1,4 +1,4 @@
-# Type alias: NftMintAction
+# Type Alias: NftMintAction
 
 ```ts
 type NftMintAction: {
@@ -10,12 +10,29 @@ Parameters for a NFT mint action.
 
 ## Type declaration
 
-### collectionAddress
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-collectionAddress: string;
-```
+`collectionAddress`
 
-## Source
+</td>
+<td>
 
-[src/types/audience.ts:73](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L73)
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:73](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L73)

@@ -1,4 +1,4 @@
-# Type alias: StakedSolRequirementsInput
+# Type Alias: StakedSolRequirementsInput
 
 ```ts
 type StakedSolRequirementsInput: {
@@ -12,24 +12,53 @@ Staked sol requirements input.
 
 ## Type declaration
 
-### maxAmount?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional maxAmount: number;
-```
+`maxAmount`?
 
-### minAmount
+</td>
+<td>
 
-```ts
-minAmount: number;
-```
+`number`
 
-### validatorAddress?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional validatorAddress: string;
-```
+`minAmount`
 
-## Source
+</td>
+<td>
 
-[src/types/audience.ts:130](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L130)
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`validatorAddress`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:130](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L130)

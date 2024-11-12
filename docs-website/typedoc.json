@@ -1,7 +1,21 @@
 {
   "$schema": "https://typedoc-plugin-markdown.org/schema.json",
   "entryPointStrategy": "expand",
-  "plugin": ["typedoc-plugin-markdown", "typedoc-plugin-zod"],
+  "plugin": ["typedoc-plugin-zod", "typedoc-plugin-markdown"],
   "out": "docs",
-  "skipErrorChecking": true
+  "skipErrorChecking": true,
+  "entryPoints": ["./index.ts"],
+  "parametersFormat": "list",
+  "propertiesFormat": "list",
+  "enumMembersFormat": "list",
+  "typeDeclarationFormat": "table",
+  "tableColumnSettings": {
+    "hideDefaults": true,
+    "hideInherited": false,
+    "hideModifiers": false,
+    "hideOverrides": false,
+    "hideSources": true,
+    "hideValues": false,
+    "leftAlignHeaders": false
+  }
 }

@@ -1,4 +1,4 @@
-# Type alias: ApiShare
+# Type Alias: ApiShare
 
 ```ts
 type ApiShare: {
@@ -28,123 +28,230 @@ Share link data.
 
 ## Type declaration
 
-### campaign
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-campaign: {
-  advertiser: {
-     profileImage: string | null;
-     twitter: string | null;
-     username: string | null;
-    };
-  endTime: Date;
-  id: string;
-  imageUrl: string;
-  startTime: Date;
-  targetLink: string;
-  title: string;
-  type: string;
-};
-```
+`campaign`
 
-### campaign.advertiser
+</td>
+<td>
 
-```ts
-advertiser: {
-  profileImage: string | null;
-  twitter: string | null;
-  username: string | null;
-};
-```
+\{
+  `advertiser`: \{
+     `profileImage`: `string` \| `null`;
+     `twitter`: `string` \| `null`;
+     `username`: `string` \| `null`;
+    \};
+  `endTime`: `Date`;
+  `id`: `string`;
+  `imageUrl`: `string`;
+  `startTime`: `Date`;
+  `targetLink`: `string`;
+  `title`: `string`;
+  `type`: `string`;
+ \}
 
-### campaign.advertiser.profileImage?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional profileImage: string | null;
-```
+`campaign.advertiser`
 
-### campaign.advertiser.twitter?
+</td>
+<td>
 
-```ts
-optional twitter: string | null;
-```
+\{
+  `profileImage`: `string` \| `null`;
+  `twitter`: `string` \| `null`;
+  `username`: `string` \| `null`;
+ \}
 
-### campaign.advertiser.username
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-username: string | null;
-```
+`campaign.advertiser.profileImage`?
 
-### campaign.endTime
+</td>
+<td>
 
-```ts
-endTime: Date;
-```
+`string` \| `null`
 
-### campaign.id
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-id: string;
-```
+`campaign.advertiser.twitter`?
 
-### campaign.imageUrl?
+</td>
+<td>
 
-```ts
-optional imageUrl: string;
-```
+`string` \| `null`
 
-### campaign.startTime
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-startTime: Date;
-```
+`campaign.advertiser.username`
 
-### campaign.targetLink?
+</td>
+<td>
 
-```ts
-optional targetLink: string;
-```
+`string` \| `null`
 
-### campaign.title
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-title: string;
-```
+`campaign.endTime`
 
-### campaign.type
+</td>
+<td>
 
-```ts
-type: string;
-```
+`Date`
 
-### publisher
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-publisher: {
-  profileImage: string | null;
-  twitter: string | null;
-  username: string | null;
-};
-```
+`campaign.id`
 
-### publisher.profileImage?
+</td>
+<td>
 
-```ts
-optional profileImage: string | null;
-```
+`string`
 
-### publisher.twitter?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional twitter: string | null;
-```
+`campaign.imageUrl`?
 
-### publisher.username
+</td>
+<td>
 
-```ts
-username: string | null;
-```
+`string`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/api.ts:174](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L174)
+`campaign.startTime`
+
+</td>
+<td>
+
+`Date`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`campaign.targetLink`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`campaign.title`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`campaign.type`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisher`
+
+</td>
+<td>
+
+\{
+  `profileImage`: `string` \| `null`;
+  `twitter`: `string` \| `null`;
+  `username`: `string` \| `null`;
+ \}
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisher.profileImage`?
+
+</td>
+<td>
+
+`string` \| `null`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisher.twitter`?
+
+</td>
+<td>
+
+`string` \| `null`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisher.username`
+
+</td>
+<td>
+
+`string` \| `null`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:177](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L177)

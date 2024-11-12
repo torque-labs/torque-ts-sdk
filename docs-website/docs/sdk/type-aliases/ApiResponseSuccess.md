@@ -1,4 +1,4 @@
-# Type alias: ApiResponseSuccess\<T\>
+# Type Alias: ApiResponseSuccess\<T\>
 
 ```ts
 type ApiResponseSuccess<T>: {
@@ -9,26 +9,49 @@ type ApiResponseSuccess<T>: {
 
 Generic success response for the API.
 
-## Type parameters
+## Type Parameters
 
-| Type parameter |
-| :------ |
+| Type Parameter |
+| ------ |
 | `T` |
 
 ## Type declaration
 
-### data
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-data: T;
-```
+`data`
 
-### status
+</td>
+<td>
 
-```ts
-status: ApiStatus.SUCCESS;
-```
+`T`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/api.ts:49](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L49)
+`status`
+
+</td>
+<td>
+
+`ApiStatus.SUCCESS`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:50](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L50)

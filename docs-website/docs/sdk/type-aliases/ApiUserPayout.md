@@ -1,4 +1,4 @@
-# Type alias: ApiUserPayout
+# Type Alias: ApiUserPayout
 
 ```ts
 type ApiUserPayout: {
@@ -19,21 +19,38 @@ User Payout data.
 
 ## Type declaration
 
-### payouts
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-payouts: {
-  amount: number;
-  campaign: ApiCampaign;
-  createdAt: Date;
-  id: string;
-  isRafflePayout: boolean;
-  payoutTx: string | null;
-  tokenAddress: string;
-  userPubKey: string;
- }[];
-```
+`payouts`
 
-## Source
+</td>
+<td>
 
-[src/types/api.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L310)
+\{
+  `amount`: `number`;
+  `campaign`: [`ApiCampaign`](ApiCampaign.md);
+  `createdAt`: `Date`;
+  `id`: `string`;
+  `isRafflePayout`: `boolean`;
+  `payoutTx`: `string` \| `null`;
+  `tokenAddress`: `string`;
+  `userPubKey`: `string`;
+ \}[]
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:313](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L313)

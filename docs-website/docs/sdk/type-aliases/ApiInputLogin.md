@@ -1,4 +1,4 @@
-# Type alias: ApiInputLogin
+# Type Alias: ApiInputLogin
 
 ```ts
 type ApiInputLogin: {
@@ -20,6 +20,6 @@ type ApiInputLogin: {
 
 Input login options for the API.
 
-## Source
+## Defined in
 
-[src/types/api.ts:70](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L70)
+[torque-ts-sdk/src/types/api.ts:71](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L71)

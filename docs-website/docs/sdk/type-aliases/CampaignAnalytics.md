@@ -1,4 +1,4 @@
-# Type alias: CampaignAnalytics
+# Type Alias: CampaignAnalytics
 
 ```ts
 type CampaignAnalytics: {
@@ -28,110 +28,211 @@ Campaign analytics type retrieved from the API.
 
 ## Type declaration
 
-### conversions
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-conversions: {
-  15min: ConversionTime[];
-  1d: ConversionTime[];
-  1hr: ConversionTime[];
-};
-```
+`conversions`
 
-### conversions.15min
+</td>
+<td>
 
-```ts
-15min: ConversionTime[];
-```
+\{
+  `15min`: [`ConversionTime`](ConversionTime.md)[];
+  `1d`: [`ConversionTime`](ConversionTime.md)[];
+  `1hr`: [`ConversionTime`](ConversionTime.md)[];
+ \}
 
-### conversions.1d
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-1d: ConversionTime[];
-```
+`conversions.15min`
 
-### conversions.1hr
+</td>
+<td>
 
-```ts
-1hr: ConversionTime[];
-```
+[`ConversionTime`](ConversionTime.md)[]
 
-### counts
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-counts: {
-  converted: number;
-  started: number;
-};
-```
+`conversions.1d`
 
-### counts.converted
+</td>
+<td>
 
-```ts
-converted: number;
-```
+[`ConversionTime`](ConversionTime.md)[]
 
-### counts.started
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-started: number;
-```
+`conversions.1hr`
 
-### payouts
+</td>
+<td>
 
-```ts
-payouts: {
-  amount: number;
-  count: number;
-};
-```
+[`ConversionTime`](ConversionTime.md)[]
 
-### payouts.amount
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-amount: number;
-```
+`counts`
 
-### payouts.count
+</td>
+<td>
 
-```ts
-count: number;
-```
+\{
+  `converted`: `number`;
+  `started`: `number`;
+ \}
 
-### starts
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-starts: {
-  15min: ConversionTime[];
-  1d: ConversionTime[];
-  1hr: ConversionTime[];
-};
-```
+`counts.converted`
 
-### starts.15min
+</td>
+<td>
 
-```ts
-15min: ConversionTime[];
-```
+`number`
 
-### starts.1d
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-1d: ConversionTime[];
-```
+`counts.started`
 
-### starts.1hr
+</td>
+<td>
 
-```ts
-1hr: ConversionTime[];
-```
+`number`
 
-### volume?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional volume: number | null;
-```
+`payouts`
 
-## Source
+</td>
+<td>
 
-[src/types/analytics.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/analytics.ts#L12)
+\{
+  `amount`: `number`;
+  `count`: `number`;
+ \}
+
+</td>
+</tr>
+<tr>
+<td>
+
+`payouts.amount`
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`payouts.count`
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`starts`
+
+</td>
+<td>
+
+\{
+  `15min`: [`ConversionTime`](ConversionTime.md)[];
+  `1d`: [`ConversionTime`](ConversionTime.md)[];
+  `1hr`: [`ConversionTime`](ConversionTime.md)[];
+ \}
+
+</td>
+</tr>
+<tr>
+<td>
+
+`starts.15min`
+
+</td>
+<td>
+
+[`ConversionTime`](ConversionTime.md)[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`starts.1d`
+
+</td>
+<td>
+
+[`ConversionTime`](ConversionTime.md)[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`starts.1hr`
+
+</td>
+<td>
+
+[`ConversionTime`](ConversionTime.md)[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`volume`?
+
+</td>
+<td>
+
+`number` \| `null`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/analytics.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/analytics.ts#L12)

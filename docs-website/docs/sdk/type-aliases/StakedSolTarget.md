@@ -1,4 +1,4 @@
-# Type alias: StakedSolTarget
+# Type Alias: StakedSolTarget
 
 ```ts
 type StakedSolTarget: {
@@ -11,18 +11,41 @@ A staked sol target for an audience.
 
 ## Type declaration
 
-### requirement
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-requirement: StakedSolRequirementsInput;
-```
+`requirement`
 
-### targetType
+</td>
+<td>
 
-```ts
-targetType: TargetType.STAKED_SOL;
-```
+[`StakedSolRequirementsInput`](StakedSolRequirementsInput.md)
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/audience.ts:197](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L197)
+`targetType`
+
+</td>
+<td>
+
+`TargetType.STAKED_SOL`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:197](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L197)

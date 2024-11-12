@@ -1,4 +1,4 @@
-# Type alias: TxnExecuteResponse
+# Type Alias: TxnExecuteResponse
 
 ```ts
 type TxnExecuteResponse: {
@@ -10,12 +10,29 @@ On-chain transaction execute response.
 
 ## Type declaration
 
-### signature
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-signature: string;
-```
+`signature`
 
-## Source
+</td>
+<td>
 
-[src/types/transactions.ts:40](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/transactions.ts#L40)
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/transactions.ts:40](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/transactions.ts#L40)

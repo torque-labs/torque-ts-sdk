@@ -1,4 +1,4 @@
-# Type alias: TorqueSDKOptions
+# Type Alias: TorqueSDKOptions
 
 ```ts
 type TorqueSDKOptions: {
@@ -16,62 +16,137 @@ Options for the TorqueSDK.
 
 ## Type declaration
 
-### apiKey?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional apiKey: string;
-```
+`apiKey`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API key for the client.
 
-### apiUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional apiUrl: string;
-```
+`apiUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API URL for the client.
 
-### appUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional appUrl: string;
-```
+`appUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The app URL for the client.
 
-### functionsUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional functionsUrl: string;
-```
+`functionsUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The functions URL for the client.
 
-### network?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional network: Cluster;
-```
+`network`?
+
+</td>
+<td>
+
+`Cluster`
+
+</td>
+<td>
 
 The network for the client. Defaults to 'mainnet-beta'. Only used if the RPC URL is not provided.
 
-### publisherHandle?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional publisherHandle: string;
-```
+`publisherHandle`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The publisher handle for the client. Defaults to 'torqueprotocol'.
 
-### rpc?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional rpc: string;
-```
+`rpc`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The RPC URL for the client. Defaults to the Solana mainnet-beta cluster.
 
-## Source
+</td>
+</tr>
+</tbody>
+</table>
 
-[src/classes/sdk.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/sdk.ts#L20)
+## Defined in
+
+[torque-ts-sdk/src/classes/sdk.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L20)

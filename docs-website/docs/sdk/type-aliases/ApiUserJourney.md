@@ -1,4 +1,4 @@
-# Type alias: ApiUserJourney
+# Type Alias: ApiUserJourney
 
 ```ts
 type ApiUserJourney: {
@@ -11,18 +11,41 @@ A user's journey data.
 
 ## Type declaration
 
-### campaignId
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-campaignId: string;
-```
+`campaignId`
 
-### status
+</td>
+<td>
 
-```ts
-status: string;
-```
+`string`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/api.ts:256](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L256)
+`status`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:259](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L259)

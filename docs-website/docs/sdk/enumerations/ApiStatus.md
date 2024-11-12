@@ -5,7 +5,7 @@ The API response success type.
 ## Enumeration Members
 
 | Enumeration Member | Value |
-| :------ | :------ |
+| ------ | ------ |
 | `BAD_REQUEST` | `"BAD_REQUEST"` |
 | `FORBIDDEN` | `"FORBIDDEN"` |
 | `INTERNAL_ERROR` | `"INTERNAL_ERROR"` |

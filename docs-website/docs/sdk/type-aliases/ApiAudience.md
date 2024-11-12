@@ -1,4 +1,4 @@
-# Type alias: ApiAudience
+# Type Alias: ApiAudience
 
 ```ts
 type ApiAudience: {
@@ -17,54 +17,113 @@ Audience data.
 
 ## Type declaration
 
-### bucket?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional bucket: string;
-```
+`bucket`?
 
-### config
+</td>
+<td>
 
-```ts
-config: object;
-```
+`string`
 
-### description?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional description: string;
-```
+`config`
 
-### fileKey?
+</td>
+<td>
 
-```ts
-optional fileKey: string;
-```
+`object`
 
-### global
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-global: boolean;
-```
+`description`?
 
-### id
+</td>
+<td>
 
-```ts
-id: string;
-```
+`string`
 
-### title
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-title: string;
-```
+`fileKey`?
 
-### type
+</td>
+<td>
 
-```ts
-type: AudienceType;
-```
+`string`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/api.ts:149](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L149)
+`global`
+
+</td>
+<td>
+
+`boolean`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`id`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`title`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`type`
+
+</td>
+<td>
+
+[`AudienceType`](../enumerations/AudienceType.md)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:152](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L152)

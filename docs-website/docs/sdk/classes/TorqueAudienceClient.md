@@ -24,23 +24,16 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `options` | [`TorqueAudienceClientOptions`](../type-aliases/TorqueAudienceClientOptions.md) | The options for the TorqueAudienceClient. |
 
 #### Returns
 
 [`TorqueAudienceClient`](TorqueAudienceClient.md)
 
-#### Source
+#### Defined in
 
-[src/classes/audience.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/audience.ts#L57)
-
-## Properties
-
-| Property | Modifier | Type |
-| :------ | :------ | :------ |
-| `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) |
-| `userClient` | `private` | `undefined` \| [`TorqueUserClient`](TorqueUserClient.md) |
+[torque-ts-sdk/src/classes/audience.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L57)
 
 ## Methods
 
@@ -55,12 +48,12 @@ Builds an audience with the provided options.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `options` | [`AudienceBuild`](../type-aliases/AudienceBuild.md) | The options for the audience build. |
 
 #### Returns
 
-`Promise` \<[`AudienceBuildResponse`](../type-aliases/AudienceBuildResponse.md)\>
+`Promise`\<[`AudienceBuildResponse`](../type-aliases/AudienceBuildResponse.md)\>
 
 The response from the API.
 
@@ -68,9 +61,9 @@ The response from the API.
 
 If there is an error building the audience.
 
-#### Source
+#### Defined in
 
-[src/classes/audience.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/audience.ts#L77)
+[torque-ts-sdk/src/classes/audience.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L77)
 
 ***
 
@@ -84,9 +77,9 @@ logout(): Promise<void>
 
 `Promise`\<`void`\>
 
-#### Source
+#### Defined in
 
-[src/classes/audience.ts:64](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/audience.ts#L64)
+[torque-ts-sdk/src/classes/audience.ts:64](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L64)
 
 ***
 
@@ -101,7 +94,7 @@ Verifies the current user with the provided audience.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `audience` | [`Audience`](../type-aliases/Audience.md) | The options for the audience verification. |
 | `publicKey`? | `string` | - |
 
@@ -115,6 +108,6 @@ True if the user is verified with the audience, false otherwise.
 
 If there is an error verifying the user with the audience.
 
-#### Source
+#### Defined in
 
-[src/classes/audience.ts:108](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/audience.ts#L108)
+[torque-ts-sdk/src/classes/audience.ts:108](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L108)

@@ -1,4 +1,4 @@
-# Type alias: AggreggationCreateInput
+# Type Alias: AggreggationCreateInput
 
 ```ts
 type AggreggationCreateInput: {
@@ -11,18 +11,41 @@ Aggregation create input.
 
 ## Type declaration
 
-### operation
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-operation: Operation;
-```
+`operation`
 
-### targets
+</td>
+<td>
 
-```ts
-targets: Target[];
-```
+[`Operation`](../enumerations/Operation.md)
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/audience.ts:246](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L246)
+`targets`
+
+</td>
+<td>
+
+[`Target`](Target.md)[]
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:246](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L246)

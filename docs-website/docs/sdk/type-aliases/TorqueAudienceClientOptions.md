@@ -1,4 +1,4 @@
-# Type alias: TorqueAudienceClientOptions
+# Type Alias: TorqueAudienceClientOptions
 
 ```ts
 type TorqueAudienceClientOptions: {
@@ -15,54 +15,120 @@ Options for the TorqueAudienceClient.
 
 ## Type declaration
 
-### apiKey
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-apiKey: string;
-```
+`apiKey`
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API key for the client.
 
-### apiUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional apiUrl: string;
-```
+`apiUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API URL for the client.
 
-### appUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional appUrl: string;
-```
+`appUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The app URL for the client.
 
-### functionsUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional functionsUrl: string;
-```
+`functionsUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The functions URL for the client.
 
-### signer
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-signer: Adapter | Keypair;
-```
+`signer`
+
+</td>
+<td>
+
+`Adapter` \| `Keypair`
+
+</td>
+<td>
 
 The signer used to sign transactions.
 
-### userClient
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-userClient: TorqueUserClient;
-```
+`userClient`
+
+</td>
+<td>
+
+[`TorqueUserClient`](../classes/TorqueUserClient.md)
+
+</td>
+<td>
 
 The user client for the user based API requests.
 
-## Source
+</td>
+</tr>
+</tbody>
+</table>
 
-[src/classes/audience.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/audience.ts#L12)
+## Defined in
+
+[torque-ts-sdk/src/classes/audience.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L12)

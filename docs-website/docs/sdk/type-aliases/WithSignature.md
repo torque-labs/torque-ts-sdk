@@ -1,4 +1,4 @@
-# Type alias: WithSignature\<T\>
+# Type Alias: WithSignature\<T\>
 
 ```ts
 type WithSignature<T>: T & SignatureField;
@@ -6,12 +6,12 @@ type WithSignature<T>: T & SignatureField;
 
 Generic with signture type
 
-## Type parameters
+## Type Parameters
 
-| Type parameter |
-| :------ |
+| Type Parameter |
+| ------ |
 | `T` |
 
-## Source
+## Defined in
 
-[src/types/transactions.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/transactions.ts#L52)
+[torque-ts-sdk/src/types/transactions.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/transactions.ts#L52)

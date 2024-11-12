@@ -1,4 +1,4 @@
-# Type alias: SwapActionRequirements
+# Type Alias: SwapActionRequirements
 
 ```ts
 type SwapActionRequirements: {
@@ -11,18 +11,41 @@ Swap action requirements.
 
 ## Type declaration
 
-### action
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-action: ActionType.SWAP;
-```
+`action`
 
-### requirement
+</td>
+<td>
 
-```ts
-requirement: SwapAction;
-```
+`ActionType.SWAP`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/audience.ts:80](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L80)
+`requirement`
+
+</td>
+<td>
+
+[`SwapAction`](SwapAction.md)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:80](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L80)

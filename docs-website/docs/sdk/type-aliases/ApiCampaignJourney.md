@@ -1,4 +1,4 @@
-# Type alias: ApiCampaignJourney
+# Type Alias: ApiCampaignJourney
 
 ```ts
 type ApiCampaignJourney: {
@@ -27,84 +27,167 @@ A user's campaign journey data.
 
 ## Type declaration
 
-### campaign
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-campaign: ApiCampaign;
-```
+`campaign`
 
-### campaignId
+</td>
+<td>
 
-```ts
-campaignId: string;
-```
+[`ApiCampaign`](ApiCampaign.md)
 
-### currentStep
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-currentStep: number;
-```
+`campaignId`
 
-### publisherPubKey
+</td>
+<td>
 
-```ts
-publisherPubKey: string;
-```
+`string`
 
-### startTime?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional startTime: Date;
-```
+`currentStep`
 
-### startTx?
+</td>
+<td>
 
-```ts
-optional startTx: string;
-```
+`number`
 
-### status
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-status: ApiProgressStatus;
-```
+`publisherPubKey`
 
-### totalSteps
+</td>
+<td>
 
-```ts
-totalSteps: number;
-```
+`string`
 
-### transaction?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional transaction: string;
-```
+`startTime`?
 
-### updatedAt
+</td>
+<td>
 
-```ts
-updatedAt: Date;
-```
+`Date`
 
-### userBountySteps?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional userBountySteps: {
-  bountyStepId: string;
-  id: string;
-  status: ApiProgressStatus;
-  transaction: string;
-  userJourneyId: string;
- }[];
-```
+`startTx`?
 
-### userPubKey
+</td>
+<td>
 
-```ts
-userPubKey: string;
-```
+`string`
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/types/api.ts:275](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L275)
+`status`
+
+</td>
+<td>
+
+[`ApiProgressStatus`](../enumerations/ApiProgressStatus.md)
+
+</td>
+</tr>
+<tr>
+<td>
+
+`totalSteps`
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`transaction`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`updatedAt`
+
+</td>
+<td>
+
+`Date`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userBountySteps`?
+
+</td>
+<td>
+
+\{
+  `bountyStepId`: `string`;
+  `id`: `string`;
+  `status`: [`ApiProgressStatus`](../enumerations/ApiProgressStatus.md);
+  `transaction`: `string`;
+  `userJourneyId`: `string`;
+ \}[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userPubKey`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:278](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L278)

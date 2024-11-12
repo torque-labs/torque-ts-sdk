@@ -1,4 +1,4 @@
-# Type alias: AndOperator
+# Type Alias: AndOperator
 
 ```ts
 type AndOperator: {
@@ -10,12 +10,29 @@ Aggregation and operator.
 
 ## Type declaration
 
-### $and
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-$and: (Condition | AndOperator | OrOperator)[];
-```
+`$and`
 
-## Source
+</td>
+<td>
 
-[src/types/audience.ts:261](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L261)
+([`Condition`](Condition.md) \| [`AndOperator`](AndOperator.md) \| [`OrOperator`](OrOperator.md))[]
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:261](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L261)

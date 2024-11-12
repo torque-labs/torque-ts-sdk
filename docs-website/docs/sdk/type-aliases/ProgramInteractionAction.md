@@ -1,4 +1,4 @@
-# Type alias: ProgramInteractionAction
+# Type Alias: ProgramInteractionAction
 
 ```ts
 type ProgramInteractionAction: {
@@ -12,24 +12,53 @@ Parameters for a program interaction action.
 
 ## Type declaration
 
-### interactions?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional interactions: number;
-```
+`interactions`?
 
-### programAddresses
+</td>
+<td>
 
-```ts
-programAddresses: string[];
-```
+`number`
 
-### withinDays?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional withinDays: number;
-```
+`programAddresses`
 
-## Source
+</td>
+<td>
 
-[src/types/audience.ts:56](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L56)
+`string`[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`withinDays`?
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:56](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L56)

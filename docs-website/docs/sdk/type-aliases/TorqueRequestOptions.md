@@ -1,4 +1,4 @@
-# Type alias: TorqueRequestOptions
+# Type Alias: TorqueRequestOptions
 
 ```ts
 type TorqueRequestOptions: {
@@ -7,8 +7,8 @@ type TorqueRequestOptions: {
   appUrl: string;
   connection: Connection;
   functionsUrl: string;
-  signTransaction: SignTransaction;
   signer: Adapter | Keypair;
+  signTransaction: SignTransaction;
 };
 ```
 
@@ -16,62 +16,137 @@ Options for the TorqueRequestClient.
 
 ## Type declaration
 
-### apiKey?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional apiKey: string;
-```
+`apiKey`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API key for the client.
 
-### apiUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional apiUrl: string;
-```
+`apiUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The API URL for the client.
 
-### appUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional appUrl: string;
-```
+`appUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The app URL for the client.
 
-### connection?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional connection: Connection;
-```
+`connection`?
+
+</td>
+<td>
+
+`Connection`
+
+</td>
+<td>
 
 The connection for the client.
 
-### functionsUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional functionsUrl: string;
-```
+`functionsUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The functions URL for the client.
 
-### signTransaction?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional signTransaction: SignTransaction;
-```
+`signer`?
 
-The function used to sign transactions. If provided, it will override the default signing method.
+</td>
+<td>
 
-### signer?
+`Adapter` \| `Keypair`
 
-```ts
-optional signer: Adapter | Keypair;
-```
+</td>
+<td>
 
 The signer used to sign transactions.
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/classes/request.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/request.ts#L20)
+`signTransaction`?
+
+</td>
+<td>
+
+[`SignTransaction`](SignTransaction.md)
+
+</td>
+<td>
+
+The function used to sign transactions. If provided, it will override the default signing method.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/classes/request.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L20)

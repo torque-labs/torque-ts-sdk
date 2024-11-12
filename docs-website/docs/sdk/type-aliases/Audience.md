@@ -1,4 +1,4 @@
-# Type alias: Audience
+# Type Alias: Audience
 
 ```ts
 type Audience: {
@@ -12,24 +12,53 @@ Audiences are used to define the conditions under which a user can participate i
 
 ## Type declaration
 
-### audiences
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-audiences: Audience[];
-```
+`audiences`
 
-### operation
+</td>
+<td>
 
-```ts
-operation: Operation;
-```
+[`Audience`](Audience.md)[]
 
-### targets
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-targets: Target[];
-```
+`operation`
 
-## Source
+</td>
+<td>
 
-[src/types/audience.ts:8](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/audience.ts#L8)
+[`Operation`](../enumerations/Operation.md)
+
+</td>
+</tr>
+<tr>
+<td>
+
+`targets`
+
+</td>
+<td>
+
+[`Target`](Target.md)[]
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/audience.ts:8](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L8)

@@ -1,4 +1,4 @@
-# Type alias: SafeToken
+# Type Alias: SafeToken
 
 ```ts
 type SafeToken: {
@@ -17,62 +17,127 @@ type SafeToken: {
 
 ## Type declaration
 
-### address
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-address: string;
-```
+`address`
 
-### chainId
+</td>
+<td>
 
-```ts
-chainId: number;
-```
+`string`
 
-### decimals
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-decimals: number;
-```
+`chainId`
 
-### extensions
+</td>
+<td>
 
-```ts
-extensions: {
-  coingeckoId: string;
-};
-```
+`number`
 
-### extensions.coingeckoId
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-coingeckoId: string;
-```
+`decimals`
 
-### logoURI
+</td>
+<td>
 
-```ts
-logoURI: string;
-```
+`number`
 
-### name
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-name: string;
-```
+`extensions`
 
-### symbol
+</td>
+<td>
 
-```ts
-symbol: string;
-```
+\{
+  `coingeckoId`: `string`;
+ \}
 
-### tags
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-tags: string[];
-```
+`extensions.coingeckoId`
 
-## Source
+</td>
+<td>
 
-[src/types/chain.ts:1](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/chain.ts#L1)
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`logoURI`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`name`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`symbol`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`tags`
+
+</td>
+<td>
+
+`string`[]
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/chain.ts:1](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/chain.ts#L1)

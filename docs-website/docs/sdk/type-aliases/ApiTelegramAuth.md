@@ -1,4 +1,4 @@
-# Type alias: ApiTelegramAuth
+# Type Alias: ApiTelegramAuth
 
 ```ts
 type ApiTelegramAuth: {
@@ -12,24 +12,53 @@ Telegram auth response.
 
 ## Type declaration
 
-### pubKey
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-pubKey: string;
-```
+`pubKey`
 
-### publisherPubKey?
+</td>
+<td>
 
-```ts
-optional publisherPubKey: string;
-```
+`string`
 
-### telegram?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional telegram: string;
-```
+`publisherPubKey`?
 
-## Source
+</td>
+<td>
 
-[src/types/api.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L214)
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`telegram`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:217](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L217)

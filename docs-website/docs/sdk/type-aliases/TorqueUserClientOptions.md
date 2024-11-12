@@ -1,4 +1,4 @@
-# Type alias: TorqueUserClientOptions
+# Type Alias: TorqueUserClientOptions
 
 ```ts
 type TorqueUserClientOptions: {
@@ -8,8 +8,8 @@ type TorqueUserClientOptions: {
   network: Cluster;
   publisherHandle: string;
   rpc: string;
-  signTransaction: SignTransaction;
   signer: Adapter | Keypair;
+  signTransaction: SignTransaction;
 };
 ```
 
@@ -17,70 +17,154 @@ Options for the TorqueUserClient.
 
 ## Type declaration
 
-### apiUrl?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional apiUrl: string;
-```
+`apiUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 API URL for the client.
 
-### appUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional appUrl: string;
-```
+`appUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 App URL for the client.
 
-### functionsUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional functionsUrl: string;
-```
+`functionsUrl`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 Functions URL for the client.
 
-### network
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-network: Cluster;
-```
+`network`
+
+</td>
+<td>
+
+`Cluster`
+
+</td>
+<td>
 
 The network for the client. Defaults to 'mainnet-beta'.
 
-### publisherHandle?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional publisherHandle: string;
-```
+`publisherHandle`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 The publisher handle for the client. Defaults to 'torqueprotocol'.
 
-### rpc?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional rpc: string;
-```
+`rpc`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+<td>
 
 RPC URL for the client.
 
-### signTransaction?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional signTransaction: SignTransaction;
-```
+`signer`
 
-The function used to sign transactions. If provided, it will override the default signing method.
+</td>
+<td>
 
-### signer
+`Adapter` \| `Keypair`
 
-```ts
-signer: Adapter | Keypair;
-```
+</td>
+<td>
 
 The signer used to sign transactions.
 
-## Source
+</td>
+</tr>
+<tr>
+<td>
 
-[src/classes/user.ts:26](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L26)
+`signTransaction`?
+
+</td>
+<td>
+
+[`SignTransaction`](SignTransaction.md)
+
+</td>
+<td>
+
+The function used to sign transactions. If provided, it will override the default signing method.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/classes/user.ts:26](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L26)

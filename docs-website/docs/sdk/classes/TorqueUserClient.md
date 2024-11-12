@@ -29,7 +29,7 @@ Create a new instance of the TorqueUserClient class with the publisher's handle,
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `options` | [`TorqueUserClientOptions`](../type-aliases/TorqueUserClientOptions.md) | The options for the TorqueUserClient. |
 
 #### Returns
@@ -40,24 +40,19 @@ Create a new instance of the TorqueUserClient class with the publisher's handle,
 
 Throws an error if the user's wallet is not provided.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L93)
+[torque-ts-sdk/src/classes/user.ts:93](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L93)
 
 ## Properties
 
-| Property | Modifier | Type | Default value |
-| :------ | :------ | :------ | :------ |
-| `apiUrl` | `private` | `string` | `undefined` |
-| `appUrl` | `private` | `string` | `undefined` |
-| `client` | `private` | [`TorqueRequestClient`](TorqueRequestClient.md) | `undefined` |
-| `connection` | `private` | `Connection` | `undefined` |
-| `initialized` | `public` | `boolean` | `false` |
-| `publicKey` | `public` | `string` | `undefined` |
-| `publisherHandle` | `public` | `string` | `undefined` |
-| `signer` | `private` | `Adapter` \| `Keypair` | `undefined` |
-| `user` | `public` | `undefined` \| [`ApiUser`](../type-aliases/ApiUser.md) | `undefined` |
-| `PUBLISHER_ACCOUNT_SIZE` | `static` | `number` | `41` |
+| Property | Modifier | Type |
+| ------ | ------ | ------ |
+| `initialized` | `public` | `boolean` |
+| `publicKey` | `public` | `string` |
+| `publisherHandle` | `public` | `string` |
+| `user` | `public` | `undefined` \| [`ApiUser`](../type-aliases/ApiUser.md) |
+| `PUBLISHER_ACCOUNT_SIZE` | `static` | `number` |
 
 ## Methods
 
@@ -72,13 +67,13 @@ Initiate a user journey to accept a campaign for the current user.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `campaignId` | `string` | The ID of the campaign to accept. |
 | `publisherHandle`? | `string` | The handle of the publisher to accept the campaign for. |
 
 #### Returns
 
-`Promise` \<[`ApiUserJourney`](../type-aliases/ApiUserJourney.md)\>
+`Promise`\<[`ApiUserJourney`](../type-aliases/ApiUserJourney.md)\>
 
 A Promise that resolves to the journey data for the campaign.
 
@@ -86,9 +81,9 @@ A Promise that resolves to the journey data for the campaign.
 
 Throws an error if the client is not initialized or if there is an error accepting the campaign.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:420](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L420)
+[torque-ts-sdk/src/classes/user.ts:420](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L420)
 
 ***
 
@@ -103,7 +98,7 @@ Links user's telegram account to their Torque account.
 #### Parameters
 
 | Parameter | Type |
-| :------ | :------ |
+| ------ | ------ |
 | `user` | `object` |
 | `user.auth_date` | `number` |
 | `user.first_name` | `string` |
@@ -114,7 +109,7 @@ Links user's telegram account to their Torque account.
 
 #### Returns
 
-`Promise` \<[`ApiTelegramAuth`](../type-aliases/ApiTelegramAuth.md)\>
+`Promise`\<[`ApiTelegramAuth`](../type-aliases/ApiTelegramAuth.md)\>
 
 The data associated with the shared link if the request is successful.
 
@@ -122,9 +117,9 @@ The data associated with the shared link if the request is successful.
 
 Throws an error there was an error getting the shared link data.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:844](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L844)
+[torque-ts-sdk/src/classes/user.ts:939](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L939)
 
 ***
 
@@ -142,7 +137,7 @@ Sends a signed message to the Torque API to confirm the user's signature for a r
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `campaignId` | `string` | The ID of the campaign/offer to confirm the signature for. |
 | `index` | `number` | The index of the offer requirement within the campaign. |
 | `encodedMessage` | `string` | - |
@@ -153,9 +148,46 @@ Sends a signed message to the Torque API to confirm the user's signature for a r
 
 A Solana action response that contains the next requirement.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:597](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L597)
+[torque-ts-sdk/src/classes/user.ts:692](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L692)
+
+***
+
+### createCustomEvent()
+
+```ts
+createCustomEvent(customEvent): Promise<{
+  id: string;
+}>
+```
+
+Creates a new a custom event for the user's account which can be used for custom
+event requirements during a campaign.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `customEvent` | `object` | The configuration of the custom event. |
+| `customEvent.config` | `Record`\<`string`, `CustomEventFieldType`\> | - |
+| `customEvent.name` | `string` | - |
+
+#### Returns
+
+`Promise`\<\{
+  `id`: `string`;
+ \}\>
+
+A Promise that resolves to the id of the new custom event.
+
+| Name | Type |
+| ------ | ------ |
+| `id` | `string` |
+
+#### Defined in
+
+[torque-ts-sdk/src/classes/user.ts:584](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L584)
 
 ***
 
@@ -183,22 +215,17 @@ Fetches all of the user's share links that they have previously created.
 
 A Promise resolving to the URLs of the user's share links.
 
-##### links
-
-```ts
-links: {
-  campaignId: string;
-  url: string;
- }[];
-```
+| Name | Type |
+| ------ | ------ |
+| `links` | \{ `campaignId`: `string`; `url`: `string`; \}[] |
 
 #### Throws
 
 An error if the link fetch fails.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:733](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L733)
+[torque-ts-sdk/src/classes/user.ts:828](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L828)
 
 ***
 
@@ -216,7 +243,7 @@ Get the Solana action for a specific bounty/requirement step.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `campaignId` | `string` | The ID of the campaign to retrieve the journey for. |
 | `actionIndex` | `number` | The index of the offer requirement to retrieve the transaction for. |
 | `data` | `Record`\<`string`, `string`\> | Additional data to be sent with the request. |
@@ -227,9 +254,9 @@ Get the Solana action for a specific bounty/requirement step.
 
 The Solana Action response which contains the transaction.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:553](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L553)
+[torque-ts-sdk/src/classes/user.ts:648](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L648)
 
 ***
 
@@ -244,7 +271,7 @@ Retrieves the user's campaign journey for the specified campaign.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `campaignId` | `string` | The ID of the campaign to retrieve the journey for. |
 
 #### Returns
@@ -257,9 +284,9 @@ A Promise that resolves to the user's campaign journey.
 
 Throws an error if the client is not initialized or if there is an error getting the journey.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:454](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L454)
+[torque-ts-sdk/src/classes/user.ts:454](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L454)
 
 ***
 
@@ -281,9 +308,9 @@ A promise that resolves to the user if they are signed in, otherwise undefined.
 
 Throws an error if checking the user's login status fails.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:321](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L321)
+[torque-ts-sdk/src/classes/user.ts:321](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L321)
 
 ***
 
@@ -291,7 +318,7 @@ Throws an error if checking the user's login status fails.
 
 ```ts
 getCustomEvents(): Promise<{
-  config: Record<string, "string" | "number" | "boolean">;
+  config: Record<string, CustomEventFieldType>;
   id: string;
   name: string;
 }[]>
@@ -302,7 +329,7 @@ Fetches the user's custom events
 #### Returns
 
 `Promise`\<\{
-  `config`: `Record`\<`string`, `"string"` \| `"number"` \| `"boolean"`\>;
+  `config`: `Record`\<`string`, `CustomEventFieldType`\>;
   `id`: `string`;
   `name`: `string`;
  \}[]\>
@@ -313,9 +340,9 @@ A Promise that resolves to an array of custom events.
 
 If the client is not initialized or there was an error fetching the custom events.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:524](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L524)
+[torque-ts-sdk/src/classes/user.ts:556](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L556)
 
 ***
 
@@ -337,9 +364,9 @@ A Promise that resolves to the user's campaign journey.
 
 Throws an error if the client is not initialized or if there is an error getting the journey.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:490](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L490)
+[torque-ts-sdk/src/classes/user.ts:490](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L490)
 
 ***
 
@@ -352,16 +379,16 @@ getMaxTransferableSpl(token): Promise<number>
 #### Parameters
 
 | Parameter | Type |
-| :------ | :------ |
+| ------ | ------ |
 | `token` | `PublicKey` |
 
 #### Returns
 
 `Promise`\<`number`\>
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:687](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L687)
+[torque-ts-sdk/src/classes/user.ts:782](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L782)
 
 ***
 
@@ -378,7 +405,7 @@ Retrieves a list of active campaigns from the Torque API that the user is eligib
 #### Parameters
 
 | Parameter | Type |
-| :------ | :------ |
+| ------ | ------ |
 | `profileSlug`? | `string` |
 
 #### Returns
@@ -389,19 +416,17 @@ Retrieves a list of active campaigns from the Torque API that the user is eligib
 
 A Promise resolving to an array of `ApiCampaign` objects representing the active campaigns.
 
-##### campaigns
-
-```ts
-campaigns: ApiCampaign[];
-```
+| Name | Type |
+| ------ | ------ |
+| `campaigns` | [`ApiCampaign`](../type-aliases/ApiCampaign.md)[] |
 
 #### Throws
 
 An error if the fetch operation fails, or if the API returns a status other than "SUCCESS".
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:385](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L385)
+[torque-ts-sdk/src/classes/user.ts:385](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L385)
 
 ***
 
@@ -419,9 +444,9 @@ Get the balance of the publisher PDA for the current user.
 
 The balance of the publisher PDA for the current user in lamports.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:710](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L710)
+[torque-ts-sdk/src/classes/user.ts:805](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L805)
 
 ***
 
@@ -439,9 +464,9 @@ Get the publisher PDA for the current user.
 
 The publisher PDA for the current user.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:674](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L674)
+[torque-ts-sdk/src/classes/user.ts:769](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L769)
 
 ***
 
@@ -456,13 +481,13 @@ Retrieves the data for an offer link for a specific campaign and handle.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `campaignId` | `string` | The unique identifier for the campaign. |
 | `handle` | `string` | The specific handle associated with the shared link. |
 
 #### Returns
 
-`Promise` \<[`ApiShare`](../type-aliases/ApiShare.md)\>
+`Promise`\<[`ApiShare`](../type-aliases/ApiShare.md)\>
 
 The data associated with the shared link if the request is successful.
 
@@ -470,9 +495,9 @@ The data associated with the shared link if the request is successful.
 
 Throws an error there was an error getting the shared link data.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:775](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L775)
+[torque-ts-sdk/src/classes/user.ts:870](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L870)
 
 ***
 
@@ -490,9 +515,9 @@ Retrieves the user's handle.
 
 The user's handle or `undefined` if no handle is available.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:359](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L359)
+[torque-ts-sdk/src/classes/user.ts:359](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L359)
 
 ***
 
@@ -506,7 +531,7 @@ Retrieves user's payout history from conversions.
 
 #### Returns
 
-`Promise` \<[`ApiUserPayout`](../type-aliases/ApiUserPayout.md)\>
+`Promise`\<[`ApiUserPayout`](../type-aliases/ApiUserPayout.md)\>
 
 The data associated with the shared link if the request is successful.
 
@@ -514,9 +539,9 @@ The data associated with the shared link if the request is successful.
 
 Throws an error there was an error getting the shared link data.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:811](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L811)
+[torque-ts-sdk/src/classes/user.ts:906](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L906)
 
 ***
 
@@ -531,7 +556,7 @@ Generates a URL for a user's shared link for a specific campaign.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `campaignId` | `string` | The unique identifier for the campaign. |
 
 #### Returns
@@ -544,9 +569,9 @@ A promise that resolves to the URL string of the user's shared link for the camp
 
 Throws an error if the user is not a publisher or does not have a handle.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:656](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L656)
+[torque-ts-sdk/src/classes/user.ts:751](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L751)
 
 ***
 
@@ -561,12 +586,12 @@ Initializes the TorqueUserClient with the provided options.
 #### Parameters
 
 | Parameter | Type | Description |
-| :------ | :------ | :------ |
+| ------ | ------ | ------ |
 | `userAuth`? | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | User signature object that is required to authenticate a user with Torque. |
 
 #### Returns
 
-`Promise` \<[`ApiUser`](../type-aliases/ApiUser.md)\>
+`Promise`\<[`ApiUser`](../type-aliases/ApiUser.md)\>
 
 A Promise that resolves when the initialization is complete.
 
@@ -574,9 +599,9 @@ A Promise that resolves when the initialization is complete.
 
 If user was not verified.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:133](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L133)
+[torque-ts-sdk/src/classes/user.ts:133](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L133)
 
 ***
 
@@ -598,39 +623,9 @@ True if the user is a publisher, false otherwise.
 
 Throws an error if the user is not signed in.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:639](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L639)
-
-***
-
-### login()
-
-```ts
-private login(loginOptions): Promise<ApiUser>
-```
-
-Authenticate the user with the torque API with the provided user signature object.
-
-#### Parameters
-
-| Parameter | Type | Description |
-| :------ | :------ | :------ |
-| `loginOptions` | [`ApiInputLogin`](../type-aliases/ApiInputLogin.md) | The verification object that is required to authenticate a user with Torque. |
-
-#### Returns
-
-`Promise` \<[`ApiUser`](../type-aliases/ApiUser.md)\>
-
-A Promise that resolves to an object containing the user information.
-
-#### Throws
-
-Throws an error if there is an error authenticating the user.
-
-#### Source
-
-[src/classes/user.ts:222](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L222)
+[torque-ts-sdk/src/classes/user.ts:734](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L734)
 
 ***
 
@@ -650,19 +645,17 @@ Logout the user from the Torque API.
   `cleared`: `boolean`;
  \}\>
 
-##### cleared
-
-```ts
-cleared: boolean;
-```
+| Name | Type |
+| ------ | ------ |
+| `cleared` | `boolean` |
 
 #### Throws
 
 Throws an error if the client is not initialized or if there is an error logging out the user.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:247](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L247)
+[torque-ts-sdk/src/classes/user.ts:247](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L247)
 
 ***
 
@@ -680,9 +673,9 @@ Rereshes the user's information from the Torque API.
 
 A promise that resolves to the user if they are signed in, otherwise undefined.
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:283](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L283)
+[torque-ts-sdk/src/classes/user.ts:283](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L283)
 
 ***
 
@@ -696,6 +689,69 @@ setUserPublisher(): void
 
 `void`
 
-#### Source
+#### Defined in
 
-[src/classes/user.ts:757](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/classes/user.ts#L757)
+[torque-ts-sdk/src/classes/user.ts:852](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L852)
+
+***
+
+### updateCustomEvent()
+
+```ts
+updateCustomEvent(customEvent): Promise<{
+  id: string;
+}>
+```
+
+Updates an existing custom event for the user's account.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `customEvent` | `object` | The updated configuration of the custom event. |
+| `customEvent.config` | `Record`\<`string`, `CustomEventFieldType`\> | - |
+| `customEvent.id` | `string` | - |
+| `customEvent.name` | `string` | - |
+
+#### Returns
+
+`Promise`\<\{
+  `id`: `string`;
+ \}\>
+
+A Promise that resolves to the id of the updated custom event.
+
+| Name | Type |
+| ------ | ------ |
+| `id` | `string` |
+
+#### Defined in
+
+[torque-ts-sdk/src/classes/user.ts:615](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L615)
+
+***
+
+### verifyCampaignAudience()
+
+```ts
+verifyCampaignAudience(campaignId): Promise<boolean>
+```
+
+Verifies that the user is part of the audience for a specific campaign.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `campaignId` | `string` | The ID of the campaign to verify the audience for. |
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+A Promise that resolves to true if the user is part of the audience for the campaign, false otherwise.
+
+#### Defined in
+
+[torque-ts-sdk/src/classes/user.ts:524](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L524)

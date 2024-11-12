@@ -1,4 +1,4 @@
-# Type alias: ApiCampaign
+# Type Alias: ApiCampaign
 
 ```ts
 type ApiCampaign: {
@@ -18,8 +18,12 @@ type ApiCampaign: {
   content: string;
   description: string;
   endTime: Date;
+  hideRewards: boolean;
   id: string;
   imageUrl: string;
+  lootBoxRewards: LootBoxReward & {
+     id: string;
+    };
   offerBgImage: string;
   offerLink: string;
   offerTheme: OfferTheme;
@@ -55,220 +59,455 @@ Campaign data.
 
 ## Type declaration
 
-### advertiser?
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
 
-```ts
-optional advertiser: {
-  profileImage: string | null;
-  twitter: string | null;
-  username: string | null;
-};
-```
+`advertiser`?
 
-### advertiser.profileImage?
+</td>
+<td>
 
-```ts
-optional profileImage: string | null;
-```
+\{
+  `profileImage`: `string` \| `null`;
+  `twitter`: `string` \| `null`;
+  `username`: `string` \| `null`;
+ \}
 
-### advertiser.twitter?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional twitter: string | null;
-```
+`advertiser.profileImage`?
 
-### advertiser.username?
+</td>
+<td>
 
-```ts
-optional username: string | null;
-```
+`string` \| `null`
 
-### advertiserPubKey
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-advertiserPubKey: string;
-```
+`advertiser.twitter`?
 
-### asymmetricRewards
+</td>
+<td>
 
-```ts
-asymmetricRewards: AsymmetricReward[];
-```
+`string` \| `null`
 
-### audiences
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-audiences: {
-  config: Audience[];
-  id: string;
-  title: string;
- }[];
-```
+`advertiser.username`?
 
-### blinkOnly?
+</td>
+<td>
 
-```ts
-optional blinkOnly: boolean;
-```
+`string` \| `null`
 
-### content?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional content: string;
-```
+`advertiserPubKey`
 
-### description?
+</td>
+<td>
 
-```ts
-optional description: string;
-```
+`string`
 
-### endTime
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-endTime: Date;
-```
+`asymmetricRewards`
 
-### id
+</td>
+<td>
 
-```ts
-id: string;
-```
+`AsymmetricReward`[]
 
-### imageUrl?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional imageUrl: string;
-```
+`audiences`
 
-### offerBgImage?
+</td>
+<td>
 
-```ts
-optional offerBgImage: string;
-```
+\{
+  `config`: [`Audience`](Audience.md)[];
+  `id`: `string`;
+  `title`: `string`;
+ \}[]
 
-### offerLink?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional offerLink: string;
-```
+`blinkOnly`?
 
-### offerTheme
+</td>
+<td>
 
-```ts
-offerTheme: OfferTheme;
-```
+`boolean`
 
-### pendingConversions?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional pendingConversions: number;
-```
+`content`?
 
-### pubKey
+</td>
+<td>
 
-```ts
-pubKey: string;
-```
+`string`
 
-### publisherRewardAmount?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional publisherRewardAmount: string;
-```
+`description`?
 
-### publisherRewardToken?
+</td>
+<td>
 
-```ts
-optional publisherRewardToken: string;
-```
+`string`
 
-### publisherRewardType?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional publisherRewardType: ApiRewardType;
-```
+`endTime`
 
-### remainingConversions
+</td>
+<td>
 
-```ts
-remainingConversions: number;
-```
+`Date`
 
-### requirements
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-requirements: ApiRequirement[];
-```
+`hideRewards`
 
-### startTime
+</td>
+<td>
 
-```ts
-startTime: Date;
-```
+`boolean`
 
-### status
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-status: string;
-```
+`id`
 
-### targetLink?
+</td>
+<td>
 
-```ts
-optional targetLink: string;
-```
+`string`
 
-### title
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-title: string;
-```
+`imageUrl`?
 
-### totalConversions
+</td>
+<td>
 
-```ts
-totalConversions: number;
-```
+`string`
 
-### type
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-type: string;
-```
+`lootBoxRewards`?
 
-### userPayouts?
+</td>
+<td>
 
-```ts
-optional userPayouts: {
-  payoutTx: string | null;
-  user: {
-     profileImage: string | null;
-     pubkey: string;
-     twitter: string | null;
-     username: string | null;
-    };
- }[];
-```
+`LootBoxReward` & \{
+  `id`: `string`;
+ \}
 
-### userRewardAmount?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional userRewardAmount: string;
-```
+`offerBgImage`?
 
-### userRewardToken?
+</td>
+<td>
 
-```ts
-optional userRewardToken: string;
-```
+`string`
 
-### userRewardType?
+</td>
+</tr>
+<tr>
+<td>
 
-```ts
-optional userRewardType: ApiRewardType;
-```
+`offerLink`?
 
-## Source
+</td>
+<td>
 
-[src/types/api.ts:88](https://github.com/torque-labs/torque-ts-sdk/blob/4377d91cff1aa0b27936cb53a23174cb35cc6c04/src/types/api.ts#L88)
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`offerTheme`
+
+</td>
+<td>
+
+`OfferTheme`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`pendingConversions`?
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`pubKey`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisherRewardAmount`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisherRewardToken`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`publisherRewardType`?
+
+</td>
+<td>
+
+[`ApiRewardType`](../enumerations/ApiRewardType.md)
+
+</td>
+</tr>
+<tr>
+<td>
+
+`remainingConversions`
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`requirements`
+
+</td>
+<td>
+
+[`ApiRequirement`](ApiRequirement.md)[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`startTime`
+
+</td>
+<td>
+
+`Date`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`status`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`targetLink`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`title`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`totalConversions`
+
+</td>
+<td>
+
+`number`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`type`
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userPayouts`?
+
+</td>
+<td>
+
+\{
+  `payoutTx`: `string` \| `null`;
+  `user`: \{
+     `profileImage`: `string` \| `null`;
+     `pubkey`: `string`;
+     `twitter`: `string` \| `null`;
+     `username`: `string` \| `null`;
+    \};
+ \}[]
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userRewardAmount`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userRewardToken`?
+
+</td>
+<td>
+
+`string`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`userRewardType`?
+
+</td>
+<td>
+
+[`ApiRewardType`](../enumerations/ApiRewardType.md)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+## Defined in
+
+[torque-ts-sdk/src/types/api.ts:89](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L89)
