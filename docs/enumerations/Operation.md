@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / Operation
+[@torque-labs/torque-ts-sdk](../README.md) / Operation
 
 # Enumeration: Operation
 

@@ -2,11 +2,15 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / OrOperator
+[@torque-labs/torque-ts-sdk](../README.md) / OrOperator
 
 # Type Alias: OrOperator
 
-> **OrOperator**: `object`
+```ts
+type OrOperator: {
+  $or: (Condition | AndOperator | OrOperator)[];
+};
+```
 
 Aggregation or operator.
 
@@ -18,4 +22,4 @@ Aggregation or operator.
 
 ## Defined in
 
-[src/types/audience.ts:268](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L268)
+[src/types/audience.ts:268](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L268)

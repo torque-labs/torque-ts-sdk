@@ -18,5 +18,9 @@
     "hideValues": false,
     "leftAlignHeaders": false
   },
-  "excludePrivate": false
+  "excludePrivate": false,
+  "indexFormat": "table",
+  "expandObjects": true,
+  "useCodeBlocks": true,
+  "mergeReadme": true
 }

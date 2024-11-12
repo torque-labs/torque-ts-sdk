@@ -2,11 +2,24 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiUserPayout
+[@torque-labs/torque-ts-sdk](../README.md) / ApiUserPayout
 
 # Type Alias: ApiUserPayout
 
-> **ApiUserPayout**: `object`
+```ts
+type ApiUserPayout: {
+  payouts: {
+     amount: number;
+     campaign: ApiCampaign;
+     createdAt: Date;
+     id: string;
+     isRafflePayout: boolean;
+     payoutTx: string | null;
+     tokenAddress: string;
+     userPubKey: string;
+    }[];
+};
+```
 
 User Payout data.
 
@@ -14,8 +27,8 @@ User Payout data.
 
 | Name | Type |
 | ------ | ------ |
-| `payouts` | `object`[] |
+| `payouts` | \{ `amount`: `number`; `campaign`: [`ApiCampaign`](ApiCampaign.md); `createdAt`: `Date`; `id`: `string`; `isRafflePayout`: `boolean`; `payoutTx`: `string` \| `null`; `tokenAddress`: `string`; `userPubKey`: `string`; \}[] |
 
 ## Defined in
 
-[src/types/api.ts:313](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L313)
+[src/types/api.ts:313](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L313)

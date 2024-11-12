@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueRequestClient
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueRequestClient
 
 # Class: TorqueRequestClient
 
@@ -21,7 +21,9 @@ const response = await client.apiFetch<T>("https://api.torque.so/v1/users");
 
 ### new TorqueRequestClient()
 
-> **new TorqueRequestClient**(`options`): [`TorqueRequestClient`](TorqueRequestClient.md)
+```ts
+new TorqueRequestClient(options): TorqueRequestClient
+```
 
 Create a new instance of the TorqueRequestClient class.
 
@@ -41,7 +43,7 @@ Throws an error if a signer is not provided.
 
 #### Defined in
 
-[src/classes/request.ts:78](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L78)
+[src/classes/request.ts:78](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L78)
 
 ## Properties
 
@@ -60,7 +62,12 @@ Throws an error if a signer is not provided.
 
 ### apiFetch()
 
-> **apiFetch**\<`T`\>(`url`, `options`?, `supressError`?): `Promise`\<`T`\>
+```ts
+apiFetch<T>(
+   url, 
+   options?, 
+supressError?): Promise<T>
+```
 
 Perform a request to the Torque API.
 
@@ -90,13 +97,17 @@ If there is an error performing the request.
 
 #### Defined in
 
-[src/classes/request.ts:141](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L141)
+[src/classes/request.ts:141](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L141)
 
 ***
 
 ### buildTransaction()
 
-> `private` **buildTransaction**\<`T`\>(`txnInput`, `token`?): `Promise`\<`T` & `object`\>
+```ts
+private buildTransaction<T>(txnInput, token?): Promise<T & {
+  serializedTx: string;
+}>
+```
 
 Builds and returns a serialized transaction from the API based on the provided transaction input.
 
@@ -110,12 +121,14 @@ Builds and returns a serialized transaction from the API based on the provided t
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `txnInput` | `object` \| `object` \| `object` \| `object` | The input object of the transaction to build. |
+| `txnInput` | \{ `data`: `CreateCampaignInputSchema`; `txnType`: `CampaignCreate`; \} \| \{ `data`: `CampaignEndInputSchema`; `txnType`: `CampaignEnd`; \} \| \{ `data`: `PublisherCreateInputSchema`; `txnType`: `PublisherCreate`; \} \| \{ `data`: `PublisherPayoutInputSchema`; `txnType`: `PublisherPayout`; \} | The input object of the transaction to build. |
 | `token`? | `string` | The Torque API token to use for the transaction. |
 
 #### Returns
 
-`Promise`\<`T` & `object`\>
+`Promise`\<`T` & \{
+  `serializedTx`: `string`;
+ \}\>
 
 A promise that resolves with the serialized transaction.
 
@@ -125,13 +138,15 @@ Throws an error if the API is not able to build the transaction.
 
 #### Defined in
 
-[src/classes/request.ts:221](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L221)
+[src/classes/request.ts:221](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L221)
 
 ***
 
 ### executeTransaction()
 
-> `private` **executeTransaction**(`txnExecuteInput`, `token`?): `Promise`\<[`TxnExecuteResponse`](../type-aliases/TxnExecuteResponse.md)\>
+```ts
+private executeTransaction(txnExecuteInput, token?): Promise<TxnExecuteResponse>
+```
 
 Executes the serialized transaction using the API.
 
@@ -139,7 +154,7 @@ Executes the serialized transaction using the API.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `txnExecuteInput` | `object` \| `object` | The input object of the transaction to execute. |
+| `txnExecuteInput` | \{ `data`: \{ `blockhash`: `string`; `campaignId`: `string`; `userSignature`: `string`; \}; `txnType`: `CampaignCreate` \| `CampaignEnd`; \} \| \{ `data`: `TxnExecuteDefaults`; `txnType`: `string`; \} | The input object of the transaction to execute. |
 | `token`? | `string` | The Torque API token to use for the transaction. |
 
 #### Returns
@@ -154,13 +169,15 @@ Throws an error if the API request is unsuccessful or if the transaction fails.
 
 #### Defined in
 
-[src/classes/request.ts:263](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L263)
+[src/classes/request.ts:263](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L263)
 
 ***
 
 ### functionsFetch()
 
-> **functionsFetch**\<`T`\>(`url`, `options`?): `Promise`\<`T`\>
+```ts
+functionsFetch<T>(url, options?): Promise<T>
+```
 
 Perform a request to a Torque Function endpoint.
 
@@ -189,13 +206,15 @@ If there is an error performing the request.
 
 #### Defined in
 
-[src/classes/request.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L184)
+[src/classes/request.ts:184](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L184)
 
 ***
 
 ### signWithKeypair()
 
-> `private` **signWithKeypair**(`txn`): `VersionedTransaction`
+```ts
+private signWithKeypair(txn): VersionedTransaction
+```
 
 Signs a transaction with a Keypair.
 
@@ -217,13 +236,15 @@ If the signer is not initialized or if the signer is not a Keypair.
 
 #### Defined in
 
-[src/classes/request.ts:366](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L366)
+[src/classes/request.ts:366](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L366)
 
 ***
 
 ### transaction()
 
-> **transaction**\<`T`\>(`txnInput`, `token`?): `Promise`\<[`WithSignature`](../type-aliases/WithSignature.md)\<`T`\>\>
+```ts
+transaction<T>(txnInput, token?): Promise<WithSignature<T>>
+```
 
 Builds and executes the transaction using the Torque API.
 
@@ -237,7 +258,7 @@ Builds and executes the transaction using the Torque API.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `txnInput` | `object` \| `object` \| `object` \| `object` | The input object of the transaction to process. |
+| `txnInput` | \{ `data`: `CreateCampaignInputSchema`; `txnType`: `CampaignCreate`; \} \| \{ `data`: `CampaignEndInputSchema`; `txnType`: `CampaignEnd`; \} \| \{ `data`: `PublisherCreateInputSchema`; `txnType`: `PublisherCreate`; \} \| \{ `data`: `PublisherPayoutInputSchema`; `txnType`: `PublisherPayout`; \} | The input object of the transaction to process. |
 | `token`? | `string` | The Torque API token to use for the transaction. |
 
 #### Returns
@@ -248,13 +269,15 @@ A promise that resolves with the signature of the transaction.
 
 #### Defined in
 
-[src/classes/request.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L310)
+[src/classes/request.ts:310](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L310)
 
 ***
 
 ### anyFetch()
 
-> `static` **anyFetch**\<`T`\>(`url`, `options`?): `Promise`\<`T`\>
+```ts
+static anyFetch<T>(url, options?): Promise<T>
+```
 
 Perform a regular request to any endpoint.
 
@@ -283,4 +306,4 @@ If there is an error performing the request.
 
 #### Defined in
 
-[src/classes/request.ts:107](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L107)
+[src/classes/request.ts:107](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L107)

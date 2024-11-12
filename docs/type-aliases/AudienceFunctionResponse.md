@@ -2,11 +2,13 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / AudienceFunctionResponse
+[@torque-labs/torque-ts-sdk](../README.md) / AudienceFunctionResponse
 
 # Type Alias: AudienceFunctionResponse\<T\>
 
-> **AudienceFunctionResponse**\<`T`\>: `T`
+```ts
+type AudienceFunctionResponse<T>: T;
+```
 
 Generic response for an audience request.
 
@@ -18,4 +20,4 @@ Generic response for an audience request.
 
 ## Defined in
 
-[src/types/audience.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L214)
+[src/types/audience.ts:214](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L214)

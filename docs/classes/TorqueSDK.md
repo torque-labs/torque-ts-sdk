@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueSDK
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueSDK
 
 # Class: TorqueSDK
 
@@ -33,7 +33,9 @@ const user = currentUser
 
 ### new TorqueSDK()
 
-> **new TorqueSDK**(`options`): [`TorqueSDK`](TorqueSDK.md)
+```ts
+new TorqueSDK(options): TorqueSDK
+```
 
 Initializes the TorqueSDK with the provided options.
 
@@ -53,7 +55,7 @@ Throws an error if the there is no api key or publisher handle provided.
 
 #### Defined in
 
-[src/classes/sdk.ts:92](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L92)
+[src/classes/sdk.ts:92](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L92)
 
 ## Properties
 
@@ -75,7 +77,12 @@ Throws an error if the there is no api key or publisher handle provided.
 
 ### initialize()
 
-> **initialize**(`signer`, `signTransaction`?, `ApiInputLogin`?): `Promise`\<`void`\>
+```ts
+initialize(
+   signer, 
+   signTransaction?, 
+ApiInputLogin?): Promise<void>
+```
 
 Initializes the TorqueSDK with the provided options.
 
@@ -97,13 +104,15 @@ Throws an error if the there is no api key or publisher handle provided.
 
 #### Defined in
 
-[src/classes/sdk.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L115)
+[src/classes/sdk.ts:115](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L115)
 
 ***
 
 ### logout()
 
-> **logout**(): `Promise`\<`void`\>
+```ts
+logout(): Promise<void>
+```
 
 Logout the user from the Torque API.
 
@@ -117,13 +126,29 @@ Throws an error if the client is not initialized or if there is an error logging
 
 #### Defined in
 
-[src/classes/sdk.ts:170](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L170)
+[src/classes/sdk.ts:170](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L170)
 
 ***
 
 ### constructLoginBody()
 
-> `static` **constructLoginBody**(`params`): `object` \| `object`
+```ts
+static constructLoginBody(params): {
+  authType: "siws";
+  payload: {
+     input: payload.input;
+     output: SolanaSignInOutput;
+    };
+  pubKey: string;
+ } | {
+  authType: "basic";
+  payload: {
+     input: payload.input;
+     output: payload.output;
+    };
+  pubKey: string;
+}
+```
 
 Constructs the body for the login API request based on the authentication type.
 
@@ -135,19 +160,35 @@ Constructs the body for the login API request based on the authentication type.
 
 #### Returns
 
-`object` \| `object`
+\{
+  `authType`: `"siws"`;
+  `payload`: \{
+     `input`: `payload.input`;
+     `output`: `SolanaSignInOutput`;
+    \};
+  `pubKey`: `string`;
+ \} \| \{
+  `authType`: `"basic"`;
+  `payload`: \{
+     `input`: `payload.input`;
+     `output`: `payload.output`;
+    \};
+  `pubKey`: `string`;
+ \}
 
 The constructed body for the verify API request, formatted based on the authentication type.
 
 #### Defined in
 
-[src/classes/sdk.ts:276](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L276)
+[src/classes/sdk.ts:276](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L276)
 
 ***
 
 ### getLoginPayload()
 
-> `static` **getLoginPayload**(`apiUrl`): `Promise`\<[`ApiIdentifyPayload`](../type-aliases/ApiIdentifyPayload.md)\>
+```ts
+static getLoginPayload(apiUrl): Promise<ApiIdentifyPayload>
+```
 
 Retrieves a sample SIWS payload for logging into the Torque API.
 
@@ -169,13 +210,15 @@ Throws an error if the API request is unsuccessful.
 
 #### Defined in
 
-[src/classes/sdk.ts:244](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L244)
+[src/classes/sdk.ts:244](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L244)
 
 ***
 
 ### verifyLogin()
 
-> `static` **verifyLogin**(`loginOptions`, `apiUrl`): `Promise`\<[`ApiUser`](../type-aliases/ApiUser.md)\>
+```ts
+static verifyLogin(loginOptions, apiUrl): Promise<ApiUser>
+```
 
 Static method to verify the login options with the Torque API.
 
@@ -198,4 +241,4 @@ Throws an error if there is an error authenticating the user.
 
 #### Defined in
 
-[src/classes/sdk.ts:201](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L201)
+[src/classes/sdk.ts:201](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L201)

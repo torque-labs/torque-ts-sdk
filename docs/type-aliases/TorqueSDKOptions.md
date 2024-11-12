@@ -2,11 +2,21 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueSDKOptions
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueSDKOptions
 
 # Type Alias: TorqueSDKOptions
 
-> **TorqueSDKOptions**: `object`
+```ts
+type TorqueSDKOptions: {
+  apiKey: string;
+  apiUrl: string;
+  appUrl: string;
+  functionsUrl: string;
+  network: Cluster;
+  publisherHandle: string;
+  rpc: string;
+};
+```
 
 Options for the TorqueSDK.
 
@@ -24,4 +34,4 @@ Options for the TorqueSDK.
 
 ## Defined in
 
-[src/classes/sdk.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/sdk.ts#L20)
+[src/classes/sdk.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/sdk.ts#L20)

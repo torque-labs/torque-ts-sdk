@@ -2,11 +2,33 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / CampaignAnalytics
+[@torque-labs/torque-ts-sdk](../README.md) / CampaignAnalytics
 
 # Type Alias: CampaignAnalytics
 
-> **CampaignAnalytics**: `object`
+```ts
+type CampaignAnalytics: {
+  conversions: {
+     15min: ConversionTime[];
+     1d: ConversionTime[];
+     1hr: ConversionTime[];
+    };
+  counts: {
+     converted: number;
+     started: number;
+    };
+  payouts: {
+     amount: number;
+     count: number;
+    };
+  starts: {
+     15min: ConversionTime[];
+     1d: ConversionTime[];
+     1hr: ConversionTime[];
+    };
+  volume: number | null;
+};
+```
 
 Campaign analytics type retrieved from the API.
 
@@ -14,17 +36,17 @@ Campaign analytics type retrieved from the API.
 
 | Name | Type |
 | ------ | ------ |
-| `conversions` | `object` |
+| `conversions` | \{ `15min`: [`ConversionTime`](ConversionTime.md)[]; `1d`: [`ConversionTime`](ConversionTime.md)[]; `1hr`: [`ConversionTime`](ConversionTime.md)[]; \} |
 | `conversions.15min` | [`ConversionTime`](ConversionTime.md)[] |
 | `conversions.1d` | [`ConversionTime`](ConversionTime.md)[] |
 | `conversions.1hr` | [`ConversionTime`](ConversionTime.md)[] |
-| `counts` | `object` |
+| `counts` | \{ `converted`: `number`; `started`: `number`; \} |
 | `counts.converted` | `number` |
 | `counts.started` | `number` |
-| `payouts` | `object` |
+| `payouts` | \{ `amount`: `number`; `count`: `number`; \} |
 | `payouts.amount` | `number` |
 | `payouts.count` | `number` |
-| `starts` | `object` |
+| `starts` | \{ `15min`: [`ConversionTime`](ConversionTime.md)[]; `1d`: [`ConversionTime`](ConversionTime.md)[]; `1hr`: [`ConversionTime`](ConversionTime.md)[]; \} |
 | `starts.15min` | [`ConversionTime`](ConversionTime.md)[] |
 | `starts.1d` | [`ConversionTime`](ConversionTime.md)[] |
 | `starts.1hr` | [`ConversionTime`](ConversionTime.md)[] |
@@ -32,4 +54,4 @@ Campaign analytics type retrieved from the API.
 
 ## Defined in
 
-[src/types/analytics.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/analytics.ts#L12)
+[src/types/analytics.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/analytics.ts#L12)

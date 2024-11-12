@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiProgressStatus
+[@torque-labs/torque-ts-sdk](../README.md) / ApiProgressStatus
 
 # Enumeration: ApiProgressStatus
 

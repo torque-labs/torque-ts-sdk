@@ -2,14 +2,28 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TxnInput
+[@torque-labs/torque-ts-sdk](../README.md) / TxnInput
 
 # Type Alias: TxnInput
 
-> **TxnInput**: `object` \| `object` \| `object` \| `object`
+```ts
+type TxnInput: {
+  data: CreateCampaignInputSchema;
+  txnType: CampaignCreate;
+ } | {
+  data: CampaignEndInputSchema;
+  txnType: CampaignEnd;
+ } | {
+  data: PublisherCreateInputSchema;
+  txnType: PublisherCreate;
+ } | {
+  data: PublisherPayoutInputSchema;
+  txnType: PublisherPayout;
+};
+```
 
 On-chain transaction build input
 
 ## Defined in
 
-[src/types/transactions.ts:30](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/transactions.ts#L30)
+[src/types/transactions.ts:30](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/transactions.ts#L30)

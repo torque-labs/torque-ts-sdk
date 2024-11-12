@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiTxnTypes
+[@torque-labs/torque-ts-sdk](../README.md) / ApiTxnTypes
 
 # Enumeration: ApiTxnTypes
 

@@ -2,11 +2,22 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiAudience
+[@torque-labs/torque-ts-sdk](../README.md) / ApiAudience
 
 # Type Alias: ApiAudience
 
-> **ApiAudience**: `object`
+```ts
+type ApiAudience: {
+  bucket: string;
+  config: object;
+  description: string;
+  fileKey: string;
+  global: boolean;
+  id: string;
+  title: string;
+  type: AudienceType;
+};
+```
 
 Audience data.
 
@@ -25,4 +36,4 @@ Audience data.
 
 ## Defined in
 
-[src/types/api.ts:152](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L152)
+[src/types/api.ts:152](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L152)

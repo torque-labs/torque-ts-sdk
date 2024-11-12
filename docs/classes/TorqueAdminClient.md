@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueAdminClient
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueAdminClient
 
 # Class: TorqueAdminClient
 
@@ -21,7 +21,9 @@ const result = await client.endCampaign(<campaignData>);
 
 ### new TorqueAdminClient()
 
-> **new TorqueAdminClient**(`options`): [`TorqueAdminClient`](TorqueAdminClient.md)
+```ts
+new TorqueAdminClient(options): TorqueAdminClient
+```
 
 Create a new instance of the TorqueAdminClient class with the provided API key.
 
@@ -37,7 +39,7 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Defined in
 
-[src/classes/admin.ts:86](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L86)
+[src/classes/admin.ts:86](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L86)
 
 ## Properties
 
@@ -52,7 +54,9 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 ### createCampaign()
 
-> **createCampaign**(`data`): `Promise`\<[`SignatureField`](../interfaces/SignatureField.md)\>
+```ts
+createCampaign(data): Promise<SignatureField>
+```
 
 Create a new campaign with the provided data.
 
@@ -61,7 +65,7 @@ Create a new campaign with the provided data.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | `object` | The data for the campaign to create. |
-| `data.asymmetricRewards`? | `object`[] | - |
+| `data.asymmetricRewards`? | \{ `amount`: `string`; `participants`: `null` \| `RaffleParticipants`; `payoutTx`: `null` \| `string`; `tokenAddress`: `string`; `userPubKey`: `null` \| `string`; \}[] | - |
 | `data.audience`? | `null` \| `string` | - |
 | `data.blinkOnly`? | `null` \| `boolean` | - |
 | `data.campaignContent`? | `null` \| `string` | - |
@@ -74,9 +78,9 @@ Create a new campaign with the provided data.
 | `data.conversionAudience.operation` | `ConversionAudienceOperation` | - |
 | `data.conversionCount`? | `null` \| `number` | - |
 | `data.endTime` | `number` | - |
-| `data.eventConfig` | (`object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object` \| `object`)[] | - |
+| `data.eventConfig` | ( \| \{ `requirement`: \{ `antiSybilFee`: `number`; `requireSignature`: `boolean`; `targetUrl`: `string`; \}; `type`: `CLICK`; \} \| \{ `requirement`: \{ `description`: `null` \| `string`; `eventName`: `string`; `fields`: (\{ `description`: `null` \| `string`; `image`: `null` \| `string`; `label`: `null` \| `string`; `name`: `string`; \} & \{ `type`: `"string"`; `validation`: \{ `match`: ... \| ... \| ...; `required`: ... \| ... \| ... \| ...; \}; \} \| \{ `description`: `null` \| `string`; `image`: `null` \| `string`; `label`: `null` \| `string`; `name`: `string`; \} & \{ `type`: `"number"`; `validation`: \{ `max`: ... \| ... \| ...; `min`: ... \| ... \| ...; \}; \} \| \{ `description`: `null` \| `string`; `image`: `null` \| `string`; `label`: `null` \| `string`; `name`: `string`; \} & \{ `type`: `"boolean"`; `validation`: \{ `match`: ... \| ... \| ... \| ...; \}; \})[]; `formEnabled`: `boolean`; `targetUrl`: `null` \| `string`; \}; `type`: `CUSTOM_EVENT`; \} \| \{ `requirement`: \{ `marketIndex`: `number`; `shares`: `number`; \}; `type`: `DRIFT_BET`; \} \| \{ `requirement`: \{ `minAmount`: `number`; `tokenAddress`: `string`; \}; `type`: `DRIFT_DEPOSIT`; \} \| \{ `requirement`: \{ `antiSybilFee`: `number`; `fields`: \{ `label`: `string`; `name`: `string`; `options`: \{ `label`: `string`; `value`: `string`; \}[]; `required`: `null` \| `boolean`; `type`: `FormFieldType`; \}[]; \}; `type`: `FORM_SUBMISSION`; \} \| \{ `requirement`: \{ `amount`: `number`; `tokenAddress`: `string`; \}; `type`: `KAMINO_LEND`; \} \| \{ `requirement`: \{ `amount`: `number`; `tokenAddress`: `string`; \}; `type`: `MARGINFI_LEND`; \} \| \{ `requirement`: \{ `fields`: (\{ `description`: `null` \| `string`; `image`: `null` \| `string`; `label`: `null` \| `string`; `name`: `string`; \} & \{ `type`: `"string"`; `validation`: \{ `match`: ... \| ... \| ...; `required`: ... \| ... \| ... \| ...; \}; \} \| \{ `description`: `null` \| `string`; `image`: `null` \| `string`; `label`: `null` \| `string`; `name`: `string`; \} & \{ `type`: `"number"`; `validation`: \{ `max`: ... \| ... \| ...; `min`: ... \| ... \| ...; \}; \} \| \{ `description`: `null` \| `string`; `image`: `null` \| `string`; `label`: `null` \| `string`; `name`: `string`; \} & \{ `type`: `"boolean"`; `validation`: \{ `match`: ... \| ... \| ... \| ...; \}; \})[]; \}; `type`: `MEMO`; \} \| \{ `requirement`: \{ `minAmount`: `number`; `mint`: `string`; \}; `type`: `NFT_BUY_BID`; \} \| \{ `requirement`: \{ `collectionAddress`: `string`; `tradeType`: `NftCollectionTradeType`; \}; `type`: `NFT_COLLECTION_TRADE`; \} \| \{ `requirement`: \{ `customProgramId`: `string`; `daoPubKey`: `string`; `proposalPubKey`: `string`; \}; `type`: `REALMS_VOTE`; \} \| \{ `requirement`: \{ `amount`: `number`; `epochs`: `number`; `validator`: `string`; \}; `type`: `STAKE_SOL`; \} \| \{ `requirement`: \{ `inAmount`: `null` \| `number`; `inToken`: `null` \| `string`; `outAmount`: `null` \| `number`; `outToken`: `null` \| `string`; `usdcValue`: `null` \| `number`; \}; `timeConfig`: \{ `duration`: `number`; `requirement`: \{ `amount`: `number`; `token`: `string`; `tokenStandard`: `string`; \}; `type`: `TOKEN_HOLDING`; \}; `type`: `SWAP`; \} \| \{ `requirement`: \{ `collectionIds`: `string`[]; \}; `type`: `TENSOR_BID`; \} \| \{ `requirement`: \{ `collectionIds`: `string`[]; \}; `type`: `TENSOR_BUY`; \})[] | - |
 | `data.landingPage` | `string` | - |
-| `data.lootBoxRewards` | `object` \| `object` | - |
+| `data.lootBoxRewards` | \{ `enabled`: `true`; `rewards`: \{ `amount`: `number`; `users`: `number`; \}[]; `tokenAddress`: `string`; \} \| \{ `enabled`: `false`; \} | - |
 | `data.offerBgImage`? | `null` \| `string` | - |
 | `data.offerTheme` | `OfferTheme` | - |
 | `data.publisherPayoutPerConversion` | `number` | - |
@@ -95,13 +99,17 @@ A promise that resolves with the signature of the transaction.
 
 #### Defined in
 
-[src/classes/admin.ts:226](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L226)
+[src/classes/admin.ts:226](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L226)
 
 ***
 
 ### deleteAudience()
 
-> **deleteAudience**(`id`): `Promise`\<`object`\>
+```ts
+deleteAudience(id): Promise<{
+  audienceId: string;
+}>
+```
 
 Delete an existing audience.
 
@@ -113,7 +121,9 @@ Delete an existing audience.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `audienceId`: `string`;
+ \}\>
 
 A promise that resolves to the deleted audience.
 
@@ -127,13 +137,15 @@ If the client is not initialized or if there was an error deleting the audience.
 
 #### Defined in
 
-[src/classes/admin.ts:691](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L691)
+[src/classes/admin.ts:691](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L691)
 
 ***
 
 ### endCampaign()
 
-> **endCampaign**(`data`): `Promise`\<[`SignatureField`](../interfaces/SignatureField.md)\>
+```ts
+endCampaign(data): Promise<SignatureField>
+```
 
 End a campaign using the provided campaign ID.
 
@@ -156,13 +168,17 @@ Throws an error if the client is not initialized or if there is an error ending 
 
 #### Defined in
 
-[src/classes/admin.ts:261](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L261)
+[src/classes/admin.ts:261](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L261)
 
 ***
 
 ### getActiveCampaigns()
 
-> **getActiveCampaigns**(`params`?): `Promise`\<`object`\>
+```ts
+getActiveCampaigns(params?): Promise<{
+  campaigns: ApiCampaign[];
+}>
+```
 
 Get a list of all currently active campaigns.
 
@@ -178,7 +194,9 @@ Get a list of all currently active campaigns.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `campaigns`: [`ApiCampaign`](../type-aliases/ApiCampaign.md)[];
+ \}\>
 
 A promise that resolves to an array of ApiCampaign objects.
 
@@ -192,13 +210,15 @@ If the client is not initialized or there was an error getting the list of campa
 
 #### Defined in
 
-[src/classes/admin.ts:131](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L131)
+[src/classes/admin.ts:131](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L131)
 
 ***
 
 ### getAudience()
 
-> **getAudience**(`id`): `Promise`\<[`ApiAudience`](../type-aliases/ApiAudience.md)\>
+```ts
+getAudience(id): Promise<ApiAudience>
+```
 
 Get an audience by ID.
 
@@ -220,19 +240,25 @@ If the client is not initialized or there was an error getting the audience.
 
 #### Defined in
 
-[src/classes/admin.ts:523](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L523)
+[src/classes/admin.ts:523](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L523)
 
 ***
 
 ### getAudiences()
 
-> **getAudiences**(): `Promise`\<`object`\>
+```ts
+getAudiences(): Promise<{
+  audiences: ApiAudience[];
+}>
+```
 
 Get a list of the user's saved audiences.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `audiences`: [`ApiAudience`](../type-aliases/ApiAudience.md)[];
+ \}\>
 
 A promise that resolves to an array of Audiences.
 
@@ -246,13 +272,15 @@ If the client is not initialized or there was an error getting the audiences.
 
 #### Defined in
 
-[src/classes/admin.ts:559](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L559)
+[src/classes/admin.ts:559](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L559)
 
 ***
 
 ### getCampaign()
 
-> **getCampaign**(`campaignId`): `Promise`\<[`ApiCampaign`](../type-aliases/ApiCampaign.md)\>
+```ts
+getCampaign(campaignId): Promise<ApiCampaign>
+```
 
 Get the details of a specific campaign.
 
@@ -274,13 +302,15 @@ Throws an error if a fetching a campaign failed.
 
 #### Defined in
 
-[src/classes/admin.ts:198](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L198)
+[src/classes/admin.ts:198](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L198)
 
 ***
 
 ### getCampaignAnalytics()
 
-> **getCampaignAnalytics**(`campaignId`): `Promise`\<[`CampaignAnalytics`](../type-aliases/CampaignAnalytics.md)\>
+```ts
+getCampaignAnalytics(campaignId): Promise<CampaignAnalytics>
+```
 
 Get the analytics data for a specific campaign.
 
@@ -302,13 +332,17 @@ Throws an error if a fetching a campaign failed.
 
 #### Defined in
 
-[src/classes/admin.ts:487](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L487)
+[src/classes/admin.ts:487](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L487)
 
 ***
 
 ### getCampaigns()
 
-> **getCampaigns**(`params`?, `includeHistoric`?): `Promise`\<`object`\>
+```ts
+getCampaigns(params?, includeHistoric?): Promise<{
+  campaigns: ApiCampaign[];
+}>
+```
 
 #### Parameters
 
@@ -323,7 +357,9 @@ Throws an error if a fetching a campaign failed.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `campaigns`: [`ApiCampaign`](../type-aliases/ApiCampaign.md)[];
+ \}\>
 
 | Name | Type |
 | ------ | ------ |
@@ -331,13 +367,17 @@ Throws an error if a fetching a campaign failed.
 
 #### Defined in
 
-[src/classes/admin.ts:150](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L150)
+[src/classes/admin.ts:150](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L150)
 
 ***
 
 ### getHistoricCampaigns()
 
-> **getHistoricCampaigns**(`params`?): `Promise`\<`object`\>
+```ts
+getHistoricCampaigns(params?): Promise<{
+  campaigns: ApiCampaign[];
+}>
+```
 
 Get a list of all historic campaigns.
 
@@ -353,7 +393,9 @@ Get a list of all historic campaigns.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `campaigns`: [`ApiCampaign`](../type-aliases/ApiCampaign.md)[];
+ \}\>
 
 A promise that resolves to an array of ApiCampaign objects.
 
@@ -367,13 +409,15 @@ If the client is not initialized or there was an error getting the list of campa
 
 #### Defined in
 
-[src/classes/admin.ts:142](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L142)
+[src/classes/admin.ts:142](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L142)
 
 ***
 
 ### getLeaderboard()
 
-> **getLeaderboard**(`campaignId`): `Promise`\<[`ApiCampaignLeaderboard`](../type-aliases/ApiCampaignLeaderboard.md)\>
+```ts
+getLeaderboard(campaignId): Promise<ApiCampaignLeaderboard>
+```
 
 Get the leaderboard for a specific campaign.
 
@@ -395,13 +439,15 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Defined in
 
-[src/classes/admin.ts:295](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L295)
+[src/classes/admin.ts:295](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L295)
 
 ***
 
 ### initPublisher()
 
-> **initPublisher**(): `Promise`\<`string`\>
+```ts
+initPublisher(): Promise<string>
+```
 
 Initialize a publisher account for the current user.
 
@@ -417,13 +463,15 @@ Throws an error if there was an error creating the publisher.
 
 #### Defined in
 
-[src/classes/admin.ts:361](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L361)
+[src/classes/admin.ts:361](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L361)
 
 ***
 
 ### logout()
 
-> **logout**(): `Promise`\<`void`\>
+```ts
+logout(): Promise<void>
+```
 
 #### Returns
 
@@ -431,13 +479,15 @@ Throws an error if there was an error creating the publisher.
 
 #### Defined in
 
-[src/classes/admin.ts:114](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L114)
+[src/classes/admin.ts:114](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L114)
 
 ***
 
 ### payoutPublisher()
 
-> **payoutPublisher**(`data`): `Promise`\<`string`\>
+```ts
+payoutPublisher(data): Promise<string>
+```
 
 Process a publisher payout for the current user, if eligible.
 
@@ -461,13 +511,15 @@ Throws an error if there was an error paying out the publisher.
 
 #### Defined in
 
-[src/classes/admin.ts:397](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L397)
+[src/classes/admin.ts:397](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L397)
 
 ***
 
 ### raffleRewards()
 
-> **raffleRewards**(`campaignId`): `Promise`\<[`ApiRaffleRewards`](../type-aliases/ApiRaffleRewards.md)\>
+```ts
+raffleRewards(campaignId): Promise<ApiRaffleRewards>
+```
 
 Get the raffle rewards for a specific campaign.
 
@@ -487,13 +539,17 @@ Throws an error if the client is not initialized or if there is an error getting
 
 #### Defined in
 
-[src/classes/admin.ts:325](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L325)
+[src/classes/admin.ts:325](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L325)
 
 ***
 
 ### saveAudience()
 
-> **saveAudience**(`metadata`, `config`?): `Promise`\<`object`\>
+```ts
+saveAudience(metadata, config?): Promise<{
+  audienceId: string;
+}>
+```
 
 Save an audience to the user's account.
 
@@ -506,7 +562,9 @@ Save an audience to the user's account.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `audienceId`: `string`;
+ \}\>
 
 A promise that resolves to the id of the saved audience.
 
@@ -520,13 +578,20 @@ If the client is not initialized or there was an error saving the audience.
 
 #### Defined in
 
-[src/classes/admin.ts:598](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L598)
+[src/classes/admin.ts:598](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L598)
 
 ***
 
 ### updateAudience()
 
-> **updateAudience**(`id`, `metadata`?, `config`?): `Promise`\<`object`\>
+```ts
+updateAudience(
+   id, 
+   metadata?, 
+   config?): Promise<{
+  audienceId: string;
+}>
+```
 
 Update an existing audience with the provided configuration.
 
@@ -540,7 +605,9 @@ Update an existing audience with the provided configuration.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{
+  `audienceId`: `string`;
+ \}\>
 
 A promise that resolves to the updated audience.
 
@@ -554,13 +621,15 @@ If the client is not initialized or if there was an error updating the audience.
 
 #### Defined in
 
-[src/classes/admin.ts:645](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L645)
+[src/classes/admin.ts:645](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L645)
 
 ***
 
 ### getSafeTokenList()
 
-> `static` **getSafeTokenList**(`filter`?, `apiUrl`?): `Promise`\<[`SafeToken`](../type-aliases/SafeToken.md)[]\>
+```ts
+static getSafeTokenList(filter?, apiUrl?): Promise<SafeToken[]>
+```
 
 Retrieves the list of safe tokens from the Jupiter ag.
 
@@ -583,4 +652,4 @@ If the client is not initialized or there was an error fetching the safe token l
 
 #### Defined in
 
-[src/classes/admin.ts:439](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L439)
+[src/classes/admin.ts:439](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L439)

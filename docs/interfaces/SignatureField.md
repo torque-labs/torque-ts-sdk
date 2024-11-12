@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / SignatureField
+[@torque-labs/torque-ts-sdk](../README.md) / SignatureField
 
 # Interface: SignatureField
 

@@ -2,11 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / NftMintActionRequirements
+[@torque-labs/torque-ts-sdk](../README.md) / NftMintActionRequirements
 
 # Type Alias: NftMintActionRequirements
 
-> **NftMintActionRequirements**: `object`
+```ts
+type NftMintActionRequirements: {
+  action: ActionType.NFT_MINT;
+  requirement: NftMintAction;
+};
+```
 
 Nft mint action requirements.
 
@@ -19,4 +24,4 @@ Nft mint action requirements.
 
 ## Defined in
 
-[src/types/audience.ts:104](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L104)
+[src/types/audience.ts:104](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L104)

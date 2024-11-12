@@ -2,11 +2,22 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueUserClientOptions
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueUserClientOptions
 
 # Type Alias: TorqueUserClientOptions
 
-> **TorqueUserClientOptions**: `object`
+```ts
+type TorqueUserClientOptions: {
+  apiUrl: string;
+  appUrl: string;
+  functionsUrl: string;
+  network: Cluster;
+  publisherHandle: string;
+  rpc: string;
+  signer: Adapter | Keypair;
+  signTransaction: SignTransaction;
+};
+```
 
 Options for the TorqueUserClient.
 
@@ -25,4 +36,4 @@ Options for the TorqueUserClient.
 
 ## Defined in
 
-[src/classes/user.ts:26](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/user.ts#L26)
+[src/classes/user.ts:26](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/user.ts#L26)

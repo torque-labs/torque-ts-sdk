@@ -2,14 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / Operator
+[@torque-labs/torque-ts-sdk](../README.md) / Operator
 
 # Type Alias: Operator
 
-> **Operator**: [`AndOperator`](AndOperator.md) \| [`OrOperator`](OrOperator.md)
+```ts
+type Operator: AndOperator | OrOperator;
+```
 
 Aggregation query operator.
 
 ## Defined in
 
-[src/types/audience.ts:275](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L275)
+[src/types/audience.ts:275](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L275)

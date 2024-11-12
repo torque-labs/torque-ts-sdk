@@ -2,11 +2,23 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueAdminClientOptions
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueAdminClientOptions
 
 # Type Alias: TorqueAdminClientOptions
 
-> **TorqueAdminClientOptions**: `object`
+```ts
+type TorqueAdminClientOptions: {
+  apiKey: string;
+  apiUrl: string;
+  appUrl: string;
+  functionsUrl: string;
+  network: Cluster;
+  rpc: string;
+  signer: Adapter | Keypair;
+  signTransaction: SignTransaction;
+  userClient: TorqueUserClient;
+};
+```
 
 Options for the TorqueAdminClient.
 
@@ -26,4 +38,4 @@ Options for the TorqueAdminClient.
 
 ## Defined in
 
-[src/classes/admin.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/admin.ts#L27)
+[src/classes/admin.ts:27](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/admin.ts#L27)

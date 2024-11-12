@@ -2,11 +2,17 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / OfferNftBidBuyAction
+[@torque-labs/torque-ts-sdk](../README.md) / OfferNftBidBuyAction
 
 # Type Alias: OfferNftBidBuyAction
 
-> **OfferNftBidBuyAction**: `object`
+```ts
+type OfferNftBidBuyAction: {
+  eventConfig: NftBidBuyAction;
+  timeConfig: TimeConfig;
+  type: EventType.NFT_BUY_BID;
+};
+```
 
 NFT bid buy action bounty step requirements.
 
@@ -20,4 +26,4 @@ NFT bid buy action bounty step requirements.
 
 ## Defined in
 
-[src/types/api.ts:393](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L393)
+[src/types/api.ts:393](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L393)

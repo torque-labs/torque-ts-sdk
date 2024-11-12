@@ -2,11 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiResponseError
+[@torque-labs/torque-ts-sdk](../README.md) / ApiResponseError
 
 # Type Alias: ApiResponseError
 
-> **ApiResponseError**: `object`
+```ts
+type ApiResponseError: {
+  message: string;
+  status: Exclude<ApiStatus, ApiStatus.SUCCESS>;
+};
+```
 
 Generic error response for the API.
 
@@ -19,4 +24,4 @@ Generic error response for the API.
 
 ## Defined in
 
-[src/types/api.ts:58](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L58)
+[src/types/api.ts:58](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L58)

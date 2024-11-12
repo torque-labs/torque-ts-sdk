@@ -2,11 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / AggreggationCreateInput
+[@torque-labs/torque-ts-sdk](../README.md) / AggreggationCreateInput
 
 # Type Alias: AggreggationCreateInput
 
-> **AggreggationCreateInput**: `object`
+```ts
+type AggreggationCreateInput: {
+  operation: Operation;
+  targets: Target[];
+};
+```
 
 Aggregation create input.
 
@@ -19,4 +24,4 @@ Aggregation create input.
 
 ## Defined in
 
-[src/types/audience.ts:246](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L246)
+[src/types/audience.ts:246](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L246)

@@ -2,11 +2,17 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / Audience
+[@torque-labs/torque-ts-sdk](../README.md) / Audience
 
 # Type Alias: Audience
 
-> **Audience**: `object`
+```ts
+type Audience: {
+  audiences: Audience[];
+  operation: Operation;
+  targets: Target[];
+};
+```
 
 Audiences are used to define the conditions under which a user can participate in a campaign.
 
@@ -20,4 +26,4 @@ Audiences are used to define the conditions under which a user can participate i
 
 ## Defined in
 
-[src/types/audience.ts:8](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L8)
+[src/types/audience.ts:8](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L8)

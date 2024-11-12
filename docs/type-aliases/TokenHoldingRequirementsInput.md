@@ -2,11 +2,18 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TokenHoldingRequirementsInput
+[@torque-labs/torque-ts-sdk](../README.md) / TokenHoldingRequirementsInput
 
 # Type Alias: TokenHoldingRequirementsInput
 
-> **TokenHoldingRequirementsInput**: `object`
+```ts
+type TokenHoldingRequirementsInput: {
+  collectionAddress: string;
+  maxAmount: number;
+  minAmount: number;
+  tokenAddress: string;
+};
+```
 
 Token holding requirements input.
 
@@ -21,4 +28,4 @@ Token holding requirements input.
 
 ## Defined in
 
-[src/types/audience.ts:149](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L149)
+[src/types/audience.ts:149](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L149)

@@ -2,11 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ProgramInteractionActionRequirements
+[@torque-labs/torque-ts-sdk](../README.md) / ProgramInteractionActionRequirements
 
 # Type Alias: ProgramInteractionActionRequirements
 
-> **ProgramInteractionActionRequirements**: `object`
+```ts
+type ProgramInteractionActionRequirements: {
+  action: ActionType.PROGRAM_INTERACTION;
+  requirement: ProgramInteractionAction;
+};
+```
 
 Program interaction action requirements.
 
@@ -19,4 +24,4 @@ Program interaction action requirements.
 
 ## Defined in
 
-[src/types/audience.ts:96](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L96)
+[src/types/audience.ts:96](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L96)

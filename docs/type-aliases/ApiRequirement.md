@@ -2,11 +2,29 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiRequirement
+[@torque-labs/torque-ts-sdk](../README.md) / ApiRequirement
 
 # Type Alias: ApiRequirement
 
-> **ApiRequirement**: [`OfferSwapAction`](OfferSwapAction.md) \| [`OfferNFTTradeAction`](OfferNFTTradeAction.md) \| [`OfferClickAction`](OfferClickAction.md) \| [`OfferMemoAction`](OfferMemoAction.md) \| [`OfferTensorBuyAction`](OfferTensorBuyAction.md) \| [`OfferTensorBidAction`](OfferTensorBidAction.md) \| [`OfferNftBidBuyAction`](OfferNftBidBuyAction.md) \| [`OfferCustomEventAction`](OfferCustomEventAction.md) \| [`OfferRealmsVoteAction`](OfferRealmsVoteAction.md) \| [`OfferMarginfiLendAction`](OfferMarginfiLendAction.md) \| [`OfferKaminoLendAction`](OfferKaminoLendAction.md) \| [`OfferDriftBetAction`](OfferDriftBetAction.md) \| [`OfferDriftDepositAction`](OfferDriftDepositAction.md) \| [`OfferStakeSolanaAction`](OfferStakeSolanaAction.md) & `object`
+```ts
+type ApiRequirement: 
+  | OfferSwapAction
+  | OfferNFTTradeAction
+  | OfferClickAction
+  | OfferMemoAction
+  | OfferTensorBuyAction
+  | OfferTensorBidAction
+  | OfferNftBidBuyAction
+  | OfferCustomEventAction
+  | OfferRealmsVoteAction
+  | OfferMarginfiLendAction
+  | OfferKaminoLendAction
+  | OfferDriftBetAction
+  | OfferDriftDepositAction
+  | OfferStakeSolanaAction & {
+  id: string;
+};
+```
 
 Full bounty step requirement type.
 
@@ -18,4 +36,4 @@ Full bounty step requirement type.
 
 ## Defined in
 
-[src/types/api.ts:474](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L474)
+[src/types/api.ts:474](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L474)

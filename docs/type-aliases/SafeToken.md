@@ -2,11 +2,24 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / SafeToken
+[@torque-labs/torque-ts-sdk](../README.md) / SafeToken
 
 # Type Alias: SafeToken
 
-> **SafeToken**: `object`
+```ts
+type SafeToken: {
+  address: string;
+  chainId: number;
+  decimals: number;
+  extensions: {
+     coingeckoId: string;
+    };
+  logoURI: string;
+  name: string;
+  symbol: string;
+  tags: string[];
+};
+```
 
 ## Type declaration
 
@@ -15,7 +28,7 @@
 | `address` | `string` |
 | `chainId` | `number` |
 | `decimals` | `number` |
-| `extensions` | `object` |
+| `extensions` | \{ `coingeckoId`: `string`; \} |
 | `extensions.coingeckoId` | `string` |
 | `logoURI` | `string` |
 | `name` | `string` |
@@ -24,4 +37,4 @@
 
 ## Defined in
 
-[src/types/chain.ts:1](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/chain.ts#L1)
+[src/types/chain.ts:1](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/chain.ts#L1)

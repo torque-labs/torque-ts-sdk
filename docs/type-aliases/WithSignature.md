@@ -2,11 +2,13 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / WithSignature
+[@torque-labs/torque-ts-sdk](../README.md) / WithSignature
 
 # Type Alias: WithSignature\<T\>
 
-> **WithSignature**\<`T`\>: `T` & [`SignatureField`](../interfaces/SignatureField.md)
+```ts
+type WithSignature<T>: T & SignatureField;
+```
 
 Generic with signture type
 
@@ -18,4 +20,4 @@ Generic with signture type
 
 ## Defined in
 
-[src/types/transactions.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/transactions.ts#L52)
+[src/types/transactions.ts:52](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/transactions.ts#L52)

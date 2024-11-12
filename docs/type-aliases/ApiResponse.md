@@ -2,11 +2,13 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiResponse
+[@torque-labs/torque-ts-sdk](../README.md) / ApiResponse
 
 # Type Alias: ApiResponse\<T\>
 
-> **ApiResponse**\<`T`\>: [`ApiResponseSuccess`](ApiResponseSuccess.md)\<`T`\> \| [`ApiResponseError`](ApiResponseError.md)
+```ts
+type ApiResponse<T>: ApiResponseSuccess<T> | ApiResponseError;
+```
 
 Generic response for an API request.
 
@@ -18,4 +20,4 @@ Generic response for an API request.
 
 ## Defined in
 
-[src/types/api.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L66)
+[src/types/api.ts:66](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L66)

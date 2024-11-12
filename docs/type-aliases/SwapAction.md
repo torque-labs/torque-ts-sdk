@@ -2,11 +2,17 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / SwapAction
+[@torque-labs/torque-ts-sdk](../README.md) / SwapAction
 
 # Type Alias: SwapAction
 
-> **SwapAction**: `object`
+```ts
+type SwapAction: {
+  inTokenAddress: string;
+  minAmount: number;
+  outTokenAddress: string;
+};
+```
 
 Parameters for a swap action.
 
@@ -20,4 +26,4 @@ Parameters for a swap action.
 
 ## Defined in
 
-[src/types/audience.ts:36](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L36)
+[src/types/audience.ts:36](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L36)

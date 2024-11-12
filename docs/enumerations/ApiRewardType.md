@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ApiRewardType
+[@torque-labs/torque-ts-sdk](../README.md) / ApiRewardType
 
 # Enumeration: ApiRewardType
 

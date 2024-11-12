@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueAudienceClient
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueAudienceClient
 
 # Class: TorqueAudienceClient
 
@@ -21,7 +21,9 @@ const verified = await client.verifyAudience(audience);
 
 ### new TorqueAudienceClient()
 
-> **new TorqueAudienceClient**(`options`): [`TorqueAudienceClient`](TorqueAudienceClient.md)
+```ts
+new TorqueAudienceClient(options): TorqueAudienceClient
+```
 
 Create a new instance of the TorqueAdminClient class with the provided API key.
 
@@ -37,7 +39,7 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 #### Defined in
 
-[src/classes/audience.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L57)
+[src/classes/audience.ts:57](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/audience.ts#L57)
 
 ## Properties
 
@@ -50,7 +52,9 @@ Create a new instance of the TorqueAdminClient class with the provided API key.
 
 ### buildAudience()
 
-> **buildAudience**(`options`): `Promise`\<[`AudienceBuildResponse`](../type-aliases/AudienceBuildResponse.md)\>
+```ts
+buildAudience(options): Promise<AudienceBuildResponse>
+```
 
 Builds an audience with the provided options.
 
@@ -72,13 +76,15 @@ If there is an error building the audience.
 
 #### Defined in
 
-[src/classes/audience.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L77)
+[src/classes/audience.ts:77](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/audience.ts#L77)
 
 ***
 
 ### logout()
 
-> **logout**(): `Promise`\<`void`\>
+```ts
+logout(): Promise<void>
+```
 
 #### Returns
 
@@ -86,13 +92,15 @@ If there is an error building the audience.
 
 #### Defined in
 
-[src/classes/audience.ts:64](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L64)
+[src/classes/audience.ts:64](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/audience.ts#L64)
 
 ***
 
 ### verifyAudience()
 
-> **verifyAudience**(`audience`, `publicKey`?): `Promise`\<`boolean`\>
+```ts
+verifyAudience(audience, publicKey?): Promise<boolean>
+```
 
 Verifies the current user with the provided audience.
 
@@ -115,4 +123,4 @@ If there is an error verifying the user with the audience.
 
 #### Defined in
 
-[src/classes/audience.ts:108](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L108)
+[src/classes/audience.ts:108](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/audience.ts#L108)

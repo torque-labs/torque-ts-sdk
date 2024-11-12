@@ -2,11 +2,21 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueRequestOptions
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueRequestOptions
 
 # Type Alias: TorqueRequestOptions
 
-> **TorqueRequestOptions**: `object`
+```ts
+type TorqueRequestOptions: {
+  apiKey: string;
+  apiUrl: string;
+  appUrl: string;
+  connection: Connection;
+  functionsUrl: string;
+  signer: Adapter | Keypair;
+  signTransaction: SignTransaction;
+};
+```
 
 Options for the TorqueRequestClient.
 
@@ -24,4 +34,4 @@ Options for the TorqueRequestClient.
 
 ## Defined in
 
-[src/classes/request.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/request.ts#L20)
+[src/classes/request.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/request.ts#L20)

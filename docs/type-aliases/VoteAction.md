@@ -2,11 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / VoteAction
+[@torque-labs/torque-ts-sdk](../README.md) / VoteAction
 
 # Type Alias: VoteAction
 
-> **VoteAction**: `object`
+```ts
+type VoteAction: {
+  choice: string;
+  proposal: string;
+};
+```
 
 Parameters for a vote action.
 
@@ -19,4 +24,4 @@ Parameters for a vote action.
 
 ## Defined in
 
-[src/types/audience.ts:65](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L65)
+[src/types/audience.ts:65](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L65)

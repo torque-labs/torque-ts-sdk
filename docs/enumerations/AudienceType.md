@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / AudienceType
+[@torque-labs/torque-ts-sdk](../README.md) / AudienceType
 
 # Enumeration: AudienceType
 

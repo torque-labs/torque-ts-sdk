@@ -2,11 +2,16 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / PublisherPayoutInput
+[@torque-labs/torque-ts-sdk](../README.md) / PublisherPayoutInput
 
 # Type Alias: PublisherPayoutInput
 
-> **PublisherPayoutInput**: `object`
+```ts
+type PublisherPayoutInput: {
+  amount: number;
+  token: string;
+};
+```
 
 Publisher payout input.
 
@@ -19,4 +24,4 @@ Publisher payout input.
 
 ## Defined in
 
-[src/types/transactions.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/transactions.ts#L20)
+[src/types/transactions.ts:20](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/transactions.ts#L20)

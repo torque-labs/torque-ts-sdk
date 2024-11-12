@@ -2,11 +2,19 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / BridgeAction
+[@torque-labs/torque-ts-sdk](../README.md) / BridgeAction
 
 # Type Alias: BridgeAction
 
-> **BridgeAction**: `object`
+```ts
+type BridgeAction: {
+  direction: "INBOUND" | "OUTBOUND";
+  maxAmount: number;
+  minAmount: number;
+  mint: string;
+  withinDays: number;
+};
+```
 
 Parameters for a bridge action.
 
@@ -22,4 +30,4 @@ Parameters for a bridge action.
 
 ## Defined in
 
-[src/types/audience.ts:45](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/audience.ts#L45)
+[src/types/audience.ts:45](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/audience.ts#L45)

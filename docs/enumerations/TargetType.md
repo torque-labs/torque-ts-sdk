@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TargetType
+[@torque-labs/torque-ts-sdk](../README.md) / TargetType
 
 # Enumeration: TargetType
 

@@ -2,11 +2,20 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / TorqueAudienceClientOptions
+[@torque-labs/torque-ts-sdk](../README.md) / TorqueAudienceClientOptions
 
 # Type Alias: TorqueAudienceClientOptions
 
-> **TorqueAudienceClientOptions**: `object`
+```ts
+type TorqueAudienceClientOptions: {
+  apiKey: string;
+  apiUrl: string;
+  appUrl: string;
+  functionsUrl: string;
+  signer: Adapter | Keypair;
+  userClient: TorqueUserClient;
+};
+```
 
 Options for the TorqueAudienceClient.
 
@@ -23,4 +32,4 @@ Options for the TorqueAudienceClient.
 
 ## Defined in
 
-[src/classes/audience.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/classes/audience.ts#L12)
+[src/classes/audience.ts:12](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/classes/audience.ts#L12)

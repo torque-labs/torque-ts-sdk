@@ -2,11 +2,17 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / OfferTensorBidAction
+[@torque-labs/torque-ts-sdk](../README.md) / OfferTensorBidAction
 
 # Type Alias: OfferTensorBidAction
 
-> **OfferTensorBidAction**: `object`
+```ts
+type OfferTensorBidAction: {
+  eventConfig: TensorAction;
+  timeConfig: TimeConfig;
+  type: EventType.TENSOR_BID;
+};
+```
 
 Tensor bid action bounty step requirements.
 
@@ -20,4 +26,4 @@ Tensor bid action bounty step requirements.
 
 ## Defined in
 
-[src/types/api.ts:384](https://github.com/torque-labs/torque-ts-sdk/blob/e34efdf278512e8a58bacdba966e9cd90b1db20a/src/types/api.ts#L384)
+[src/types/api.ts:384](https://github.com/torque-labs/torque-ts-sdk/blob/a30afeab92cb119627ec542f4c8aff2dd9faf383/src/types/api.ts#L384)

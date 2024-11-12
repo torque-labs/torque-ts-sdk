@@ -2,7 +2,7 @@
 
 ***
 
-[@torque-labs/torque-ts-sdk](../globals.md) / ActionType
+[@torque-labs/torque-ts-sdk](../README.md) / ActionType
 
 # Enumeration: ActionType
 
