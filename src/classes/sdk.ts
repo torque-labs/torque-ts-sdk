@@ -88,14 +88,19 @@ export class TorqueSDK {
    * @param {TorqueSDKOptions} options - The options for the TorqueSDK.
    *
    * @throws {Error} Throws an error if the there is no api key or publisher handle provided.
+   *
+   * @remarks
+   * If you do not have a publisher account, go to https://app.torque.so to create one and pass it in as the publisherHandle. This will attribute your conversions to your publisher account.
    */
   constructor(options: TorqueSDKOptions) {
-    if (!options.apiKey && !options.publisherHandle) {
-      throw new Error('You must provide an API key or a publisher handle.');
+    if (!options.publisherHandle) {
+      console.warn(
+        'You must provide a publisher handle in order to be attributed for conversions. If you do not have a publisher account, go to https://app.torque.so to create one.',
+      );
     }
 
     this.apiKey = options.apiKey;
-    this.publisherHandle = options.publisherHandle;
+    this.publisherHandle = options.publisherHandle ?? 'torqueprotocol';
     this.rpc = options.rpc;
     this.apiUrl = options.apiUrl;
     this.appUrl = options.appUrl;
