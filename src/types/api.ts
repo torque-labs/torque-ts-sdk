@@ -19,6 +19,7 @@ import {
   FormSubmissionAction,
   StakeSolanaAction,
   LootBoxReward,
+  PumpFunAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -469,6 +470,15 @@ export type OfferStakeSolanaAction = {
 };
 
 /**
+ * Pump.Fun  requirements.
+ */
+export type OfferPumpFunAction = {
+  type: EventType.PUMP_FUN_BUY;
+  eventConfig: PumpFunAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement = (
@@ -486,6 +496,7 @@ export type ApiRequirement = (
   | OfferDriftBetAction
   | OfferDriftDepositAction
   | OfferStakeSolanaAction
+  | OfferPumpFunAction
 ) & {
   id?: string;
 };
