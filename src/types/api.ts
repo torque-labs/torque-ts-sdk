@@ -20,6 +20,8 @@ import {
   StakeSolanaAction,
   LootBoxReward,
   PumpFunAction,
+  LockTokenAction,
+  BurnTokenAction,
 } from '@torque-labs/torque-utils';
 
 import { Audience } from './audience.js';
@@ -479,6 +481,24 @@ export type OfferPumpFunAction = {
 };
 
 /**
+ * Lock token requirements.
+ */
+export type OfferLockTokenAction = {
+  type: EventType.LOCK_TOKEN;
+  eventConfig: LockTokenAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
+ * Burn token requirements.
+ */
+export type OfferBurnTokenAction = {
+  type: EventType.BURN_TOKEN;
+  eventConfig: BurnTokenAction;
+  timeConfig?: TimeConfig;
+};
+
+/**
  * Full bounty step requirement type.
  */
 export type ApiRequirement = (
@@ -497,6 +517,8 @@ export type ApiRequirement = (
   | OfferDriftDepositAction
   | OfferStakeSolanaAction
   | OfferPumpFunAction
+  | OfferLockTokenAction
+  | OfferBurnTokenAction
 ) & {
   id?: string;
 };
