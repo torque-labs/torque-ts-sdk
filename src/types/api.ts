@@ -294,6 +294,7 @@ export type ApiCampaignJourney = {
     userJourneyId: string;
     status: ApiProgressStatus;
     transaction?: string;
+    startTime?: string;
   }[];
   startTime?: Date;
   startTx?: string;
