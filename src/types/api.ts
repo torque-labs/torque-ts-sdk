@@ -81,7 +81,7 @@ export type ApiInputLogin =
       };
     }
   | {
-      authType: 'basic';
+      authType: 'basic' | 'transaction';
       pubKey: string;
       payload: { input: string; output: string };
     };

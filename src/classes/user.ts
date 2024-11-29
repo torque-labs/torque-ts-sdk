@@ -1,13 +1,26 @@
 import { ActionPostResponse } from '@solana/actions';
 import { getAssociatedTokenAddress } from '@solana/spl-token';
 import { Adapter } from '@solana/wallet-adapter-base';
-import { Cluster, Connection, Keypair, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import {
+  Cluster,
+  Connection,
+  Keypair,
+  PublicKey,
+  Transaction,
+  TransactionInstruction,
+  clusterApiUrl,
+} from '@solana/web3.js';
 import { CreateCustomEventInput, CustomEventModel } from '@torque-labs/torque-utils';
 import nacl from 'tweetnacl';
 
 import { TorqueRequestClient } from './request.js';
 import { TorqueSDK } from './sdk.js';
-import { TORQUE_API_ROUTES, torquePubkey, PUBLISHER_ACCOUNT_SIZE } from '../constants/index.js';
+import {
+  TORQUE_API_ROUTES,
+  torquePubkey,
+  PUBLISHER_ACCOUNT_SIZE,
+  MEMO_PROGRAM_ID,
+} from '../constants/index.js';
 import {
   ApiCampaign,
   ApiCampaignJourney,
@@ -125,12 +138,13 @@ export class TorqueUserClient {
    * Initializes the TorqueUserClient with the provided options.
    *
    * @param {ApiInputLogin} userAuth - User signature object that is required to authenticate a user with Torque.
+   * @param {boolean} useTransactionForLogin - Whether to use transaction signing (eg. w/ ledger) instead of basic signing.
    *
    * @returns {Promise<ApiUser>} A Promise that resolves when the initialization is complete.
    *
    * @throws {Error} If user was not verified.
    */
-  public async initializeUser(userAuth?: ApiInputLogin) {
+  public async initializeUser(userAuth?: ApiInputLogin, useTransactionForLogin?: boolean) {
     // Check if user is already logged in with API
     try {
       const currentUser = await this.getCurrentUser();
@@ -138,9 +152,8 @@ export class TorqueUserClient {
       if (currentUser) {
         return currentUser;
       }
-    } catch (error) {
-      // console.error(error);
-      console.log('-- initializeUser -- User is not logged in, attempting to login');
+    } catch {
+      console.info('User is not logged in, attempting to login.');
     }
 
     try {
@@ -149,7 +162,33 @@ export class TorqueUserClient {
       if (!userAuth && this.signer.publicKey) {
         const signPayloadInput = await TorqueSDK.getLoginPayload(this.apiUrl);
 
-        if ('signIn' in this.signer) {
+        if ('signTransaction' in this.signer && useTransactionForLogin) {
+          // Login with transaction signing (eg. w/ ledger)
+          const loginTxn = new Transaction().add(
+            new TransactionInstruction({
+              programId: MEMO_PROGRAM_ID,
+              keys: [],
+              data: Buffer.from(signPayloadInput.payload.statement, 'utf8'),
+            }),
+          );
+
+          const latestBlockhash = await this.connection.getLatestBlockhash();
+
+          loginTxn.feePayer = this.signer.publicKey;
+          loginTxn.recentBlockhash = latestBlockhash?.blockhash;
+
+          const signedLoginTxn = await this.signer.signTransaction(loginTxn);
+          const base64LoginTxn = Buffer.from(signedLoginTxn.serialize()).toString('base64');
+
+          loginBody = TorqueSDK.constructLoginBody({
+            authType: 'transaction',
+            pubKey: this.signer.publicKey.toString(),
+            payload: {
+              input: signPayloadInput.payload.statement,
+              output: base64LoginTxn,
+            },
+          });
+        } else if ('signIn' in this.signer) {
           // Login with SIWS
           const signOutPayload = await this.signer.signIn(signPayloadInput.payload);
 
@@ -344,8 +383,8 @@ export class TorqueUserClient {
       }
 
       return undefined;
-    } catch (error) {
-      console.log('-- User is not logged in, will attempt to login');
+    } catch {
+      console.info('No current user, will attempt to login.');
     }
 
     return undefined;

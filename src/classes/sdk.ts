@@ -113,14 +113,16 @@ export class TorqueSDK {
    *
    * @param {Adapter | Keypair} signer - The signer used to sign transactions.
    * @param {SignTransaction} [signTransaction] - The function used to sign transactions. If provided, it will override the default signing method.
-   * @param {ApiInputLogin} [ApiInputLogin] - The login options for the user.
+   * @param {apiInputLogin} [ApiInputLogin] - The login options for the user.
+   * @param {boolean} [useTransactionForLogin] - Whether to use transaction signing (eg. w/ ledger) instead of basic signing.
    *
    * @throws {Error} Throws an error if the there is no api key or publisher handle provided.
    */
   public async initialize(
     signer: Adapter | Keypair,
     signTransaction?: SignTransaction,
-    ApiInputLogin?: ApiInputLogin,
+    apiInputLogin?: ApiInputLogin,
+    useTransactionForLogin?: boolean,
   ) {
     const userClient = new TorqueUserClient({
       signer: signer,
@@ -136,8 +138,8 @@ export class TorqueSDK {
     this.user = userClient;
 
     try {
-      await this.user.initializeUser(ApiInputLogin);
-    } catch (error) {
+      await this.user.initializeUser(apiInputLogin, useTransactionForLogin);
+    } catch {
       throw new Error('There was an error initializing the Torque SDK.');
     }
 
