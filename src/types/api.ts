@@ -44,7 +44,7 @@ export enum ApiStatus {
 export enum ApiRewardType {
   POINTS = 'POINTS',
   TOKENS = 'TOKENS',
-  ASYMMETRIC_REWARDS = 'ASYMMETRIC_REWARDS',
+  ASYMMETRIC_REWARD = 'ASYMMETRIC_REWARD',
 }
 
 /**
