@@ -140,7 +140,6 @@ export class TorqueRequestClient {
    */
   public async apiFetch<T>(url: string, options?: RequestInit, supressError = false) {
     const reqOptions: RequestInit = {
-      credentials: 'include',
       ...options,
       headers: {
         'Content-Type': 'application/json',

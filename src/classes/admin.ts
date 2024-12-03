@@ -168,12 +168,15 @@ export class TorqueAdminClient {
 
       const querystring = new URLSearchParams(filters).toString();
 
+      const user = await this.userClient?.getCurrentUser();
+
       const result = await this.client.apiFetch<{
         campaigns: ApiCampaign[];
       }>(`${TORQUE_API_ROUTES.campaigns}${querystring ? `?${querystring}` : ''}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${user?.token}`,
         },
       });
 
@@ -201,10 +204,15 @@ export class TorqueAdminClient {
     }
 
     try {
+      const user = await this.userClient?.getCurrentUser();
+
       const result = await this.client.apiFetch<ApiCampaign>(
         `${TORQUE_API_ROUTES.campaigns}/${campaignId}`,
         {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
         },
       );
 
@@ -234,6 +242,7 @@ export class TorqueAdminClient {
 
     try {
       const user = await this.userClient.getCurrentUser();
+
       const input = {
         txnType: ApiTxnTypes.CampaignCreate,
         data,
@@ -269,6 +278,7 @@ export class TorqueAdminClient {
 
     try {
       const user = await this.userClient.getCurrentUser();
+
       const input = {
         txnType: ApiTxnTypes.CampaignEnd,
         data,
@@ -300,10 +310,15 @@ export class TorqueAdminClient {
     try {
       const params = new URLSearchParams({ campaignId });
 
+      const user = await this.userClient?.getCurrentUser();
+
       const result = await this.client.apiFetch<ApiCampaignLeaderboard>(
         `${TORQUE_API_ROUTES.leaderboards}?${params.toString()}`,
         {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
         },
       );
 
@@ -328,12 +343,17 @@ export class TorqueAdminClient {
     }
 
     try {
+      const user = await this.userClient?.getCurrentUser();
+
       const params = new URLSearchParams({ campaignId });
 
       const result = await this.client.apiFetch<ApiRaffleRewards>(
         `${TORQUE_API_ROUTES.raffle}?${params.toString()}`,
         {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
         },
       );
 
@@ -369,6 +389,7 @@ export class TorqueAdminClient {
 
     try {
       const user = await this.userClient.getCurrentUser();
+
       const { signature } = await this.client.transaction(
         {
           txnType: ApiTxnTypes.PublisherCreate,
@@ -405,6 +426,7 @@ export class TorqueAdminClient {
 
     try {
       const user = await this.userClient.getCurrentUser();
+
       const { signature } = await this.client.transaction(
         {
           txnType: ApiTxnTypes.PublisherPayout,
@@ -490,10 +512,15 @@ export class TorqueAdminClient {
     }
 
     try {
+      const user = await this.userClient?.getCurrentUser();
+
       const result = await this.client.apiFetch<CampaignAnalytics>(
         `${TORQUE_API_ROUTES.analytics.campaigns}/${campaignId}`,
         {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
         },
       );
 
@@ -537,7 +564,7 @@ export class TorqueAdminClient {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${user.token}`, // TODO: remove if tokens if not api key
+            Authorization: `Bearer ${user.token}`,
           },
         },
       );
@@ -573,7 +600,7 @@ export class TorqueAdminClient {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${user.token}`, // TODO: remove if tokens if not api key
+            Authorization: `Bearer ${user.token}`,
           },
         },
       );
@@ -601,6 +628,7 @@ export class TorqueAdminClient {
     }
 
     const user = await this.userClient.getCurrentUser();
+
     if (!this.client || !user) {
       throw new Error('The client is not initialized.');
     }
@@ -648,6 +676,7 @@ export class TorqueAdminClient {
     }
 
     const user = await this.userClient.getCurrentUser();
+
     if (!this.client || !user) {
       throw new Error('The client is not initialized.');
     }
