@@ -353,6 +353,7 @@ export type OfferSwapAction = {
   type: EventType.SWAP;
   eventConfig: SwapAction;
   timeConfig?: TimeConfig;
+  isBonding?: boolean;
 };
 
 /**
@@ -479,6 +480,7 @@ export type OfferPumpFunAction = {
   type: EventType.PUMP_FUN_BUY;
   eventConfig: PumpFunAction;
   timeConfig?: TimeConfig;
+  isBonding?: boolean;
 };
 
 /**
@@ -488,6 +490,7 @@ export type OfferLockTokenAction = {
   type: EventType.LOCK_TOKEN;
   eventConfig: LockTokenAction;
   timeConfig?: TimeConfig;
+  isBonding?: boolean;
 };
 
 /**
@@ -497,6 +500,7 @@ export type OfferBurnTokenAction = {
   type: EventType.BURN_TOKEN;
   eventConfig: BurnTokenAction;
   timeConfig?: TimeConfig;
+  isBonding?: boolean;
 };
 
 /**
