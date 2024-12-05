@@ -354,6 +354,11 @@ export type OfferSwapAction = {
   eventConfig: SwapAction;
   timeConfig?: TimeConfig;
   isBonding?: boolean;
+  bondingCurveInfo?: {
+    bondingCurveAddress: string;
+    percentageFilled: number;
+    complete: boolean;
+  };
 };
 
 /**
@@ -481,6 +486,11 @@ export type OfferPumpFunAction = {
   eventConfig: PumpFunAction;
   timeConfig?: TimeConfig;
   isBonding?: boolean;
+  bondingCurveInfo?: {
+    bondingCurveAddress: string;
+    percentageFilled: number;
+    complete: boolean;
+  };
 };
 
 /**
@@ -491,6 +501,11 @@ export type OfferLockTokenAction = {
   eventConfig: LockTokenAction;
   timeConfig?: TimeConfig;
   isBonding?: boolean;
+  bondingCurveInfo?: {
+    bondingCurveAddress: string;
+    percentageFilled: number;
+    complete: boolean;
+  };
 };
 
 /**
@@ -501,6 +516,11 @@ export type OfferBurnTokenAction = {
   eventConfig: BurnTokenAction;
   timeConfig?: TimeConfig;
   isBonding?: boolean;
+  bondingCurveInfo?: {
+    bondingCurveAddress: string;
+    percentageFilled: number;
+    complete: boolean;
+  };
 };
 
 /**
