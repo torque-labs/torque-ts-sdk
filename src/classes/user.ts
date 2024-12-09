@@ -304,7 +304,7 @@ export class TorqueUserClient {
     } catch (error) {
       console.error(error);
 
-      throw new Error('There was an error logging in.');
+      throw new Error('There was an error logging out.');
     }
   }
 
@@ -436,6 +436,9 @@ export class TorqueUserClient {
         campaigns: ApiCampaign[];
       }>(`${TORQUE_API_ROUTES.usersOffers}/${this.publicKey}${params ? `?${params}` : ''}`, {
         method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
       });
 
       return result;
@@ -496,8 +499,6 @@ export class TorqueUserClient {
     }
 
     try {
-      console.log(this.user);
-
       const result = await this.client.apiFetch<{
         journeys: ApiCampaignJourney[];
       }>(`${TORQUE_API_ROUTES.userJourney}?campaignId=${campaignId}`, {
@@ -575,6 +576,9 @@ export class TorqueUserClient {
         valid: boolean;
       }>(`${TORQUE_API_ROUTES.audienceVerify}?${urlParams}`, {
         method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
       });
 
       return result.valid;
@@ -602,6 +606,9 @@ export class TorqueUserClient {
         customEvents: CustomEventModel[];
       }>(`${TORQUE_API_ROUTES.customEvents}`, {
         method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
       });
 
       return result.customEvents;
@@ -877,6 +884,9 @@ export class TorqueUserClient {
         }[];
       }>(TORQUE_API_ROUTES.links, {
         method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
       });
 
       return result;
@@ -918,6 +928,9 @@ export class TorqueUserClient {
         `${TORQUE_API_ROUTES.share}?${params.toString()}`,
         {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${this.user?.token}`,
+          },
         },
       );
 
@@ -952,6 +965,9 @@ export class TorqueUserClient {
         `${TORQUE_API_ROUTES.userPayout}/${this.publicKey}`,
         {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${this.user?.token}`,
+          },
         },
       );
 
@@ -989,6 +1005,9 @@ export class TorqueUserClient {
     try {
       const result = await this.client.apiFetch<ApiTelegramAuth>(TORQUE_API_ROUTES.telegramAuth, {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.user?.token}`,
+        },
         body: JSON.stringify(user),
       });
 
