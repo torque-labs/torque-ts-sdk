@@ -293,10 +293,14 @@ export class TorqueUserClient {
     }
 
     try {
+      const result = await this.client.apiFetch<{ cleared: boolean }>(TORQUE_API_ROUTES.logout, {
+        method: 'GET',
+      });
+
       this.initialized = false;
       this.user = undefined;
 
-      return { loggedOut: true };
+      return result;
     } catch (error) {
       console.error(error);
 
@@ -354,8 +358,33 @@ export class TorqueUserClient {
    * @throws {Error} Throws an error if checking the user's login status fails.
    */
   public async getCurrentUser() {
-    if (this.user) {
-      return this.user;
+    if (!this.client) {
+      throw new Error('The client is not initialized.');
+    }
+
+    try {
+      if (this.user) {
+        return this.user;
+      }
+
+      const result = await this.client.apiFetch<ApiUser | false>(
+        TORQUE_API_ROUTES.currentUser,
+        {
+          method: 'GET',
+        },
+        true,
+      );
+
+      if (result) {
+        this.user = result;
+        this.initialized = true;
+
+        return result;
+      }
+
+      return undefined;
+    } catch {
+      console.info('No current user, will attempt to login.');
     }
 
     return undefined;
